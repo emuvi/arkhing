@@ -13,8 +13,8 @@ public class ArkhBase implements Closeable {
     public final File root;
     private final int rootLength;
     
-    public final ArkhData arkhData;
-    public final ArkhLoad arkhLoad;
+    public final ArkhBaseData baseData;
+    public final ArkhBaseLoad baseLoad;
 
     public ArkhBase(File root) throws Exception {
         if (!root.exists() || !root.isDirectory()) {
@@ -22,12 +22,12 @@ public class ArkhBase implements Closeable {
         }
         this.root = root;
         this.rootLength = this.root.getAbsolutePath().length();
-        this.arkhData = new ArkhData(this);
-        this.arkhLoad = new ArkhLoad(this);
+        this.baseData = new ArkhBaseData(this);
+        this.baseLoad = new ArkhBaseLoad(this);
     }
     
     public ArkhBase load() throws Exception {
-        this.arkhLoad.start();
+        this.baseLoad.start();
         return this;
     }
     
@@ -37,8 +37,8 @@ public class ArkhBase implements Closeable {
 
     @Override
     public void close() throws IOException {
-        this.arkhLoad.stop();
-        this.arkhData.close();
+        this.baseLoad.stop();
+        this.baseData.close();
     }
     
 }

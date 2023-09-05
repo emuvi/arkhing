@@ -130,15 +130,15 @@ public class Desktop extends javax.swing.JFrame {
                 } else {
                     var grid = new ArrayList<Pair<String, String>>();
                     grid.add(Pair.of("Loading Progress", 
-                            arkhBase.arkhLoad.getProgressFormated()));
+                            arkhBase.baseLoad.getProgressFormated()));
                     grid.add(Pair.of("Number Of Files", 
-                            arkhBase.arkhLoad.statusNumberOfFiles.toString()));
+                            arkhBase.baseLoad.statusNumberOfFiles.toString()));
                     grid.add(Pair.of("Number Of Checked", 
-                            arkhBase.arkhLoad.statusNumberOfChecked.toString()));
+                            arkhBase.baseLoad.statusNumberOfChecked.toString()));
                     grid.add(Pair.of("Number Of Cleaned", 
-                            arkhBase.arkhLoad.statusNumberOfCleaned.toString()));
+                            arkhBase.baseLoad.statusNumberOfCleaned.toString()));
                     grid.add(Pair.of("Number Of Erros", 
-                            arkhBase.arkhLoad.statusNumberOfErros.toString()));
+                            arkhBase.baseLoad.statusNumberOfErros.toString()));
                     return WizChars.mountGrid(grid);
                 }
             }

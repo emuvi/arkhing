@@ -12,19 +12,19 @@ import java.util.List;
  *
  * @author emuvi
  */
-public class ArkhData implements Closeable {
+public class ArkhBaseData implements Closeable {
 
     private final ArkhBase arkhBase;
     private final Connection connection;
 
-    public ArkhData(ArkhBase arkhBase) throws Exception {
+    public ArkhBaseData(ArkhBase arkhBase) throws Exception {
         this.arkhBase = arkhBase;
         this.connection = DriverManager.getConnection("jdbc:sqlite:"
-                + new File(this.arkhBase.root, "arkhing.sdb").getAbsolutePath());
+                + new File(this.arkhBase.root, "arkhbase.sdb").getAbsolutePath());
         this.initDatabase();
     }
 
-    public ArkhFile getByPlace(String place) throws Exception {
+    public ArkhBaseFile getByPlace(String place) throws Exception {
         var select = this.connection.prepareStatement("SELECT "
                 + "place, modified, verifier "
                 + "FROM files "
@@ -32,7 +32,7 @@ public class ArkhData implements Closeable {
         select.setString(1, place);
         var returned = select.executeQuery();
         if (returned.next()) {
-            return new ArkhFile(
+            return new ArkhBaseFile(
                     returned.getString("place"),
                     returned.getLong("modified"),
                     returned.getString("verifier")
@@ -42,16 +42,16 @@ public class ArkhData implements Closeable {
         }
     }
 
-    public List<ArkhFile> getByVerifier(String verifier) throws Exception {
+    public List<ArkhBaseFile> getByVerifier(String verifier) throws Exception {
         var select = this.connection.prepareStatement("SELECT "
                 + "place, modified, verifier "
                 + "FROM files "
                 + "WHERE verifier = ?");
         select.setString(1, verifier);
         var returned = select.executeQuery();
-        var results = new ArrayList<ArkhFile>();
+        var results = new ArrayList<ArkhBaseFile>();
         while (returned.next()) {
-            results.add(new ArkhFile(
+            results.add(new ArkhBaseFile(
                     returned.getString("place"),
                     returned.getLong("modified"),
                     returned.getString("verifier")
@@ -60,14 +60,14 @@ public class ArkhData implements Closeable {
         return results;
     }
 
-    public List<ArkhFile> getAll() throws Exception {
+    public List<ArkhBaseFile> getAll() throws Exception {
         var select = this.connection.prepareStatement("SELECT "
                 + "place, modified, verifier "
                 + "FROM files");
         var returned = select.executeQuery();
-        var results = new ArrayList<ArkhFile>();
+        var results = new ArrayList<ArkhBaseFile>();
         while (returned.next()) {
-            results.add(new ArkhFile(
+            results.add(new ArkhBaseFile(
                     returned.getString("place"),
                     returned.getLong("modified"),
                     returned.getString("verifier")
@@ -87,7 +87,7 @@ public class ArkhData implements Closeable {
         return results;
     }
 
-    public void putFile(ArkhFile file) throws Exception {
+    public void putFile(ArkhBaseFile file) throws Exception {
         this.putFile(file.place, file.modified, file.verifier);
     }
 

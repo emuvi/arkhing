@@ -12,7 +12,7 @@ import org.apache.commons.codec.digest.DigestUtils;
  *
  * @author emuvi
  */
-public class ArkhLoad {
+public class ArkhBaseLoad {
 
     private final ArkhBase arkhBase;
 
@@ -31,7 +31,7 @@ public class ArkhLoad {
     public final AtomicInteger statusNumberOfCleaned;
     public final AtomicInteger statusNumberOfErros;
 
-    public ArkhLoad(ArkhBase arkhBase) throws Exception {
+    public ArkhBaseLoad(ArkhBase arkhBase) throws Exception {
         this.arkhBase = arkhBase;
         this.files = new ConcurrentLinkedDeque<>();
         this.shouldStop = new AtomicBoolean(false);
@@ -46,7 +46,7 @@ public class ArkhLoad {
         this.statusNumberOfErros = new AtomicInteger(0);
     }
 
-    public ArkhLoad start() {
+    public ArkhBaseLoad start() {
         new Thread("ArkhLoad - Files") {
             @Override
             public void run() {
@@ -126,11 +126,11 @@ public class ArkhLoad {
             try {
                 var place = arkhBase.getPlace(file);
                 System.out.println("Verifing: " + place);
-                var arkhFile = arkhBase.arkhData.getByPlace(place);
-                if (arkhFile == null || file.lastModified() > arkhFile.modified) {
+                var baseFile = arkhBase.baseData.getByPlace(place);
+                if (baseFile == null || file.lastModified() > baseFile.modified) {
                     try (FileInputStream input = new FileInputStream(file)) {
                         var verifier = DigestUtils.sha256Hex(input);
-                        arkhBase.arkhData.putFile(place, file.lastModified(), verifier);
+                        arkhBase.baseData.putFile(place, file.lastModified(), verifier);
                     }
                 }
                 this.statusNumberOfChecked.incrementAndGet();
@@ -148,7 +148,7 @@ public class ArkhLoad {
             return;
         }
         try {
-            var places = arkhBase.arkhData.getAllPlaces();
+            var places = arkhBase.baseData.getAllPlaces();
             statusProgressMax.addAndGet(places.size());
             for (var place : places) {
                 if (this.shouldStop.get()) {
@@ -157,7 +157,7 @@ public class ArkhLoad {
                 try {
                     if (!new File(arkhBase.root, place).exists()) {
                         System.out.println("Cleaning: " + place);
-                        arkhBase.arkhData.delFile(place);
+                        arkhBase.baseData.delFile(place);
                         statusNumberOfCleaned.incrementAndGet();
                     }
                 } catch (Exception e) {
