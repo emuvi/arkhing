@@ -1,0 +1,178 @@
+package br.com.pointel.arkhing;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Deque;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
+import org.apache.commons.codec.digest.DigestUtils;
+
+/**
+ *
+ * @author emuvi
+ */
+public class ArkhLoad {
+
+    private final ArkhBase arkhBase;
+
+    private final Deque<File> files;
+
+    private final AtomicBoolean shouldStop;
+    private final AtomicBoolean doneLoadFiles;
+    private final AtomicInteger doneLoadVerifiers;
+    private final AtomicBoolean doneLinterClean;
+
+    public final AtomicInteger statusProgressPos;
+    public final AtomicInteger statusProgressMax;
+
+    public final AtomicInteger statusNumberOfFiles;
+    public final AtomicInteger statusNumberOfChecked;
+    public final AtomicInteger statusNumberOfCleaned;
+    public final AtomicInteger statusNumberOfErros;
+
+    public ArkhLoad(ArkhBase arkhBase) throws Exception {
+        this.arkhBase = arkhBase;
+        this.files = new ConcurrentLinkedDeque<>();
+        this.shouldStop = new AtomicBoolean(false);
+        this.doneLoadFiles = new AtomicBoolean(false);
+        this.doneLoadVerifiers = new AtomicInteger(0);
+        this.doneLinterClean = new AtomicBoolean(false);
+        this.statusProgressPos = new AtomicInteger(0);
+        this.statusProgressMax = new AtomicInteger(0);
+        this.statusNumberOfFiles = new AtomicInteger(0);
+        this.statusNumberOfChecked = new AtomicInteger(0);
+        this.statusNumberOfCleaned = new AtomicInteger(0);
+        this.statusNumberOfErros = new AtomicInteger(0);
+    }
+
+    public ArkhLoad start() {
+        new Thread("ArkhLoad - Files") {
+            @Override
+            public void run() {
+                loadFiles(arkhBase.root);
+                doneLoadFiles.set(true);
+            }
+        }.start();
+        for (int i = 1; i <= THREADS_VERIFIERS; i++) {
+            new Thread("ArkhLoad - Verifier " + i) {
+                @Override
+                public void run() {
+                    loadVerifiers();
+                    doneLoadVerifiers.incrementAndGet();
+                }
+            }.start();
+        }
+        new Thread("ArkhLoad - Linter") {
+            @Override
+            public void run() {
+                makeLinterClean();
+                doneLinterClean.set(true);
+            }
+        }.start();
+        return this;
+    }
+
+    public void stop() {
+        shouldStop.set(true);
+        while (!isDone()) {
+            WizBase.sleep(10);
+        }
+    }
+
+    public Boolean isDone() {
+        return doneLoadFiles.get()
+                && doneLoadVerifiers.get() == THREADS_VERIFIERS
+                && doneLinterClean.get();
+    }
+
+    public Double getProgress() {
+        return ((double) statusProgressPos.get()) / ((double) statusProgressMax.get()) * 100.0;
+    }
+
+    public String getProgressFormated() {
+        return String.format("%.2f%%", getProgress());
+    }
+
+    private void loadFiles(File path) {
+        if (shouldStop.get()) {
+            return;
+        }
+        if (path.isFile()) {
+            files.addLast(path);
+            this.statusProgressMax.incrementAndGet();
+            this.statusNumberOfFiles.incrementAndGet();
+        } else if (path.isDirectory()) {
+            for (var inside : path.listFiles()) {
+                loadFiles(inside);
+            }
+        }
+    }
+
+    private void loadVerifiers() {
+        while (true) {
+            if (shouldStop.get()) {
+                break;
+            }
+            var file = files.pollFirst();
+            if (file == null) {
+                if (doneLoadFiles.get()) {
+                    break;
+                } else {
+                    WizBase.sleep(100);
+                    continue;
+                }
+            }
+            try {
+                var place = arkhBase.getPlace(file);
+                System.out.println("Verifing: " + place);
+                var arkhFile = arkhBase.arkhData.getByPlace(place);
+                if (arkhFile == null || file.lastModified() > arkhFile.modified) {
+                    try (FileInputStream input = new FileInputStream(file)) {
+                        var verifier = DigestUtils.sha256Hex(input);
+                        arkhBase.arkhData.putFile(place, file.lastModified(), verifier);
+                    }
+                }
+                this.statusNumberOfChecked.incrementAndGet();
+            } catch (Exception e) {
+                System.out.println("[ERROR] Verifing: " + e.getMessage());
+                statusNumberOfErros.incrementAndGet();
+            } finally {
+                this.statusProgressPos.incrementAndGet();
+            }
+        }
+    }
+
+    private void makeLinterClean() {
+        if (shouldStop.get()) {
+            return;
+        }
+        try {
+            var places = arkhBase.arkhData.getAllPlaces();
+            statusProgressMax.addAndGet(places.size());
+            for (var place : places) {
+                if (this.shouldStop.get()) {
+                    return;
+                }
+                try {
+                    if (!new File(arkhBase.root, place).exists()) {
+                        System.out.println("Cleaning: " + place);
+                        arkhBase.arkhData.delFile(place);
+                        statusNumberOfCleaned.incrementAndGet();
+                    }
+                } catch (Exception e) {
+                    System.out.println("[ERROR] Linter: " + e.getMessage());
+                    statusNumberOfErros.incrementAndGet();
+                } finally {
+                    statusProgressPos.incrementAndGet();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("[ERROR] Linter: " + e.getMessage());
+            statusNumberOfErros.incrementAndGet();
+        }
+    }
+
+    private static final Integer THREADS_VERIFIERS = 8;
+
+}
