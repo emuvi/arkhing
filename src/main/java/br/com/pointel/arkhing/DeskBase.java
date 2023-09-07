@@ -14,7 +14,6 @@ public class DeskBase extends javax.swing.JPanel {
     public DeskBase(Desk desk) {
         this.desk = desk;
         initComponents();
-        initUpdater();
     }
 
     @SuppressWarnings("unchecked")
@@ -80,24 +79,28 @@ public class DeskBase extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void initUpdater() {
+    public void initUpdater() {
         WizBase.startDaemon(() -> {
-            while (isDisplayable()) {
+            while (desk.isVisible()) {
                 WizBase.sleep(500);
-                var status = mountStatus();
-                var selectionStart = textStatus.getSelectionStart();
-                var selectionEnd = textStatus.getSelectionEnd();
-                var horizontalPosition = scrollStatus.getHorizontalScrollBar().getValue();
-                var verticalPosition = scrollStatus.getVerticalScrollBar().getValue();
-                SwingUtilities.invokeLater(() -> {
-                    textStatus.setText(status);
-                    textStatus.setSelectionStart(selectionStart);
-                    textStatus.setSelectionEnd(selectionEnd);
-                    scrollStatus.getHorizontalScrollBar().setValue(horizontalPosition);
-                    scrollStatus.getVerticalScrollBar().setValue(verticalPosition);
-                });
+                updateStatus();
             }
         }, "DeskBase - Updater");
+    }
+    
+    private void updateStatus() {
+        var status = mountStatus();
+        var selectionStart = textStatus.getSelectionStart();
+        var selectionEnd = textStatus.getSelectionEnd();
+        var horizontalPosition = scrollStatus.getHorizontalScrollBar().getValue();
+        var verticalPosition = scrollStatus.getVerticalScrollBar().getValue();
+        SwingUtilities.invokeLater(() -> {
+            textStatus.setText(status);
+            textStatus.setSelectionStart(selectionStart);
+            textStatus.setSelectionEnd(selectionEnd);
+            scrollStatus.getHorizontalScrollBar().setValue(horizontalPosition);
+            scrollStatus.getVerticalScrollBar().setValue(verticalPosition);
+        });
     }
 
     private String mountStatus() {

@@ -65,6 +65,8 @@ public class Desk extends javax.swing.JFrame {
             WizProps.get("DESK_TOP", getBounds().y),
             WizProps.get("DESK_WIDTH", getBounds().width),
             WizProps.get("DESK_HEIGHT", getBounds().height));
+        deskBase.initUpdater();
+        deskPack.initUpdater();
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing

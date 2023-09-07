@@ -17,7 +17,6 @@ public class DeskPack extends javax.swing.JPanel {
     public DeskPack(Desk desk) {
         this.desk = desk;
         initComponents();
-        initUpdater();
     }
 
     @SuppressWarnings("unchecked")
@@ -81,12 +80,12 @@ public class DeskPack extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void initUpdater() {
+    public void initUpdater() {
         WizBase.startDaemon(() -> {
-            while (isDisplayable()) {
+            while (desk.isVisible()) {
                 WizBase.sleep(500);
             }
-        }, "DeskBase - Updater");
+        }, "DeskPack - Updater");
     }
 
     private void buttonWatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonWatchActionPerformed
