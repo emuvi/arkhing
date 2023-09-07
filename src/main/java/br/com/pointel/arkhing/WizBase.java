@@ -1,7 +1,6 @@
 package br.com.pointel.arkhing;
 
-import java.util.List;
-import org.apache.commons.lang3.tuple.Pair;
+import java.util.Timer;
 
 /**
  *
@@ -9,10 +8,21 @@ import org.apache.commons.lang3.tuple.Pair;
  */
 public class WizBase {
     
+    public static final String APP_NAME = "arkhing";
+    
     public static void sleep(long millis) {
         try {
             Thread.currentThread().sleep(millis);
         } catch(Exception e) {}
     }
+    
+    public static Thread startDaemon(Runnable task, String name) {
+        var result = new Thread(task, name);
+        result.setDaemon(true);
+        result.start();
+        return result;
+    }
+    
+    
     
 }

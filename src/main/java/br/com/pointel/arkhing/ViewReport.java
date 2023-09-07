@@ -4,9 +4,9 @@ package br.com.pointel.arkhing;
  *
  * @author emuvi
  */
-public class DesktopReport extends javax.swing.JFrame {
+public class ViewReport extends javax.swing.JFrame {
 
-    public DesktopReport(String report) {
+    public ViewReport(String report) {
         initComponents();
         texBody.setText(report);
     }
