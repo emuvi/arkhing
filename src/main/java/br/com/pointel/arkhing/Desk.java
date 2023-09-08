@@ -7,6 +7,7 @@ public class Desk extends javax.swing.JFrame {
     
     private final DeskBase deskBase = new DeskBase(this);
     private final DeskPack deskPack = new DeskPack(this);
+    private final DeskOrgz deskOrgz = new DeskOrgz(this);
     private final DeskName deskName = new DeskName(this);
     private final DeskDocs deskDocs = new DeskDocs(this);
     
@@ -16,6 +17,7 @@ public class Desk extends javax.swing.JFrame {
         initComponents();
         tabsBody.addTab("ArkhBase", deskBase);
         tabsBody.addTab("ArkhPack", deskPack);
+        tabsBody.addTab("ArkhOrgz", deskOrgz);
         tabsBody.addTab("ArkhName", deskName);
         tabsBody.addTab("ArkhDocs", deskDocs);
     }
@@ -44,14 +46,14 @@ public class Desk extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabsBody)
+                .addComponent(tabsBody, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabsBody)
+                .addComponent(tabsBody, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -67,6 +69,7 @@ public class Desk extends javax.swing.JFrame {
             WizProps.get("DESK_HEIGHT", getBounds().height));
         deskBase.initUpdater();
         deskPack.initUpdater();
+        deskOrgz.initUpdater();
     }//GEN-LAST:event_formWindowOpened
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
