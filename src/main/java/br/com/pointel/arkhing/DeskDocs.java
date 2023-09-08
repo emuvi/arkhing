@@ -19,12 +19,12 @@ public class DeskDocs extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonProcessDocs = new javax.swing.JButton();
+        buttonExtract = new javax.swing.JButton();
 
-        buttonProcessDocs.setText("Process Docs");
-        buttonProcessDocs.addActionListener(new java.awt.event.ActionListener() {
+        buttonExtract.setText("Extract");
+        buttonExtract.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonProcessDocsActionPerformed(evt);
+                buttonExtractActionPerformed(evt);
             }
         });
 
@@ -34,24 +34,34 @@ public class DeskDocs extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonProcessDocs)
-                .addContainerGap(294, Short.MAX_VALUE))
+                .addComponent(buttonExtract)
+                .addContainerGap(321, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonProcessDocs)
+                .addComponent(buttonExtract)
                 .addContainerGap(271, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonProcessDocsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcessDocsActionPerformed
-        new ArkhDocs(new File("C:\\Users\\emuvi\\Downloads\\Teste.docx")).print();
-    }//GEN-LAST:event_buttonProcessDocsActionPerformed
+    private File lastSelectedCheck = null;
+
+    private void buttonExtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExtractActionPerformed
+        try {
+            var selected = WizSwing.select(lastSelectedCheck);
+            if (selected != null) {
+                lastSelectedCheck = selected;
+                new ViewReport(new ArkhDocs(selected).extractText()).setVisible(true);
+            }
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonExtractActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonProcessDocs;
+    private javax.swing.JButton buttonExtract;
     // End of variables declaration//GEN-END:variables
 }

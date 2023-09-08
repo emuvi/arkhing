@@ -8,25 +8,25 @@ public class ViewReport extends javax.swing.JFrame {
 
     public ViewReport(String report) {
         initComponents();
-        texBody.setText(report);
+        textBody.setText(report);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        scrBody = new javax.swing.JScrollPane();
-        texBody = new javax.swing.JTextArea();
+        scrollBody = new javax.swing.JScrollPane();
+        textBody = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Report");
         setLocationByPlatform(true);
 
-        texBody.setEditable(false);
-        texBody.setColumns(20);
-        texBody.setFont(WizSwing.fontMonospaced());
-        texBody.setRows(5);
-        scrBody.setViewportView(texBody);
+        textBody.setEditable(false);
+        textBody.setColumns(20);
+        textBody.setFont(WizSwing.fontMonospaced());
+        textBody.setRows(5);
+        scrollBody.setViewportView(textBody);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -34,14 +34,14 @@ public class ViewReport extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrBody, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
+                .addComponent(scrollBody, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrBody, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                .addComponent(scrollBody, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -50,7 +50,7 @@ public class ViewReport extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane scrBody;
-    private javax.swing.JTextArea texBody;
+    private javax.swing.JScrollPane scrollBody;
+    private javax.swing.JTextArea textBody;
     // End of variables declaration//GEN-END:variables
 }
