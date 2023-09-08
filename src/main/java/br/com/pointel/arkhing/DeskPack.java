@@ -1,8 +1,14 @@
 package br.com.pointel.arkhing;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.DefaultListModel;
-import javax.swing.ListModel;
+import javax.swing.SwingUtilities;
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  *
@@ -12,7 +18,7 @@ public class DeskPack extends javax.swing.JPanel {
 
     private final Desk desk;
 
-    private final ListModel<WatchFound> modelWatch = new DefaultListModel<>();
+    private final DefaultListModel<WatchFound> modelWatch = new DefaultListModel<>();
 
     public DeskPack(Desk desk) {
         this.desk = desk;
@@ -45,6 +51,7 @@ public class DeskPack extends javax.swing.JPanel {
         splitPack.setDividerLocation(200);
         splitPack.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
+        listWatch.setFont(WizSwing.fontMonospaced());
         listWatch.setModel(modelWatch);
         scrollWatch.setViewportView(listWatch);
 
@@ -84,8 +91,64 @@ public class DeskPack extends javax.swing.JPanel {
         WizBase.startDaemon(() -> {
             while (desk.isVisible()) {
                 WizBase.sleep(500);
+                updateWatch();
             }
         }, "DeskPack - Updater");
+    }
+
+    private void updateWatch() {
+        if (checkWatch.isSelected()) {
+            var watchFile = new File(editWatch.getText());
+            if (watchFile.exists()) {
+                var founds = new ArrayList<WatchFound>();
+                watchPath(watchFile, founds);
+                var selected = listWatch.getSelectedValue();
+                SwingUtilities.invokeLater(() -> {
+                    modelWatch.removeAllElements();
+                    modelWatch.addAll(founds);
+                    listWatch.setSelectedValue(selected, true);
+                });
+            }
+        }
+    }
+
+    private void watchPath(File path, List<WatchFound> founds) {
+        if (path.isDirectory()) {
+            for (var inside : path.listFiles()) {
+                watchFile(inside, founds);
+            }
+        } else {
+            watchFile(path, founds);
+        }
+    }
+
+    private void watchFile(File file, List<WatchFound> founds) {
+        founds.addAll(findWatched(file));
+    }
+
+    private final Map<File, List<WatchFound>> watchCached = new HashMap<>();
+
+    private List<WatchFound> findWatched(File file) {
+        if (watchCached.containsKey(file)) {
+            return watchCached.get(file);
+        }
+        var results = new ArrayList<WatchFound>();
+        try (var input = new FileInputStream(file)) {
+            var verifier = DigestUtils.sha256Hex(input);
+            var founds = desk.arkhBase.baseData.getByVerifier(verifier);
+            results.add(new WatchFoundFile(file));
+            if (founds.isEmpty()) {
+                results.add(new WatchFoundNone());
+            } else {
+                for (var found : founds) {
+                    results.add(new WatchFoundPlace(found.place));
+                }
+            }
+            watchCached.put(file, results);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return results;
     }
 
     private void buttonWatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonWatchActionPerformed
@@ -106,7 +169,45 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JSplitPane splitPack;
     // End of variables declaration//GEN-END:variables
 
-    private class WatchFound {
+    private abstract class WatchFound {
+    }
+
+    private class WatchFoundFile extends WatchFound {
+
+        public File file;
+
+        public WatchFoundFile(File file) {
+            this.file = file;
+        }
+
+        @Override
+        public String toString() {
+            return file.getName();
+        }
+
+    }
+
+    private class WatchFoundPlace extends WatchFound {
+
+        public String place;
+
+        public WatchFoundPlace(String place) {
+            this.place = place;
+        }
+
+        @Override
+        public String toString() {
+            return "-> " + place;
+        }
+
+    }
+
+    private class WatchFoundNone extends WatchFound {
+
+        @Override
+        public String toString() {
+            return "-> Is not present on the base.";
+        }
 
     }
 

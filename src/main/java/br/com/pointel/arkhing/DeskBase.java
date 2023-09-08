@@ -9,8 +9,6 @@ public class DeskBase extends javax.swing.JPanel {
 
     private final Desk desk;
 
-    private File lastSelectedCheck = null;
-
     public DeskBase(Desk desk) {
         this.desk = desk;
         initComponents();
@@ -139,6 +137,8 @@ public class DeskBase extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonLoadActionPerformed
 
+    private File lastSelectedCheck = null;
+    
     private void buttonCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCheckActionPerformed
         try {
             var selected = WizSwing.select(lastSelectedCheck);
