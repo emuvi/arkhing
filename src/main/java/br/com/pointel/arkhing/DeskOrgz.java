@@ -30,6 +30,7 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         searchFolder = new javax.swing.JTextField();
         buttonFolderNamer = new javax.swing.JButton();
+        buttonFolderReplacer = new javax.swing.JButton();
         splitBody = new javax.swing.JSplitPane();
         scrollFolder = new javax.swing.JScrollPane();
         listFolder = new javax.swing.JList<>();
@@ -37,11 +38,19 @@ public class DeskOrgz extends javax.swing.JPanel {
         listAssets = new javax.swing.JList<>();
         searchAssets = new javax.swing.JTextField();
         buttonAssetsNamer = new javax.swing.JButton();
+        buttonAssetsReplacer = new javax.swing.JButton();
 
         buttonFolderNamer.setText("Namer");
         buttonFolderNamer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonFolderNamerActionPerformed(evt);
+            }
+        });
+
+        buttonFolderReplacer.setText("Replacer");
+        buttonFolderReplacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonFolderReplacerActionPerformed(evt);
             }
         });
 
@@ -67,6 +76,13 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         buttonAssetsNamer.setText("Namer");
 
+        buttonAssetsReplacer.setText("Replacer");
+        buttonAssetsReplacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAssetsReplacerActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,11 +94,15 @@ public class DeskOrgz extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(searchFolder)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonFolderNamer))
+                        .addComponent(buttonFolderNamer)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonFolderReplacer))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(searchAssets)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonAssetsNamer)))
+                        .addComponent(buttonAssetsNamer)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonAssetsReplacer)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -91,13 +111,15 @@ public class DeskOrgz extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonFolderNamer)
-                    .addComponent(searchFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(searchFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonFolderReplacer))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonAssetsNamer)
-                    .addComponent(searchAssets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(searchAssets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonAssetsReplacer))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -146,6 +168,14 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonFolderNamerActionPerformed
 
+    private void buttonFolderReplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderReplacerActionPerformed
+        new ViewReplacer().setVisible(true);
+    }//GEN-LAST:event_buttonFolderReplacerActionPerformed
+
+    private void buttonAssetsReplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssetsReplacerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonAssetsReplacerActionPerformed
+
     private void renameFolder(OrgzFolder orgzFolder, String name) {
         var destiny = new File(orgzFolder.path.getParentFile(), name);
         if (orgzFolder.path.renameTo(destiny)) {
@@ -156,7 +186,9 @@ public class DeskOrgz extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAssetsNamer;
+    private javax.swing.JButton buttonAssetsReplacer;
     private javax.swing.JButton buttonFolderNamer;
+    private javax.swing.JButton buttonFolderReplacer;
     private javax.swing.JList<OrgzAssets> listAssets;
     private javax.swing.JList<OrgzFolder> listFolder;
     private javax.swing.JScrollPane scrollAssets;
