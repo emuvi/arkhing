@@ -23,12 +23,12 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="searchFolder" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonMagicFolder" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonFolderNamer" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="searchAssets" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonMagicAssets" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonAssetsNamer" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -40,14 +40,14 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonMagicFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonFolderNamer" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="searchFolder" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="splitBody" pref="442" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonMagicAssets" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonAssetsNamer" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="searchAssets" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -58,10 +58,13 @@
   <SubComponents>
     <Component class="javax.swing.JTextField" name="searchFolder">
     </Component>
-    <Component class="javax.swing.JButton" name="buttonMagicFolder">
+    <Component class="javax.swing.JButton" name="buttonFolderNamer">
       <Properties>
-        <Property name="text" type="java.lang.String" value="*"/>
+        <Property name="text" type="java.lang.String" value="Namer"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonFolderNamerActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JSplitPane" name="splitBody">
       <Properties>
@@ -92,6 +95,9 @@
                   <Connection code="modelFolder" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listFolderValueChanged"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;OrgzFolder&gt;"/>
               </AuxValues>
@@ -129,9 +135,9 @@
     </Container>
     <Component class="javax.swing.JTextField" name="searchAssets">
     </Component>
-    <Component class="javax.swing.JButton" name="buttonMagicAssets">
+    <Component class="javax.swing.JButton" name="buttonAssetsNamer">
       <Properties>
-        <Property name="text" type="java.lang.String" value="*"/>
+        <Property name="text" type="java.lang.String" value="Namer"/>
       </Properties>
     </Component>
   </SubComponents>

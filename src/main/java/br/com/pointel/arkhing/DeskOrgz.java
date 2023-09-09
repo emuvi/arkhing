@@ -1,6 +1,12 @@
 package br.com.pointel.arkhing;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.IntStream;
 import javax.swing.DefaultListModel;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -17,36 +23,38 @@ public class DeskOrgz extends javax.swing.JPanel {
         this.desk = desk;
         initComponents();
     }
-    
-    public void initUpdater() {
-        WizBase.startDaemon(() -> {
-            while (desk.isVisible()) {
-                WizBase.sleep(500);
-            }
-        }, "DeskOrgz - Updater");
-    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         searchFolder = new javax.swing.JTextField();
-        buttonMagicFolder = new javax.swing.JButton();
+        buttonFolderNamer = new javax.swing.JButton();
         splitBody = new javax.swing.JSplitPane();
         scrollFolder = new javax.swing.JScrollPane();
         listFolder = new javax.swing.JList<>();
         scrollAssets = new javax.swing.JScrollPane();
         listAssets = new javax.swing.JList<>();
         searchAssets = new javax.swing.JTextField();
-        buttonMagicAssets = new javax.swing.JButton();
+        buttonAssetsNamer = new javax.swing.JButton();
 
-        buttonMagicFolder.setText("*");
+        buttonFolderNamer.setText("Namer");
+        buttonFolderNamer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonFolderNamerActionPerformed(evt);
+            }
+        });
 
         splitBody.setDividerLocation(200);
         splitBody.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         listFolder.setFont(WizSwing.fontMonospaced());
         listFolder.setModel(modelFolder);
+        listFolder.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listFolderValueChanged(evt);
+            }
+        });
         scrollFolder.setViewportView(listFolder);
 
         splitBody.setTopComponent(scrollFolder);
@@ -57,7 +65,7 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         splitBody.setRightComponent(scrollAssets);
 
-        buttonMagicAssets.setText("*");
+        buttonAssetsNamer.setText("Namer");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -70,11 +78,11 @@ public class DeskOrgz extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(searchFolder)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonMagicFolder))
+                        .addComponent(buttonFolderNamer))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(searchAssets)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonMagicAssets)))
+                        .addComponent(buttonAssetsNamer)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -82,22 +90,72 @@ public class DeskOrgz extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonMagicFolder)
+                    .addComponent(buttonFolderNamer)
                     .addComponent(searchFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonMagicAssets)
+                    .addComponent(buttonAssetsNamer)
                     .addComponent(searchAssets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private volatile File lastLoadedBase = null; 
+    
+    public void initUpdater() {
+        WizBase.startDaemon(() -> {
+            while (desk.isVisible()) {
+                WizBase.sleep(500);
+                if (desk.arkhBase != null) {
+                    if (!Objects.equals(lastLoadedBase, desk.arkhBase.root)) {
+                        lastLoadedBase = desk.arkhBase.root;
+                        updateFolder(lastLoadedBase);
+                    }
+                }
+            }
+        }, "DeskOrgz - Updater");
+    }
+    
+    private void updateFolder(File path) {
+        modelFolder.removeAllElements();
+        loadFolders(path, 0, new ArrayList<>())
+                .stream().forEach((folder) -> modelFolder.addElement(folder));
+    }
+    
+    private List<OrgzFolder> loadFolders(File path, int depth, List<OrgzFolder> list) {
+        if (path.isDirectory()) {
+            list.add(new OrgzFolder(depth, path));
+            for (var inside : path.listFiles()) {
+                loadFolders(inside, depth + 1, list);
+            }
+        }
+        return list;
+    }
+    
+    private void listFolderValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listFolderValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listFolderValueChanged
 
+    private void buttonFolderNamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderNamerActionPerformed
+        var selected = listFolder.getSelectedValue();
+        if (selected != null) {
+            new ViewNamer(selected.path, (name) -> renameFolder(selected, name))
+                    .setVisible(true);
+        }
+    }//GEN-LAST:event_buttonFolderNamerActionPerformed
+
+    private void renameFolder(OrgzFolder orgzFolder, String name) {
+        var destiny = new File(orgzFolder.path.getParentFile(), name);
+        orgzFolder.path.renameTo(destiny);
+        orgzFolder.path = destiny;
+        SwingUtilities.updateComponentTreeUI(listFolder);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonMagicAssets;
-    private javax.swing.JButton buttonMagicFolder;
+    private javax.swing.JButton buttonAssetsNamer;
+    private javax.swing.JButton buttonFolderNamer;
     private javax.swing.JList<OrgzAssets> listAssets;
     private javax.swing.JList<OrgzFolder> listFolder;
     private javax.swing.JScrollPane scrollAssets;
@@ -107,7 +165,27 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JSplitPane splitBody;
     // End of variables declaration//GEN-END:variables
 
-    private class OrgzFolder {}
+    private class OrgzFolder {
+        
+        public int depth;
+        public File path;
+
+        public OrgzFolder(int depth, File path) {
+            this.depth = depth;
+            this.path = path;
+        }
+
+        @Override
+        public String toString() {
+            var result = new StringBuilder("|");
+            IntStream.range(1, depth + 1)
+                    .forEach((i) -> result.append(i == depth ? "-->" : "---"));
+            result.append(" ");
+            result.append(path.getName());
+            return result.toString();
+        }
+        
+    }
     
     private class OrgzAssets {}
 
