@@ -20,6 +20,7 @@ public class Desk extends javax.swing.JFrame {
         tabsBody.addTab("ArkhOrgz", deskOrgz);
         tabsBody.addTab("ArkhName", deskName);
         tabsBody.addTab("ArkhDocs", deskDocs);
+        WizSwing.initPositioner(this);
     }
     
     @SuppressWarnings("unchecked")
@@ -32,9 +33,6 @@ public class Desk extends javax.swing.JFrame {
         setTitle("Arkhing");
         setLocationByPlatform(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
@@ -62,22 +60,10 @@ public class Desk extends javax.swing.JFrame {
 
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        setBounds(
-            WizProps.get("DESK_LEFT", getBounds().x),
-            WizProps.get("DESK_TOP", getBounds().y),
-            WizProps.get("DESK_WIDTH", getBounds().width),
-            WizProps.get("DESK_HEIGHT", getBounds().height));
         deskBase.initUpdater();
         deskPack.initUpdater();
         deskOrgz.initUpdater();
     }//GEN-LAST:event_formWindowOpened
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        WizProps.set("DESK_LEFT", getBounds().x);
-        WizProps.set("DESK_TOP", getBounds().y);
-        WizProps.set("DESK_WIDTH", getBounds().width);
-        WizProps.set("DESK_HEIGHT", getBounds().height);
-    }//GEN-LAST:event_formWindowClosing
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane tabsBody;

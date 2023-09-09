@@ -148,8 +148,9 @@ public class DeskOrgz extends javax.swing.JPanel {
 
     private void renameFolder(OrgzFolder orgzFolder, String name) {
         var destiny = new File(orgzFolder.path.getParentFile(), name);
-        orgzFolder.path.renameTo(destiny);
-        orgzFolder.path = destiny;
+        if (orgzFolder.path.renameTo(destiny)) {
+            orgzFolder.path = destiny;
+        }
         SwingUtilities.updateComponentTreeUI(listFolder);
     }
     

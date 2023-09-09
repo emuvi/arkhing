@@ -9,6 +9,7 @@ public class ViewReport extends javax.swing.JFrame {
     public ViewReport(String report) {
         initComponents();
         textBody.setText(report);
+        WizSwing.initPositioner(this);
     }
 
     @SuppressWarnings("unchecked")

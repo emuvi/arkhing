@@ -18,6 +18,7 @@ public class ViewNamer extends javax.swing.JFrame {
         initComponents();
         textNamer.setText(path.getName());
         getRootPane().setDefaultButton(buttonAccept);
+        WizSwing.initPositioner(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -52,16 +53,16 @@ public class ViewNamer extends javax.swing.JFrame {
             }
         });
 
-        buttonAccept.setMnemonic('C');
-        buttonAccept.setText("Cancel");
+        buttonAccept.setMnemonic('A');
+        buttonAccept.setText("Accept");
         buttonAccept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAcceptActionPerformed(evt);
             }
         });
 
-        buttonCancel.setMnemonic('A');
-        buttonCancel.setText("Accept");
+        buttonCancel.setMnemonic('C');
+        buttonCancel.setText("Cancel");
         buttonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonCancelActionPerformed(evt);
@@ -79,9 +80,9 @@ public class ViewNamer extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonTools)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
-                        .addComponent(buttonCancel)
+                        .addComponent(buttonAccept)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonAccept)))
+                        .addComponent(buttonCancel)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -91,8 +92,8 @@ public class ViewNamer extends javax.swing.JFrame {
                 .addComponent(textNamer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonAccept)
                     .addComponent(buttonCancel)
+                    .addComponent(buttonAccept)
                     .addComponent(buttonTools))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -104,21 +105,26 @@ public class ViewNamer extends javax.swing.JFrame {
         menuTools.show(buttonTools, 0, buttonTools.getHeight());
     }//GEN-LAST:event_buttonToolsActionPerformed
 
-    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-        onAccept.accept(textNamer.getText());
-        close();
-    }//GEN-LAST:event_buttonCancelActionPerformed
-
     private void buttonAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAcceptActionPerformed
-        close();
+        onAccept.accept(textNamer.getText());
+        WizSwing.close(this);
     }//GEN-LAST:event_buttonAcceptActionPerformed
+
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+        WizSwing.close(this);
+    }//GEN-LAST:event_buttonCancelActionPerformed
 
     private void toolAddParentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolAddParentNameActionPerformed
         addOnName(path.getParentFile().getName());
     }//GEN-LAST:event_toolAddParentNameActionPerformed
 
     private void addOnName(String text) {
-        textNamer.setText(textNamer.getText() + text);
+        var oldName = textNamer.getText();
+        var prefix = oldName.substring(0, textNamer.getSelectionStart());
+        var sufix = oldName.substring(textNamer.getSelectionEnd(), oldName.length());
+        textNamer.setText(prefix + text + sufix);
+        textNamer.setSelectionStart(prefix.length());
+        textNamer.setSelectionEnd(prefix.length() + text.length());
     }
     
     public void close() {

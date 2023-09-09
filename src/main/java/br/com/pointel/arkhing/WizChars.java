@@ -10,6 +10,10 @@ import org.apache.commons.lang3.tuple.Pair;
  */
 public class WizChars {
     
+    public static String makeParameterName(String ofTitle) {
+        return ofTitle.replace(" ", "_").toUpperCase();
+    }
+    
     public static String mountGrid(List<Pair<String, String>> grid) {
         var result = new StringBuilder();
         var max = 0;

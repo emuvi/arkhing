@@ -1,7 +1,5 @@
 package br.com.pointel.arkhing;
 
-import java.util.Timer;
-
 /**
  *
  * @author emuvi
@@ -22,7 +20,5 @@ public class WizBase {
         result.start();
         return result;
     }
-    
-    
     
 }

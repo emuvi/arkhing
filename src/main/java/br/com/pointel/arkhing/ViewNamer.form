@@ -51,9 +51,9 @@
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonTools" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="216" max="32767" attributes="0"/>
-                      <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonAccept" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonCancel" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -67,8 +67,8 @@
               <Component id="textNamer" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonAccept" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonCancel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonAccept" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonTools" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -90,8 +90,8 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonAccept">
       <Properties>
-        <Property name="mnemonic" type="int" value="67"/>
-        <Property name="text" type="java.lang.String" value="Cancel"/>
+        <Property name="mnemonic" type="int" value="65"/>
+        <Property name="text" type="java.lang.String" value="Accept"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAcceptActionPerformed"/>
@@ -99,8 +99,8 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonCancel">
       <Properties>
-        <Property name="mnemonic" type="int" value="65"/>
-        <Property name="text" type="java.lang.String" value="Accept"/>
+        <Property name="mnemonic" type="int" value="67"/>
+        <Property name="text" type="java.lang.String" value="Cancel"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelActionPerformed"/>
