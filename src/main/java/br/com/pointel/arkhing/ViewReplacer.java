@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
+import java.util.function.Consumer;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -16,7 +19,10 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class ViewReplacer extends javax.swing.JFrame {
 
-    public ViewReplacer() {
+    private final Consumer<Replacer> onAccept;
+    
+    public ViewReplacer(Consumer<Replacer> onAccept) {
+        this.onAccept = onAccept;
         initComponents();
         initNamedReplacers();
         WizSwing.initPositioner(this);
@@ -28,7 +34,8 @@ public class ViewReplacer extends javax.swing.JFrame {
                 comboName.addItem(FilenameUtils.getBaseName(file.getName()));
             }
         }
-        comboName.setSelectedItem(null);
+        comboName.setSelectedItem("default");
+        try { loadReplacer(); } catch (Exception e) {}
     }
 
     @SuppressWarnings("unchecked")
@@ -56,11 +63,11 @@ public class ViewReplacer extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Make", "Of", "To"
+                "Make", "Regex", "Source Of", "Source To"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
+                java.lang.Boolean.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -70,9 +77,12 @@ public class ViewReplacer extends javax.swing.JFrame {
         tableReplacer.getTableHeader().setReorderingAllowed(false);
         scrollReplacer.setViewportView(tableReplacer);
         if (tableReplacer.getColumnModel().getColumnCount() > 0) {
-            tableReplacer.getColumnModel().getColumn(0).setMinWidth(80);
-            tableReplacer.getColumnModel().getColumn(0).setPreferredWidth(80);
-            tableReplacer.getColumnModel().getColumn(0).setMaxWidth(80);
+            tableReplacer.getColumnModel().getColumn(0).setMinWidth(70);
+            tableReplacer.getColumnModel().getColumn(0).setPreferredWidth(70);
+            tableReplacer.getColumnModel().getColumn(0).setMaxWidth(70);
+            tableReplacer.getColumnModel().getColumn(1).setMinWidth(80);
+            tableReplacer.getColumnModel().getColumn(1).setPreferredWidth(80);
+            tableReplacer.getColumnModel().getColumn(1).setMaxWidth(80);
         }
 
         buttonAdd.setText("+");
@@ -205,7 +215,7 @@ public class ViewReplacer extends javax.swing.JFrame {
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
         var model = (DefaultTableModel) tableReplacer.getModel();
         var selected = tableReplacer.getSelectedRow();
-        model.insertRow(selected + 1, new Object[]{false, "", ""});
+        model.insertRow(selected + 1, new Object[]{false, false, "", ""});
     }//GEN-LAST:event_buttonAddActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
@@ -224,20 +234,8 @@ public class ViewReplacer extends javax.swing.JFrame {
         var model = (DefaultTableModel) tableReplacer.getModel();
         var selected = tableReplacer.getSelectedRow();
         if (selected > 0) {
-            var priorMk = model.getValueAt(selected - 1, 0);
-            var priorOf = model.getValueAt(selected - 1, 1);
-            var priorTo = model.getValueAt(selected - 1, 2);
-            var actualMk = model.getValueAt(selected, 0);
-            var actualOf = model.getValueAt(selected, 1);
-            var actualTo = model.getValueAt(selected, 2);
-            model.setValueAt(actualMk, selected - 1, 0);
-            model.setValueAt(actualOf, selected - 1, 1);
-            model.setValueAt(actualTo, selected - 1, 2);
-            model.setValueAt(priorMk, selected, 0);
-            model.setValueAt(priorOf, selected, 1);
-            model.setValueAt(priorTo, selected , 2);
-            selected--;
-            tableReplacer.setRowSelectionInterval(selected, selected);
+            model.moveRow(selected, selected, selected - 1);
+            tableReplacer.setRowSelectionInterval(selected - 1, selected - 1);
         }
     }//GEN-LAST:event_buttonUpActionPerformed
 
@@ -245,53 +243,46 @@ public class ViewReplacer extends javax.swing.JFrame {
         var model = (DefaultTableModel) tableReplacer.getModel();
         var selected = tableReplacer.getSelectedRow();
         if (selected < tableReplacer.getRowCount() - 1) {
-            var nextMk = model.getValueAt(selected + 1, 0);
-            var nextOf = model.getValueAt(selected + 1, 1);
-            var nextTo = model.getValueAt(selected + 1, 2);
-            var actualMk = model.getValueAt(selected, 0);
-            var actualOf = model.getValueAt(selected, 1);
-            var actualTo = model.getValueAt(selected, 2);
-            model.setValueAt(actualMk, selected + 1, 0);
-            model.setValueAt(actualOf, selected + 1, 1);
-            model.setValueAt(actualTo, selected + 1, 2);
-            model.setValueAt(nextMk, selected, 0);
-            model.setValueAt(nextOf, selected, 1);
-            model.setValueAt(nextTo, selected , 2);
-            selected++;
-            tableReplacer.setRowSelectionInterval(selected, selected);
+            model.moveRow(selected, selected, selected + 1);
+            tableReplacer.setRowSelectionInterval(selected + 1, selected + 1);
         }
     }//GEN-LAST:event_buttonDownActionPerformed
 
     private void buttonLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoadActionPerformed
         try {
-            var selected = comboName.getSelectedItem();
-            if (selected != null && !selected.toString().isEmpty()) {
-                var selectedName = selected.toString();
-                var selectedFile = new File(selectedName + ".rpc");
-                if (!selectedFile.exists()) {
-                    throw new Exception("Could not found.");
-                }
-                try (
-                    var fileReader = new FileReader(selectedFile, StandardCharsets.UTF_8);
-                    var csvReader = new CSVParser(fileReader, CSVFormat.DEFAULT);
-                ) {
-                    var model = (DefaultTableModel) tableReplacer.getModel();
-                    model.setRowCount(0);
-                    for (var csvRecord : csvReader) {
-                        model.addRow(new Object[]{
-                            Boolean.valueOf(csvRecord.get(0)),
-                            csvRecord.get(1),
-                            csvRecord.get(2)
-                        });
-                    }
-                }
-                WizSwing.showInfo("Loaded");
-            }
+            loadReplacer();
         } catch (Exception e) {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonLoadActionPerformed
 
+    private void loadReplacer() throws Exception {
+        var selected = comboName.getSelectedItem();
+        if (selected == null || selected.toString().isEmpty()) {
+            throw new Exception("Could not found a replacer without a name.");
+        }
+        var selectedName = selected.toString();
+        var selectedFile = new File(selectedName + ".rpc");
+        if (!selectedFile.exists()) {
+            throw new Exception("Could not found a replacer with the name: " + selectedName);
+        }
+        try (
+            var fileReader = new FileReader(selectedFile, StandardCharsets.UTF_8);
+            var csvReader = new CSVParser(fileReader, CSVFormat.DEFAULT);
+        ) {
+            var model = (DefaultTableModel) tableReplacer.getModel();
+            model.setRowCount(0);
+            for (var csvRecord : csvReader) {
+                model.addRow(new Object[]{
+                    Boolean.valueOf(csvRecord.get(0)),
+                    Boolean.valueOf(csvRecord.get(1)),
+                    csvRecord.get(2),
+                    csvRecord.get(3)
+                });
+            }
+        }
+    }
+    
     private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
         try {
             var selected = comboName.getSelectedItem();
@@ -306,12 +297,17 @@ public class ViewReplacer extends javax.swing.JFrame {
                         csvWriter.printRecord(
                                 tableReplacer.getValueAt(i, 0),
                                 tableReplacer.getValueAt(i, 1),
-                                tableReplacer.getValueAt(i, 2)
+                                tableReplacer.getValueAt(i, 2),
+                                tableReplacer.getValueAt(i, 3)
                                 );
                     }
                     csvWriter.flush();
                 }
-                WizSwing.showInfo("Saved");
+                var model = (DefaultComboBoxModel) comboName.getModel();
+                if (model.getIndexOf(selected) == -1) {
+                    model.addElement(selectedName);
+                }
+                WizSwing.showInfo("Saved " + selectedName);
             }
         } catch (Exception e) {
             WizSwing.showError(e);
@@ -319,21 +315,34 @@ public class ViewReplacer extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonSaveActionPerformed
 
     private void buttonForgetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonForgetActionPerformed
+        if (!WizSwing.showConfirm("Are you sure?")) return;
+        var model = (DefaultTableModel) tableReplacer.getModel();
+        model.setRowCount(0);
         var selected = comboName.getSelectedItem();
         if (selected != null && !selected.toString().isEmpty()) {
             var selectedName = selected.toString();
             new File(selectedName + ".rpc").delete();
             comboName.removeItem(selected);
-            WizSwing.showInfo("Forgot");
+            WizSwing.showInfo("Forgot " + selectedName);
         }
     }//GEN-LAST:event_buttonForgetActionPerformed
 
     private void buttonAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAcceptActionPerformed
-        // TODO add your handling code here:
+        var replacer = new Replacer();
+        for (int i = 0; i < tableReplacer.getRowCount(); i++) {
+            if ((Boolean) tableReplacer.getValueAt(i, 0)) {
+                var regex = (Boolean) tableReplacer.getValueAt(i, 1);
+                var sourceOf = (String) tableReplacer.getValueAt(i, 2);
+                var sourceTo = (String) tableReplacer.getValueAt(i, 3);
+                replacer.add(regex, sourceOf, sourceTo);
+            }
+        }
+        onAccept.accept(replacer);
+        WizSwing.close(this);
     }//GEN-LAST:event_buttonAcceptActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
-        // TODO add your handling code here:
+        WizSwing.close(this);
     }//GEN-LAST:event_buttonCancelActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

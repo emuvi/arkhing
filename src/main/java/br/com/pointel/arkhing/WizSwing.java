@@ -13,7 +13,6 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -27,6 +26,13 @@ public class WizSwing {
 
     public static void showError(Throwable error) {
         JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static boolean showConfirm(String message) {
+        return JOptionPane.YES_OPTION ==
+                JOptionPane.showConfirmDialog(
+                        null, message, "Confirm",
+                        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
 
     public static String getStringOnClipboard() throws Exception {

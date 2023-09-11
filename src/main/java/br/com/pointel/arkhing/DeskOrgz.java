@@ -163,25 +163,37 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void buttonFolderNamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderNamerActionPerformed
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
-            new ViewNamer(selected.path, (name) -> renameFolder(selected, name))
-                    .setVisible(true);
+            new ViewNamer(selected.path, (name) -> { 
+                renameOrgz(selected, name); 
+            }).setVisible(true);
         }
     }//GEN-LAST:event_buttonFolderNamerActionPerformed
 
     private void buttonFolderReplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderReplacerActionPerformed
-        new ViewReplacer().setVisible(true);
+        var allSelected = listFolder.getSelectedValuesList();
+        if (allSelected != null && !allSelected.isEmpty()) {
+            new ViewReplacer((replacer) -> {
+                for (var itemSelected : allSelected) {
+                    var oldName = itemSelected.path.getName();
+                    var newName = replacer.replace(oldName);
+                    renameOrgz(itemSelected, newName); 
+                }
+            }).setVisible(true);
+        }
     }//GEN-LAST:event_buttonFolderReplacerActionPerformed
 
     private void buttonAssetsReplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssetsReplacerActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonAssetsReplacerActionPerformed
 
-    private void renameFolder(OrgzFolder orgzFolder, String name) {
-        var destiny = new File(orgzFolder.path.getParentFile(), name);
-        if (orgzFolder.path.renameTo(destiny)) {
-            orgzFolder.path = destiny;
+    private void renameOrgz(OrgzItem orgz, String newName) {
+        if (Objects.equals(newName, orgz.path.getName())) return;
+        var destiny = new File(orgz.path.getParentFile(), newName);
+        if (orgz.path.renameTo(destiny)) {
+            orgz.path = destiny;
         }
         SwingUtilities.updateComponentTreeUI(listFolder);
+        SwingUtilities.updateComponentTreeUI(listAssets);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -198,14 +210,24 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JSplitPane splitBody;
     // End of variables declaration//GEN-END:variables
 
-    private class OrgzFolder {
+    private class OrgzItem {
         
-        public int depth;
         public File path;
 
-        public OrgzFolder(int depth, File path) {
-            this.depth = depth;
+        public OrgzItem(File path) {
             this.path = path;
+        }
+        
+    }
+    
+    
+    private class OrgzFolder extends OrgzItem {
+        
+        public int depth;
+        
+        public OrgzFolder(int depth, File path) {
+            super(path);
+            this.depth = depth;
         }
 
         @Override
