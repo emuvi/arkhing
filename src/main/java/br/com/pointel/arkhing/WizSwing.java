@@ -137,6 +137,8 @@ public class WizSwing {
 
     public static void close(JFrame frame) {
         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+        frame.setVisible(false);
+        frame.dispose();
     }
 
 }
