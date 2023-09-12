@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -19,14 +20,14 @@ import org.apache.commons.io.FilenameUtils;
 public class ViewReplacer extends javax.swing.JFrame {
 
     private final Consumer<Replacer> onAccept;
-    
+
     public ViewReplacer(Consumer<Replacer> onAccept) {
         this.onAccept = onAccept;
         initComponents();
         initNamedReplacers();
         WizSwing.initPositioner(this);
     }
-    
+
     private void initNamedReplacers() {
         for (var file : new File(".").listFiles()) {
             if (file.getName().endsWith(".rpc")) {
@@ -34,7 +35,10 @@ public class ViewReplacer extends javax.swing.JFrame {
             }
         }
         comboName.setSelectedItem("default");
-        try { loadReplacer(); } catch (Exception e) {}
+        try {
+            loadReplacer();
+        } catch (Exception e) {
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -214,7 +218,7 @@ public class ViewReplacer extends javax.swing.JFrame {
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
         var model = (DefaultTableModel) tableReplacer.getModel();
         var selected = tableReplacer.getSelectedRow();
-        model.insertRow(selected + 1, new Object[]{ true, false, "", "" });
+        model.insertRow(selected + 1, new Object[]{true, false, "", ""});
     }//GEN-LAST:event_buttonAddActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
@@ -222,7 +226,9 @@ public class ViewReplacer extends javax.swing.JFrame {
         var selected = tableReplacer.getSelectedRow();
         if (selected > -1) {
             model.removeRow(tableReplacer.getSelectedRow());
-            if (selected > 0) selected--;
+            if (selected > 0) {
+                selected--;
+            }
             if (selected < model.getRowCount()) {
                 tableReplacer.setRowSelectionInterval(selected, selected);
             }
@@ -266,9 +272,7 @@ public class ViewReplacer extends javax.swing.JFrame {
             throw new Exception("Could not found a replacer with the name: " + selectedName);
         }
         try (
-            var fileReader = new FileReader(selectedFile, StandardCharsets.UTF_8);
-            var csvReader = new CSVParser(fileReader, CSVFormat.DEFAULT);
-        ) {
+                var fileReader = new FileReader(selectedFile, StandardCharsets.UTF_8); var csvReader = new CSVParser(fileReader, CSVFormat.DEFAULT);) {
             var model = (DefaultTableModel) tableReplacer.getModel();
             model.setRowCount(0);
             for (var csvRecord : csvReader) {
@@ -281,7 +285,7 @@ public class ViewReplacer extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
         try {
             var selected = comboName.getSelectedItem();
@@ -289,16 +293,14 @@ public class ViewReplacer extends javax.swing.JFrame {
                 var selectedName = selected.toString();
                 var selectedFile = new File(selectedName + ".rpc");
                 try (
-                    var fileWriter = new FileWriter(selectedFile, StandardCharsets.UTF_8);
-                    var csvWriter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);
-                ) {
+                        var fileWriter = new FileWriter(selectedFile, StandardCharsets.UTF_8); var csvWriter = new CSVPrinter(fileWriter, CSVFormat.DEFAULT);) {
                     for (int i = 0; i < tableReplacer.getRowCount(); i++) {
                         csvWriter.printRecord(
                                 tableReplacer.getValueAt(i, 0),
                                 tableReplacer.getValueAt(i, 1),
                                 tableReplacer.getValueAt(i, 2),
                                 tableReplacer.getValueAt(i, 3)
-                                );
+                        );
                     }
                     csvWriter.flush();
                 }
@@ -314,7 +316,9 @@ public class ViewReplacer extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonSaveActionPerformed
 
     private void buttonForgetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonForgetActionPerformed
-        if (!WizSwing.showConfirm("Are you sure?")) return;
+        if (!WizSwing.showConfirm("Are you sure?")) {
+            return;
+        }
         var model = (DefaultTableModel) tableReplacer.getModel();
         model.setRowCount(0);
         var selected = comboName.getSelectedItem();
@@ -327,23 +331,25 @@ public class ViewReplacer extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonForgetActionPerformed
 
     private void buttonAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAcceptActionPerformed
-        var replacer = new Replacer();
-        for (int i = 0; i < tableReplacer.getRowCount(); i++) {
-            if ((Boolean) tableReplacer.getValueAt(i, 0)) {
-                var regex = (Boolean) tableReplacer.getValueAt(i, 1);
-                var sourceOf = (String) tableReplacer.getValueAt(i, 2);
-                var sourceTo = (String) tableReplacer.getValueAt(i, 3);
-                replacer.add(regex, sourceOf, sourceTo);
+        SwingUtilities.invokeLater(() -> {
+            var replacer = new Replacer();
+            for (int i = 0; i < tableReplacer.getRowCount(); i++) {
+                if ((Boolean) tableReplacer.getValueAt(i, 0)) {
+                    var regex = (Boolean) tableReplacer.getValueAt(i, 1);
+                    var sourceOf = (String) tableReplacer.getValueAt(i, 2);
+                    var sourceTo = (String) tableReplacer.getValueAt(i, 3);
+                    replacer.add(regex, sourceOf, sourceTo);
+                }
             }
-        }
-        onAccept.accept(replacer);
-        WizSwing.close(this);
+            onAccept.accept(replacer);
+            WizSwing.close(this);
+        });
     }//GEN-LAST:event_buttonAcceptActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         WizSwing.close(this);
     }//GEN-LAST:event_buttonCancelActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAccept;
     private javax.swing.JButton buttonAdd;
