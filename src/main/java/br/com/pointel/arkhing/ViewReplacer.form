@@ -9,6 +9,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowOpened" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowOpened"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -128,7 +131,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="buttonAdd">
       <Properties>
-        <Property name="mnemonic" type="int" value="43"/>
+        <Property name="mnemonic" type="int" value="73"/>
         <Property name="text" type="java.lang.String" value="+"/>
         <Property name="toolTipText" type="java.lang.String" value="Insert"/>
       </Properties>
@@ -138,7 +141,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonDelete">
       <Properties>
-        <Property name="mnemonic" type="int" value="43"/>
+        <Property name="mnemonic" type="int" value="82"/>
         <Property name="text" type="java.lang.String" value="-"/>
         <Property name="toolTipText" type="java.lang.String" value="Delete"/>
       </Properties>

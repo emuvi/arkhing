@@ -60,6 +60,11 @@ public class ViewReplacer extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Replacer");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         tableReplacer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -88,7 +93,7 @@ public class ViewReplacer extends javax.swing.JFrame {
             tableReplacer.getColumnModel().getColumn(1).setMaxWidth(80);
         }
 
-        buttonAdd.setMnemonic('+');
+        buttonAdd.setMnemonic('I');
         buttonAdd.setText("+");
         buttonAdd.setToolTipText("Insert");
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -97,7 +102,7 @@ public class ViewReplacer extends javax.swing.JFrame {
             }
         });
 
-        buttonDelete.setMnemonic('+');
+        buttonDelete.setMnemonic('R');
         buttonDelete.setText("-");
         buttonDelete.setToolTipText("Delete");
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -353,6 +358,10 @@ public class ViewReplacer extends javax.swing.JFrame {
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         WizSwing.close(this);
     }//GEN-LAST:event_buttonCancelActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        tableReplacer.requestFocus();
+    }//GEN-LAST:event_formWindowOpened
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAccept;

@@ -17,8 +17,6 @@ public class ViewNamer extends javax.swing.JFrame {
         this.onAccept = onAccept;
         initComponents();
         textNamer.setText(path.getName());
-        textNamer.setSelectionStart(0);
-        textNamer.setSelectionEnd(0);
         getRootPane().setDefaultButton(buttonAccept);
         WizSwing.initPositioner(this);
         WizSwing.initEscaper(this);
@@ -47,6 +45,11 @@ public class ViewNamer extends javax.swing.JFrame {
         setTitle("Namer");
         setLocationByPlatform(true);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         buttonTools.setMnemonic('T');
         buttonTools.setText("Tools");
@@ -120,6 +123,12 @@ public class ViewNamer extends javax.swing.JFrame {
     private void toolAddParentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolAddParentNameActionPerformed
         addOnName(path.getParentFile().getName());
     }//GEN-LAST:event_toolAddParentNameActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        textNamer.setSelectionStart(0);
+        textNamer.setSelectionEnd(0);
+        textNamer.requestFocus();
+    }//GEN-LAST:event_formWindowOpened
 
     private void addOnName(String text) {
         var oldName = textNamer.getText();
