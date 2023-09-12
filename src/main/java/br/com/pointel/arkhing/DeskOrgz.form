@@ -66,6 +66,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonFolderNamer">
       <Properties>
+        <Property name="mnemonic" type="int" value="78"/>
         <Property name="text" type="java.lang.String" value="Namer"/>
       </Properties>
       <Events>
@@ -151,6 +152,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonAssetsNamer">
       <Properties>
+        <Property name="mnemonic" type="int" value="77"/>
         <Property name="text" type="java.lang.String" value="Namer"/>
       </Properties>
       <Events>

@@ -331,19 +331,17 @@ public class ViewReplacer extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonForgetActionPerformed
 
     private void buttonAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAcceptActionPerformed
-        SwingUtilities.invokeLater(() -> {
-            var replacer = new Replacer();
-            for (int i = 0; i < tableReplacer.getRowCount(); i++) {
-                if ((Boolean) tableReplacer.getValueAt(i, 0)) {
-                    var regex = (Boolean) tableReplacer.getValueAt(i, 1);
-                    var sourceOf = (String) tableReplacer.getValueAt(i, 2);
-                    var sourceTo = (String) tableReplacer.getValueAt(i, 3);
-                    replacer.add(regex, sourceOf, sourceTo);
-                }
+        var replacer = new Replacer();
+        for (int i = 0; i < tableReplacer.getRowCount(); i++) {
+            if ((Boolean) tableReplacer.getValueAt(i, 0)) {
+                var regex = (Boolean) tableReplacer.getValueAt(i, 1);
+                var sourceOf = (String) tableReplacer.getValueAt(i, 2);
+                var sourceTo = (String) tableReplacer.getValueAt(i, 3);
+                replacer.add(regex, sourceOf, sourceTo);
             }
-            onAccept.accept(replacer);
-            WizSwing.close(this);
-        });
+        }
+        onAccept.accept(replacer);
+        WizSwing.close(this);
     }//GEN-LAST:event_buttonAcceptActionPerformed
 
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed

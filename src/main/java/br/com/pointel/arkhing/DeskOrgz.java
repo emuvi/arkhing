@@ -40,6 +40,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         buttonAssetsNamer = new javax.swing.JButton();
         buttonAssetsReplacer = new javax.swing.JButton();
 
+        buttonFolderNamer.setMnemonic('N');
         buttonFolderNamer.setText("Namer");
         buttonFolderNamer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,6 +75,7 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         splitBody.setRightComponent(scrollAssets);
 
+        buttonAssetsNamer.setMnemonic('M');
         buttonAssetsNamer.setText("Namer");
         buttonAssetsNamer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
