@@ -17,6 +17,8 @@ public class ViewNamer extends javax.swing.JFrame {
         this.onAccept = onAccept;
         initComponents();
         textNamer.setText(path.getName());
+        textNamer.setSelectionStart(0);
+        textNamer.setSelectionEnd(0);
         getRootPane().setDefaultButton(buttonAccept);
         WizSwing.initPositioner(this);
     }

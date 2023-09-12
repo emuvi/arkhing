@@ -128,6 +128,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="buttonAdd">
       <Properties>
+        <Property name="mnemonic" type="int" value="43"/>
         <Property name="text" type="java.lang.String" value="+"/>
         <Property name="toolTipText" type="java.lang.String" value="Insert"/>
       </Properties>
@@ -137,6 +138,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonDelete">
       <Properties>
+        <Property name="mnemonic" type="int" value="43"/>
         <Property name="text" type="java.lang.String" value="-"/>
         <Property name="toolTipText" type="java.lang.String" value="Delete"/>
       </Properties>

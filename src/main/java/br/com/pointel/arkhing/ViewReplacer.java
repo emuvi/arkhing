@@ -88,6 +88,7 @@ public class ViewReplacer extends javax.swing.JFrame {
             tableReplacer.getColumnModel().getColumn(1).setMaxWidth(80);
         }
 
+        buttonAdd.setMnemonic('+');
         buttonAdd.setText("+");
         buttonAdd.setToolTipText("Insert");
         buttonAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -96,6 +97,7 @@ public class ViewReplacer extends javax.swing.JFrame {
             }
         });
 
+        buttonDelete.setMnemonic('+');
         buttonDelete.setText("-");
         buttonDelete.setToolTipText("Delete");
         buttonDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -219,6 +221,7 @@ public class ViewReplacer extends javax.swing.JFrame {
         var model = (DefaultTableModel) tableReplacer.getModel();
         var selected = tableReplacer.getSelectedRow();
         model.insertRow(selected + 1, new Object[]{true, false, "", ""});
+        tableReplacer.requestFocus();
     }//GEN-LAST:event_buttonAddActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
@@ -233,6 +236,7 @@ public class ViewReplacer extends javax.swing.JFrame {
                 tableReplacer.setRowSelectionInterval(selected, selected);
             }
         }
+        tableReplacer.requestFocus();
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
     private void buttonUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpActionPerformed
@@ -242,6 +246,7 @@ public class ViewReplacer extends javax.swing.JFrame {
             model.moveRow(selected, selected, selected - 1);
             tableReplacer.setRowSelectionInterval(selected - 1, selected - 1);
         }
+        tableReplacer.requestFocus();
     }//GEN-LAST:event_buttonUpActionPerformed
 
     private void buttonDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDownActionPerformed
@@ -251,6 +256,7 @@ public class ViewReplacer extends javax.swing.JFrame {
             model.moveRow(selected, selected, selected + 1);
             tableReplacer.setRowSelectionInterval(selected + 1, selected + 1);
         }
+        tableReplacer.requestFocus();
     }//GEN-LAST:event_buttonDownActionPerformed
 
     private void buttonLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoadActionPerformed
