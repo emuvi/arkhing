@@ -16,10 +16,10 @@ import javax.swing.SwingUtilities;
 public class DeskOrgz extends javax.swing.JPanel {
 
     private final Desk desk;
-    
+
     private final DefaultListModel<OrgzFolder> modelFolder = new DefaultListModel<>();
     private final DefaultListModel<OrgzAssets> modelAssets = new DefaultListModel<>();
-    
+
     public DeskOrgz(Desk desk) {
         this.desk = desk;
         initComponents();
@@ -144,8 +144,8 @@ public class DeskOrgz extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private volatile File lastLoadedBase = null; 
-    
+    private volatile File lastLoadedBase = null;
+
     public void initUpdater() {
         WizBase.startDaemon(() -> {
             while (desk.isVisible()) {
@@ -159,13 +159,13 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         }, "DeskOrgz - Updater");
     }
-    
+
     private void updateFolder(File path) {
         modelFolder.removeAllElements();
         loadFolders(path, 0, new ArrayList<>())
                 .stream().forEach((folder) -> modelFolder.addElement(folder));
     }
-    
+
     private List<OrgzFolder> loadFolders(File path, int depth, List<OrgzFolder> list) {
         if (path.isDirectory()) {
             list.add(new OrgzFolder(depth, path));
@@ -175,11 +175,11 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
         return list;
     }
-    
+
     private void buttonFolderNamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderNamerActionPerformed
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
-            new ViewNamer(selected.path, (newName) -> { 
+            new ViewNamer(selected.path, (newName) -> {
                 renameOrgz(selected, newName);
                 listFolder.requestFocus();
             }).setVisible(true);
@@ -193,7 +193,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 for (var itemSelected : allSelected) {
                     var oldName = itemSelected.path.getName();
                     var newName = replacer.replace(oldName);
-                    renameOrgz(itemSelected, newName); 
+                    renameOrgz(itemSelected, newName);
                 }
                 listFolder.requestFocus();
             }).setVisible(true);
@@ -217,10 +217,14 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void listFolderValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listFolderValueChanged
         modelAssets.removeAllElements();
         var allSelected = listFolder.getSelectedValuesList();
-        if (allSelected == null || allSelected.isEmpty()) return;
+        if (allSelected == null || allSelected.isEmpty()) {
+            return;
+        }
         for (var selected : allSelected) {
             for (var inside : selected.path.listFiles()) {
-                modelAssets.addElement(new OrgzAssets(inside));
+                if (inside.isFile()) {
+                    modelAssets.addElement(new OrgzAssets(inside));
+                }
             }
         }
     }//GEN-LAST:event_listFolderValueChanged
@@ -228,7 +232,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void buttonAssetsNamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssetsNamerActionPerformed
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
-            new ViewNamer(selected.path, (newName) -> { 
+            new ViewNamer(selected.path, (newName) -> {
                 renameOrgz(selected, newName);
                 listAssets.requestFocus();
             }).setVisible(true);
@@ -252,7 +256,9 @@ public class DeskOrgz extends javax.swing.JPanel {
     }//GEN-LAST:event_listAssetsKeyPressed
 
     private void renameOrgz(OrgzItem orgz, String newName) {
-        if (Objects.equals(newName, orgz.path.getName())) return;
+        if (Objects.equals(newName, orgz.path.getName())) {
+            return;
+        }
         var destiny = new File(orgz.path.getParentFile(), newName);
         if (orgz.path.renameTo(destiny)) {
             orgz.path = destiny;
@@ -260,7 +266,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         SwingUtilities.updateComponentTreeUI(listFolder);
         SwingUtilities.updateComponentTreeUI(listAssets);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAssetsNamer;
     private javax.swing.JButton buttonAssetsReplacer;
@@ -276,19 +282,19 @@ public class DeskOrgz extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private class OrgzItem {
-        
+
         public File path;
 
         public OrgzItem(File path) {
             this.path = path;
         }
-        
+
     }
-    
+
     private class OrgzFolder extends OrgzItem {
-        
+
         public int depth;
-        
+
         public OrgzFolder(int depth, File path) {
             super(path);
             this.depth = depth;
@@ -303,11 +309,11 @@ public class DeskOrgz extends javax.swing.JPanel {
             result.append(path.getName());
             return result.toString();
         }
-        
+
     }
-    
+
     private class OrgzAssets extends OrgzItem {
-        
+
         public OrgzAssets(File path) {
             super(path);
         }
@@ -316,7 +322,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         public String toString() {
             return "- " + path.getName();
         }
-        
+
     }
 
 }
