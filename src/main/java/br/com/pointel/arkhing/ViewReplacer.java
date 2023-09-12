@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.function.Consumer;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -26,6 +25,7 @@ public class ViewReplacer extends javax.swing.JFrame {
         initComponents();
         initNamedReplacers();
         WizSwing.initPositioner(this);
+        WizSwing.initEscaper(this);
     }
 
     private void initNamedReplacers() {

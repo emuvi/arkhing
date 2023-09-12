@@ -7,12 +7,16 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -27,10 +31,10 @@ public class WizSwing {
     public static void showError(Throwable error) {
         JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-    
+
     public static boolean showConfirm(String message) {
-        return JOptionPane.YES_OPTION ==
-                JOptionPane.showConfirmDialog(
+        return JOptionPane.YES_OPTION
+                == JOptionPane.showConfirmDialog(
                         null, message, "Confirm",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
@@ -117,7 +121,20 @@ public class WizSwing {
             }
         });
     }
-    
+
+    public static void initEscaper(JFrame frame) {
+        String ESCAPER_KEY = "FramEscaperAction";
+        frame.getRootPane().getActionMap().put(ESCAPER_KEY, new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                close(frame);
+            }
+        });
+        frame.getRootPane().getInputMap().put(
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                ESCAPER_KEY);
+    }
+
     public static void close(JFrame frame) {
         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }

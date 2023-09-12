@@ -21,6 +21,7 @@ public class ViewNamer extends javax.swing.JFrame {
         textNamer.setSelectionEnd(0);
         getRootPane().setDefaultButton(buttonAccept);
         WizSwing.initPositioner(this);
+        WizSwing.initEscaper(this);
     }
 
     @SuppressWarnings("unchecked")
