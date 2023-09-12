@@ -48,6 +48,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         });
 
+        buttonFolderReplacer.setMnemonic('R');
         buttonFolderReplacer.setText("Replacer");
         buttonFolderReplacer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +84,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         });
 
+        buttonAssetsReplacer.setMnemonic('P');
         buttonAssetsReplacer.setText("Replacer");
         buttonAssetsReplacer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -167,7 +169,8 @@ public class DeskOrgz extends javax.swing.JPanel {
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
             new ViewNamer(selected.path, (newName) -> { 
-                renameOrgz(selected, newName); 
+                renameOrgz(selected, newName);
+                listFolder.requestFocus();
             }).setVisible(true);
         }
     }//GEN-LAST:event_buttonFolderNamerActionPerformed
@@ -181,6 +184,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                     var newName = replacer.replace(oldName);
                     renameOrgz(itemSelected, newName); 
                 }
+                listFolder.requestFocus();
             }).setVisible(true);
         }
     }//GEN-LAST:event_buttonFolderReplacerActionPerformed
@@ -194,6 +198,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                     var newName = replacer.replace(oldName);
                     renameOrgz(itemSelected, newName);
                 }
+                listAssets.requestFocus();
             }).setVisible(true);
         }
     }//GEN-LAST:event_buttonAssetsReplacerActionPerformed
@@ -213,7 +218,8 @@ public class DeskOrgz extends javax.swing.JPanel {
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
             new ViewNamer(selected.path, (newName) -> { 
-                renameOrgz(selected, newName); 
+                renameOrgz(selected, newName);
+                listAssets.requestFocus();
             }).setVisible(true);
         }
     }//GEN-LAST:event_buttonAssetsNamerActionPerformed
