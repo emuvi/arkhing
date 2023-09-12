@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class Replacer {
     
-    private List<ReplacerItem> items = new ArrayList<>();
+    private final List<ReplacerItem> items = new ArrayList<>();
 
     public Replacer() {}
     
@@ -19,7 +19,15 @@ public class Replacer {
     }
     
     public String replace(String source) {
-        return source;
+        String result = source;
+        for (var item : items) {
+            if (item.regex) {
+                result = result.replaceAll(item.sourceOf, item.sourceTo);
+            } else {
+                result = result.replace(item.sourceOf, item.sourceTo);
+            }
+        }
+        return result;
     }
     
     private class ReplacerItem {

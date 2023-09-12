@@ -75,6 +75,11 @@ public class DeskOrgz extends javax.swing.JPanel {
         splitBody.setRightComponent(scrollAssets);
 
         buttonAssetsNamer.setText("Namer");
+        buttonAssetsNamer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAssetsNamerActionPerformed(evt);
+            }
+        });
 
         buttonAssetsReplacer.setText("Replacer");
         buttonAssetsReplacer.addActionListener(new java.awt.event.ActionListener() {
@@ -156,15 +161,11 @@ public class DeskOrgz extends javax.swing.JPanel {
         return list;
     }
     
-    private void listFolderValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listFolderValueChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listFolderValueChanged
-
     private void buttonFolderNamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderNamerActionPerformed
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
-            new ViewNamer(selected.path, (name) -> { 
-                renameOrgz(selected, name); 
+            new ViewNamer(selected.path, (newName) -> { 
+                renameOrgz(selected, newName); 
             }).setVisible(true);
         }
     }//GEN-LAST:event_buttonFolderNamerActionPerformed
@@ -183,8 +184,37 @@ public class DeskOrgz extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonFolderReplacerActionPerformed
 
     private void buttonAssetsReplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssetsReplacerActionPerformed
-        // TODO add your handling code here:
+        var allSelected = listAssets.getSelectedValuesList();
+        if (allSelected != null && !allSelected.isEmpty()) {
+            new ViewReplacer((replacer) -> {
+                for (var itemSelected : allSelected) {
+                    var oldName = itemSelected.path.getName();
+                    var newName = replacer.replace(oldName);
+                    renameOrgz(itemSelected, newName);
+                }
+            }).setVisible(true);
+        }
     }//GEN-LAST:event_buttonAssetsReplacerActionPerformed
+
+    private void listFolderValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listFolderValueChanged
+        modelAssets.removeAllElements();
+        var allSelected = listFolder.getSelectedValuesList();
+        if (allSelected == null || allSelected.isEmpty()) return;
+        for (var selected : allSelected) {
+            for (var inside : selected.path.listFiles()) {
+                modelAssets.addElement(new OrgzAssets(inside));
+            }
+        }
+    }//GEN-LAST:event_listFolderValueChanged
+
+    private void buttonAssetsNamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssetsNamerActionPerformed
+        var selected = listFolder.getSelectedValue();
+        if (selected != null) {
+            new ViewNamer(selected.path, (newName) -> { 
+                renameOrgz(selected, newName); 
+            }).setVisible(true);
+        }
+    }//GEN-LAST:event_buttonAssetsNamerActionPerformed
 
     private void renameOrgz(OrgzItem orgz, String newName) {
         if (Objects.equals(newName, orgz.path.getName())) return;
@@ -220,7 +250,6 @@ public class DeskOrgz extends javax.swing.JPanel {
         
     }
     
-    
     private class OrgzFolder extends OrgzItem {
         
         public int depth;
@@ -242,6 +271,17 @@ public class DeskOrgz extends javax.swing.JPanel {
         
     }
     
-    private class OrgzAssets {}
+    private class OrgzAssets extends OrgzItem {
+        
+        public OrgzAssets(File path) {
+            super(path);
+        }
+
+        @Override
+        public String toString() {
+            return "- " + path.getName();
+        }
+        
+    }
 
 }

@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.Objects;
 import java.util.function.Consumer;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
@@ -215,7 +214,7 @@ public class ViewReplacer extends javax.swing.JFrame {
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
         var model = (DefaultTableModel) tableReplacer.getModel();
         var selected = tableReplacer.getSelectedRow();
-        model.insertRow(selected + 1, new Object[]{false, false, "", ""});
+        model.insertRow(selected + 1, new Object[]{ true, false, "", "" });
     }//GEN-LAST:event_buttonAddActionPerformed
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
