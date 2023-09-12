@@ -1,5 +1,6 @@
 package br.com.pointel.arkhing;
 
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,6 +62,11 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         listFolder.setFont(WizSwing.fontMonospaced());
         listFolder.setModel(modelFolder);
+        listFolder.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                listFolderKeyPressed(evt);
+            }
+        });
         listFolder.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listFolderValueChanged(evt);
@@ -72,6 +78,11 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         listAssets.setFont(WizSwing.fontMonospaced());
         listAssets.setModel(modelAssets);
+        listAssets.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                listAssetsKeyPressed(evt);
+            }
+        });
         scrollAssets.setViewportView(listAssets);
 
         splitBody.setRightComponent(scrollAssets);
@@ -223,6 +234,22 @@ public class DeskOrgz extends javax.swing.JPanel {
             }).setVisible(true);
         }
     }//GEN-LAST:event_buttonAssetsNamerActionPerformed
+
+    private void listFolderKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listFolderKeyPressed
+        if (evt.getExtendedKeyCode() == KeyEvent.VK_F2) {
+            buttonFolderNamerActionPerformed(null);
+        } else if (evt.getExtendedKeyCode() == KeyEvent.VK_F3) {
+            buttonFolderReplacerActionPerformed(null);
+        }
+    }//GEN-LAST:event_listFolderKeyPressed
+
+    private void listAssetsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listAssetsKeyPressed
+        if (evt.getExtendedKeyCode() == KeyEvent.VK_F2) {
+            buttonAssetsNamerActionPerformed(null);
+        } else if (evt.getExtendedKeyCode() == KeyEvent.VK_F3) {
+            buttonAssetsReplacerActionPerformed(null);
+        }
+    }//GEN-LAST:event_listAssetsKeyPressed
 
     private void renameOrgz(OrgzItem orgz, String newName) {
         if (Objects.equals(newName, orgz.path.getName())) return;
