@@ -1,6 +1,8 @@
 package br.com.pointel.arkhing;
 
+import java.awt.Desktop;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,39 +31,78 @@ public class DeskOrgz extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        searchFolder = new javax.swing.JTextField();
-        buttonFolderNamer = new javax.swing.JButton();
-        buttonFolderReplacer = new javax.swing.JButton();
+        menuFolder = new javax.swing.JPopupMenu();
+        menuFolderOpen = new javax.swing.JMenuItem();
+        menuFolderNamer = new javax.swing.JMenuItem();
+        menuFolderReplacer = new javax.swing.JMenuItem();
+        menuAssets = new javax.swing.JPopupMenu();
+        menuAssetsOpen = new javax.swing.JMenuItem();
+        menuAssetsNamer = new javax.swing.JMenuItem();
+        menuAssetsReplacer = new javax.swing.JMenuItem();
         splitBody = new javax.swing.JSplitPane();
         scrollFolder = new javax.swing.JScrollPane();
         listFolder = new javax.swing.JList<>();
         scrollAssets = new javax.swing.JScrollPane();
         listAssets = new javax.swing.JList<>();
-        searchAssets = new javax.swing.JTextField();
-        buttonAssetsNamer = new javax.swing.JButton();
-        buttonAssetsReplacer = new javax.swing.JButton();
 
-        buttonFolderNamer.setMnemonic('N');
-        buttonFolderNamer.setText("Namer");
-        buttonFolderNamer.addActionListener(new java.awt.event.ActionListener() {
+        menuFolderOpen.setText("Open");
+        menuFolderOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonFolderNamerActionPerformed(evt);
+                menuFolderOpenActionPerformed(evt);
             }
         });
+        menuFolder.add(menuFolderOpen);
 
-        buttonFolderReplacer.setMnemonic('R');
-        buttonFolderReplacer.setText("Replacer");
-        buttonFolderReplacer.addActionListener(new java.awt.event.ActionListener() {
+        menuFolderNamer.setText("Namer");
+        menuFolderNamer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonFolderReplacerActionPerformed(evt);
+                menuFolderNamerActionPerformed(evt);
             }
         });
+        menuFolder.add(menuFolderNamer);
+
+        menuFolderReplacer.setText("Replacer");
+        menuFolderReplacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFolderReplacerActionPerformed(evt);
+            }
+        });
+        menuFolder.add(menuFolderReplacer);
+
+        menuAssetsOpen.setText("Open");
+        menuAssetsOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAssetsOpenActionPerformed(evt);
+            }
+        });
+        menuAssets.add(menuAssetsOpen);
+
+        menuAssetsNamer.setText("Namer");
+        menuAssetsNamer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAssetsNamerActionPerformed(evt);
+            }
+        });
+        menuAssets.add(menuAssetsNamer);
+
+        menuAssetsReplacer.setText("Replacer");
+        menuAssetsReplacer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAssetsReplacerActionPerformed(evt);
+            }
+        });
+        menuAssets.add(menuAssetsReplacer);
 
         splitBody.setDividerLocation(200);
         splitBody.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
         listFolder.setFont(WizSwing.fontMonospaced());
         listFolder.setModel(modelFolder);
+        listFolder.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listFolderMouseClicked(evt);
+            }
+        });
         listFolder.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listFolderKeyPressed(evt);
@@ -78,6 +119,11 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         listAssets.setFont(WizSwing.fontMonospaced());
         listAssets.setModel(modelAssets);
+        listAssets.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listAssetsMouseClicked(evt);
+            }
+        });
         listAssets.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listAssetsKeyPressed(evt);
@@ -87,59 +133,20 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         splitBody.setRightComponent(scrollAssets);
 
-        buttonAssetsNamer.setMnemonic('M');
-        buttonAssetsNamer.setText("Namer");
-        buttonAssetsNamer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAssetsNamerActionPerformed(evt);
-            }
-        });
-
-        buttonAssetsReplacer.setMnemonic('P');
-        buttonAssetsReplacer.setText("Replacer");
-        buttonAssetsReplacer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAssetsReplacerActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(searchFolder)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonFolderNamer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonFolderReplacer))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(searchAssets)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonAssetsNamer)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonAssetsReplacer)))
+                .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonFolderNamer)
-                    .addComponent(searchFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonFolderReplacer))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonAssetsNamer)
-                    .addComponent(searchAssets, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonAssetsReplacer))
+                .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -176,44 +183,6 @@ public class DeskOrgz extends javax.swing.JPanel {
         return list;
     }
 
-    private void buttonFolderNamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderNamerActionPerformed
-        var selected = listFolder.getSelectedValue();
-        if (selected != null) {
-            new ViewNamer(selected.path, (newName) -> {
-                renameOrgz(selected, newName);
-                listFolder.requestFocus();
-            }).setVisible(true);
-        }
-    }//GEN-LAST:event_buttonFolderNamerActionPerformed
-
-    private void buttonFolderReplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderReplacerActionPerformed
-        var allSelected = listFolder.getSelectedValuesList();
-        if (allSelected != null && !allSelected.isEmpty()) {
-            new ViewReplacer((replacer) -> {
-                for (var itemSelected : allSelected) {
-                    var oldName = itemSelected.path.getName();
-                    var newName = replacer.replace(oldName);
-                    renameOrgz(itemSelected, newName);
-                }
-                listFolder.requestFocus();
-            }).setVisible(true);
-        }
-    }//GEN-LAST:event_buttonFolderReplacerActionPerformed
-
-    private void buttonAssetsReplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssetsReplacerActionPerformed
-        var allSelected = listAssets.getSelectedValuesList();
-        if (allSelected != null && !allSelected.isEmpty()) {
-            new ViewReplacer((replacer) -> {
-                for (var itemSelected : allSelected) {
-                    var oldName = itemSelected.path.getName();
-                    var newName = replacer.replace(oldName);
-                    renameOrgz(itemSelected, newName);
-                }
-                listAssets.requestFocus();
-            }).setVisible(true);
-        }
-    }//GEN-LAST:event_buttonAssetsReplacerActionPerformed
-
     private void listFolderValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listFolderValueChanged
         modelAssets.removeAllElements();
         var allSelected = listFolder.getSelectedValuesList();
@@ -229,7 +198,47 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_listFolderValueChanged
 
-    private void buttonAssetsNamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAssetsNamerActionPerformed
+    private void listFolderKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listFolderKeyPressed
+        if (evt.getExtendedKeyCode() == KeyEvent.VK_F2) {
+            menuFolderNamerActionPerformed(null);
+        } else if (evt.getExtendedKeyCode() == KeyEvent.VK_F3) {
+            menuFolderReplacerActionPerformed(null);
+        }
+    }//GEN-LAST:event_listFolderKeyPressed
+
+    private void listAssetsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listAssetsKeyPressed
+        if (evt.getExtendedKeyCode() == KeyEvent.VK_F2) {
+            menuAssetsNamerActionPerformed(null);
+        } else if (evt.getExtendedKeyCode() == KeyEvent.VK_F3) {
+            menuAssetsReplacerActionPerformed(null);
+        }
+    }//GEN-LAST:event_listAssetsKeyPressed
+
+    private void menuFolderNamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderNamerActionPerformed
+        var selected = listFolder.getSelectedValue();
+        if (selected != null) {
+            new ViewNamer(selected.path, (newName) -> {
+                renameOrgz(selected, newName);
+                listFolder.requestFocus();
+            }).setVisible(true);
+        }
+    }//GEN-LAST:event_menuFolderNamerActionPerformed
+
+    private void menuFolderReplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderReplacerActionPerformed
+        var allSelected = listFolder.getSelectedValuesList();
+        if (allSelected != null && !allSelected.isEmpty()) {
+            new ViewReplacer((replacer) -> {
+                for (var itemSelected : allSelected) {
+                    var oldName = itemSelected.path.getName();
+                    var newName = replacer.replace(oldName);
+                    renameOrgz(itemSelected, newName);
+                }
+                listFolder.requestFocus();
+            }).setVisible(true);
+        }
+    }//GEN-LAST:event_menuFolderReplacerActionPerformed
+
+    private void menuAssetsNamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsNamerActionPerformed
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
             new ViewNamer(selected.path, (newName) -> {
@@ -237,23 +246,53 @@ public class DeskOrgz extends javax.swing.JPanel {
                 listAssets.requestFocus();
             }).setVisible(true);
         }
-    }//GEN-LAST:event_buttonAssetsNamerActionPerformed
+    }//GEN-LAST:event_menuAssetsNamerActionPerformed
 
-    private void listFolderKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listFolderKeyPressed
-        if (evt.getExtendedKeyCode() == KeyEvent.VK_F2) {
-            buttonFolderNamerActionPerformed(null);
-        } else if (evt.getExtendedKeyCode() == KeyEvent.VK_F3) {
-            buttonFolderReplacerActionPerformed(null);
+    private void menuAssetsReplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsReplacerActionPerformed
+        var allSelected = listAssets.getSelectedValuesList();
+        if (allSelected != null && !allSelected.isEmpty()) {
+            new ViewReplacer((replacer) -> {
+                for (var itemSelected : allSelected) {
+                    var oldName = itemSelected.path.getName();
+                    var newName = replacer.replace(oldName);
+                    renameOrgz(itemSelected, newName);
+                }
+                listAssets.requestFocus();
+            }).setVisible(true);
         }
-    }//GEN-LAST:event_listFolderKeyPressed
+    }//GEN-LAST:event_menuAssetsReplacerActionPerformed
 
-    private void listAssetsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listAssetsKeyPressed
-        if (evt.getExtendedKeyCode() == KeyEvent.VK_F2) {
-            buttonAssetsNamerActionPerformed(null);
-        } else if (evt.getExtendedKeyCode() == KeyEvent.VK_F3) {
-            buttonAssetsReplacerActionPerformed(null);
+    private void listFolderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listFolderMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON3)
+            menuFolder.show(evt.getComponent(), evt.getX(), evt.getY());
+    }//GEN-LAST:event_listFolderMouseClicked
+
+    private void listAssetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listAssetsMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON3)
+            menuAssets.show(evt.getComponent(), evt.getX(), evt.getY());
+    }//GEN-LAST:event_listAssetsMouseClicked
+
+    private void menuFolderOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderOpenActionPerformed
+        var selected = listFolder.getSelectedValue();
+        if (selected != null) {
+            try {
+                Desktop.getDesktop().open(selected.path);            
+            } catch (Exception e) {
+                WizSwing.showError(e);
+            }
         }
-    }//GEN-LAST:event_listAssetsKeyPressed
+    }//GEN-LAST:event_menuFolderOpenActionPerformed
+
+    private void menuAssetsOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsOpenActionPerformed
+        var selected = listAssets.getSelectedValue();
+        if (selected != null) {
+            try {
+                Desktop.getDesktop().open(selected.path);            
+            } catch (Exception e) {
+                WizSwing.showError(e);
+            }
+        }
+    }//GEN-LAST:event_menuAssetsOpenActionPerformed
 
     private void renameOrgz(OrgzItem orgz, String newName) {
         if (Objects.equals(newName, orgz.path.getName())) {
@@ -268,16 +307,18 @@ public class DeskOrgz extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonAssetsNamer;
-    private javax.swing.JButton buttonAssetsReplacer;
-    private javax.swing.JButton buttonFolderNamer;
-    private javax.swing.JButton buttonFolderReplacer;
     private javax.swing.JList<OrgzAssets> listAssets;
     private javax.swing.JList<OrgzFolder> listFolder;
+    private javax.swing.JPopupMenu menuAssets;
+    private javax.swing.JMenuItem menuAssetsNamer;
+    private javax.swing.JMenuItem menuAssetsOpen;
+    private javax.swing.JMenuItem menuAssetsReplacer;
+    private javax.swing.JPopupMenu menuFolder;
+    private javax.swing.JMenuItem menuFolderNamer;
+    private javax.swing.JMenuItem menuFolderOpen;
+    private javax.swing.JMenuItem menuFolderReplacer;
     private javax.swing.JScrollPane scrollAssets;
     private javax.swing.JScrollPane scrollFolder;
-    private javax.swing.JTextField searchAssets;
-    private javax.swing.JTextField searchFolder;
     private javax.swing.JSplitPane splitBody;
     // End of variables declaration//GEN-END:variables
 
@@ -320,7 +361,7 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         @Override
         public String toString() {
-            return "- " + path.getName();
+            return "|-> " + path.getName();
         }
 
     }
