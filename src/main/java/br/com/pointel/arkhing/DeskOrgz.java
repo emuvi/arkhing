@@ -263,20 +263,28 @@ public class DeskOrgz extends javax.swing.JPanel {
     }//GEN-LAST:event_menuAssetsReplacerActionPerformed
 
     private void listFolderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listFolderMouseClicked
-        if (evt.getButton() == MouseEvent.BUTTON3)
-            menuFolder.show(evt.getComponent(), evt.getX(), evt.getY());
+        SwingUtilities.invokeLater(() -> {
+            if (evt.getButton() == MouseEvent.BUTTON3 ||
+                    evt.getButton() == MouseEvent.BUTTON1 && evt.isAltDown()) {
+                menuFolder.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        });
     }//GEN-LAST:event_listFolderMouseClicked
 
     private void listAssetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listAssetsMouseClicked
-        if (evt.getButton() == MouseEvent.BUTTON3)
-            menuAssets.show(evt.getComponent(), evt.getX(), evt.getY());
+        SwingUtilities.invokeLater(() -> {
+            if (evt.getButton() == MouseEvent.BUTTON3 ||
+                    evt.getButton() == MouseEvent.BUTTON1 && evt.isAltDown()) {
+                menuAssets.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        });
     }//GEN-LAST:event_listAssetsMouseClicked
 
     private void menuFolderOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderOpenActionPerformed
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
             try {
-                Desktop.getDesktop().open(selected.path);            
+                Desktop.getDesktop().open(selected.path);
             } catch (Exception e) {
                 WizSwing.showError(e);
             }
@@ -287,7 +295,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         var selected = listAssets.getSelectedValue();
         if (selected != null) {
             try {
-                Desktop.getDesktop().open(selected.path);            
+                Desktop.getDesktop().open(selected.path);
             } catch (Exception e) {
                 WizSwing.showError(e);
             }
