@@ -1,5 +1,6 @@
 package br.com.pointel.arkhing;
 
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.function.Consumer;
 
@@ -48,6 +49,12 @@ public class ViewNamer extends javax.swing.JFrame {
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
+            }
+        });
+
+        textNamer.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textNamerKeyPressed(evt);
             }
         });
 
@@ -129,6 +136,12 @@ public class ViewNamer extends javax.swing.JFrame {
         textNamer.setSelectionEnd(0);
         textNamer.requestFocus();
     }//GEN-LAST:event_formWindowOpened
+
+    private void textNamerKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNamerKeyPressed
+        if (evt.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) {
+            WizSwing.close(this);
+        }
+    }//GEN-LAST:event_textNamerKeyPressed
 
     private void addOnName(String text) {
         var oldName = textNamer.getText();
