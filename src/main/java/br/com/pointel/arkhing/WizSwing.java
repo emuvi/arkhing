@@ -17,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -25,11 +26,19 @@ import javax.swing.KeyStroke;
 public class WizSwing {
 
     public static void showInfo(String message) {
-        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.INFORMATION_MESSAGE);
+        if (SwingUtilities.isEventDispatchThread()) {
+            JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.INFORMATION_MESSAGE));
+        }
     }
 
     public static void showError(Throwable error) {
-        JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        if (SwingUtilities.isEventDispatchThread()) {
+            JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE));
+        }
     }
 
     public static boolean showConfirm(String message) {

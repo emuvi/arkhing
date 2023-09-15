@@ -10,16 +10,18 @@ public class Desk extends javax.swing.JFrame {
     private final DeskOrgz deskOrgz = new DeskOrgz(this);
     private final DeskName deskName = new DeskName(this);
     private final DeskDocs deskDocs = new DeskDocs(this);
+    private final DeskCapt deskCapt = new DeskCapt(this);
     
     public volatile ArkhBase arkhBase = null;
     
     public Desk() {
         initComponents();
-        tabsBody.addTab("ArkhBase", deskBase);
-        tabsBody.addTab("ArkhPack", deskPack);
-        tabsBody.addTab("ArkhOrgz", deskOrgz);
-        tabsBody.addTab("ArkhName", deskName);
-        tabsBody.addTab("ArkhDocs", deskDocs);
+        tabsBody.addTab("Base", deskBase);
+        tabsBody.addTab("Pack", deskPack);
+        tabsBody.addTab("Orgz", deskOrgz);
+        tabsBody.addTab("Name", deskName);
+        tabsBody.addTab("Docs", deskDocs);
+        tabsBody.addTab("Capt", deskCapt);
         WizSwing.initPositioner(this);
     }
     
