@@ -250,7 +250,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     }//GEN-LAST:event_menuFolderReplacerActionPerformed
 
     private void menuAssetsNamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsNamerActionPerformed
-        var selected = listFolder.getSelectedValue();
+        var selected = listAssets.getSelectedValue();
         if (selected != null) {
             new ViewNamer(selected.path, (newName) -> {
                 renameOrgz(selected, newName);
