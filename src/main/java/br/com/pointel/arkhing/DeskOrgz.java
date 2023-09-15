@@ -7,7 +7,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import javax.swing.DefaultListModel;
 import javax.swing.SwingUtilities;
@@ -18,17 +17,17 @@ import org.apache.commons.io.FilenameUtils;
  * @author emuvi
  */
 public class DeskOrgz extends javax.swing.JPanel {
-    
+
     private final Desk desk;
-    
+
     private final DefaultListModel<OrgzFolder> modelFolder = new DefaultListModel<>();
     private final DefaultListModel<OrgzAssets> modelAssets = new DefaultListModel<>();
-    
+
     public DeskOrgz(Desk desk) {
         this.desk = desk;
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -164,27 +163,27 @@ public class DeskOrgz extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private volatile File lastLoadedBase = null;
-    
+
     public void initUpdater() {
         WizBase.startDaemon(() -> {
             while (desk.isVisible()) {
                 WizBase.sleep(500);
-                if (desk.arkhBase != null) {
-                    if (!Objects.equals(lastLoadedBase, desk.arkhBase.root)) {
-                        lastLoadedBase = desk.arkhBase.root;
-                        updateFolder(lastLoadedBase);
-                    }
+                if (!Objects.equals(lastLoadedBase, desk.arkhBase.root)) {
+                    lastLoadedBase = desk.arkhBase.root;
+                    updateFolder(lastLoadedBase);
                 }
             }
         }, "DeskOrgz - Updater");
     }
-    
+
     private void updateFolder(File path) {
         modelFolder.removeAllElements();
-        loadFolders(path, 0, new ArrayList<>())
-                .stream().forEach((folder) -> modelFolder.addElement(folder));
+        if (path != null) {
+            loadFolders(path, 0, new ArrayList<>())
+                    .stream().forEach((folder) -> modelFolder.addElement(folder));
+        }
     }
-    
+
     private List<OrgzFolder> loadFolders(File path, int depth, List<OrgzFolder> list) {
         if (path.isDirectory()) {
             list.add(new OrgzFolder(depth, path));
@@ -306,11 +305,16 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void menuAssetsOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsOpenActionPerformed
         var selected = listAssets.getSelectedValue();
         if (selected != null) {
-            try {
-                Desktop.getDesktop().open(selected.path);
-            } catch (Exception e) {
-                WizSwing.showError(e);
-            }
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        Desktop.getDesktop().open(selected.path);
+                    } catch (Exception e) {
+                        WizSwing.showError(e);
+                    }
+                }
+            }.start();
         }
     }//GEN-LAST:event_menuAssetsOpenActionPerformed
 
@@ -334,17 +338,26 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_menuAssetsParenterActionPerformed
-    
+
     private void renameOrgz(OrgzItem orgz, String newName) {
         if (Objects.equals(newName, orgz.path.getName())) {
             return;
         }
-        var destiny = new File(orgz.path.getParentFile(), newName);
-        if (orgz.path.renameTo(destiny)) {
-            orgz.path = destiny;
+        try {
+            String oldPlace = desk.arkhBase.getPlace(orgz.path);
+            var destiny = new File(orgz.path.getParentFile(), newName);
+            var oldBased = desk.arkhBase.baseData.getByPlace(oldPlace);
+            var newPlace = desk.arkhBase.getPlace(destiny);
+            if (orgz.path.renameTo(destiny)) {
+                desk.arkhBase.baseData.delFile(oldPlace);
+                desk.arkhBase.baseData.putFile(newPlace, destiny.lastModified(), oldBased.verifier);
+                orgz.path = destiny;
+            }
+            SwingUtilities.updateComponentTreeUI(listFolder);
+            SwingUtilities.updateComponentTreeUI(listAssets);
+        } catch (Exception e) {
+            WizSwing.showError(e);
         }
-        SwingUtilities.updateComponentTreeUI(listFolder);
-        SwingUtilities.updateComponentTreeUI(listAssets);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -365,24 +378,24 @@ public class DeskOrgz extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private class OrgzItem {
-        
+
         public File path;
-        
+
         public OrgzItem(File path) {
             this.path = path;
         }
-        
+
     }
-    
+
     private class OrgzFolder extends OrgzItem {
-        
+
         public int depth;
-        
+
         public OrgzFolder(int depth, File path) {
             super(path);
             this.depth = depth;
         }
-        
+
         @Override
         public String toString() {
             var result = new StringBuilder("|");
@@ -392,20 +405,20 @@ public class DeskOrgz extends javax.swing.JPanel {
             result.append(path.getName());
             return result.toString();
         }
-        
+
     }
-    
+
     private class OrgzAssets extends OrgzItem {
-        
+
         public OrgzAssets(File path) {
             super(path);
         }
-        
+
         @Override
         public String toString() {
             return "|-> " + path.getName();
         }
-        
+
     }
-    
+
 }
