@@ -210,18 +210,34 @@ public class DeskOrgz extends javax.swing.JPanel {
     }//GEN-LAST:event_listFolderValueChanged
 
     private void listFolderKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listFolderKeyPressed
-        if (evt.getExtendedKeyCode() == KeyEvent.VK_F2) {
-            menuFolderNamerActionPerformed(null);
-        } else if (evt.getExtendedKeyCode() == KeyEvent.VK_F3) {
-            menuFolderReplacerActionPerformed(null);
+        switch (evt.getExtendedKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                menuFolderOpenActionPerformed(null);
+                break;
+            case KeyEvent.VK_F2:
+                menuFolderNamerActionPerformed(null);
+                break;
+            case KeyEvent.VK_F3:
+                menuFolderReplacerActionPerformed(null);
+                break;
+            default:
+                break;
         }
     }//GEN-LAST:event_listFolderKeyPressed
 
     private void listAssetsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listAssetsKeyPressed
-        if (evt.getExtendedKeyCode() == KeyEvent.VK_F2) {
-            menuAssetsNamerActionPerformed(null);
-        } else if (evt.getExtendedKeyCode() == KeyEvent.VK_F3) {
-            menuAssetsReplacerActionPerformed(null);
+        switch (evt.getExtendedKeyCode()) {
+            case KeyEvent.VK_ENTER:
+                menuAssetsOpenActionPerformed(null);
+                break;
+            case KeyEvent.VK_F2:
+                menuAssetsNamerActionPerformed(null);
+                break;
+            case KeyEvent.VK_F3:
+                menuAssetsReplacerActionPerformed(null);
+                break;
+            default:
+                break;
         }
     }//GEN-LAST:event_listAssetsKeyPressed
 
