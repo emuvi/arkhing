@@ -168,7 +168,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         WizBase.startDaemon(() -> {
             while (desk.isVisible()) {
                 WizBase.sleep(500);
-                if (!Objects.equals(lastLoadedBase, desk.arkhBase.root)) {
+                if (!Objects.equals(lastLoadedBase, desk.arkhBase == null ? null : desk.arkhBase.root)) {
                     lastLoadedBase = desk.arkhBase.root;
                     updateFolder(lastLoadedBase);
                 }
