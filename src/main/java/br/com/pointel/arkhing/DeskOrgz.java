@@ -245,7 +245,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
             new ViewNamer(selected.path, (newName) -> {
-                renameOrgz(selected, newName);
+                renameFolder(selected, newName);
                 listFolder.requestFocus();
             }).setVisible(true);
         }
@@ -258,7 +258,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 for (var itemSelected : allSelected) {
                     var oldName = itemSelected.path.getName();
                     var newName = replacer.replace(oldName);
-                    renameOrgz(itemSelected, newName);
+                    renameFolder(itemSelected, newName);
                 }
                 listFolder.requestFocus();
             }).setVisible(true);
@@ -269,7 +269,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         var selected = listAssets.getSelectedValue();
         if (selected != null) {
             new ViewNamer(selected.path, (newName) -> {
-                renameOrgz(selected, newName);
+                renameAssets(selected, newName);
                 listAssets.requestFocus();
             }).setVisible(true);
         }
@@ -282,7 +282,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 for (var itemSelected : allSelected) {
                     var oldName = itemSelected.path.getName();
                     var newName = replacer.replace(oldName);
-                    renameOrgz(itemSelected, newName);
+                    renameAssets(itemSelected, newName);
                 }
                 listAssets.requestFocus();
             }).setVisible(true);
@@ -350,12 +350,27 @@ public class DeskOrgz extends javax.swing.JPanel {
                     destinyName = parentName + " (" + index + ")." + extension;
                     destinyFile = new File(path.getParentFile(), destinyName);
                 }
-                renameOrgz(selected, destinyName);
+                renameAssets(selected, destinyName);
             }
         }
     }//GEN-LAST:event_menuAssetsParenterActionPerformed
 
-    private void renameOrgz(OrgzItem orgz, String newName) {
+    private void renameFolder(OrgzFolder orgz, String newName) {
+        if (Objects.equals(newName, orgz.path.getName())) {
+            return;
+        }
+        try {
+            var destiny = new File(orgz.path.getParentFile(), newName);
+            if (orgz.path.renameTo(destiny)) {
+                orgz.path = destiny;
+            }
+            SwingUtilities.updateComponentTreeUI(listFolder);
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }
+
+    private void renameAssets(OrgzAssets orgz, String newName) {
         if (Objects.equals(newName, orgz.path.getName())) {
             return;
         }
@@ -369,7 +384,6 @@ public class DeskOrgz extends javax.swing.JPanel {
                 desk.arkhBase.baseData.putFile(newPlace, destiny.lastModified(), oldBased.verifier);
                 orgz.path = destiny;
             }
-            SwingUtilities.updateComponentTreeUI(listFolder);
             SwingUtilities.updateComponentTreeUI(listAssets);
         } catch (Exception e) {
             WizSwing.showError(e);
