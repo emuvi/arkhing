@@ -7,8 +7,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 import java.util.stream.IntStream;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import org.apache.commons.io.FilenameUtils;
 
@@ -41,6 +43,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuAssetsNamer = new javax.swing.JMenuItem();
         menuAssetsReplacer = new javax.swing.JMenuItem();
         menuAssetsParenter = new javax.swing.JMenuItem();
+        menuAssetsRandomer = new javax.swing.JMenuItem();
         splitBody = new javax.swing.JSplitPane();
         scrollFolder = new javax.swing.JScrollPane();
         listFolder = new javax.swing.JList<>();
@@ -103,6 +106,14 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         });
         menuAssets.add(menuAssetsParenter);
+
+        menuAssetsRandomer.setText("RAndomer");
+        menuAssetsRandomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAssetsRandomerActionPerformed(evt);
+            }
+        });
+        menuAssets.add(menuAssetsRandomer);
 
         splitBody.setDividerLocation(200);
         splitBody.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -355,6 +366,33 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_menuAssetsParenterActionPerformed
 
+    private void menuAssetsRandomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsRandomerActionPerformed
+        var allSelected = listAssets.getSelectedValuesList();
+        if (allSelected == null || allSelected.isEmpty()) {
+            return;
+        }
+        var extension = JOptionPane.showInputDialog("Extension:").toLowerCase();
+        for (int i = 0; i < 100; i++) {
+            var random = new Random();
+            var attempt = random.nextInt(allSelected.size());
+            var draw = allSelected.get(attempt).path;
+            if (draw.getName().toLowerCase().endsWith(extension)) {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            WizSwing.showInfo("Opening: " + draw.getName());
+                            Desktop.getDesktop().open(draw);
+                        } catch (Exception e) {
+                            WizSwing.showError(e);
+                        }
+                    }
+                }.start();
+                break;
+            }
+        }
+    }//GEN-LAST:event_menuAssetsRandomerActionPerformed
+
     private void renameFolder(OrgzFolder orgz, String newName) {
         if (Objects.equals(newName, orgz.path.getName())) {
             return;
@@ -397,6 +435,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JMenuItem menuAssetsNamer;
     private javax.swing.JMenuItem menuAssetsOpen;
     private javax.swing.JMenuItem menuAssetsParenter;
+    private javax.swing.JMenuItem menuAssetsRandomer;
     private javax.swing.JMenuItem menuAssetsReplacer;
     private javax.swing.JPopupMenu menuFolder;
     private javax.swing.JMenuItem menuFolderNamer;
