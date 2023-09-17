@@ -1,6 +1,7 @@
 package br.com.pointel.arkhing;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.UIManager;
 
 public class Desk extends javax.swing.JFrame {
@@ -73,7 +74,7 @@ public class Desk extends javax.swing.JFrame {
 
     public static void start(String args[]) {
         try {
-            UIManager.setLookAndFeel(new FlatDarculaLaf());
+            UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
