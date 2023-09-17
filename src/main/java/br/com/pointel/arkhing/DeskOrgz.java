@@ -436,8 +436,10 @@ public class DeskOrgz extends javax.swing.JPanel {
             var oldBased = desk.arkhBase.baseData.getByPlace(oldPlace);
             var newPlace = desk.arkhBase.getPlace(destiny);
             if (orgz.path.renameTo(destiny)) {
-                desk.arkhBase.baseData.delFile(oldPlace);
-                desk.arkhBase.baseData.putFile(newPlace, destiny.lastModified(), oldBased.verifier);
+                if (oldBased != null) {
+                    desk.arkhBase.baseData.delFile(oldPlace);
+                    desk.arkhBase.baseData.putFile(newPlace, destiny.lastModified(), oldBased.verifier);
+                }
                 orgz.path = destiny;
             }
             SwingUtilities.updateComponentTreeUI(listAssets);
