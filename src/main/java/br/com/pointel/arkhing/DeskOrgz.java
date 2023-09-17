@@ -43,12 +43,14 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuFolderOpen = new javax.swing.JMenuItem();
         menuFolderNamer = new javax.swing.JMenuItem();
         menuFolderReplacer = new javax.swing.JMenuItem();
-        menuFolderProcess = new javax.swing.JMenuItem();
+        menuFolderRandom = new javax.swing.JMenuItem();
+        menuFolderGroovy = new javax.swing.JMenuItem();
         menuAssets = new javax.swing.JPopupMenu();
         menuAssetsOpen = new javax.swing.JMenuItem();
         menuAssetsNamer = new javax.swing.JMenuItem();
         menuAssetsReplacer = new javax.swing.JMenuItem();
         menuAssetsRandom = new javax.swing.JMenuItem();
+        menuAssetsGroovy = new javax.swing.JMenuItem();
         splitBody = new javax.swing.JSplitPane();
         scrollFolder = new javax.swing.JScrollPane();
         listFolder = new javax.swing.JList<>();
@@ -79,13 +81,16 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderReplacer);
 
-        menuFolderProcess.setText("Process");
-        menuFolderProcess.addActionListener(new java.awt.event.ActionListener() {
+        menuFolderRandom.setText("Random");
+        menuFolderRandom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuFolderProcessActionPerformed(evt);
+                menuFolderRandomActionPerformed(evt);
             }
         });
-        menuFolder.add(menuFolderProcess);
+        menuFolder.add(menuFolderRandom);
+
+        menuFolderGroovy.setText("Groovy");
+        menuFolder.add(menuFolderGroovy);
 
         menuAssetsOpen.setText("Open");
         menuAssetsOpen.addActionListener(new java.awt.event.ActionListener() {
@@ -111,13 +116,16 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuAssets.add(menuAssetsReplacer);
 
-        menuAssetsRandom.setText("Randomer");
+        menuAssetsRandom.setLabel("Random");
         menuAssetsRandom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuAssetsRandomActionPerformed(evt);
             }
         });
         menuAssets.add(menuAssetsRandom);
+
+        menuAssetsGroovy.setText("Groovy");
+        menuAssets.add(menuAssetsGroovy);
 
         splitBody.setDividerLocation(200);
         splitBody.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -351,34 +359,25 @@ public class DeskOrgz extends javax.swing.JPanel {
 
     private void menuAssetsRandomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsRandomActionPerformed
         var allSelected = listAssets.getSelectedValuesList();
-        if (allSelected == null || allSelected.isEmpty()) {
-            return;
-        }
-        var extension = JOptionPane.showInputDialog("Extension:").toLowerCase();
-        for (int i = 0; i < 100; i++) {
-            var random = new Random();
-            var attempt = random.nextInt(allSelected.size());
-            var draw = allSelected.get(attempt).path;
-            if (draw.getName().toLowerCase().endsWith(extension)) {
-                new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            WizSwing.showInfo("Opening: " + draw.getName());
-                            Desktop.getDesktop().open(draw);
-                        } catch (Exception e) {
-                            WizSwing.showError(e);
-                        }
-                    }
-                }.start();
-                break;
-            }
+        if (allSelected == null || allSelected.size() <= 1) {
+            listAssets.setSelectedIndex(new Random().nextInt(modelAssets.getSize()));
+            listAssets.ensureIndexIsVisible(listAssets.getSelectedIndex());
+        } else {
+            var draw = allSelected.get(new Random().nextInt(allSelected.size()));
+            listAssets.setSelectedValue(draw, true);
         }
     }//GEN-LAST:event_menuAssetsRandomActionPerformed
 
-    private void menuFolderProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderProcessActionPerformed
-        WizSwing.showConfirm("Nothing to process.");
-    }//GEN-LAST:event_menuFolderProcessActionPerformed
+    private void menuFolderRandomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderRandomActionPerformed
+        var allSelected = listFolder.getSelectedValuesList();
+        if (allSelected == null || allSelected.size() <= 1) {
+            listFolder.setSelectedIndex(new Random().nextInt(modelFolder.getSize()));
+            listFolder.ensureIndexIsVisible(listFolder.getSelectedIndex());
+        } else {
+            var draw = allSelected.get(new Random().nextInt(allSelected.size()));
+            listFolder.setSelectedValue(draw, true);
+        }
+    }//GEN-LAST:event_menuFolderRandomActionPerformed
 
     private void renameFolder(OrgzFolder orgz, String newName) {
         if (Objects.equals(newName, orgz.path.getName())) {
@@ -421,14 +420,16 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JList<OrgzAssets> listAssets;
     private javax.swing.JList<OrgzFolder> listFolder;
     private javax.swing.JPopupMenu menuAssets;
+    private javax.swing.JMenuItem menuAssetsGroovy;
     private javax.swing.JMenuItem menuAssetsNamer;
     private javax.swing.JMenuItem menuAssetsOpen;
     private javax.swing.JMenuItem menuAssetsRandom;
     private javax.swing.JMenuItem menuAssetsReplacer;
     private javax.swing.JPopupMenu menuFolder;
+    private javax.swing.JMenuItem menuFolderGroovy;
     private javax.swing.JMenuItem menuFolderNamer;
     private javax.swing.JMenuItem menuFolderOpen;
-    private javax.swing.JMenuItem menuFolderProcess;
+    private javax.swing.JMenuItem menuFolderRandom;
     private javax.swing.JMenuItem menuFolderReplacer;
     private javax.swing.JScrollPane scrollAssets;
     private javax.swing.JScrollPane scrollFolder;

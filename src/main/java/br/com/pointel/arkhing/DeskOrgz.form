@@ -32,13 +32,18 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFolderReplacerActionPerformed"/>
           </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="menuFolderProcess">
+        <MenuItem class="javax.swing.JMenuItem" name="menuFolderRandom">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Process"/>
+            <Property name="text" type="java.lang.String" value="Random"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFolderProcessActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFolderRandomActionPerformed"/>
           </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="menuFolderGroovy">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Groovy"/>
+          </Properties>
         </MenuItem>
       </SubComponents>
     </Container>
@@ -74,11 +79,16 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuAssetsRandom">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Randomer"/>
+            <Property name="label" type="java.lang.String" value="Random"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAssetsRandomActionPerformed"/>
           </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="menuAssetsGroovy">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Groovy"/>
+          </Properties>
         </MenuItem>
       </SubComponents>
     </Container>
