@@ -4,10 +4,15 @@ import java.awt.Desktop;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.IntStream;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -38,6 +43,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuFolderOpen = new javax.swing.JMenuItem();
         menuFolderNamer = new javax.swing.JMenuItem();
         menuFolderReplacer = new javax.swing.JMenuItem();
+        menuFolderProcess = new javax.swing.JMenuItem();
         menuAssets = new javax.swing.JPopupMenu();
         menuAssetsOpen = new javax.swing.JMenuItem();
         menuAssetsNamer = new javax.swing.JMenuItem();
@@ -73,6 +79,14 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         });
         menuFolder.add(menuFolderReplacer);
+
+        menuFolderProcess.setText("Process");
+        menuFolderProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFolderProcessActionPerformed(evt);
+            }
+        });
+        menuFolder.add(menuFolderProcess);
 
         menuAssetsOpen.setText("Open");
         menuAssetsOpen.addActionListener(new java.awt.event.ActionListener() {
@@ -393,6 +407,10 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_menuAssetsRandomerActionPerformed
 
+    private void menuFolderProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderProcessActionPerformed
+        WizSwing.showConfirm("Nothing to process.");
+    }//GEN-LAST:event_menuFolderProcessActionPerformed
+
     private void renameFolder(OrgzFolder orgz, String newName) {
         if (Objects.equals(newName, orgz.path.getName())) {
             return;
@@ -440,6 +458,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JPopupMenu menuFolder;
     private javax.swing.JMenuItem menuFolderNamer;
     private javax.swing.JMenuItem menuFolderOpen;
+    private javax.swing.JMenuItem menuFolderProcess;
     private javax.swing.JMenuItem menuFolderReplacer;
     private javax.swing.JScrollPane scrollAssets;
     private javax.swing.JScrollPane scrollFolder;
