@@ -75,7 +75,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuAssetsRandomer">
           <Properties>
-            <Property name="text" type="java.lang.String" value="RAndomer"/>
+            <Property name="text" type="java.lang.String" value="Randomer"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAssetsRandomerActionPerformed"/>

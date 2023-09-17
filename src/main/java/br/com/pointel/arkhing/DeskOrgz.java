@@ -107,7 +107,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuAssets.add(menuAssetsParenter);
 
-        menuAssetsRandomer.setText("RAndomer");
+        menuAssetsRandomer.setText("Randomer");
         menuAssetsRandomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuAssetsRandomerActionPerformed(evt);
