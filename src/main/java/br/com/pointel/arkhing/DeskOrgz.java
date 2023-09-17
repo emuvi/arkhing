@@ -48,8 +48,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuAssetsOpen = new javax.swing.JMenuItem();
         menuAssetsNamer = new javax.swing.JMenuItem();
         menuAssetsReplacer = new javax.swing.JMenuItem();
-        menuAssetsParenter = new javax.swing.JMenuItem();
-        menuAssetsRandomer = new javax.swing.JMenuItem();
+        menuAssetsRandom = new javax.swing.JMenuItem();
         splitBody = new javax.swing.JSplitPane();
         scrollFolder = new javax.swing.JScrollPane();
         listFolder = new javax.swing.JList<>();
@@ -112,22 +111,13 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuAssets.add(menuAssetsReplacer);
 
-        menuAssetsParenter.setMnemonic('P');
-        menuAssetsParenter.setText("Parenter");
-        menuAssetsParenter.addActionListener(new java.awt.event.ActionListener() {
+        menuAssetsRandom.setText("Randomer");
+        menuAssetsRandom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAssetsParenterActionPerformed(evt);
+                menuAssetsRandomActionPerformed(evt);
             }
         });
-        menuAssets.add(menuAssetsParenter);
-
-        menuAssetsRandomer.setText("Randomer");
-        menuAssetsRandomer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAssetsRandomerActionPerformed(evt);
-            }
-        });
-        menuAssets.add(menuAssetsRandomer);
+        menuAssets.add(menuAssetsRandom);
 
         splitBody.setDividerLocation(200);
         splitBody.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -359,28 +349,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_menuAssetsOpenActionPerformed
 
-    private void menuAssetsParenterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsParenterActionPerformed
-        var allSelected = listAssets.getSelectedValuesList();
-        if (allSelected != null) {
-            allSelected.sort((e1, e2) -> ((Long) e2.path.length()).compareTo(e1.path.length()));
-            for (var selected : allSelected) {
-                var path = selected.path;
-                var parentName = path.getParentFile().getName();
-                var index = 1;
-                var extension = FilenameUtils.getExtension(path.getName());
-                var destinyName = parentName + " (" + index + ")." + extension;
-                var destinyFile = new File(path.getParentFile(), destinyName);
-                while (destinyFile.exists()) {
-                    index++;
-                    destinyName = parentName + " (" + index + ")." + extension;
-                    destinyFile = new File(path.getParentFile(), destinyName);
-                }
-                renameAssets(selected, destinyName);
-            }
-        }
-    }//GEN-LAST:event_menuAssetsParenterActionPerformed
-
-    private void menuAssetsRandomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsRandomerActionPerformed
+    private void menuAssetsRandomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsRandomActionPerformed
         var allSelected = listAssets.getSelectedValuesList();
         if (allSelected == null || allSelected.isEmpty()) {
             return;
@@ -405,7 +374,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 break;
             }
         }
-    }//GEN-LAST:event_menuAssetsRandomerActionPerformed
+    }//GEN-LAST:event_menuAssetsRandomActionPerformed
 
     private void menuFolderProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderProcessActionPerformed
         WizSwing.showConfirm("Nothing to process.");
@@ -454,8 +423,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JPopupMenu menuAssets;
     private javax.swing.JMenuItem menuAssetsNamer;
     private javax.swing.JMenuItem menuAssetsOpen;
-    private javax.swing.JMenuItem menuAssetsParenter;
-    private javax.swing.JMenuItem menuAssetsRandomer;
+    private javax.swing.JMenuItem menuAssetsRandom;
     private javax.swing.JMenuItem menuAssetsReplacer;
     private javax.swing.JPopupMenu menuFolder;
     private javax.swing.JMenuItem menuFolderNamer;
