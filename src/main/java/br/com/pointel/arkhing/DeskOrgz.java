@@ -40,12 +40,14 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void initComponents() {
 
         menuFolder = new javax.swing.JPopupMenu();
+        menuFolderNew = new javax.swing.JMenuItem();
         menuFolderOpen = new javax.swing.JMenuItem();
         menuFolderNamer = new javax.swing.JMenuItem();
         menuFolderReplacer = new javax.swing.JMenuItem();
         menuFolderRandom = new javax.swing.JMenuItem();
         menuFolderGroovy = new javax.swing.JMenuItem();
         menuAssets = new javax.swing.JPopupMenu();
+        menuAssetsNew = new javax.swing.JMenuItem();
         menuAssetsOpen = new javax.swing.JMenuItem();
         menuAssetsNamer = new javax.swing.JMenuItem();
         menuAssetsReplacer = new javax.swing.JMenuItem();
@@ -56,6 +58,14 @@ public class DeskOrgz extends javax.swing.JPanel {
         listFolder = new javax.swing.JList<>();
         scrollAssets = new javax.swing.JScrollPane();
         listAssets = new javax.swing.JList<>();
+
+        menuFolderNew.setText("New");
+        menuFolderNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFolderNewActionPerformed(evt);
+            }
+        });
+        menuFolder.add(menuFolderNew);
 
         menuFolderOpen.setText("Open");
         menuFolderOpen.addActionListener(new java.awt.event.ActionListener() {
@@ -91,6 +101,14 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         menuFolderGroovy.setText("Groovy");
         menuFolder.add(menuFolderGroovy);
+
+        menuAssetsNew.setText("New");
+        menuAssetsNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAssetsNewActionPerformed(evt);
+            }
+        });
+        menuAssets.add(menuAssetsNew);
 
         menuAssetsOpen.setText("Open");
         menuAssetsOpen.addActionListener(new java.awt.event.ActionListener() {
@@ -379,6 +397,62 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_menuFolderRandomActionPerformed
 
+    private void menuFolderNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderNewActionPerformed
+        var selected = listFolder.getSelectedValue();
+        if (selected != null) {
+            new ViewNamer(selected.path, (newName) -> {
+                try {
+                    var newFolder = new File(selected.path.getParentFile(), newName);
+                    if (newFolder.mkdir()) {
+                        var index = modelFolder.indexOf(selected);
+                        modelFolder.insertElementAt(new OrgzFolder(selected.depth, newFolder), index + 1);
+                        listFolder.setSelectedIndex(index + 1);
+                        listFolder.ensureIndexIsVisible(index + 1);
+                    }
+                } catch (Exception e) {
+                    WizSwing.showError(e);
+                }
+            }).setVisible(true);
+        }
+    }//GEN-LAST:event_menuFolderNewActionPerformed
+
+    private void menuAssetsNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsNewActionPerformed
+        File baseFolder = null;
+        File targetFile = null;
+        int baseIndex = -1;
+        var selectedAsset = listAssets.getSelectedValue();
+        if (selectedAsset != null) {
+            baseFolder = selectedAsset.path.getParentFile();
+            targetFile = selectedAsset.path;
+            baseIndex = modelAssets.indexOf(selectedAsset);
+        } else {
+            var selectedFolder = listFolder.getSelectedValue();
+            if (selectedFolder != null) {
+                baseFolder = selectedFolder.path;
+                targetFile = selectedFolder.path;
+            } else {
+                baseFolder = desk.arkhBase.root;
+                targetFile = desk.arkhBase.root;
+            }
+        }
+        var finalBaseFolder = baseFolder;
+        var finalBaseIndex = baseIndex;
+        new ViewNamer(targetFile, (newName) -> {
+            try {
+                var newAsset = new File(finalBaseFolder, newName);
+                if (newAsset.createNewFile()) {
+                    modelAssets.insertElementAt(new OrgzAssets(newAsset), finalBaseIndex + 1);
+                    listAssets.setSelectedIndex(finalBaseIndex + 1);
+                    listAssets.ensureIndexIsVisible(finalBaseIndex + 1);
+                } else {
+                    throw new Exception("Could not create the new file.");
+                }
+            } catch (Exception e) {
+                WizSwing.showError(e);
+            }
+        }).setVisible(true);
+    }//GEN-LAST:event_menuAssetsNewActionPerformed
+
     private void renameFolder(OrgzFolder orgz, String newName) {
         if (Objects.equals(newName, orgz.path.getName())) {
             return;
@@ -422,12 +496,14 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JPopupMenu menuAssets;
     private javax.swing.JMenuItem menuAssetsGroovy;
     private javax.swing.JMenuItem menuAssetsNamer;
+    private javax.swing.JMenuItem menuAssetsNew;
     private javax.swing.JMenuItem menuAssetsOpen;
     private javax.swing.JMenuItem menuAssetsRandom;
     private javax.swing.JMenuItem menuAssetsReplacer;
     private javax.swing.JPopupMenu menuFolder;
     private javax.swing.JMenuItem menuFolderGroovy;
     private javax.swing.JMenuItem menuFolderNamer;
+    private javax.swing.JMenuItem menuFolderNew;
     private javax.swing.JMenuItem menuFolderOpen;
     private javax.swing.JMenuItem menuFolderRandom;
     private javax.swing.JMenuItem menuFolderReplacer;
