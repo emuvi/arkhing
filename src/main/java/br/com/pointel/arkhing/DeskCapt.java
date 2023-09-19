@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -142,7 +143,9 @@ public class DeskCapt extends javax.swing.JPanel {
     private volatile boolean making = false;
 
     private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartActionPerformed
-        if (!making) {
+        if (making) {
+            making = false;
+        } else {
             making = true;
             buttonStart.setText("Stop");
             var totalPages = (Integer) editPages.getValue();
@@ -152,28 +155,38 @@ public class DeskCapt extends javax.swing.JPanel {
             new Thread() {
                 @Override
                 public void run() {
-                    var indexPage = 0;
-                    while (making && indexPage < totalPages) {
-                        try {
-                            indexPage++;
+                    try {
+                        var indexMaking = 0;
+                        while (making && indexMaking < totalPages) {
+                            indexMaking++;
                             var robot = new Robot();
+                            var indexPage = 1;
                             var pageNameSuffix = StringUtils.leftPad(String.valueOf(indexPage), 3, '0');
+                            var filePage = new File(destinyFolder, "page-" + pageNameSuffix + ".png");
+                            while (filePage.exists()) {
+                                indexPage++;
+                                pageNameSuffix = StringUtils.leftPad(String.valueOf(indexPage), 3, '0');
+                                filePage = new File(destinyFolder, "page-" + pageNameSuffix + ".png");
+                            }
                             BufferedImage capture = robot.createScreenCapture(captureSource);
-                            ImageIO.write(capture, "PNG", new File(destinyFolder, "page-" + pageNameSuffix + ".png"));
-                            robot.delay(700);
+                            ImageIO.write(capture, "PNG", filePage);
                             robot.mouseMove(middlePoint.x, middlePoint.y);
-                            robot.delay(700);
+                            robot.delay(300);
                             robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-                            robot.delay(700);
+                            robot.delay(300);
                             robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-                            robot.delay(700);
+                            robot.delay(500);
                             robot.keyPress(KeyEvent.VK_RIGHT);
-                            robot.delay(700);
+                            robot.delay(300);
                             robot.keyRelease(KeyEvent.VK_RIGHT);
                             robot.delay(700);
-                        } catch (Exception e) {
-                            WizSwing.showError(e);
                         }
+                    } catch (Exception e) {
+                        WizSwing.showError(e);
+                    } finally {
+                        making = false;
+                        SwingUtilities.invokeLater(() -> buttonStart.setText("Start"));
+                        WizSwing.showInfo("Done Capture");
                     }
                 }
             }.start();
