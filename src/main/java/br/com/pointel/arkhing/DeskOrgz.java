@@ -41,6 +41,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void initComponents() {
 
         menuFolder = new javax.swing.JPopupMenu();
+        menuFolderSearch = new javax.swing.JMenuItem();
         menuFolderNew = new javax.swing.JMenuItem();
         menuFolderOpen = new javax.swing.JMenuItem();
         menuFolderNamer = new javax.swing.JMenuItem();
@@ -49,6 +50,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuFolderRandom = new javax.swing.JMenuItem();
         menuFolderGroovy = new javax.swing.JMenuItem();
         menuAssets = new javax.swing.JPopupMenu();
+        menuAssetsSearch = new javax.swing.JMenuItem();
         menuAssetsNew = new javax.swing.JMenuItem();
         menuAssetsOpen = new javax.swing.JMenuItem();
         menuAssetsNamer = new javax.swing.JMenuItem();
@@ -61,6 +63,14 @@ public class DeskOrgz extends javax.swing.JPanel {
         listFolder = new javax.swing.JList<>();
         scrollAssets = new javax.swing.JScrollPane();
         listAssets = new javax.swing.JList<>();
+
+        menuFolderSearch.setText("Search");
+        menuFolderSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFolderSearchActionPerformed(evt);
+            }
+        });
+        menuFolder.add(menuFolderSearch);
 
         menuFolderNew.setText("New");
         menuFolderNew.addActionListener(new java.awt.event.ActionListener() {
@@ -112,6 +122,14 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         menuFolderGroovy.setText("Groovy");
         menuFolder.add(menuFolderGroovy);
+
+        menuAssetsSearch.setText("Search");
+        menuAssetsSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAssetsSearchActionPerformed(evt);
+            }
+        });
+        menuAssets.add(menuAssetsSearch);
 
         menuAssetsNew.setText("New");
         menuAssetsNew.addActionListener(new java.awt.event.ActionListener() {
@@ -278,7 +296,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 menuFolderNamerActionPerformed(null);
                 break;
             case KeyEvent.VK_F3:
-                menuFolderReplacerActionPerformed(null);
+                searchNextFolder();
                 break;
             default:
                 break;
@@ -294,7 +312,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 menuAssetsNamerActionPerformed(null);
                 break;
             case KeyEvent.VK_F3:
-                menuAssetsReplacerActionPerformed(null);
+                searchNextAssets();
                 break;
             default:
                 break;
@@ -526,6 +544,70 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_menuAssetsAddIndexActionPerformed
 
+    private String searchFolder = "";
+    
+    private void menuFolderSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderSearchActionPerformed
+        var input = JOptionPane.showInputDialog("Search Folder:", searchFolder);
+        if (input == null || input.isBlank()) {
+            return;
+        }
+        searchFolder = input.trim();
+        searchNextFolder();
+    }//GEN-LAST:event_menuFolderSearchActionPerformed
+
+    private void searchNextFolder() {
+        if (searchFolder.isBlank()) {
+            return;
+        }
+        int index = listFolder.getSelectedIndex();
+        for (int i = index + 1; i < modelFolder.getSize(); i++) {
+            if (modelFolder.get(i).toString().toLowerCase()
+                    .contains(searchFolder.toLowerCase())) {
+                listFolder.setSelectedValue(modelFolder.get(i), true);
+                return;
+            }
+        }
+        for (int i = 0; i < index; i++) {
+            if (modelFolder.get(i).toString().toLowerCase()
+                    .contains(searchFolder.toLowerCase())) {
+                listFolder.setSelectedValue(modelFolder.get(i), true);
+                return;
+            }
+        }
+    }
+    
+    private String searchAssets = "";
+    
+    private void menuAssetsSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsSearchActionPerformed
+        var input = JOptionPane.showInputDialog("Search Assets:", searchAssets);
+        if (input == null || input.isBlank()) {
+            return;
+        }
+        searchAssets = input.trim();
+        searchNextAssets();
+    }//GEN-LAST:event_menuAssetsSearchActionPerformed
+
+    private void searchNextAssets() {
+        if (searchAssets.isBlank()) {
+            return;
+        }
+        int index = listAssets.getSelectedIndex();
+        for (int i = index + 1; i < modelAssets.getSize(); i++) {
+            if (modelAssets.get(i).toString().toLowerCase()
+                    .contains(searchFolder.toLowerCase())) {
+                listAssets.setSelectedValue(modelAssets.get(i), true);
+                return;
+            }
+        }
+        for (int i = 0; i < index; i++) {
+            if (modelAssets.get(i).toString().toLowerCase()
+                    .contains(searchFolder.toLowerCase())) {
+                listAssets.setSelectedValue(modelAssets.get(i), true);
+                return;
+            }
+        }
+    }
+    
     private String getNameWithNewIndex(String name, int addIndex) {
         int begin = -1;
         int end = name.length();
@@ -599,6 +681,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JMenuItem menuAssetsOpen;
     private javax.swing.JMenuItem menuAssetsRandom;
     private javax.swing.JMenuItem menuAssetsReplacer;
+    private javax.swing.JMenuItem menuAssetsSearch;
     private javax.swing.JPopupMenu menuFolder;
     private javax.swing.JMenuItem menuFolderAddIndex;
     private javax.swing.JMenuItem menuFolderGroovy;
@@ -607,6 +690,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JMenuItem menuFolderOpen;
     private javax.swing.JMenuItem menuFolderRandom;
     private javax.swing.JMenuItem menuFolderReplacer;
+    private javax.swing.JMenuItem menuFolderSearch;
     private javax.swing.JScrollPane scrollAssets;
     private javax.swing.JScrollPane scrollFolder;
     private javax.swing.JSplitPane splitBody;
