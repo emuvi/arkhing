@@ -150,7 +150,7 @@ public class DeskCapt extends javax.swing.JPanel {
             buttonStart.setText("Stop");
             var totalPages = (Integer) editPages.getValue();
             var captureSource = source;
-            var middlePoint = new Point(source.x + (source.width / 2), source.y + (source.height / 2));
+            var clickPoint = new Point(source.x + 10, source.y + 10);
             var destinyFolder = new File(editDestiny.getText());
             new Thread() {
                 @Override
@@ -170,7 +170,7 @@ public class DeskCapt extends javax.swing.JPanel {
                             }
                             BufferedImage capture = robot.createScreenCapture(captureSource);
                             ImageIO.write(capture, "PNG", filePage);
-                            robot.mouseMove(middlePoint.x, middlePoint.y);
+                            robot.mouseMove(clickPoint.x, clickPoint.y);
                             robot.delay(300);
                             robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
                             robot.delay(300);
@@ -179,6 +179,8 @@ public class DeskCapt extends javax.swing.JPanel {
                             robot.keyPress(KeyEvent.VK_RIGHT);
                             robot.delay(300);
                             robot.keyRelease(KeyEvent.VK_RIGHT);
+                            SwingUtilities.invokeLater(() -> buttonStart.requestFocus());
+                            SwingUtilities.invokeLater(() -> buttonStart.requestFocusInWindow());
                             robot.delay(700);
                         }
                     } catch (Exception e) {
