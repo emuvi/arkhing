@@ -18,6 +18,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -44,6 +45,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuFolderOpen = new javax.swing.JMenuItem();
         menuFolderNamer = new javax.swing.JMenuItem();
         menuFolderReplacer = new javax.swing.JMenuItem();
+        menuFolderAddIndex = new javax.swing.JMenuItem();
         menuFolderRandom = new javax.swing.JMenuItem();
         menuFolderGroovy = new javax.swing.JMenuItem();
         menuAssets = new javax.swing.JPopupMenu();
@@ -51,6 +53,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuAssetsOpen = new javax.swing.JMenuItem();
         menuAssetsNamer = new javax.swing.JMenuItem();
         menuAssetsReplacer = new javax.swing.JMenuItem();
+        menuAssetsAddIndex = new javax.swing.JMenuItem();
         menuAssetsRandom = new javax.swing.JMenuItem();
         menuAssetsGroovy = new javax.swing.JMenuItem();
         splitBody = new javax.swing.JSplitPane();
@@ -90,6 +93,14 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         });
         menuFolder.add(menuFolderReplacer);
+
+        menuFolderAddIndex.setText("Add Index");
+        menuFolderAddIndex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFolderAddIndexActionPerformed(evt);
+            }
+        });
+        menuFolder.add(menuFolderAddIndex);
 
         menuFolderRandom.setText("Random");
         menuFolderRandom.addActionListener(new java.awt.event.ActionListener() {
@@ -133,6 +144,14 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         });
         menuAssets.add(menuAssetsReplacer);
+
+        menuAssetsAddIndex.setText("Add Index");
+        menuAssetsAddIndex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAssetsAddIndexActionPerformed(evt);
+            }
+        });
+        menuAssets.add(menuAssetsAddIndex);
 
         menuAssetsRandom.setLabel("Random");
         menuAssetsRandom.addActionListener(new java.awt.event.ActionListener() {
@@ -453,6 +472,85 @@ public class DeskOrgz extends javax.swing.JPanel {
         }).setVisible(true);
     }//GEN-LAST:event_menuAssetsNewActionPerformed
 
+    private void menuFolderAddIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderAddIndexActionPerformed
+        var input = JOptionPane.showInputDialog("Index to add:", "1");
+        if (input != null && !input.isBlank()) {
+            var addIndex = Integer.valueOf(input);
+            if (addIndex == 0) {
+                return;
+            }
+            var allSelected = listFolder.getSelectedValuesList();
+            if (allSelected == null) {
+                return;
+            }
+            if (addIndex < 0) {
+                for (int i = 0; i < allSelected.size(); i++) {
+                    var selected = allSelected.get(i);
+                    var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
+                    renameFolder(selected, newName);
+                }
+            } else {
+                for (int i = allSelected.size() - 1; i >= 0; i--) {
+                    var selected = allSelected.get(i);
+                    var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
+                    renameFolder(selected, newName);
+                }
+            }
+        }
+    }//GEN-LAST:event_menuFolderAddIndexActionPerformed
+
+    private void menuAssetsAddIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsAddIndexActionPerformed
+        var input = JOptionPane.showInputDialog("Index to add:", "1");
+        if (input != null && !input.isBlank()) {
+            var addIndex = Integer.valueOf(input);
+            if (addIndex == 0) {
+                return;
+            }
+            var allSelected = listAssets.getSelectedValuesList();
+            if (allSelected == null) {
+                return;
+            }
+            if (addIndex < 0) {
+                for (int i = 0; i < allSelected.size(); i++) {
+                    var selected = allSelected.get(i);
+                    var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
+                    renameAssets(selected, newName);
+                }
+            } else {
+                for (int i = allSelected.size() - 1; i >= 0; i--) {
+                    var selected = allSelected.get(i);
+                    var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
+                    renameAssets(selected, newName);
+                }
+            }
+        }
+    }//GEN-LAST:event_menuAssetsAddIndexActionPerformed
+
+    private String getNameWithNewIndex(String name, int addIndex) {
+        int begin = -1;
+        int end = name.length();
+        for (int i = 0; i < name.length(); i++) {
+            var charAt = name.charAt(i);
+            if (begin == -1) {
+                if (Character.isDigit(charAt)) {
+                    begin = i;
+                }
+            } else {
+                if (!Character.isDigit(charAt)) {
+                    end = i;
+                    break;
+                }
+            }
+        }
+        if (begin == -1) {
+            return name;
+        }
+        var number = Integer.parseInt(name.substring(begin, end));
+        var newNumber = number + addIndex;
+        var newNameNumber = StringUtils.leftPad(newNumber + "", end - begin, '0');
+        return name.substring(0, begin) + newNameNumber + name.substring(end);
+    }
+
     private void renameFolder(OrgzFolder orgz, String newName) {
         if (Objects.equals(newName, orgz.path.getName())) {
             return;
@@ -494,6 +592,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JList<OrgzAssets> listAssets;
     private javax.swing.JList<OrgzFolder> listFolder;
     private javax.swing.JPopupMenu menuAssets;
+    private javax.swing.JMenuItem menuAssetsAddIndex;
     private javax.swing.JMenuItem menuAssetsGroovy;
     private javax.swing.JMenuItem menuAssetsNamer;
     private javax.swing.JMenuItem menuAssetsNew;
@@ -501,6 +600,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JMenuItem menuAssetsRandom;
     private javax.swing.JMenuItem menuAssetsReplacer;
     private javax.swing.JPopupMenu menuFolder;
+    private javax.swing.JMenuItem menuFolderAddIndex;
     private javax.swing.JMenuItem menuFolderGroovy;
     private javax.swing.JMenuItem menuFolderNamer;
     private javax.swing.JMenuItem menuFolderNew;

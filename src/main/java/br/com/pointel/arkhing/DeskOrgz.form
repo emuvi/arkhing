@@ -40,6 +40,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFolderReplacerActionPerformed"/>
           </Events>
         </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="menuFolderAddIndex">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Add Index"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFolderAddIndexActionPerformed"/>
+          </Events>
+        </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderRandom">
           <Properties>
             <Property name="text" type="java.lang.String" value="Random"/>
@@ -91,6 +99,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAssetsReplacerActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="menuAssetsAddIndex">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Add Index"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAssetsAddIndexActionPerformed"/>
           </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuAssetsRandom">
