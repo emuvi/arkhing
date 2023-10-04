@@ -19,7 +19,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="splitPack" alignment="0" pref="635" max="32767" attributes="0"/>
+                  <Component id="splitPack" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="editWatch" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -42,7 +42,7 @@
                   <Component id="buttonWatch" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="splitPack" pref="347" max="32767" attributes="0"/>
+              <Component id="splitPack" pref="413" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -115,14 +115,33 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="buttonProcess" max="32767" attributes="0"/>
-                          <Component id="textClipboard" alignment="0" pref="623" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="editClipboard" alignment="0" pref="623" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
                               <Component id="labelClipboard" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="buttonProcess" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="editDestinyFolder" min="-2" pref="450" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="labelDestinyFolder" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="buttonDestinyFolder" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="labelDestinyName" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="buttonCopy" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="editDestinyName" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -135,9 +154,21 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="labelClipboard" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="textClipboard" min="-2" max="-2" attributes="0"/>
+                      <Component id="editClipboard" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonProcess" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="labelDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelDestinyName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonCopy" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="editDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="editDestinyName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonProcess" pref="89" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -149,7 +180,7 @@
                 <Property name="text" type="java.lang.String" value="Clipboard"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textClipboard">
+            <Component class="javax.swing.JTextField" name="editClipboard">
             </Component>
             <Component class="javax.swing.JButton" name="buttonProcess">
               <Properties>
@@ -157,6 +188,36 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonProcessActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="labelDestinyFolder">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Destiny Folder"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="editDestinyFolder">
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonDestinyFolder">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Select"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDestinyFolderActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="labelDestinyName">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Destiny Name"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="editDestinyName">
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonCopy">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Copy"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCopyActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

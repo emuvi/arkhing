@@ -9,6 +9,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.DefaultListModel;
 import javax.swing.SwingUtilities;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  *
@@ -19,7 +20,8 @@ public class DeskPack extends javax.swing.JPanel {
     private final Desk desk;
 
     private final DefaultListModel<WatchFoundDisplay> modelWatch = new DefaultListModel<>();
-    private final List<WatchFound> watchFounds = new ArrayList<WatchFound>();
+    private final List<WatchFound> watchFounds = new ArrayList<>();
+    private final AtomicBoolean hasWatchChanges = new AtomicBoolean(true);
 
     public DeskPack(Desk desk) {
         this.desk = desk;
@@ -38,8 +40,14 @@ public class DeskPack extends javax.swing.JPanel {
         listWatch = new javax.swing.JList<>();
         panelWatch = new javax.swing.JPanel();
         labelClipboard = new javax.swing.JLabel();
-        textClipboard = new javax.swing.JTextField();
+        editClipboard = new javax.swing.JTextField();
         buttonProcess = new javax.swing.JButton();
+        labelDestinyFolder = new javax.swing.JLabel();
+        editDestinyFolder = new javax.swing.JTextField();
+        buttonDestinyFolder = new javax.swing.JButton();
+        labelDestinyName = new javax.swing.JLabel();
+        editDestinyName = new javax.swing.JTextField();
+        buttonCopy = new javax.swing.JButton();
 
         editWatch.setEditable(false);
         editWatch.setText(WizProps.get("DESK_PACK_WATCH", ""));
@@ -71,18 +79,50 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
 
+        labelDestinyFolder.setText("Destiny Folder");
+
+        buttonDestinyFolder.setText("Select");
+        buttonDestinyFolder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDestinyFolderActionPerformed(evt);
+            }
+        });
+
+        labelDestinyName.setText("Destiny Name");
+
+        buttonCopy.setText("Copy");
+        buttonCopy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCopyActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelWatchLayout = new javax.swing.GroupLayout(panelWatch);
         panelWatch.setLayout(panelWatchLayout);
         panelWatchLayout.setHorizontalGroup(
             panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelWatchLayout.createSequentialGroup()
+            .addGroup(panelWatchLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(buttonProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textClipboard, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelWatchLayout.createSequentialGroup()
+                .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(editClipboard, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
+                    .addGroup(panelWatchLayout.createSequentialGroup()
                         .addComponent(labelClipboard)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(buttonProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelWatchLayout.createSequentialGroup()
+                        .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(editDestinyFolder, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelWatchLayout.createSequentialGroup()
+                                .addComponent(labelDestinyFolder)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonDestinyFolder)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelWatchLayout.createSequentialGroup()
+                                .addComponent(labelDestinyName)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(buttonCopy))
+                            .addComponent(editDestinyName))))
                 .addContainerGap())
         );
         panelWatchLayout.setVerticalGroup(
@@ -91,9 +131,19 @@ public class DeskPack extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(labelClipboard)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textClipboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editClipboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDestinyFolder)
+                    .addComponent(labelDestinyName)
+                    .addComponent(buttonDestinyFolder)
+                    .addComponent(buttonCopy))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editDestinyFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editDestinyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -106,7 +156,7 @@ public class DeskPack extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(splitPack, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
+                    .addComponent(splitPack)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(editWatch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -124,7 +174,7 @@ public class DeskPack extends javax.swing.JPanel {
                     .addComponent(checkWatch)
                     .addComponent(buttonWatch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(splitPack, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+                .addComponent(splitPack, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -156,6 +206,9 @@ public class DeskPack extends javax.swing.JPanel {
                                 } else {
                                     for (var place : watchFound.places) {
                                         modelWatch.addElement(new WatchFoundPlace(watchFound, place));
+                                        var destiny = new File(desk.arkhBase.root, place);
+                                        editDestinyFolder.setText(destiny.getParent());
+                                        editDestinyName.setText(FilenameUtils.getBaseName(destiny.getName()));
                                     }
                                 }
                             }
@@ -171,8 +224,8 @@ public class DeskPack extends javax.swing.JPanel {
     private void updateClipboard() {
         try {
             var textOnClipboard = WizSwing.getStringOnClipboard();
-            if (!Objects.equals(textClipboard.getText(), textOnClipboard)) {
-                SwingUtilities.invokeLater(() -> textClipboard.setText(textOnClipboard));
+            if (!Objects.equals(editClipboard.getText(), textOnClipboard)) {
+                SwingUtilities.invokeLater(() -> editClipboard.setText(textOnClipboard));
             }
         } catch (Exception e) {
         }
@@ -180,19 +233,31 @@ public class DeskPack extends javax.swing.JPanel {
 
     private void watchPath(File path) {
         synchronized (hasWatchChanges) {
+            List<File> foundsOnThisRound = new ArrayList<>();
             if (path.isDirectory()) {
-                for (var inside : path.listFiles()) {
-                    watchFile(inside);
-                }
+                watchDirectory(path, foundsOnThisRound);
             } else {
-                watchFile(path);
+                watchFile(path, foundsOnThisRound);
+            }
+            var removed = watchFounds.removeIf((watchFound) -> !foundsOnThisRound.contains(watchFound.file));
+            if (removed) {
+                hasWatchChanges.set(true);
             }
         }
     }
 
-    private final AtomicBoolean hasWatchChanges = new AtomicBoolean(true);
-
-    private void watchFile(File file) {
+    private void watchDirectory(File path, List<File> foundsOnThisRound) {
+        for (var inside : path.listFiles()) {
+            if (inside.isDirectory()) {
+                watchDirectory(inside, foundsOnThisRound);
+            } else {
+                watchFile(inside, foundsOnThisRound);
+            }
+        }
+    }
+    
+    private void watchFile(File file, List<File> foundsOnThisRound) {
+        foundsOnThisRound.add(file);
         if (hasBeenFound(file)) {
             return;
         }
@@ -230,21 +295,38 @@ public class DeskPack extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonWatchActionPerformed
 
     private void buttonProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcessActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_buttonProcessActionPerformed
+
+    private void buttonDestinyFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDestinyFolderActionPerformed
+        var selected = WizSwing.selectFolder(new File(editDestinyFolder.getText()));
+        if (selected != null) {
+            editDestinyFolder.setText(selected.getAbsolutePath());
+        }
+    }//GEN-LAST:event_buttonDestinyFolderActionPerformed
+
+    private void buttonCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyActionPerformed
+        editDestinyName.setText(editClipboard.getText());
+    }//GEN-LAST:event_buttonCopyActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonCopy;
+    private javax.swing.JButton buttonDestinyFolder;
     private javax.swing.JButton buttonProcess;
     private javax.swing.JButton buttonWatch;
     private javax.swing.JCheckBox checkWatch;
+    private javax.swing.JTextField editClipboard;
+    private javax.swing.JTextField editDestinyFolder;
+    private javax.swing.JTextField editDestinyName;
     private javax.swing.JTextField editWatch;
     private javax.swing.JLabel labelClipboard;
+    private javax.swing.JLabel labelDestinyFolder;
+    private javax.swing.JLabel labelDestinyName;
     private javax.swing.JList<WatchFoundDisplay> listWatch;
     private javax.swing.JPanel panelWatch;
     private javax.swing.JScrollPane scrollWatch;
     private javax.swing.JSplitPane splitPack;
-    private javax.swing.JTextField textClipboard;
     // End of variables declaration//GEN-END:variables
 
     private class WatchFound {
