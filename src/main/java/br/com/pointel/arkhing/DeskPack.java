@@ -35,6 +35,9 @@ public class DeskPack extends javax.swing.JPanel {
         splitPack = new javax.swing.JSplitPane();
         scrollWatch = new javax.swing.JScrollPane();
         listWatch = new javax.swing.JList<>();
+        jPanel1 = new javax.swing.JPanel();
+        labelClipboard = new javax.swing.JLabel();
+        textClipboard = new javax.swing.JTextField();
 
         editWatch.setEditable(false);
         editWatch.setText(WizProps.get("DESK_PACK_WATCH", ""));
@@ -57,6 +60,33 @@ public class DeskPack extends javax.swing.JPanel {
 
         splitPack.setTopComponent(scrollWatch);
 
+        labelClipboard.setText("Clipboard");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(labelClipboard)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(textClipboard, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelClipboard)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textClipboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(162, Short.MAX_VALUE))
+        );
+
+        splitPack.setRightComponent(jPanel1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -66,7 +96,7 @@ public class DeskPack extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(splitPack)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(editWatch, javax.swing.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
+                        .addComponent(editWatch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonWatch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -82,7 +112,7 @@ public class DeskPack extends javax.swing.JPanel {
                     .addComponent(checkWatch)
                     .addComponent(buttonWatch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(splitPack, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                .addComponent(splitPack)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -98,6 +128,10 @@ public class DeskPack extends javax.swing.JPanel {
 
     private void updateWatch() {
         if (checkWatch.isSelected()) {
+            try {
+                var textOnClipboard = WizSwing.getStringOnClipboard();
+                SwingUtilities.invokeLater(() -> textClipboard.setText(textOnClipboard));
+            } catch (Exception e) {}
             var watchFile = new File(editWatch.getText());
             if (watchFile.exists()) {
                 var founds = new ArrayList<WatchFound>();
@@ -164,9 +198,12 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JButton buttonWatch;
     private javax.swing.JCheckBox checkWatch;
     private javax.swing.JTextField editWatch;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel labelClipboard;
     private javax.swing.JList<WatchFound> listWatch;
     private javax.swing.JScrollPane scrollWatch;
     private javax.swing.JSplitPane splitPack;
+    private javax.swing.JTextField textClipboard;
     // End of variables declaration//GEN-END:variables
 
     private abstract class WatchFound {
