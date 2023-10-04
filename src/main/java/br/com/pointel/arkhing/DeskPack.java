@@ -3,9 +3,9 @@ package br.com.pointel.arkhing;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.DefaultListModel;
 import javax.swing.SwingUtilities;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -18,7 +18,8 @@ public class DeskPack extends javax.swing.JPanel {
 
     private final Desk desk;
 
-    private final DefaultListModel<WatchFound> modelWatch = new DefaultListModel<>();
+    private final DefaultListModel<WatchFoundDisplay> modelWatch = new DefaultListModel<>();
+    private final List<WatchFound> watchFounds = new ArrayList<WatchFound>();
 
     public DeskPack(Desk desk) {
         this.desk = desk;
@@ -35,9 +36,10 @@ public class DeskPack extends javax.swing.JPanel {
         splitPack = new javax.swing.JSplitPane();
         scrollWatch = new javax.swing.JScrollPane();
         listWatch = new javax.swing.JList<>();
-        jPanel1 = new javax.swing.JPanel();
+        panelWatch = new javax.swing.JPanel();
         labelClipboard = new javax.swing.JLabel();
         textClipboard = new javax.swing.JTextField();
+        buttonProcess = new javax.swing.JButton();
 
         editWatch.setEditable(false);
         editWatch.setText(WizProps.get("DESK_PACK_WATCH", ""));
@@ -62,30 +64,40 @@ public class DeskPack extends javax.swing.JPanel {
 
         labelClipboard.setText("Clipboard");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        buttonProcess.setText("Process");
+        buttonProcess.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonProcessActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelWatchLayout = new javax.swing.GroupLayout(panelWatch);
+        panelWatch.setLayout(panelWatchLayout);
+        panelWatchLayout.setHorizontalGroup(
+            panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelWatchLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(buttonProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(textClipboard, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelWatchLayout.createSequentialGroup()
                         .addComponent(labelClipboard)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(textClipboard, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        panelWatchLayout.setVerticalGroup(
+            panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelWatchLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelClipboard)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textClipboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(162, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        splitPack.setRightComponent(jPanel1);
+        splitPack.setRightComponent(panelWatch);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -94,7 +106,7 @@ public class DeskPack extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(splitPack)
+                    .addComponent(splitPack, javax.swing.GroupLayout.DEFAULT_SIZE, 635, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(editWatch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -112,7 +124,7 @@ public class DeskPack extends javax.swing.JPanel {
                     .addComponent(checkWatch)
                     .addComponent(buttonWatch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(splitPack)
+                .addComponent(splitPack, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -128,61 +140,85 @@ public class DeskPack extends javax.swing.JPanel {
 
     private void updateWatch() {
         if (checkWatch.isSelected()) {
-            try {
-                var textOnClipboard = WizSwing.getStringOnClipboard();
-                SwingUtilities.invokeLater(() -> textClipboard.setText(textOnClipboard));
-            } catch (Exception e) {}
+            updateClipboard();
             var watchFile = new File(editWatch.getText());
             if (watchFile.exists()) {
-                var founds = new ArrayList<WatchFound>();
-                watchPath(watchFile, founds);
-                var selected = listWatch.getSelectedValue();
+                watchPath(watchFile);
                 SwingUtilities.invokeLater(() -> {
-                    modelWatch.removeAllElements();
-                    modelWatch.addAll(founds);
-                    listWatch.setSelectedValue(selected, true);
+                    synchronized (hasWatchChanges) {
+                        if (hasWatchChanges.get()) {
+                            var selected = listWatch.getSelectedValue();
+                            modelWatch.removeAllElements();
+                            for (var watchFound : watchFounds) {
+                                modelWatch.addElement(new WatchFoundDisplay(watchFound));
+                                if (watchFound.places.isEmpty()) {
+                                    modelWatch.addElement(new WatchFoundNone(watchFound));
+                                } else {
+                                    for (var place : watchFound.places) {
+                                        modelWatch.addElement(new WatchFoundPlace(watchFound, place));
+                                    }
+                                }
+                            }
+                            listWatch.setSelectedValue(selected, true);
+                            hasWatchChanges.set(false);
+                        }
+                    }
                 });
             }
         }
     }
 
-    private void watchPath(File path, List<WatchFound> founds) {
-        if (path.isDirectory()) {
-            for (var inside : path.listFiles()) {
-                watchFile(inside, founds);
+    private void updateClipboard() {
+        try {
+            var textOnClipboard = WizSwing.getStringOnClipboard();
+            if (!Objects.equals(textClipboard.getText(), textOnClipboard)) {
+                SwingUtilities.invokeLater(() -> textClipboard.setText(textOnClipboard));
             }
-        } else {
-            watchFile(path, founds);
+        } catch (Exception e) {
         }
     }
 
-    private void watchFile(File file, List<WatchFound> founds) {
-        founds.addAll(findWatched(file));
+    private void watchPath(File path) {
+        synchronized (hasWatchChanges) {
+            if (path.isDirectory()) {
+                for (var inside : path.listFiles()) {
+                    watchFile(inside);
+                }
+            } else {
+                watchFile(path);
+            }
+        }
     }
 
-    private final Map<File, List<WatchFound>> watchCached = new HashMap<>();
+    private final AtomicBoolean hasWatchChanges = new AtomicBoolean(true);
 
-    private List<WatchFound> findWatched(File file) {
-        if (watchCached.containsKey(file)) {
-            return watchCached.get(file);
+    private void watchFile(File file) {
+        if (hasBeenFound(file)) {
+            return;
         }
-        var results = new ArrayList<WatchFound>();
+        hasWatchChanges.set(true);
         try (var input = new FileInputStream(file)) {
             var verifier = DigestUtils.sha256Hex(input);
             var founds = desk.arkhBase.baseData.getByVerifier(verifier);
-            results.add(new WatchFoundFile(file));
-            if (founds.isEmpty()) {
-                results.add(new WatchFoundNone());
-            } else {
+            var watchFound = new WatchFound(file);
+            watchFounds.add(watchFound);
+            if (!founds.isEmpty()) {
                 for (var found : founds) {
-                    results.add(new WatchFoundPlace(found.place));
+                    watchFound.places.add(found.place);
                 }
             }
-            watchCached.put(file, results);
         } catch (Exception e) {
-            e.printStackTrace();
+            WizSwing.showError(e);
         }
-        return results;
+    }
+
+    private boolean hasBeenFound(File file) {
+        for (var watched : watchFounds) {
+            if (Objects.equals(watched.file, file)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void buttonWatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonWatchActionPerformed
@@ -193,28 +229,32 @@ public class DeskPack extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonWatchActionPerformed
 
+    private void buttonProcessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcessActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonProcessActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonProcess;
     private javax.swing.JButton buttonWatch;
     private javax.swing.JCheckBox checkWatch;
     private javax.swing.JTextField editWatch;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel labelClipboard;
-    private javax.swing.JList<WatchFound> listWatch;
+    private javax.swing.JList<WatchFoundDisplay> listWatch;
+    private javax.swing.JPanel panelWatch;
     private javax.swing.JScrollPane scrollWatch;
     private javax.swing.JSplitPane splitPack;
     private javax.swing.JTextField textClipboard;
     // End of variables declaration//GEN-END:variables
 
-    private abstract class WatchFound {
-    }
+    private class WatchFound {
 
-    private class WatchFoundFile extends WatchFound {
+        public final File file;
+        public final List<String> places;
 
-        public File file;
-
-        public WatchFoundFile(File file) {
+        public WatchFound(File file) {
             this.file = file;
+            this.places = new ArrayList<>();
         }
 
         @Override
@@ -224,26 +264,46 @@ public class DeskPack extends javax.swing.JPanel {
 
     }
 
-    private class WatchFoundPlace extends WatchFound {
+    private class WatchFoundDisplay {
 
-        public String place;
+        public WatchFound watchFound;
 
-        public WatchFoundPlace(String place) {
+        public WatchFoundDisplay(WatchFound watchFound) {
+            this.watchFound = watchFound;
+        }
+
+        @Override
+        public String toString() {
+            return "* " + this.watchFound.file.getName();
+        }
+
+    }
+
+    private class WatchFoundPlace extends WatchFoundDisplay {
+
+        private final String place;
+
+        public WatchFoundPlace(WatchFound watchFound, String place) {
+            super(watchFound);
             this.place = place;
         }
 
         @Override
         public String toString() {
-            return "-> " + place;
+            return "--> " + place;
         }
 
     }
 
-    private class WatchFoundNone extends WatchFound {
+    private class WatchFoundNone extends WatchFoundDisplay {
+
+        public WatchFoundNone(WatchFound watchFound) {
+            super(watchFound);
+        }
 
         @Override
         public String toString() {
-            return "-> Is not present on the base.";
+            return "--> Is not present on the base.";
         }
 
     }

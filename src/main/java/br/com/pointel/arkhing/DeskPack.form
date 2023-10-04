@@ -19,7 +19,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="splitPack" alignment="0" max="32767" attributes="0"/>
+                  <Component id="splitPack" alignment="0" pref="635" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="editWatch" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -42,7 +42,7 @@
                   <Component id="buttonWatch" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="splitPack" max="32767" attributes="0"/>
+              <Component id="splitPack" pref="347" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -100,12 +100,12 @@
                 </Property>
               </Properties>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;WatchFound&gt;"/>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;WatchFoundDisplay&gt;"/>
               </AuxValues>
             </Component>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="jPanel1">
+        <Container class="javax.swing.JPanel" name="panelWatch">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout$JSplitPaneConstraintsDescription">
               <JSplitPaneConstraints position="right"/>
@@ -115,14 +115,15 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="buttonProcess" max="32767" attributes="0"/>
+                          <Component id="textClipboard" alignment="0" pref="623" max="32767" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="labelClipboard" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="textClipboard" pref="580" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -135,7 +136,9 @@
                       <Component id="labelClipboard" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="textClipboard" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="162" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonProcess" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -147,6 +150,14 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textClipboard">
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonProcess">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Process"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonProcessActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
