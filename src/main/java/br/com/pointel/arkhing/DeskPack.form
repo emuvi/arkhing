@@ -99,6 +99,9 @@
                   <Connection code="modelWatch" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="listWatchKeyPressed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;WatchFoundDisplay&gt;"/>
               </AuxValues>
@@ -119,17 +122,16 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="editClipboard" alignment="0" pref="623" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="labelClipboard" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Component id="buttonProcess" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="editDestinyFolder" min="-2" pref="450" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="labelDestinyFolder" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="buttonFolderOpen" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="buttonFolderCopy" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="buttonDestinyFolder" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -138,11 +140,17 @@
                                   <Group type="102" attributes="0">
                                       <Component id="labelDestinyName" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="buttonCopy" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonNameCopy" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="editDestinyName" max="32767" attributes="0"/>
                               </Group>
                           </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="labelClipboard" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="labelFound" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="panelProcess" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -152,7 +160,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelClipboard" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="labelClipboard" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelFound" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="editClipboard" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -160,7 +171,9 @@
                           <Component id="labelDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="labelDestinyName" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonCopy" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonNameCopy" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonFolderCopy" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonFolderOpen" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -168,7 +181,7 @@
                           <Component id="editDestinyName" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonProcess" pref="89" max="32767" attributes="0"/>
+                      <Component id="panelProcess" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -181,14 +194,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="editClipboard">
-            </Component>
-            <Component class="javax.swing.JButton" name="buttonProcess">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Process"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonProcessActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="labelDestinyFolder">
               <Properties>
@@ -212,13 +217,68 @@
             </Component>
             <Component class="javax.swing.JTextField" name="editDestinyName">
             </Component>
-            <Component class="javax.swing.JButton" name="buttonCopy">
+            <Component class="javax.swing.JButton" name="buttonNameCopy">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Copy"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCopyActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNameCopyActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonFolderCopy">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Copy"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonFolderCopyActionPerformed"/>
+              </Events>
+            </Component>
+            <Container class="javax.swing.JPanel" name="panelProcess">
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+                <Property name="columns" type="int" value="0"/>
+                <Property name="horizontalGap" type="int" value="8"/>
+                <Property name="rows" type="int" value="1"/>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JButton" name="buttonSameRootName">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Same Root Name"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSameRootNameActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="buttonSameFoundName">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Same Found Name"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSameFoundNameActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="buttonMakeAulaName">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Make Aula Name"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeAulaNameActionPerformed"/>
+                  </Events>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Component class="javax.swing.JButton" name="buttonFolderOpen">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Open"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonFolderOpenActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="labelFound">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Found!!!"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

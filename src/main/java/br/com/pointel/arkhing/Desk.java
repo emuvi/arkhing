@@ -30,6 +30,7 @@ public class Desk extends javax.swing.JFrame {
     private void initComponents() {
 
         tabsBody = new javax.swing.JTabbedPane();
+        checkAlwaysOnTop = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Arkhing");
@@ -40,20 +41,33 @@ public class Desk extends javax.swing.JFrame {
             }
         });
 
+        checkAlwaysOnTop.setText("Always on Top");
+        checkAlwaysOnTop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkAlwaysOnTopActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabsBody, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tabsBody, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(checkAlwaysOnTop)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabsBody, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                .addComponent(tabsBody, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkAlwaysOnTop)
                 .addContainerGap())
         );
 
@@ -66,8 +80,13 @@ public class Desk extends javax.swing.JFrame {
         deskPack.initUpdater();
         deskOrgz.initUpdater();
     }//GEN-LAST:event_formWindowOpened
+
+    private void checkAlwaysOnTopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAlwaysOnTopActionPerformed
+        this.setAlwaysOnTop(checkAlwaysOnTop.isSelected());
+    }//GEN-LAST:event_checkAlwaysOnTopActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkAlwaysOnTop;
     private javax.swing.JTabbedPane tabsBody;
     // End of variables declaration//GEN-END:variables
 
