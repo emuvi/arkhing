@@ -387,6 +387,7 @@ public class DeskPack extends javax.swing.JPanel {
     private String cleanName(String name) {
         return name
                 .replace(":", "-")
+                .replace("|", "-")
                 .replace("/", "-")
                 .replace("\\", "-")
                 .replaceAll("\\s+", " ")
