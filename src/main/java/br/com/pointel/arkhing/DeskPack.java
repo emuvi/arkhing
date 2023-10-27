@@ -151,6 +151,8 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
 
+        labelFound.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
+        labelFound.setForeground(new java.awt.Color(255, 0, 0));
         labelFound.setText("Found!!!");
 
         javax.swing.GroupLayout panelWatchLayout = new javax.swing.GroupLayout(panelWatch);
