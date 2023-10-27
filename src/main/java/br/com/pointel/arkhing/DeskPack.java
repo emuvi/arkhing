@@ -371,13 +371,22 @@ public class DeskPack extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonDestinyFolderActionPerformed
 
     private void buttonNameCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNameCopyActionPerformed
-        editDestinyName.setText(editClipboard.getText());
+        editDestinyName.setText(cleanName(editClipboard.getText()));
     }//GEN-LAST:event_buttonNameCopyActionPerformed
 
     private void buttonFolderCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderCopyActionPerformed
-        editDestinyFolder.setText(editClipboard.getText());
+        editDestinyFolder.setText(editDestinyFolder.getText()  + File.separator + cleanName(editClipboard.getText()));
     }//GEN-LAST:event_buttonFolderCopyActionPerformed
 
+    private String cleanName(String name) {
+        return name
+                .replace(":", "-")
+                .replace("/", "-")
+                .replace("\\", "-")
+                .replaceAll("\\s+", " ")
+                .trim();
+    }
+    
     private void buttonSameRootNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSameRootNameActionPerformed
         try {
             var allSelected = getSelectedToProcess();
