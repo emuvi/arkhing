@@ -2,6 +2,7 @@ package br.com.pointel.arkhing;
 
 import java.awt.Desktop;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -82,6 +83,11 @@ public class DeskPack extends javax.swing.JPanel {
 
         listWatch.setFont(WizSwing.fontMonospaced());
         listWatch.setModel(modelWatch);
+        listWatch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listWatchMouseClicked(evt);
+            }
+        });
         listWatch.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 listWatchKeyPressed(evt);
@@ -478,6 +484,16 @@ public class DeskPack extends javax.swing.JPanel {
             WizSwing.showError(ex);
         }
     }//GEN-LAST:event_buttonFolderOpenActionPerformed
+
+    private void listWatchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listWatchMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() >= 2) {
+            var selected = listWatch.getSelectedValue();
+            if (selected instanceof WatchFoundPlace selectedPlace) {
+                var parts = selectedPlace.place.split("\\" +  File.separator);
+                editDestinyName.setText(parts[parts.length -1]);
+            }
+        }
+    }//GEN-LAST:event_listWatchMouseClicked
 
     private Set<WatchFound> getSelectedToProcess() {
         Set<WatchFound> results = new HashSet<>();
