@@ -224,6 +224,7 @@ public class DeskCapt extends javax.swing.JPanel {
                                     robot.mouseMove(posX, posY);
                                     robot.delay(30);
                                 }
+                                robot.delay(300);
                                 beforeCapture = robot.createScreenCapture(captureSource);
                                 robot.delay(300);
                                 robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
