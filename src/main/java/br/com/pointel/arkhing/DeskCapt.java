@@ -201,7 +201,7 @@ public class DeskCapt extends javax.swing.JPanel {
                             if ("Drag Mouse".equals(passMethod)) {
                                 var posX = captureSource.x + captureSource.width - 10;
                                 var posY = captureSource.y + captureSource.height - 10;
-                                var untilY = captureSource.y + 10;
+                                var untilY = captureSource.y + 70;
                                 robot.mouseMove(posX, posY);
                                 robot.delay(300);
                                 robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
