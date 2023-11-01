@@ -43,6 +43,9 @@ public class DeskCapt extends javax.swing.JPanel {
         editSource = new javax.swing.JTextField();
         buttonStart = new javax.swing.JButton();
         editPages = new javax.swing.JSpinner();
+        labelPages = new javax.swing.JLabel();
+        labelMethod = new javax.swing.JLabel();
+        comboMethod = new javax.swing.JComboBox<>();
 
         buttonView.setText("Source");
         buttonView.addActionListener(new java.awt.event.ActionListener() {
@@ -70,6 +73,12 @@ public class DeskCapt extends javax.swing.JPanel {
 
         editPages.setValue(50);
 
+        labelPages.setText("Pages");
+
+        labelMethod.setText("Method");
+
+        comboMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Press Right", "Drag Mouse" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,16 +91,23 @@ public class DeskCapt extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonView)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editSource))
+                        .addComponent(editSource, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(editDestiny, javax.swing.GroupLayout.DEFAULT_SIZE, 387, Short.MAX_VALUE)
+                        .addComponent(editDestiny)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonDestiny))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(editPages, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelMethod)
+                            .addComponent(comboMethod, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(labelPages)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(editPages, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -108,9 +124,14 @@ public class DeskCapt extends javax.swing.JPanel {
                     .addComponent(editDestiny, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPages)
+                    .addComponent(labelMethod))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonStart)
-                    .addComponent(editPages, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(257, Short.MAX_VALUE))
+                    .addComponent(editPages, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(235, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -152,6 +173,7 @@ public class DeskCapt extends javax.swing.JPanel {
             var captureSource = source;
             var clickPoint = new Point(source.x + 10, source.y + 10);
             var destinyFolder = new File(editDestiny.getText());
+            var passMethod = comboMethod.getSelectedItem();
             new Thread() {
                 @Override
                 public void run() {
@@ -176,9 +198,27 @@ public class DeskCapt extends javax.swing.JPanel {
                             robot.delay(300);
                             robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                             robot.delay(500);
-                            robot.keyPress(KeyEvent.VK_RIGHT);
-                            robot.delay(300);
-                            robot.keyRelease(KeyEvent.VK_RIGHT);
+                            if ("Drag Mouse".equals(passMethod)) {
+                                var posX = captureSource.x + captureSource.width - 10;
+                                var posY = captureSource.y + captureSource.height - 10;
+                                var untilY = captureSource.y + 10;
+                                robot.mouseMove(posX, posY);
+                                robot.delay(300);
+                                robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+                                robot.delay(300);
+                                while (posY > untilY) {
+                                    posY -= 30;
+                                    robot.mouseMove(posX, posY);
+                                    robot.delay(30);
+                                }
+                                robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+                                robot.delay(300);
+                            } else {
+                                robot.keyPress(KeyEvent.VK_RIGHT);
+                                robot.delay(300);
+                                robot.keyRelease(KeyEvent.VK_RIGHT);
+                                robot.delay(300);
+                            }
                             SwingUtilities.invokeLater(() -> buttonStart.requestFocus());
                             SwingUtilities.invokeLater(() -> buttonStart.requestFocusInWindow());
                             robot.delay(700);
@@ -214,9 +254,12 @@ public class DeskCapt extends javax.swing.JPanel {
     private javax.swing.JButton buttonStart;
     private javax.swing.JButton buttonView;
     private javax.swing.JComboBox<Display> comboDisplays;
+    private javax.swing.JComboBox<String> comboMethod;
     private javax.swing.JTextField editDestiny;
     private javax.swing.JSpinner editPages;
     private javax.swing.JTextField editSource;
+    private javax.swing.JLabel labelMethod;
+    private javax.swing.JLabel labelPages;
     // End of variables declaration//GEN-END:variables
 
 }
