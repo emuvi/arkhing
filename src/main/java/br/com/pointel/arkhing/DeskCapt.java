@@ -175,23 +175,36 @@ public class DeskCapt extends javax.swing.JPanel {
             var destinyFolder = new File(editDestiny.getText());
             var dragMouse = "Drag Mouse".equals(comboMethod.getSelectedItem());
             new Thread() {
+                
+                BufferedImage beforeCapture = null;
+                
+                private void save(BufferedImage capture) throws Exception {
+                    var indexPage = 1;
+                    var pageNameSuffix = StringUtils.leftPad(String.valueOf(indexPage), 3, '0');
+                    var filePage = new File(destinyFolder, "page-" + pageNameSuffix + ".png");
+                    while (filePage.exists()) {
+                        indexPage++;
+                        pageNameSuffix = StringUtils.leftPad(String.valueOf(indexPage), 3, '0');
+                        filePage = new File(destinyFolder, "page-" + pageNameSuffix + ".png");
+                    }
+                    ImageIO.write(capture, "PNG", filePage);
+                }
+                
                 @Override
                 public void run() {
                     try {
+                        var robot = new Robot();
                         var indexMaking = 0;
                         while (making && indexMaking < totalPages) {
                             indexMaking++;
-                            var robot = new Robot();
-                            var indexPage = 1;
-                            var pageNameSuffix = StringUtils.leftPad(String.valueOf(indexPage), 3, '0');
-                            var filePage = new File(destinyFolder, "page-" + pageNameSuffix + ".png");
-                            while (filePage.exists()) {
-                                indexPage++;
-                                pageNameSuffix = StringUtils.leftPad(String.valueOf(indexPage), 3, '0');
-                                filePage = new File(destinyFolder, "page-" + pageNameSuffix + ".png");
+                            BufferedImage thisCapture = robot.createScreenCapture(captureSource);
+                            if (beforeCapture == null || 
+                                    WizImage.isSame(beforeCapture, thisCapture)) {
+                                save(thisCapture);
+                            } else {
+                                save(beforeCapture);
+                                save(thisCapture);
                             }
-                            BufferedImage capture = robot.createScreenCapture(captureSource);
-                            ImageIO.write(capture, "PNG", filePage);
                             robot.mouseMove(clickPoint.x, clickPoint.y);
                             robot.delay(300);
                             robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
@@ -201,7 +214,7 @@ public class DeskCapt extends javax.swing.JPanel {
                             if (dragMouse) {
                                 var posX = captureSource.x + captureSource.width - 10;
                                 var posY = captureSource.y + captureSource.height - 10;
-                                var untilY = captureSource.y + 150;
+                                var untilY = captureSource.y + 30;
                                 robot.mouseMove(posX, posY);
                                 robot.delay(300);
                                 robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
@@ -211,6 +224,8 @@ public class DeskCapt extends javax.swing.JPanel {
                                     robot.mouseMove(posX, posY);
                                     robot.delay(30);
                                 }
+                                beforeCapture = robot.createScreenCapture(captureSource);
+                                robot.delay(300);
                                 robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                                 robot.delay(300);
                             } else {
@@ -221,7 +236,7 @@ public class DeskCapt extends javax.swing.JPanel {
                             }
                             SwingUtilities.invokeLater(() -> buttonStart.requestFocus());
                             SwingUtilities.invokeLater(() -> buttonStart.requestFocusInWindow());
-                            robot.delay(700);
+                            robot.delay(1200);
                         }
                     } catch (Exception e) {
                         WizSwing.showError(e);
