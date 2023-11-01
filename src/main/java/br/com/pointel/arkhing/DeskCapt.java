@@ -173,7 +173,7 @@ public class DeskCapt extends javax.swing.JPanel {
             var captureSource = source;
             var clickPoint = new Point(source.x + 10, source.y + 10);
             var destinyFolder = new File(editDestiny.getText());
-            var passMethod = comboMethod.getSelectedItem();
+            var dragMouse = "Drag Mouse".equals(comboMethod.getSelectedItem());
             new Thread() {
                 @Override
                 public void run() {
@@ -198,10 +198,10 @@ public class DeskCapt extends javax.swing.JPanel {
                             robot.delay(300);
                             robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                             robot.delay(500);
-                            if ("Drag Mouse".equals(passMethod)) {
+                            if (dragMouse) {
                                 var posX = captureSource.x + captureSource.width - 10;
                                 var posY = captureSource.y + captureSource.height - 10;
-                                var untilY = captureSource.y + 70;
+                                var untilY = captureSource.y + 150;
                                 robot.mouseMove(posX, posY);
                                 robot.delay(300);
                                 robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
