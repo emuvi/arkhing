@@ -18,7 +18,7 @@ public class WizImage {
             }
         }
         var percent = (0.0 + diffs) / total;
-        return percent < 0.1;
+        return percent < 0.05;
     }
     
 }
