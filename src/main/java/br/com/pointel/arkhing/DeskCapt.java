@@ -10,6 +10,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringUtils;
@@ -46,6 +48,7 @@ public class DeskCapt extends javax.swing.JPanel {
         labelPages = new javax.swing.JLabel();
         labelMethod = new javax.swing.JLabel();
         comboMethod = new javax.swing.JComboBox<>();
+        buttonOpen = new javax.swing.JButton();
 
         buttonView.setText("Source");
         buttonView.addActionListener(new java.awt.event.ActionListener() {
@@ -79,6 +82,13 @@ public class DeskCapt extends javax.swing.JPanel {
 
         comboMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Press Right", "Drag Mouse" }));
 
+        buttonOpen.setText("Open");
+        buttonOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOpenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -95,7 +105,9 @@ public class DeskCapt extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(editDestiny)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonDestiny))
+                        .addComponent(buttonDestiny)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonOpen))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,7 +133,8 @@ public class DeskCapt extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonDestiny)
-                    .addComponent(editDestiny, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(editDestiny, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonOpen))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPages)
@@ -251,6 +264,14 @@ public class DeskCapt extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonStartActionPerformed
 
+    private void buttonOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOpenActionPerformed
+        try {
+            WizSwing.open(new File(editDestiny.getText()));
+        } catch (Exception ex) {
+            WizSwing.showError(ex);
+        }
+    }//GEN-LAST:event_buttonOpenActionPerformed
+
     private void captureAllScreens() {
         try {
             var index = 1;
@@ -267,6 +288,7 @@ public class DeskCapt extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDestiny;
+    private javax.swing.JButton buttonOpen;
     private javax.swing.JButton buttonStart;
     private javax.swing.JButton buttonView;
     private javax.swing.JComboBox<Display> comboDisplays;
