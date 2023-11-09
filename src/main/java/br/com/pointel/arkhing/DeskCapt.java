@@ -237,7 +237,7 @@ public class DeskCapt extends javax.swing.JPanel {
                             }
                             SwingUtilities.invokeLater(() -> buttonStart.requestFocus());
                             SwingUtilities.invokeLater(() -> buttonStart.requestFocusInWindow());
-                            robot.delay(1200);
+                            robot.delay(1500);
                         }
                     } catch (Exception e) {
                         WizSwing.showError(e);
