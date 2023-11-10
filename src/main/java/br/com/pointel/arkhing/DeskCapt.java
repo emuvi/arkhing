@@ -49,6 +49,8 @@ public class DeskCapt extends javax.swing.JPanel {
         labelMethod = new javax.swing.JLabel();
         comboMethod = new javax.swing.JComboBox<>();
         buttonOpen = new javax.swing.JButton();
+        editWait = new javax.swing.JSpinner();
+        labelWait = new javax.swing.JLabel();
 
         buttonView.setText("Source");
         buttonView.addActionListener(new java.awt.event.ActionListener() {
@@ -89,6 +91,10 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
+        editWait.setModel(new javax.swing.SpinnerNumberModel(1.2d, null, null, 0.2d));
+
+        labelWait.setText("Wait");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,6 +120,10 @@ public class DeskCapt extends javax.swing.JPanel {
                             .addComponent(labelMethod)
                             .addComponent(comboMethod, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelWait)
+                            .addComponent(editWait, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(labelPages)
                             .addGroup(layout.createSequentialGroup()
@@ -138,12 +148,14 @@ public class DeskCapt extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPages)
-                    .addComponent(labelMethod))
+                    .addComponent(labelMethod)
+                    .addComponent(labelWait))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonStart)
                     .addComponent(editPages, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(editWait, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(235, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -183,6 +195,7 @@ public class DeskCapt extends javax.swing.JPanel {
             making = true;
             buttonStart.setText("Stop");
             var totalPages = (Integer) editPages.getValue();
+            var waitTime = Math.round((Double) editWait.getValue() * 1000);
             var captureSource = source;
             var clickPoint = new Point(source.x + 10, source.y + 10);
             var destinyFolder = new File(editDestiny.getText());
@@ -250,7 +263,7 @@ public class DeskCapt extends javax.swing.JPanel {
                             }
                             SwingUtilities.invokeLater(() -> buttonStart.requestFocus());
                             SwingUtilities.invokeLater(() -> buttonStart.requestFocusInWindow());
-                            robot.delay(1500);
+                            robot.delay((int) waitTime);
                         }
                     } catch (Exception e) {
                         WizSwing.showError(e);
@@ -296,8 +309,10 @@ public class DeskCapt extends javax.swing.JPanel {
     private javax.swing.JTextField editDestiny;
     private javax.swing.JSpinner editPages;
     private javax.swing.JTextField editSource;
+    private javax.swing.JSpinner editWait;
     private javax.swing.JLabel labelMethod;
     private javax.swing.JLabel labelPages;
+    private javax.swing.JLabel labelWait;
     // End of variables declaration//GEN-END:variables
 
 }
