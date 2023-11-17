@@ -82,7 +82,7 @@ public class DeskCapt extends javax.swing.JPanel {
 
         labelMethod.setText("Method");
 
-        comboMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Press Right", "Drag Mouse" }));
+        comboMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Press Right", "Press Down", "Drag Mouse", "" }));
 
         buttonOpen.setText("Open");
         buttonOpen.addActionListener(new java.awt.event.ActionListener() {
@@ -200,6 +200,7 @@ public class DeskCapt extends javax.swing.JPanel {
             var clickPoint = new Point(source.x + 10, source.y + 10);
             var destinyFolder = new File(editDestiny.getText());
             var dragMouse = "Drag Mouse".equals(comboMethod.getSelectedItem());
+            var pressDown = "Press Down".equals(comboMethod.getSelectedItem());
             new Thread() {
                 
                 BufferedImage beforeCapture = null;
@@ -256,10 +257,17 @@ public class DeskCapt extends javax.swing.JPanel {
                                 robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
                                 robot.delay(300);
                             } else {
-                                robot.keyPress(KeyEvent.VK_RIGHT);
-                                robot.delay(300);
-                                robot.keyRelease(KeyEvent.VK_RIGHT);
-                                robot.delay(300);
+                                if (pressDown) {
+                                    robot.keyPress(KeyEvent.VK_DOWN);
+                                    robot.delay(300);
+                                    robot.keyRelease(KeyEvent.VK_DOWN);
+                                    robot.delay(300);
+                                } else {
+                                    robot.keyPress(KeyEvent.VK_RIGHT);
+                                    robot.delay(300);
+                                    robot.keyRelease(KeyEvent.VK_RIGHT);
+                                    robot.delay(300);
+                                }
                             }
                             SwingUtilities.invokeLater(() -> buttonStart.requestFocus());
                             SwingUtilities.invokeLater(() -> buttonStart.requestFocusInWindow());
