@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.SwingUtilities;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -65,6 +63,7 @@ public class DeskPack extends javax.swing.JPanel {
         buttonMakeAulaName = new javax.swing.JButton();
         buttonFolderOpen = new javax.swing.JButton();
         labelFound = new javax.swing.JLabel();
+        checkAutoCopy = new javax.swing.JCheckBox();
 
         editWatch.setEditable(false);
         editWatch.setText(WizProps.get("DESK_PACK_WATCH", ""));
@@ -168,7 +167,7 @@ public class DeskPack extends javax.swing.JPanel {
             .addGroup(panelWatchLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(editClipboard, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
+                    .addComponent(editClipboard)
                     .addGroup(panelWatchLayout.createSequentialGroup()
                         .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(editDestinyFolder, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -185,6 +184,8 @@ public class DeskPack extends javax.swing.JPanel {
                             .addGroup(panelWatchLayout.createSequentialGroup()
                                 .addComponent(labelDestinyName)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(checkAutoCopy)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonNameCopy))
                             .addComponent(editDestinyName)))
                     .addGroup(panelWatchLayout.createSequentialGroup()
@@ -210,13 +211,14 @@ public class DeskPack extends javax.swing.JPanel {
                     .addComponent(buttonDestinyFolder)
                     .addComponent(buttonNameCopy)
                     .addComponent(buttonFolderCopy)
-                    .addComponent(buttonFolderOpen))
+                    .addComponent(buttonFolderOpen)
+                    .addComponent(checkAutoCopy, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editDestinyFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editDestinyName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -300,7 +302,12 @@ public class DeskPack extends javax.swing.JPanel {
         try {
             var textOnClipboard = WizSwing.getStringOnClipboard();
             if (!Objects.equals(editClipboard.getText(), textOnClipboard)) {
-                SwingUtilities.invokeLater(() -> editClipboard.setText(textOnClipboard));
+                SwingUtilities.invokeLater(() -> {
+                    editClipboard.setText(textOnClipboard);
+                    if (checkAutoCopy.isSelected()) {
+                        buttonNameCopyActionPerformed(null);
+                    }
+                });
             }
         } catch (Exception e) {
         }
@@ -521,6 +528,7 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JButton buttonSameFoundName;
     private javax.swing.JButton buttonSameRootName;
     private javax.swing.JButton buttonWatch;
+    private javax.swing.JCheckBox checkAutoCopy;
     private javax.swing.JCheckBox checkWatch;
     private javax.swing.JTextField editClipboard;
     private javax.swing.JTextField editDestinyFolder;
