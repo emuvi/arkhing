@@ -205,14 +205,15 @@ public class DeskPack extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editClipboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelDestinyFolder)
-                    .addComponent(labelDestinyName)
-                    .addComponent(buttonDestinyFolder)
-                    .addComponent(buttonNameCopy)
-                    .addComponent(buttonFolderCopy)
-                    .addComponent(buttonFolderOpen)
-                    .addComponent(checkAutoCopy, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkAutoCopy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelDestinyFolder)
+                        .addComponent(labelDestinyName)
+                        .addComponent(buttonDestinyFolder)
+                        .addComponent(buttonNameCopy)
+                        .addComponent(buttonFolderCopy)
+                        .addComponent(buttonFolderOpen)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editDestinyFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -401,8 +402,18 @@ public class DeskPack extends javax.swing.JPanel {
                 .trim();
     }
     
+    private void checkIfDownloading() throws Exception {
+        var allSelected = getSelectedToProcess();
+        for (var selected : allSelected) {
+            if (selected.file.getName().endsWith(".crdownload")) {
+                throw new Exception("Are downloading yet.");
+            }
+        }
+    }
+    
     private void buttonSameRootNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSameRootNameActionPerformed
         try {
+            checkIfDownloading();
             var allSelected = getSelectedToProcess();
             var rootFolder = new File(editDestinyFolder.getText());
             for (var selected : allSelected) {
@@ -419,6 +430,7 @@ public class DeskPack extends javax.swing.JPanel {
 
     private void buttonSameFoundNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSameFoundNameActionPerformed
         try {
+            checkIfDownloading();
             var allSelected = getSelectedToProcess();
             var rootFolder = new File(editDestinyFolder.getText());
             for (var selected : allSelected) {
@@ -435,6 +447,7 @@ public class DeskPack extends javax.swing.JPanel {
 
     private void buttonMakeAulaNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeAulaNameActionPerformed
         try {
+            checkIfDownloading();
             var allSelected = getSelectedToProcess();
             var rootFolder = new File(editDestinyFolder.getText());
             

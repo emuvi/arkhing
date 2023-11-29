@@ -170,14 +170,16 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="editClipboard" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="labelDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelDestinyName" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonNameCopy" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonFolderCopy" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonFolderOpen" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="checkAutoCopy" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="labelDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelDestinyName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonNameCopy" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonFolderCopy" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonFolderOpen" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
