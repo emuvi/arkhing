@@ -470,11 +470,7 @@ public class DeskPack extends javax.swing.JPanel {
             String name = "Aula " + StringUtils.leftPad("" + biggerAula, 2, '0') 
                     + " - " + editDestinyName.getText();
             for (var selected : allSelected) {
-                if (!selected.places.isEmpty()) {
-                    selected.file.delete();
-                } else {
-                    doMove(selected.file, rootFolder, name);
-                }
+                doMove(selected.file, rootFolder, name);
             }
         } catch (Exception ex) {
             WizSwing.showError(ex);
