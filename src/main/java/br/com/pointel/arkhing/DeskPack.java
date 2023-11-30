@@ -356,7 +356,7 @@ public class DeskPack extends javax.swing.JPanel {
                 }
             }
         } catch (Exception e) {
-            WizSwing.showError(e);
+            e.printStackTrace();
         }
     }
 
