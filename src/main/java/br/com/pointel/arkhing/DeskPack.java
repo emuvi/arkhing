@@ -326,14 +326,14 @@ public class DeskPack extends javax.swing.JPanel {
     private void updateClipboard() {
         try {
             var textOnClipboard = WizSwing.getStringOnClipboard();
-            if (!Objects.equals(editClipboard.getText(), textOnClipboard)) {
-                SwingUtilities.invokeLater(() -> {
+            SwingUtilities.invokeLater(() -> {
+                if (!Objects.equals(editClipboard.getText(), textOnClipboard)) {
                     editClipboard.setText(textOnClipboard);
-                    if (checkAutoCopy.isSelected()) {
+                    if (!labelFound.isVisible() && checkAutoCopy.isSelected()) {
                         buttonNameCopyActionPerformed(null);
                     }
-                });
-            }
+                }
+            });
         } catch (Exception e) {
         }
     }
@@ -413,7 +413,7 @@ public class DeskPack extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonNameCopyActionPerformed
 
     private void buttonFolderCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderCopyActionPerformed
-        editDestinyFolder.setText(editDestinyFolder.getText()  + File.separator + cleanName(editClipboard.getText()));
+        editDestinyFolder.setText(editDestinyFolder.getText() + File.separator + cleanName(editClipboard.getText()));
     }//GEN-LAST:event_buttonFolderCopyActionPerformed
 
     private String cleanName(String name) {
@@ -426,7 +426,7 @@ public class DeskPack extends javax.swing.JPanel {
                 .replaceAll("\\s+", " ")
                 .trim();
     }
-    
+
     private void checkIfDownloading() throws Exception {
         var allSelected = getSelectedToProcess();
         for (var selected : allSelected) {
@@ -435,7 +435,7 @@ public class DeskPack extends javax.swing.JPanel {
             }
         }
     }
-    
+
     private void buttonSameRootNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSameRootNameActionPerformed
         try {
             checkIfDownloading();
@@ -475,7 +475,7 @@ public class DeskPack extends javax.swing.JPanel {
             checkIfDownloading();
             var allSelected = getSelectedToProcess();
             var rootFolder = new File(editDestinyFolder.getText());
-            
+
             int biggerAula = 0;
             for (var inside : rootFolder.listFiles()) {
                 var test = inside.getName().toLowerCase();
@@ -487,12 +487,13 @@ public class DeskPack extends javax.swing.JPanel {
                             if (number > biggerAula) {
                                 biggerAula = number;
                             }
-                        } catch (Exception e) {}
+                        } catch (Exception e) {
+                        }
                     }
                 }
             }
             biggerAula++;
-            String name = "Aula " + StringUtils.leftPad("" + biggerAula, 2, '0') 
+            String name = "Aula " + StringUtils.leftPad("" + biggerAula, 2, '0')
                     + " - " + editDestinyName.getText();
             for (var selected : allSelected) {
                 doMove(selected.file, rootFolder, name);
@@ -533,8 +534,8 @@ public class DeskPack extends javax.swing.JPanel {
         if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() >= 2) {
             var selected = listWatch.getSelectedValue();
             if (selected instanceof WatchFoundPlace selectedPlace) {
-                var parts = selectedPlace.place.split("\\" +  File.separator);
-                editDestinyName.setText(parts[parts.length -1]);
+                var parts = selectedPlace.place.split("\\" + File.separator);
+                editDestinyName.setText(parts[parts.length - 1]);
             }
         }
     }//GEN-LAST:event_listWatchMouseClicked
