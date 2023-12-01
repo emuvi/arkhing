@@ -503,19 +503,32 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
             if (addIndex < 0) {
                 for (int i = 0; i < allSelected.size(); i++) {
-                    var selected = allSelected.get(i);
-                    var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
-                    renameFolder(selected, newName);
+                    makeFolderAddIndex(allSelected, i, addIndex);
                 }
             } else {
                 for (int i = allSelected.size() - 1; i >= 0; i--) {
-                    var selected = allSelected.get(i);
-                    var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
-                    renameFolder(selected, newName);
+                    makeFolderAddIndex(allSelected, i, addIndex);
                 }
             }
         }
     }//GEN-LAST:event_menuFolderAddIndexActionPerformed
+
+    private void makeFolderAddIndex(List<OrgzFolder> allSelected, int i, Integer addIndex) {
+        var selected = allSelected.get(i);
+        var oldName = selected.path.getName();
+        var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
+        var destiny = renameFolder(selected, newName);
+        if (destiny != null) {
+            for (var inside : destiny.listFiles()) {
+                if (inside.getName().startsWith(oldName)) {
+                    var suffix = inside.getName().substring(oldName.length());
+                    var newInsideName = newName + suffix;
+                    var destinyInside = new File(inside.getParentFile(), newInsideName);
+                    inside.renameTo(destinyInside);
+                }
+            }
+        }
+    }
 
     private void menuAssetsAddIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsAddIndexActionPerformed
         var input = JOptionPane.showInputDialog("Index to add:", "1");
@@ -633,19 +646,17 @@ public class DeskOrgz extends javax.swing.JPanel {
         return name.substring(0, begin) + newNameNumber + name.substring(end);
     }
 
-    private void renameFolder(OrgzFolder orgz, String newName) {
+    private File renameFolder(OrgzFolder orgz, String newName) {
         if (Objects.equals(newName, orgz.path.getName())) {
-            return;
+            return null;
         }
-        try {
-            var destiny = new File(orgz.path.getParentFile(), newName);
-            if (orgz.path.renameTo(destiny)) {
-                orgz.path = destiny;
-            }
+        var destiny = new File(orgz.path.getParentFile(), newName);
+        if (orgz.path.renameTo(destiny)) {
+            orgz.path = destiny;
             SwingUtilities.updateComponentTreeUI(listFolder);
-        } catch (Exception e) {
-            WizSwing.showError(e);
+            return destiny;
         }
+        return null;
     }
 
     private void renameAssets(OrgzAssets orgz, String newName) {
