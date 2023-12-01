@@ -19,7 +19,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="splitPack" alignment="0" max="32767" attributes="0"/>
+                  <Component id="splitPack" alignment="0" pref="712" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="editWatch" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -152,6 +152,8 @@
                               <Component id="labelClipboard" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="labelFound" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="labelStatus" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="panelProcess" max="32767" attributes="0"/>
                       </Group>
@@ -166,6 +168,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="labelClipboard" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="labelFound" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="editClipboard" min="-2" max="-2" attributes="0"/>
@@ -289,10 +292,24 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="0" red="ff" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Found!!!"/>
+                <Property name="text" type="java.lang.String" value="Already Present on Base!!!"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkAutoCopy">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Auto"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="labelStatus">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Courier New" size="12" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Size: 0 | Wait: No"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

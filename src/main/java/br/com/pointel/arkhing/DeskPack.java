@@ -64,6 +64,7 @@ public class DeskPack extends javax.swing.JPanel {
         buttonFolderOpen = new javax.swing.JButton();
         labelFound = new javax.swing.JLabel();
         checkAutoCopy = new javax.swing.JCheckBox();
+        labelStatus = new javax.swing.JLabel();
 
         editWatch.setEditable(false);
         editWatch.setText(WizProps.get("DESK_PACK_WATCH", ""));
@@ -158,7 +159,13 @@ public class DeskPack extends javax.swing.JPanel {
 
         labelFound.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
         labelFound.setForeground(new java.awt.Color(255, 0, 0));
-        labelFound.setText("Found!!!");
+        labelFound.setText("Already Present on Base!!!");
+
+        checkAutoCopy.setText("Auto");
+
+        labelStatus.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
+        labelStatus.setForeground(new java.awt.Color(0, 0, 153));
+        labelStatus.setText("Size: 0 | Wait: No");
 
         javax.swing.GroupLayout panelWatchLayout = new javax.swing.GroupLayout(panelWatch);
         panelWatch.setLayout(panelWatchLayout);
@@ -191,7 +198,9 @@ public class DeskPack extends javax.swing.JPanel {
                     .addGroup(panelWatchLayout.createSequentialGroup()
                         .addComponent(labelClipboard)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelFound))
+                        .addComponent(labelFound)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelStatus))
                     .addComponent(panelProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -201,7 +210,8 @@ public class DeskPack extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelClipboard)
-                    .addComponent(labelFound))
+                    .addComponent(labelFound)
+                    .addComponent(labelStatus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editClipboard, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -232,7 +242,7 @@ public class DeskPack extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(splitPack)
+                    .addComponent(splitPack, javax.swing.GroupLayout.DEFAULT_SIZE, 712, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(editWatch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -276,7 +286,11 @@ public class DeskPack extends javax.swing.JPanel {
                             var selected = listWatch.getSelectedValue();
                             labelFound.setVisible(false);
                             modelWatch.removeAllElements();
+                            boolean wait = false;
                             for (var watchFound : watchFounds) {
+                                if (watchFound.file.getName().endsWith(".crdownload")) {
+                                    wait = true;
+                                }
                                 modelWatch.addElement(new WatchFoundDisplay(watchFound));
                                 if (watchFound.places.isEmpty()) {
                                     modelWatch.addElement(new WatchFoundNone(watchFound));
@@ -291,6 +305,7 @@ public class DeskPack extends javax.swing.JPanel {
                                 }
                             }
                             listWatch.setSelectedValue(selected, true);
+                            labelStatus.setText("Size: " + watchFounds.size() + " - Wait: " + (wait ? "Yes" : "No"));
                             hasWatchChanges.set(false);
                         }
                     }
@@ -491,7 +506,9 @@ public class DeskPack extends javax.swing.JPanel {
 
     private void listWatchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listWatchKeyPressed
         if (evt.isShiftDown() && evt.getKeyCode() == KeyEvent.VK_DELETE) {
-            listWatch.getSelectedValue().watchFound.file.delete();
+            for (var selected : listWatch.getSelectedValuesList()) {
+                selected.watchFound.file.delete();
+            }
         }
     }//GEN-LAST:event_listWatchKeyPressed
 
@@ -548,6 +565,7 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JLabel labelDestinyFolder;
     private javax.swing.JLabel labelDestinyName;
     private javax.swing.JLabel labelFound;
+    private javax.swing.JLabel labelStatus;
     private javax.swing.JList<WatchFoundDisplay> listWatch;
     private javax.swing.JPanel panelProcess;
     private javax.swing.JPanel panelWatch;
