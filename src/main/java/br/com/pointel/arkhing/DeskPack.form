@@ -274,6 +274,14 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeAulaNameActionPerformed"/>
                   </Events>
                 </Component>
+                <Component class="javax.swing.JButton" name="buttonMakeAutoName">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Make Auto Name"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeAutoNameActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
             <Component class="javax.swing.JButton" name="buttonFolderOpen">

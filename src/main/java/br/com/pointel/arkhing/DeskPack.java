@@ -61,6 +61,7 @@ public class DeskPack extends javax.swing.JPanel {
         buttonSameRootName = new javax.swing.JButton();
         buttonSameFoundName = new javax.swing.JButton();
         buttonMakeAulaName = new javax.swing.JButton();
+        buttonMakeAutoName = new javax.swing.JButton();
         buttonFolderOpen = new javax.swing.JButton();
         labelFound = new javax.swing.JLabel();
         checkAutoCopy = new javax.swing.JCheckBox();
@@ -149,6 +150,14 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
         panelProcess.add(buttonMakeAulaName);
+
+        buttonMakeAutoName.setText("Make Auto Name");
+        buttonMakeAutoName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMakeAutoNameActionPerformed(evt);
+            }
+        });
+        panelProcess.add(buttonMakeAutoName);
 
         buttonFolderOpen.setText("Open");
         buttonFolderOpen.addActionListener(new java.awt.event.ActionListener() {
@@ -530,6 +539,14 @@ public class DeskPack extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_listWatchMouseClicked
 
+    private void buttonMakeAutoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeAutoNameActionPerformed
+        if (labelFound.isVisible()) {
+            buttonSameFoundNameActionPerformed(evt);
+        } else {
+            buttonMakeAulaNameActionPerformed(evt);
+        }
+    }//GEN-LAST:event_buttonMakeAutoNameActionPerformed
+
     private Set<WatchFound> getSelectedToProcess() {
         Set<WatchFound> results = new HashSet<>();
         if (listWatch.getSelectedIndex() == -1) {
@@ -551,6 +568,7 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JButton buttonFolderCopy;
     private javax.swing.JButton buttonFolderOpen;
     private javax.swing.JButton buttonMakeAulaName;
+    private javax.swing.JButton buttonMakeAutoName;
     private javax.swing.JButton buttonNameCopy;
     private javax.swing.JButton buttonSameFoundName;
     private javax.swing.JButton buttonSameRootName;
