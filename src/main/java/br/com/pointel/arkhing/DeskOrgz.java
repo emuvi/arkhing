@@ -515,19 +515,8 @@ public class DeskOrgz extends javax.swing.JPanel {
 
     private void makeFolderAddIndex(List<OrgzFolder> allSelected, int i, Integer addIndex) {
         var selected = allSelected.get(i);
-        var oldName = selected.path.getName();
         var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
-        var destiny = renameFolder(selected, newName);
-        if (destiny != null) {
-            for (var inside : destiny.listFiles()) {
-                if (inside.getName().startsWith(oldName)) {
-                    var suffix = inside.getName().substring(oldName.length());
-                    var newInsideName = newName + suffix;
-                    var destinyInside = new File(inside.getParentFile(), newInsideName);
-                    inside.renameTo(destinyInside);
-                }
-            }
-        }
+        renameFolder(selected, newName);
     }
 
     private void menuAssetsAddIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsAddIndexActionPerformed
@@ -650,8 +639,17 @@ public class DeskOrgz extends javax.swing.JPanel {
         if (Objects.equals(newName, orgz.path.getName())) {
             return null;
         }
+        var oldName = orgz.path.getName();
         var destiny = new File(orgz.path.getParentFile(), newName);
         if (orgz.path.renameTo(destiny)) {
+            for (var inside : destiny.listFiles()) {
+                if (inside.getName().startsWith(oldName)) {
+                    var suffix = inside.getName().substring(oldName.length());
+                    var newInsideName = newName + suffix;
+                    var destinyInside = new File(inside.getParentFile(), newInsideName);
+                    inside.renameTo(destinyInside);
+                }
+            }
             orgz.path = destiny;
             SwingUtilities.updateComponentTreeUI(listFolder);
             return destiny;
