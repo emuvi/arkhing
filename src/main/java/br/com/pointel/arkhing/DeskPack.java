@@ -398,6 +398,7 @@ public class DeskPack extends javax.swing.JPanel {
                 .replace("|", "-")
                 .replace("/", "-")
                 .replace("\\", "-")
+                .replace("?", "")
                 .replaceAll("\\s+", " ")
                 .trim();
     }
