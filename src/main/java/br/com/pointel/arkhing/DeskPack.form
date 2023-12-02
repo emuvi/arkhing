@@ -19,7 +19,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="splitPack" alignment="0" pref="712" max="32767" attributes="0"/>
+                  <Component id="splitPack" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="editWatch" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -140,7 +140,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="labelDestinyName" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace pref="38" max="32767" attributes="0"/>
                                       <Component id="checkAutoCopy" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="buttonNameCopy" min="-2" max="-2" attributes="0"/>
@@ -148,12 +148,12 @@
                                   <Component id="editDestinyName" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="labelClipboard" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="labelFound" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Component id="labelStatus" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="labelFound" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="labelClipboard" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="panelProcess" max="32767" attributes="0"/>
                       </Group>
