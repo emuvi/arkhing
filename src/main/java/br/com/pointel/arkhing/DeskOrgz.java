@@ -4,20 +4,14 @@ import java.awt.Desktop;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.IntStream;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -41,6 +35,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void initComponents() {
 
         menuFolder = new javax.swing.JPopupMenu();
+        menuFolderUpdate = new javax.swing.JMenuItem();
         menuFolderSearch = new javax.swing.JMenuItem();
         menuFolderNew = new javax.swing.JMenuItem();
         menuFolderOpen = new javax.swing.JMenuItem();
@@ -63,6 +58,14 @@ public class DeskOrgz extends javax.swing.JPanel {
         listFolder = new javax.swing.JList<>();
         scrollAssets = new javax.swing.JScrollPane();
         listAssets = new javax.swing.JList<>();
+
+        menuFolderUpdate.setText("Update");
+        menuFolderUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFolderUpdateActionPerformed(evt);
+            }
+        });
+        menuFolder.add(menuFolderUpdate);
 
         menuFolderSearch.setText("Search");
         menuFolderSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -589,6 +592,10 @@ public class DeskOrgz extends javax.swing.JPanel {
         searchNextAssets();
     }//GEN-LAST:event_menuAssetsSearchActionPerformed
 
+    private void menuFolderUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderUpdateActionPerformed
+        updateFolder(lastLoadedBase);
+    }//GEN-LAST:event_menuFolderUpdateActionPerformed
+
     private void searchNextAssets() {
         if (searchAssets.isBlank()) {
             return;
@@ -700,6 +707,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JMenuItem menuFolderRandom;
     private javax.swing.JMenuItem menuFolderReplacer;
     private javax.swing.JMenuItem menuFolderSearch;
+    private javax.swing.JMenuItem menuFolderUpdate;
     private javax.swing.JScrollPane scrollAssets;
     private javax.swing.JScrollPane scrollFolder;
     private javax.swing.JSplitPane splitBody;
