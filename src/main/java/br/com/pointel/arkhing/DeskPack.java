@@ -534,8 +534,9 @@ public class DeskPack extends javax.swing.JPanel {
         if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() >= 2) {
             var selected = listWatch.getSelectedValue();
             if (selected instanceof WatchFoundPlace selectedPlace) {
-                var parts = selectedPlace.place.split("\\" + File.separator);
-                editDestinyName.setText(parts[parts.length - 1]);
+                var destiny = new File(desk.arkhBase.root, selectedPlace.place);
+                editDestinyFolder.setText(destiny.getParent());
+                editDestinyName.setText(FilenameUtils.getBaseName(destiny.getName()));
             }
         }
     }//GEN-LAST:event_listWatchMouseClicked
