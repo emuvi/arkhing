@@ -58,10 +58,10 @@ public class DeskPack extends javax.swing.JPanel {
         buttonNameCopy = new javax.swing.JButton();
         buttonFolderCopy = new javax.swing.JButton();
         panelProcess = new javax.swing.JPanel();
-        buttonSameRootName = new javax.swing.JButton();
-        buttonSameFoundName = new javax.swing.JButton();
-        buttonMakeAulaName = new javax.swing.JButton();
         buttonMakeAutoName = new javax.swing.JButton();
+        buttonMakeAulaName = new javax.swing.JButton();
+        buttonSameFoundName = new javax.swing.JButton();
+        buttonSameRootName = new javax.swing.JButton();
         buttonFolderOpen = new javax.swing.JButton();
         labelFound = new javax.swing.JLabel();
         checkAutoCopy = new javax.swing.JCheckBox();
@@ -127,21 +127,13 @@ public class DeskPack extends javax.swing.JPanel {
 
         panelProcess.setLayout(new java.awt.GridLayout(1, 0, 8, 0));
 
-        buttonSameRootName.setText("Same Root Name");
-        buttonSameRootName.addActionListener(new java.awt.event.ActionListener() {
+        buttonMakeAutoName.setText("Make Auto Name");
+        buttonMakeAutoName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSameRootNameActionPerformed(evt);
+                buttonMakeAutoNameActionPerformed(evt);
             }
         });
-        panelProcess.add(buttonSameRootName);
-
-        buttonSameFoundName.setText("Same Found Name");
-        buttonSameFoundName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSameFoundNameActionPerformed(evt);
-            }
-        });
-        panelProcess.add(buttonSameFoundName);
+        panelProcess.add(buttonMakeAutoName);
 
         buttonMakeAulaName.setText("Make Aula Name");
         buttonMakeAulaName.addActionListener(new java.awt.event.ActionListener() {
@@ -151,13 +143,21 @@ public class DeskPack extends javax.swing.JPanel {
         });
         panelProcess.add(buttonMakeAulaName);
 
-        buttonMakeAutoName.setText("Make Auto Name");
-        buttonMakeAutoName.addActionListener(new java.awt.event.ActionListener() {
+        buttonSameFoundName.setText("Same Found Name");
+        buttonSameFoundName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonMakeAutoNameActionPerformed(evt);
+                buttonSameFoundNameActionPerformed(evt);
             }
         });
-        panelProcess.add(buttonMakeAutoName);
+        panelProcess.add(buttonSameFoundName);
+
+        buttonSameRootName.setText("Same Root Name");
+        buttonSameRootName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSameRootNameActionPerformed(evt);
+            }
+        });
+        panelProcess.add(buttonSameRootName);
 
         buttonFolderOpen.setText("Open");
         buttonFolderOpen.addActionListener(new java.awt.event.ActionListener() {
