@@ -23,11 +23,11 @@ public class ViewDisplay extends javax.swing.JFrame {
     private final BufferedImage captured;
     private final Editor editor;
 
-    public ViewDisplay(Display display, Consumer<Rectangle> onAccept) throws Exception {
+    public ViewDisplay(Display display, Rectangle initial, Consumer<Rectangle> onAccept) throws Exception {
         this.display = display;
         this.onAccept = onAccept;
         this.captured = display.capture();
-        this.editor = new Editor();
+        this.editor = new Editor(initial);
         initComponents();
         scrollDisplay.setViewportView(editor);
         setTitle(display.toString());
@@ -112,8 +112,14 @@ public class ViewDisplay extends javax.swing.JFrame {
         private Point pointTopLeft = null;
         private Point pointBottomRight = null;
 
-        public Editor() {
+        public Editor(Rectangle initial) {
             var dimension = new Dimension(captured.getWidth(), captured.getHeight());
+            if (initial != null) {
+                var initialX = initial.x - display.getBounds().x;
+                var initialY = initial.y - display.getBounds().y;
+                pointTopLeft = new Point(initialX, initialY);
+                pointBottomRight = new Point(initialX + initial.width, initialY + initial.height);
+            }
             setPreferredSize(dimension);
             setMinimumSize(dimension);
             setMaximumSize(dimension);

@@ -176,8 +176,8 @@ public class DeskCapt extends javax.swing.JPanel {
         var selected = (Display) comboDisplays.getSelectedItem();
         if (selected != null) {
             try {
-                new ViewDisplay(selected, (rect) -> {
-                    source = rect;
+                new ViewDisplay(selected, source, (newSource) -> {
+                    source = newSource;
                     editSource.setText(source.toString());
                 }).setVisible(true);
             } catch (Exception e) {
