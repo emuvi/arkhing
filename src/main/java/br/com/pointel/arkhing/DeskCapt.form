@@ -29,7 +29,9 @@
                   <Group type="102" attributes="0">
                       <Component id="editDestiny" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonDestiny" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonNew" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonSelect" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonOpen" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -70,9 +72,10 @@
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonDestiny" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonSelect" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="editDestiny" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonOpen" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonNew" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -114,12 +117,12 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonDestiny">
+    <Component class="javax.swing.JButton" name="buttonSelect">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Destiny"/>
+        <Property name="text" type="java.lang.String" value="Select"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDestinyActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelectActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="editSource">
@@ -175,7 +178,7 @@
     <Component class="javax.swing.JSpinner" name="editWait">
       <Properties>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="1.2" numberType="java.lang.Double" stepSize="0.2" type="number"/>
+          <SpinnerModel initial="2.0" numberType="java.lang.Double" stepSize="0.2" type="number"/>
         </Property>
       </Properties>
     </Component>
@@ -183,6 +186,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Wait"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonNew">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="New"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNewActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

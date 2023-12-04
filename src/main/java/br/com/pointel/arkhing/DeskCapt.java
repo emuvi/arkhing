@@ -10,6 +10,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -41,7 +42,7 @@ public class DeskCapt extends javax.swing.JPanel {
         comboDisplays = new javax.swing.JComboBox<>();
         buttonView = new javax.swing.JButton();
         editDestiny = new javax.swing.JTextField();
-        buttonDestiny = new javax.swing.JButton();
+        buttonSelect = new javax.swing.JButton();
         editSource = new javax.swing.JTextField();
         buttonStart = new javax.swing.JButton();
         editPages = new javax.swing.JSpinner();
@@ -51,6 +52,7 @@ public class DeskCapt extends javax.swing.JPanel {
         buttonOpen = new javax.swing.JButton();
         editWait = new javax.swing.JSpinner();
         labelWait = new javax.swing.JLabel();
+        buttonNew = new javax.swing.JButton();
 
         buttonView.setText("Source");
         buttonView.addActionListener(new java.awt.event.ActionListener() {
@@ -62,10 +64,10 @@ public class DeskCapt extends javax.swing.JPanel {
         editDestiny.setEditable(false);
         editDestiny.setText(WizProps.get("DESK_CAPT_DESTINY", ""));
 
-        buttonDestiny.setText("Destiny");
-        buttonDestiny.addActionListener(new java.awt.event.ActionListener() {
+        buttonSelect.setText("Select");
+        buttonSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDestinyActionPerformed(evt);
+                buttonSelectActionPerformed(evt);
             }
         });
 
@@ -91,9 +93,16 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
-        editWait.setModel(new javax.swing.SpinnerNumberModel(1.2d, null, null, 0.2d));
+        editWait.setModel(new javax.swing.SpinnerNumberModel(2.0d, null, null, 0.2d));
 
         labelWait.setText("Wait");
+
+        buttonNew.setText("New");
+        buttonNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -111,7 +120,9 @@ public class DeskCapt extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(editDestiny)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonDestiny)
+                        .addComponent(buttonNew)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSelect)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonOpen))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -142,9 +153,10 @@ public class DeskCapt extends javax.swing.JPanel {
                     .addComponent(editSource, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonDestiny)
+                    .addComponent(buttonSelect)
                     .addComponent(editDestiny, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonOpen))
+                    .addComponent(buttonOpen)
+                    .addComponent(buttonNew))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPages)
@@ -174,7 +186,7 @@ public class DeskCapt extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonViewActionPerformed
 
-    private void buttonDestinyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDestinyActionPerformed
+    private void buttonSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectActionPerformed
         try {
             var selected = WizSwing.selectFolder(new File(editDestiny.getText()));
             if (selected != null) {
@@ -184,7 +196,7 @@ public class DeskCapt extends javax.swing.JPanel {
         } catch (Exception e) {
             WizSwing.showError(e);
         }
-    }//GEN-LAST:event_buttonDestinyActionPerformed
+    }//GEN-LAST:event_buttonSelectActionPerformed
 
     private volatile boolean making = false;
 
@@ -293,6 +305,36 @@ public class DeskCapt extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonOpenActionPerformed
 
+    private void buttonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNewActionPerformed
+        try {
+            var selected = new File(editDestiny.getText());
+            var directory = selected.getParentFile();
+            var bigger = 0;
+            for (var inside : directory.listFiles()) {
+                if (inside.isDirectory()) {
+                    bigger = Math.max(bigger, getCaptFolderIndex(inside.getName()));
+                }
+            }
+            var name = "Capt-" + StringUtils.leftPad(++bigger + "", 2, '0');
+            var destiny = new File(directory, name);
+            Files.createDirectories(destiny.toPath());
+            editDestiny.setText(destiny.getAbsolutePath());
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+        
+    }//GEN-LAST:event_buttonNewActionPerformed
+
+    private int getCaptFolderIndex(String folderName) {
+        if (folderName.startsWith("Capt-")) {
+            try {
+                return Integer.parseInt(folderName.substring(5));
+            } catch (Exception e) {
+            }
+        }
+        return 0;
+    }
+    
     private void captureAllScreens() {
         try {
             var index = 1;
@@ -308,8 +350,9 @@ public class DeskCapt extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonDestiny;
+    private javax.swing.JButton buttonNew;
     private javax.swing.JButton buttonOpen;
+    private javax.swing.JButton buttonSelect;
     private javax.swing.JButton buttonStart;
     private javax.swing.JButton buttonView;
     private javax.swing.JComboBox<Display> comboDisplays;
