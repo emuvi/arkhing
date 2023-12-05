@@ -41,6 +41,8 @@ public class ViewDisplay extends javax.swing.JFrame {
         scrollDisplay = new javax.swing.JScrollPane();
         buttonAccept = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
+        buttonUp = new javax.swing.JButton();
+        buttonDown = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Display");
@@ -62,6 +64,22 @@ public class ViewDisplay extends javax.swing.JFrame {
             }
         });
 
+        buttonUp.setMnemonic('U');
+        buttonUp.setText("Up");
+        buttonUp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpActionPerformed(evt);
+            }
+        });
+
+        buttonDown.setMnemonic('D');
+        buttonDown.setText("Down");
+        buttonDown.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDownActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -70,7 +88,10 @@ public class ViewDisplay extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 438, Short.MAX_VALUE)
+                        .addComponent(buttonUp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonDown)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 288, Short.MAX_VALUE)
                         .addComponent(buttonAccept)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonCancel))
@@ -85,7 +106,9 @@ public class ViewDisplay extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonCancel)
-                    .addComponent(buttonAccept))
+                    .addComponent(buttonAccept)
+                    .addComponent(buttonUp)
+                    .addComponent(buttonDown))
                 .addContainerGap())
         );
 
@@ -101,9 +124,19 @@ public class ViewDisplay extends javax.swing.JFrame {
         WizSwing.close(this);
     }//GEN-LAST:event_buttonCancelActionPerformed
 
+    private void buttonUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpActionPerformed
+        scrollDisplay.getVerticalScrollBar().setValue(0);
+    }//GEN-LAST:event_buttonUpActionPerformed
+
+    private void buttonDownActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDownActionPerformed
+        scrollDisplay.getVerticalScrollBar().setValue(scrollDisplay.getVerticalScrollBar().getMaximum());
+    }//GEN-LAST:event_buttonDownActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAccept;
     private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonDown;
+    private javax.swing.JButton buttonUp;
     private javax.swing.JScrollPane scrollDisplay;
     // End of variables declaration//GEN-END:variables
 
