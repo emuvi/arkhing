@@ -543,22 +543,33 @@ public class DeskPack extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_listWatchMouseClicked
 
+    private final AtomicBoolean shootMakeAutoName = new AtomicBoolean(false);
+
     private void buttonMakeAutoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeAutoNameActionPerformed
-        new Thread() {
-            @Override
-            public void run() {
-                while (shouldWait.get()) {
-                    WizBase.sleep(10);
-                }
-                SwingUtilities.invokeLater(() -> {
-                    if (labelFound.isVisible()) {
-                        buttonSameFoundNameActionPerformed(evt);
-                    } else {
-                        buttonMakeAulaNameActionPerformed(evt);
+        if (!shootMakeAutoName.get()) {
+            shootMakeAutoName.set(true);
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        while (shouldWait.get()) {
+                            WizBase.sleep(10);
+                        }
+                        SwingUtilities.invokeLater(() -> {
+                            if (labelFound.isVisible()) {
+                                buttonSameFoundNameActionPerformed(evt);
+                            } else {
+                                buttonMakeAulaNameActionPerformed(evt);
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        shootMakeAutoName.set(false);
                     }
-                });
-            }
-        }.start();
+                }
+            }.start();
+        }
     }//GEN-LAST:event_buttonMakeAutoNameActionPerformed
 
     private Set<WatchFound> getSelectedToProcess() {
