@@ -10,7 +10,6 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 public class FolderMirror {
 
@@ -107,5 +106,5 @@ public class FolderMirror {
                 ofOrigin.getAbsolutePath().substring(originPath.length()));
     }
 
-    private static final int VELOCITY = 4;
+    private static final int VELOCITY = 8;
 }
