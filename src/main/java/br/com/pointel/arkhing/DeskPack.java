@@ -30,6 +30,7 @@ public class DeskPack extends javax.swing.JPanel {
     private final DefaultListModel<WatchFoundDisplay> modelWatch = new DefaultListModel<>();
     private final List<WatchFound> watchFounds = new ArrayList<>();
     private final AtomicBoolean hasWatchChanges = new AtomicBoolean(true);
+    private final AtomicBoolean shouldWait = new AtomicBoolean(true);
 
     public DeskPack(Desk desk) {
         this.desk = desk;
@@ -315,6 +316,7 @@ public class DeskPack extends javax.swing.JPanel {
                             }
                             listWatch.setSelectedValue(selected, true);
                             labelStatus.setText("Size: " + watchFounds.size() + " - Wait: " + (wait ? "Yes" : "No"));
+                            shouldWait.set(wait);
                             hasWatchChanges.set(false);
                         }
                     }
@@ -542,11 +544,21 @@ public class DeskPack extends javax.swing.JPanel {
     }//GEN-LAST:event_listWatchMouseClicked
 
     private void buttonMakeAutoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeAutoNameActionPerformed
-        if (labelFound.isVisible()) {
-            buttonSameFoundNameActionPerformed(evt);
-        } else {
-            buttonMakeAulaNameActionPerformed(evt);
-        }
+        new Thread() {
+            @Override
+            public void run() {
+                while (shouldWait.get()) {
+                    WizBase.sleep(10);
+                }
+                SwingUtilities.invokeLater(() -> {
+                    if (labelFound.isVisible()) {
+                        buttonSameFoundNameActionPerformed(evt);
+                    } else {
+                        buttonMakeAulaNameActionPerformed(evt);
+                    }
+                });
+            }
+        }.start();
     }//GEN-LAST:event_buttonMakeAutoNameActionPerformed
 
     private Set<WatchFound> getSelectedToProcess() {
