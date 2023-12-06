@@ -12,6 +12,7 @@ import java.util.stream.IntStream;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -39,17 +40,20 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuFolderSearch = new javax.swing.JMenuItem();
         menuFolderNew = new javax.swing.JMenuItem();
         menuFolderOpen = new javax.swing.JMenuItem();
-        menuFolderNamer = new javax.swing.JMenuItem();
-        menuFolderReplacer = new javax.swing.JMenuItem();
+        menuFolderRename = new javax.swing.JMenuItem();
+        menuFolderReplace = new javax.swing.JMenuItem();
+        menuFolderRemove = new javax.swing.JMenuItem();
         menuFolderAddIndex = new javax.swing.JMenuItem();
         menuFolderRandom = new javax.swing.JMenuItem();
         menuFolderGroovy = new javax.swing.JMenuItem();
         menuAssets = new javax.swing.JPopupMenu();
+        menuAssetsUpdate = new javax.swing.JMenuItem();
         menuAssetsSearch = new javax.swing.JMenuItem();
         menuAssetsNew = new javax.swing.JMenuItem();
         menuAssetsOpen = new javax.swing.JMenuItem();
-        menuAssetsNamer = new javax.swing.JMenuItem();
-        menuAssetsReplacer = new javax.swing.JMenuItem();
+        menuAssetsRename = new javax.swing.JMenuItem();
+        menuAssetsReplace = new javax.swing.JMenuItem();
+        menuAssetsRemove = new javax.swing.JMenuItem();
         menuAssetsAddIndex = new javax.swing.JMenuItem();
         menuAssetsRandom = new javax.swing.JMenuItem();
         menuAssetsGroovy = new javax.swing.JMenuItem();
@@ -91,21 +95,29 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderOpen);
 
-        menuFolderNamer.setText("Namer");
-        menuFolderNamer.addActionListener(new java.awt.event.ActionListener() {
+        menuFolderRename.setText("Rename");
+        menuFolderRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuFolderNamerActionPerformed(evt);
+                menuFolderRenameActionPerformed(evt);
             }
         });
-        menuFolder.add(menuFolderNamer);
+        menuFolder.add(menuFolderRename);
 
-        menuFolderReplacer.setText("Replacer");
-        menuFolderReplacer.addActionListener(new java.awt.event.ActionListener() {
+        menuFolderReplace.setText("Replace");
+        menuFolderReplace.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuFolderReplacerActionPerformed(evt);
+                menuFolderReplaceActionPerformed(evt);
             }
         });
-        menuFolder.add(menuFolderReplacer);
+        menuFolder.add(menuFolderReplace);
+
+        menuFolderRemove.setText("Remove");
+        menuFolderRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFolderRemoveActionPerformed(evt);
+            }
+        });
+        menuFolder.add(menuFolderRemove);
 
         menuFolderAddIndex.setText("Add Index");
         menuFolderAddIndex.addActionListener(new java.awt.event.ActionListener() {
@@ -125,6 +137,14 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         menuFolderGroovy.setText("Groovy");
         menuFolder.add(menuFolderGroovy);
+
+        menuAssetsUpdate.setText("Update");
+        menuAssetsUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAssetsUpdateActionPerformed(evt);
+            }
+        });
+        menuAssets.add(menuAssetsUpdate);
 
         menuAssetsSearch.setText("Search");
         menuAssetsSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -150,21 +170,29 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuAssets.add(menuAssetsOpen);
 
-        menuAssetsNamer.setText("Namer");
-        menuAssetsNamer.addActionListener(new java.awt.event.ActionListener() {
+        menuAssetsRename.setText("Rename");
+        menuAssetsRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAssetsNamerActionPerformed(evt);
+                menuAssetsRenameActionPerformed(evt);
             }
         });
-        menuAssets.add(menuAssetsNamer);
+        menuAssets.add(menuAssetsRename);
 
-        menuAssetsReplacer.setText("Replacer");
-        menuAssetsReplacer.addActionListener(new java.awt.event.ActionListener() {
+        menuAssetsReplace.setText("Replace");
+        menuAssetsReplace.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAssetsReplacerActionPerformed(evt);
+                menuAssetsReplaceActionPerformed(evt);
             }
         });
-        menuAssets.add(menuAssetsReplacer);
+        menuAssets.add(menuAssetsReplace);
+
+        menuAssetsRemove.setText("Remove");
+        menuAssetsRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAssetsRemoveActionPerformed(evt);
+            }
+        });
+        menuAssets.add(menuAssetsRemove);
 
         menuAssetsAddIndex.setText("Add Index");
         menuAssetsAddIndex.addActionListener(new java.awt.event.ActionListener() {
@@ -258,10 +286,28 @@ public class DeskOrgz extends javax.swing.JPanel {
     }
 
     private void updateFolder(File path) {
+        var folderSelected = listFolder.getSelectedValue();
+        var assetSelected = listAssets.getSelectedValue();
         modelFolder.removeAllElements();
         if (path != null) {
             loadFolders(path, 0, new ArrayList<>())
                     .stream().forEach((folder) -> modelFolder.addElement(folder));
+        }
+        if (folderSelected != null) {
+            for (int i = 0; i < modelFolder.getSize(); i++) {
+                if (Objects.equals(folderSelected, modelFolder.get(i))) {
+                    listFolder.setSelectedIndex(i);
+                    break;
+                }
+            }
+        }
+        if (assetSelected != null) {
+            for (int i = 0; i < modelAssets.getSize(); i++) {
+                if (Objects.equals(assetSelected, modelAssets.get(i))) {
+                    listAssets.setSelectedIndex(i);
+                    break;
+                }
+            }
         }
     }
 
@@ -295,8 +341,11 @@ public class DeskOrgz extends javax.swing.JPanel {
             case KeyEvent.VK_ENTER:
                 menuFolderOpenActionPerformed(null);
                 break;
+            case KeyEvent.VK_F1:
+                menuFolderSearchActionPerformed(null);
+                break;
             case KeyEvent.VK_F2:
-                menuFolderNamerActionPerformed(null);
+                menuFolderRenameActionPerformed(null);
                 break;
             case KeyEvent.VK_F3:
                 searchNextFolder();
@@ -311,8 +360,11 @@ public class DeskOrgz extends javax.swing.JPanel {
             case KeyEvent.VK_ENTER:
                 menuAssetsOpenActionPerformed(null);
                 break;
+            case KeyEvent.VK_F1:
+                menuAssetsSearchActionPerformed(null);
+                break;
             case KeyEvent.VK_F2:
-                menuAssetsNamerActionPerformed(null);
+                menuAssetsRenameActionPerformed(null);
                 break;
             case KeyEvent.VK_F3:
                 searchNextAssets();
@@ -322,53 +374,69 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_listAssetsKeyPressed
 
-    private void menuFolderNamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderNamerActionPerformed
+    private void menuFolderRenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderRenameActionPerformed
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
             new ViewNamer(selected.path, (newName) -> {
-                renameFolder(selected, newName);
-                listFolder.requestFocus();
+                try {
+                    renameFolder(selected, newName);
+                    listFolder.requestFocus();
+                } catch (Exception e) {
+                    WizSwing.showError(e);
+                }
             }).setVisible(true);
         }
-    }//GEN-LAST:event_menuFolderNamerActionPerformed
+    }//GEN-LAST:event_menuFolderRenameActionPerformed
 
-    private void menuFolderReplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderReplacerActionPerformed
+    private void menuFolderReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderReplaceActionPerformed
         var allSelected = listFolder.getSelectedValuesList();
         if (allSelected != null && !allSelected.isEmpty()) {
             new ViewReplacer((replacer) -> {
-                for (var itemSelected : allSelected) {
-                    var oldName = itemSelected.path.getName();
-                    var newName = replacer.replace(oldName);
-                    renameFolder(itemSelected, newName);
+                try {
+                    for (var itemSelected : allSelected) {
+                        var oldName = itemSelected.path.getName();
+                        var newName = replacer.replace(oldName);
+                        renameFolder(itemSelected, newName);
+                    }
+                    listFolder.requestFocus();
+                } catch (Exception e) {
+                    WizSwing.showError(e);
                 }
-                listFolder.requestFocus();
             }).setVisible(true);
         }
-    }//GEN-LAST:event_menuFolderReplacerActionPerformed
+    }//GEN-LAST:event_menuFolderReplaceActionPerformed
 
-    private void menuAssetsNamerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsNamerActionPerformed
+    private void menuAssetsRenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsRenameActionPerformed
         var selected = listAssets.getSelectedValue();
         if (selected != null) {
             new ViewNamer(selected.path, (newName) -> {
-                renameAssets(selected, newName);
-                listAssets.requestFocus();
+                try {
+                    renameAssets(selected, newName);
+                    listAssets.requestFocus();
+                } catch (Exception e) {
+                    WizSwing.showError(e);
+                }
             }).setVisible(true);
         }
-    }//GEN-LAST:event_menuAssetsNamerActionPerformed
+    }//GEN-LAST:event_menuAssetsRenameActionPerformed
 
-    private void menuAssetsReplacerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsReplacerActionPerformed
+    private void menuAssetsReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsReplaceActionPerformed
         var allSelected = listAssets.getSelectedValuesList();
         if (allSelected != null && !allSelected.isEmpty()) {
             new ViewReplacer((replacer) -> {
-                for (var itemSelected : allSelected) {
-                    var oldName = itemSelected.path.getName();
-                    var newName = replacer.replace(oldName);
-                    renameAssets(itemSelected, newName);
+                try {
+                    for (var itemSelected : allSelected) {
+                        var oldName = itemSelected.path.getName();
+                        var newName = replacer.replace(oldName);
+                        renameAssets(itemSelected, newName);
+                    }
+                    listAssets.requestFocus();
+                } catch (Exception e) {
+                    WizSwing.showError(e);
                 }
-                listAssets.requestFocus();
             }).setVisible(true);
         }
-    }//GEN-LAST:event_menuAssetsReplacerActionPerformed
+    }//GEN-LAST:event_menuAssetsReplaceActionPerformed
 
     private void listFolderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listFolderMouseClicked
         SwingUtilities.invokeLater(() -> {
@@ -494,63 +562,71 @@ public class DeskOrgz extends javax.swing.JPanel {
     }//GEN-LAST:event_menuAssetsNewActionPerformed
 
     private void menuFolderAddIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderAddIndexActionPerformed
-        var input = JOptionPane.showInputDialog("Index to add:", "1");
-        if (input != null && !input.isBlank()) {
-            var addIndex = Integer.valueOf(input);
-            if (addIndex == 0) {
-                return;
-            }
-            var allSelected = listFolder.getSelectedValuesList();
-            if (allSelected == null) {
-                return;
-            }
-            if (addIndex < 0) {
-                for (int i = 0; i < allSelected.size(); i++) {
-                    makeFolderAddIndex(allSelected, i, addIndex);
+        try {
+            var input = JOptionPane.showInputDialog("Index to add:", "1");
+            if (input != null && !input.isBlank()) {
+                var addIndex = Integer.valueOf(input);
+                if (addIndex == 0) {
+                    return;
                 }
-            } else {
-                for (int i = allSelected.size() - 1; i >= 0; i--) {
-                    makeFolderAddIndex(allSelected, i, addIndex);
+                var allSelected = listFolder.getSelectedValuesList();
+                if (allSelected == null) {
+                    return;
+                }
+                if (addIndex < 0) {
+                    for (int i = 0; i < allSelected.size(); i++) {
+                        makeFolderAddIndex(allSelected, i, addIndex);
+                    }
+                } else {
+                    for (int i = allSelected.size() - 1; i >= 0; i--) {
+                        makeFolderAddIndex(allSelected, i, addIndex);
+                    }
                 }
             }
+        } catch (Exception e) {
+            WizSwing.showError(e);
         }
     }//GEN-LAST:event_menuFolderAddIndexActionPerformed
 
-    private void makeFolderAddIndex(List<OrgzFolder> allSelected, int i, Integer addIndex) {
+    private void makeFolderAddIndex(List<OrgzFolder> allSelected, int i, Integer addIndex) throws Exception {
         var selected = allSelected.get(i);
         var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
         renameFolder(selected, newName);
     }
 
     private void menuAssetsAddIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsAddIndexActionPerformed
-        var input = JOptionPane.showInputDialog("Index to add:", "1");
-        if (input != null && !input.isBlank()) {
-            var addIndex = Integer.valueOf(input);
-            if (addIndex == 0) {
-                return;
-            }
-            var allSelected = listAssets.getSelectedValuesList();
-            if (allSelected == null) {
-                return;
-            }
-            if (addIndex < 0) {
-                for (int i = 0; i < allSelected.size(); i++) {
-                    var selected = allSelected.get(i);
-                    var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
-                    renameAssets(selected, newName);
+        try {
+            var input = JOptionPane.showInputDialog("Index to add:", "1");
+            if (input != null && !input.isBlank()) {
+                var addIndex = Integer.valueOf(input);
+                if (addIndex == 0) {
+                    return;
                 }
-            } else {
-                for (int i = allSelected.size() - 1; i >= 0; i--) {
-                    var selected = allSelected.get(i);
-                    var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
-                    renameAssets(selected, newName);
+                var allSelected = listAssets.getSelectedValuesList();
+                if (allSelected == null) {
+                    return;
+                }
+                if (addIndex < 0) {
+                    for (int i = 0; i < allSelected.size(); i++) {
+                        var selected = allSelected.get(i);
+                        var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
+                        renameAssets(selected, newName);
+                    }
+                } else {
+                    for (int i = allSelected.size() - 1; i >= 0; i--) {
+                        var selected = allSelected.get(i);
+                        var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
+                        renameAssets(selected, newName);
+                    }
                 }
             }
+        } catch (Exception e) {
+            WizSwing.showError(e);
         }
     }//GEN-LAST:event_menuAssetsAddIndexActionPerformed
 
     private String searchFolder = "";
-    
+
     private void menuFolderSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderSearchActionPerformed
         var input = JOptionPane.showInputDialog("Search Folder:", searchFolder);
         if (input == null || input.isBlank()) {
@@ -580,9 +656,9 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         }
     }
-    
+
     private String searchAssets = "";
-    
+
     private void menuAssetsSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsSearchActionPerformed
         var input = JOptionPane.showInputDialog("Search Assets:", searchAssets);
         if (input == null || input.isBlank()) {
@@ -595,6 +671,50 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void menuFolderUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderUpdateActionPerformed
         updateFolder(lastLoadedBase);
     }//GEN-LAST:event_menuFolderUpdateActionPerformed
+
+    private void menuFolderRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderRemoveActionPerformed
+        try {
+            var allSelected = listFolder.getSelectedValuesList();
+            if (allSelected.isEmpty()) {
+                return;
+            }
+            if (JOptionPane.showConfirmDialog(this, "Are you sure to remove all selected?", "Arkhing", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) { 
+                return; 
+            }
+            for (var selected : allSelected) {
+                FileUtils.deleteDirectory(selected.path);
+                desk.arkhBase.delFolder(selected.path);
+                modelFolder.removeElement(selected);
+            }
+            updateFolder(lastLoadedBase);
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_menuFolderRemoveActionPerformed
+
+    private void menuAssetsRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsRemoveActionPerformed
+        try {
+            var allSelected = listAssets.getSelectedValuesList();
+            if (allSelected.isEmpty()) {
+                return;
+            }
+            if (JOptionPane.showConfirmDialog(this, "Are you sure to remove all selected?", "Arkhing", JOptionPane.YES_NO_OPTION) != JOptionPane.YES_OPTION) { 
+                return; 
+            }
+            for (var selected : allSelected) {
+                FileUtils.delete(selected.path);
+                desk.arkhBase.delFile(selected.path);
+                modelAssets.removeElement(selected);
+            }
+            SwingUtilities.invokeLater(() -> SwingUtilities.updateComponentTreeUI(listAssets));
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_menuAssetsRemoveActionPerformed
+
+    private void menuAssetsUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsUpdateActionPerformed
+        updateFolder(lastLoadedBase);
+    }//GEN-LAST:event_menuAssetsUpdateActionPerformed
 
     private void searchNextAssets() {
         if (searchAssets.isBlank()) {
@@ -616,7 +736,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         }
     }
-    
+
     private String getNameWithNewIndex(String name, int addIndex) {
         int begin = -1;
         int end = name.length();
@@ -642,48 +762,47 @@ public class DeskOrgz extends javax.swing.JPanel {
         return name.substring(0, begin) + newNameNumber + name.substring(end);
     }
 
-    private File renameFolder(OrgzFolder orgz, String newName) {
+    private File renameFolder(OrgzFolder orgz, String newName) throws Exception {
         if (Objects.equals(newName, orgz.path.getName())) {
             return null;
         }
         var oldName = orgz.path.getName();
-        var destiny = new File(orgz.path.getParentFile(), newName);
-        if (orgz.path.renameTo(destiny)) {
-            for (var inside : destiny.listFiles()) {
-                if (inside.getName().startsWith(oldName)) {
-                    var suffix = inside.getName().substring(oldName.length());
+        var originFolder = orgz.path;
+        var destinyFolder = new File(orgz.path.getParentFile(), newName);
+        if (originFolder.renameTo(destinyFolder)) {
+            for (var insideOrigin : destinyFolder.listFiles()) {
+                if (insideOrigin.getName().startsWith(oldName)) {
+                    var suffix = insideOrigin.getName().substring(oldName.length());
                     var newInsideName = newName + suffix;
-                    var destinyInside = new File(inside.getParentFile(), newInsideName);
-                    inside.renameTo(destinyInside);
+                    var insideDestiny = new File(insideOrigin.getParentFile(), newInsideName);
+                    renameFile(insideOrigin, insideDestiny);
                 }
             }
-            orgz.path = destiny;
-            SwingUtilities.updateComponentTreeUI(listFolder);
-            return destiny;
+            orgz.path = destinyFolder;
+            SwingUtilities.invokeLater(() -> SwingUtilities.updateComponentTreeUI(listFolder));
+            desk.arkhBase.moveFolder(originFolder, destinyFolder);
+            return destinyFolder;
+        } else {
+            throw new Exception("Could not rename folder from: " + originFolder.getAbsolutePath() + " to: " + destinyFolder.getAbsolutePath());
         }
-        return null;
     }
 
-    private void renameAssets(OrgzAssets orgz, String newName) {
+    private void renameAssets(OrgzAssets orgz, String newName) throws Exception {
         if (Objects.equals(newName, orgz.path.getName())) {
             return;
         }
-        try {
-            String oldPlace = desk.arkhBase.getPlace(orgz.path);
-            var destiny = new File(orgz.path.getParentFile(), newName);
-            var oldBased = desk.arkhBase.baseData.getByPlace(oldPlace);
-            var newPlace = desk.arkhBase.getPlace(destiny);
-            if (orgz.path.renameTo(destiny)) {
-                if (oldBased != null) {
-                    desk.arkhBase.baseData.delFile(oldPlace);
-                    desk.arkhBase.baseData.putFile(newPlace, destiny.lastModified(), oldBased.verifier);
-                }
-                orgz.path = destiny;
-            }
-            SwingUtilities.updateComponentTreeUI(listAssets);
-        } catch (Exception e) {
-            WizSwing.showError(e);
+        var originFile = orgz.path;
+        var destinyFile = new File(orgz.path.getParentFile(), newName);
+        renameFile(originFile, destinyFile);
+        orgz.path = destinyFile;
+        SwingUtilities.invokeLater(() -> SwingUtilities.updateComponentTreeUI(listAssets));
+    }
+
+    private void renameFile(File origin, File destiny) throws Exception {
+        if (!origin.renameTo(destiny)) {
+            throw new Exception("Could not rename file from: " + origin.getAbsolutePath() + " to: " + destiny.getAbsolutePath());
         }
+        desk.arkhBase.moveFile(origin, destiny);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -692,20 +811,23 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JPopupMenu menuAssets;
     private javax.swing.JMenuItem menuAssetsAddIndex;
     private javax.swing.JMenuItem menuAssetsGroovy;
-    private javax.swing.JMenuItem menuAssetsNamer;
     private javax.swing.JMenuItem menuAssetsNew;
     private javax.swing.JMenuItem menuAssetsOpen;
     private javax.swing.JMenuItem menuAssetsRandom;
-    private javax.swing.JMenuItem menuAssetsReplacer;
+    private javax.swing.JMenuItem menuAssetsRemove;
+    private javax.swing.JMenuItem menuAssetsRename;
+    private javax.swing.JMenuItem menuAssetsReplace;
     private javax.swing.JMenuItem menuAssetsSearch;
+    private javax.swing.JMenuItem menuAssetsUpdate;
     private javax.swing.JPopupMenu menuFolder;
     private javax.swing.JMenuItem menuFolderAddIndex;
     private javax.swing.JMenuItem menuFolderGroovy;
-    private javax.swing.JMenuItem menuFolderNamer;
     private javax.swing.JMenuItem menuFolderNew;
     private javax.swing.JMenuItem menuFolderOpen;
     private javax.swing.JMenuItem menuFolderRandom;
-    private javax.swing.JMenuItem menuFolderReplacer;
+    private javax.swing.JMenuItem menuFolderRemove;
+    private javax.swing.JMenuItem menuFolderRename;
+    private javax.swing.JMenuItem menuFolderReplace;
     private javax.swing.JMenuItem menuFolderSearch;
     private javax.swing.JMenuItem menuFolderUpdate;
     private javax.swing.JScrollPane scrollAssets;
@@ -719,6 +841,28 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         public OrgzItem(File path) {
             this.path = path;
+        }
+
+        @Override
+        public int hashCode() {
+            int hash = 5;
+            hash = 19 * hash + Objects.hashCode(this.path);
+            return hash;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (getClass() != obj.getClass()) {
+                return false;
+            }
+            final OrgzItem other = (OrgzItem) obj;
+            return Objects.equals(this.path, other.path);
         }
 
     }

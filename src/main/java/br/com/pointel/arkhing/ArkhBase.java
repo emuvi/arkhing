@@ -33,8 +33,24 @@ public class ArkhBase implements Closeable {
         return this;
     }
 
-    public String getPlace(File file) {
-        return file.getAbsolutePath().substring(this.rootLength);
+    public String getPlace(File path) {
+        return path.getAbsolutePath().substring(this.rootLength);
+    }
+    
+    public void delFolder(File path) throws Exception {
+        this.baseData.delFolder(getPlace(path));
+    }
+    
+    public void delFile(File path) throws Exception {
+        this.baseData.delFile(getPlace(path));
+    }
+    
+    public void moveFolder(File fromPath, File toPath) throws Exception {
+        this.baseData.moveFolder(getPlace(fromPath), getPlace(toPath));
+    }
+    
+    public void moveFile(File fromPath, File toPath) throws Exception {
+        this.baseData.moveFile(getPlace(fromPath), getPlace(toPath));
     }
 
     public String makeCheck(File path) throws Exception {

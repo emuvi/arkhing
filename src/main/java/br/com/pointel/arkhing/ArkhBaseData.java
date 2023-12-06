@@ -25,8 +25,8 @@ public class ArkhBaseData implements Closeable {
     }
 
     public ArkhBaseFile getByPlace(String place) throws Exception {
-        var select = this.connection.prepareStatement("SELECT "
-                + "place, modified, verifier "
+        var select = this.connection.prepareStatement(
+                "SELECT place, modified, verifier "
                 + "FROM files "
                 + "WHERE place = ?");
         select.setString(1, place);
@@ -43,8 +43,8 @@ public class ArkhBaseData implements Closeable {
     }
 
     public List<ArkhBaseFile> getByVerifier(String verifier) throws Exception {
-        var select = this.connection.prepareStatement("SELECT "
-                + "place, modified, verifier "
+        var select = this.connection.prepareStatement(
+                "SELECT place, modified, verifier "
                 + "FROM files "
                 + "WHERE verifier = ?");
         select.setString(1, verifier);
@@ -61,8 +61,8 @@ public class ArkhBaseData implements Closeable {
     }
 
     public List<ArkhBaseFile> getAll() throws Exception {
-        var select = this.connection.prepareStatement("SELECT "
-                + "place, modified, verifier "
+        var select = this.connection.prepareStatement(
+                "SELECT place, modified, verifier "
                 + "FROM files");
         var returned = select.executeQuery();
         var results = new ArrayList<ArkhBaseFile>();
@@ -75,9 +75,10 @@ public class ArkhBaseData implements Closeable {
         }
         return results;
     }
-    
+
     public List<String> getAllPlaces() throws Exception {
-        var select = this.connection.prepareStatement("SELECT place "
+        var select = this.connection.prepareStatement(
+                "SELECT place "
                 + "FROM files");
         var returned = select.executeQuery();
         var results = new ArrayList<String>();
@@ -92,13 +93,15 @@ public class ArkhBaseData implements Closeable {
     }
 
     public void putFile(String place, Long modified, String verifier) throws Exception {
-        var delete = this.connection.prepareStatement("DELETE FROM files "
-            + "WHERE place = ?");
+        var delete = this.connection.prepareStatement(
+                "DELETE FROM files "
+                + "WHERE place = ?");
         delete.setString(1, place);
         delete.executeUpdate();
-        var insert = this.connection.prepareStatement("INSERT INTO "
-            + "files (place, modified, verifier) "
-            + "VALUES (?, ?, ?)");
+        var insert = this.connection.prepareStatement(
+                "INSERT INTO files "
+                + "(place, modified, verifier) "
+                + "VALUES (?, ?, ?)");
         insert.setString(1, place);
         insert.setLong(2, modified);
         insert.setString(3, verifier);
@@ -107,12 +110,51 @@ public class ArkhBaseData implements Closeable {
             throw new Exception("Could not put the file.");
         }
     }
-    
+
+    public void delFolder(String place) throws Exception {
+        var delete = this.connection.prepareStatement(
+                "DELETE FROM files "
+                + "WHERE place LIKE ?");
+        delete.setString(1, place + "%");
+        delete.executeUpdate();
+    }
+
     public void delFile(String place) throws Exception {
-        var delete = this.connection.prepareStatement("DELETE FROM files "
-            + "WHERE place = ?");
+        var delete = this.connection.prepareStatement(
+                "DELETE FROM files "
+                + "WHERE place = ?");
         delete.setString(1, place);
         delete.executeUpdate();
+    }
+
+    public void moveFolder(String fromPlace, String toPlace) throws Exception {
+        var select = this.connection.prepareStatement(
+                "SELECT place "
+                + "FROM files "
+                + "WHERE place LIKE ?");
+        select.setString(1, fromPlace + "%");
+        var returned = select.executeQuery();
+        while (returned.next()) {
+            var oldPlace = returned.getString("place");
+            var newPlace = toPlace + oldPlace.substring(fromPlace.length());
+            var update = this.connection.prepareStatement(
+                "UPDATE files "
+                + "SET place = ? "
+                + "WHERE place = ?");
+            update.setString(1, newPlace);
+            update.setString(2, oldPlace);
+            update.executeUpdate();
+        }
+    }
+
+    public void moveFile(String fromPlace, String toPlace) throws Exception {
+        var update = this.connection.prepareStatement(
+                "UPDATE files "
+                + "SET place = ? "
+                + "WHERE place = ?");
+        update.setString(1, toPlace);
+        update.setString(2, fromPlace);
+        update.executeUpdate();
     }
 
     private void initDatabase() throws Exception {
