@@ -374,7 +374,7 @@ public class DeskPack extends javax.swing.JPanel {
         try (var input = new FileInputStream(file)) {
             var verifier = DigestUtils.sha256Hex(input);
             var founds = desk.arkhBase.baseData.getByVerifier(verifier);
-            var watchFound = new WatchFound(file);
+            var watchFound = new WatchFound(file, verifier);
             watchFounds.add(watchFound);
             if (!founds.isEmpty()) {
                 for (var found : founds) {
@@ -447,7 +447,7 @@ public class DeskPack extends javax.swing.JPanel {
                 if (!selected.places.isEmpty()) {
                     selected.file.delete();
                 } else {
-                    doMove(selected.file, rootFolder, rootFolder.getName());
+                    doMove(selected.file, rootFolder, rootFolder.getName(), selected.verifier);
                 }
             }
         } catch (Exception ex) {
@@ -464,7 +464,7 @@ public class DeskPack extends javax.swing.JPanel {
                 if (!selected.places.isEmpty()) {
                     selected.file.delete();
                 } else {
-                    doMove(selected.file, rootFolder, editDestinyName.getText());
+                    doMove(selected.file, rootFolder, editDestinyName.getText(), selected.verifier);
                 }
             }
         } catch (Exception ex) {
@@ -498,14 +498,14 @@ public class DeskPack extends javax.swing.JPanel {
             String name = "Aula " + StringUtils.leftPad("" + biggerAula, 2, '0')
                     + " - " + editDestinyName.getText();
             for (var selected : allSelected) {
-                doMove(selected.file, rootFolder, name);
+                doMove(selected.file, rootFolder, name, selected.verifier);
             }
         } catch (Exception ex) {
             WizSwing.showError(ex);
         }
     }//GEN-LAST:event_buttonMakeAulaNameActionPerformed
 
-    private void doMove(File file, File directory, String name) throws Exception {
+    private void doMove(File file, File directory, String name, String verifier) throws Exception {
         var extension = "." + FilenameUtils.getExtension(file.getName());
         var destiny = new File(directory, name + extension);
         int attempt = 1;
@@ -514,6 +514,7 @@ public class DeskPack extends javax.swing.JPanel {
             destiny = new File(directory, name + " (" + attempt + ")" + extension);
         }
         Files.move(file.toPath(), destiny.toPath());
+        desk.arkhBase.putFile(destiny, verifier);
     }
 
     private void listWatchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listWatchKeyPressed
@@ -619,10 +620,12 @@ public class DeskPack extends javax.swing.JPanel {
     private class WatchFound {
 
         public final File file;
+        public final String verifier;
         public final List<String> places;
 
-        public WatchFound(File file) {
+        public WatchFound(File file, String verifier) {
             this.file = file;
+            this.verifier = verifier;
             this.places = new ArrayList<>();
         }
 
