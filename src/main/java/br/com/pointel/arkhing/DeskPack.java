@@ -575,13 +575,11 @@ public class DeskPack extends javax.swing.JPanel {
 
     private Set<WatchFound> getSelectedToProcess() {
         Set<WatchFound> results = new HashSet<>();
-        if (listWatch.getSelectedIndex() == -1) {
-            int[] selectAll = new int[modelWatch.size()];
-            for (int i = 0; i < selectAll.length; i++) {
-                selectAll[i] = i;
-            }
-            listWatch.setSelectedIndices(selectAll);
+        int[] selectAll = new int[modelWatch.size()];
+        for (int i = 0; i < selectAll.length; i++) {
+            selectAll[i] = i;
         }
+        listWatch.setSelectedIndices(selectAll);
         for (var selected : listWatch.getSelectedValuesList()) {
             results.add(selected.watchFound);
         }
