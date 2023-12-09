@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
@@ -17,8 +18,10 @@ public class FolderMirror {
     private final String originPath;
     private final File destiny;
     private final Deque<File> founds;
+    private final List<File> destinyFounds;
     private final AtomicBoolean doneFinder;
     private final AtomicInteger doneLoader;
+    private final AtomicBoolean doneClean;
     private final List<Consumer<String>> observers;
 
     public FolderMirror(File origin, File destiny) {
@@ -26,8 +29,10 @@ public class FolderMirror {
         this.originPath = origin.getAbsolutePath();
         this.destiny = destiny;
         this.founds = new ConcurrentLinkedDeque<>();
+        this.destinyFounds =  Collections.synchronizedList(new ArrayList<>());
         this.doneFinder = new AtomicBoolean(false);
         this.doneLoader = new AtomicInteger(0);
+        this.doneClean = new AtomicBoolean(false);
         this.observers = new ArrayList<>();
     }
     
@@ -41,11 +46,20 @@ public class FolderMirror {
         for (int i = 1; i <= VELOCITY; i++) {
             new Thread(() -> load(), "FolderMirror - Loader " + i).start();
         }
+        new Thread(() -> clean(), "FolderMirror - Clean").start();
         return this;
+    }
+    
+    public boolean isDoneLoad() {
+        return doneFinder.get() && doneLoader.get() == VELOCITY;
+    }
+    
+    public boolean isDoneClean() {
+        return doneClean.get();
     }
 
     public boolean isDone() {
-        return doneFinder.get() && doneLoader.get() == VELOCITY;
+        return isDoneLoad() && isDoneClean();
     }
     
     private void send(String message) {
@@ -55,14 +69,14 @@ public class FolderMirror {
     }
 
     private void find() {
-        find(origin);
+        findToLoad(origin);
         doneFinder.set(true);
     }
 
-    private void find(File path) {
+    private void findToLoad(File path) {
         if (path.isDirectory()) {
             for (var inside : path.listFiles()) {
-                find(inside);
+                findToLoad(inside);
             }
         } else {
             founds.add(path);
@@ -78,6 +92,7 @@ public class FolderMirror {
                     continue;
                 }
                 var relative = getRelative(found);
+                destinyFounds.add(relative);
                 var shouldCopy = !relative.exists() || relative.length() != found.length();
                 if (shouldCopy) {
                     try {
@@ -98,6 +113,36 @@ public class FolderMirror {
             send("Error on load: " + e.getMessage());
         } finally {
             doneLoader.incrementAndGet();
+        }
+    }
+    
+    private void clean() {
+        try {
+            while (!isDoneLoad()) {
+                WizBase.sleep(100);
+            }
+            findToClean(destiny);
+            send("Finished to clean: " + destiny.getAbsolutePath());
+        } catch (Exception e) {
+            send("Error on clean: " + e.getMessage());
+        } finally {
+            doneClean.set(true);
+        }
+    }
+    
+    private void findToClean(File path) {
+        if (path.isDirectory()) {
+            for (var inside : path.listFiles()) {
+                findToClean(inside);
+            }
+        } else {
+            if (destinyFounds.contains(path)) {
+                send("Keep from clean: " + path.getAbsolutePath());
+            } else {
+                send("Remove on clean: " + path.getAbsolutePath());
+                path.delete();
+                path.getParentFile().delete();
+            }
         }
     }
 

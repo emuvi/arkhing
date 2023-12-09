@@ -16,16 +16,32 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="editDestiny" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonDestinySelect" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Component id="scrollMessages" pref="406" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="buttonExtract" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonFolderMirror" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonExtract" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelOrigin" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelDestiny" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="editOrigin" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonOriginSelect" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="labelFolderMirror" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="buttonExecute" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -38,9 +54,26 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="buttonExtract" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="buttonFolderMirror" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labelFolderMirror" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonExecute" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="labelOrigin" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="scrollMessages" pref="204" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="editOrigin" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonOriginSelect" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="labelDestiny" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="editDestiny" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonDestinySelect" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="scrollMessages" pref="205" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -55,12 +88,57 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExtractActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonFolderMirror">
+    <Component class="javax.swing.JButton" name="buttonExecute">
       <Properties>
-        <Property name="text" type="java.lang.String" value="FolderMirror"/>
+        <Property name="text" type="java.lang.String" value="Execute"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonFolderMirrorActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExecuteActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelFolderMirror">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Folder Mirror"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelOrigin">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Origin:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="editOrigin">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="WizProps.get(&quot;DESK_DOCS_ORIGIN&quot;, &quot;&quot;)" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelDestiny">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Destiny:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="editDestiny">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="WizProps.get(&quot;DESK_DOCS_DESTINY&quot;, &quot;&quot;)" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonOriginSelect">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Select"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOriginSelectActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonDestinySelect">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Select"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDestinySelectActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrollMessages">
