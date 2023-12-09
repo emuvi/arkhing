@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -510,13 +511,9 @@ public class DeskOrgz extends javax.swing.JPanel {
         if (selected != null) {
             new ViewNamer(selected.path, (newName) -> {
                 try {
-                    var newFolder = new File(selected.path.getParentFile(), newName);
-                    if (newFolder.mkdir()) {
-                        var index = modelFolder.indexOf(selected);
-                        modelFolder.insertElementAt(new OrgzFolder(selected.depth, newFolder), index + 1);
-                        listFolder.setSelectedIndex(index + 1);
-                        listFolder.ensureIndexIsVisible(index + 1);
-                    }
+                    var newFolder = new File(selected.path, newName);
+                    Files.createDirectories(newFolder.toPath());
+                    updateFolder(lastLoadedBase);
                 } catch (Exception e) {
                     WizSwing.showError(e);
                 }
