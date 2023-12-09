@@ -39,7 +39,8 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuFolder = new javax.swing.JPopupMenu();
         menuFolderUpdate = new javax.swing.JMenuItem();
         menuFolderSearch = new javax.swing.JMenuItem();
-        menuFolderNew = new javax.swing.JMenuItem();
+        menuFolderNewChild = new javax.swing.JMenuItem();
+        menuFolderNewSibling = new javax.swing.JMenuItem();
         menuFolderOpen = new javax.swing.JMenuItem();
         menuFolderRename = new javax.swing.JMenuItem();
         menuFolderReplace = new javax.swing.JMenuItem();
@@ -79,13 +80,21 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderSearch);
 
-        menuFolderNew.setText("New");
-        menuFolderNew.addActionListener(new java.awt.event.ActionListener() {
+        menuFolderNewChild.setText("New Child");
+        menuFolderNewChild.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuFolderNewActionPerformed(evt);
+                menuFolderNewChildActionPerformed(evt);
             }
         });
-        menuFolder.add(menuFolderNew);
+        menuFolder.add(menuFolderNewChild);
+
+        menuFolderNewSibling.setText("New Sibling");
+        menuFolderNewSibling.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFolderNewSiblingActionPerformed(evt);
+            }
+        });
+        menuFolder.add(menuFolderNewSibling);
 
         menuFolderOpen.setText("Open");
         menuFolderOpen.addActionListener(new java.awt.event.ActionListener() {
@@ -512,7 +521,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_menuFolderRandomActionPerformed
 
-    private void menuFolderNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderNewActionPerformed
+    private void menuFolderNewSiblingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderNewSiblingActionPerformed
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
             new ViewNamer(selected.path, (newName) -> {
@@ -526,7 +535,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 }
             }).setVisible(true);
         }
-    }//GEN-LAST:event_menuFolderNewActionPerformed
+    }//GEN-LAST:event_menuFolderNewSiblingActionPerformed
 
     private void menuFolderAddIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderAddIndexActionPerformed
         try {
@@ -684,6 +693,22 @@ public class DeskOrgz extends javax.swing.JPanel {
         updateFolder(lastLoadedBase);
     }//GEN-LAST:event_menuAssetsUpdateActionPerformed
 
+    private void menuFolderNewChildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderNewChildActionPerformed
+        var selected = listFolder.getSelectedValue();
+        if (selected != null) {
+            new ViewNamer(selected.path, (newName) -> {
+                try {
+                    var newFolder = new File(selected.path, newName);
+                    Files.createDirectories(newFolder.toPath());
+                    updateFolder(lastLoadedBase);
+                    selectFolderOrAsset(newFolder);
+                } catch (Exception e) {
+                    WizSwing.showError(e);
+                }
+            }).setVisible(true);
+        }
+    }//GEN-LAST:event_menuFolderNewChildActionPerformed
+
     private void searchNextAssets() {
         if (searchAssets.isBlank()) {
             return;
@@ -789,7 +814,8 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JPopupMenu menuFolder;
     private javax.swing.JMenuItem menuFolderAddIndex;
     private javax.swing.JMenuItem menuFolderGroovy;
-    private javax.swing.JMenuItem menuFolderNew;
+    private javax.swing.JMenuItem menuFolderNewChild;
+    private javax.swing.JMenuItem menuFolderNewSibling;
     private javax.swing.JMenuItem menuFolderOpen;
     private javax.swing.JMenuItem menuFolderRandom;
     private javax.swing.JMenuItem menuFolderRemove;
