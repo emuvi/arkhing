@@ -381,7 +381,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             new ViewNamer(selected.path, (newName) -> {
                 try {
                     renameFolder(selected, newName);
-                    listFolder.requestFocus();
+                    updateFolder(lastLoadedBase);
                 } catch (Exception e) {
                     WizSwing.showError(e);
                 }
@@ -399,7 +399,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                         var newName = replacer.replace(oldName);
                         renameFolder(itemSelected, newName);
                     }
-                    listFolder.requestFocus();
+                    updateFolder(lastLoadedBase);
                 } catch (Exception e) {
                     WizSwing.showError(e);
                 }
@@ -579,6 +579,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                         makeFolderAddIndex(allSelected, i, addIndex);
                     }
                 }
+                updateFolder(lastLoadedBase);
             }
         } catch (Exception e) {
             WizSwing.showError(e);
