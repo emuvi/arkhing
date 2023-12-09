@@ -15,11 +15,18 @@ public class ViewNamer extends javax.swing.JFrame {
     private final Consumer<String> onAccept;
     
     public ViewNamer(File path, Consumer<String> onAccept) {
+        this(path, null, onAccept);
+    }
+    
+    public ViewNamer(File path, String subtitle, Consumer<String> onAccept) {
         this.path = path;
         this.onAccept = onAccept;
         initComponents();
         if (path != null) {
             editNamer.setText(path.getName());
+        }
+        if (subtitle != null) {
+            setTitle(getTitle() + " - " + subtitle);
         }
         getRootPane().setDefaultButton(buttonAccept);
         WizSwing.initPositioner(this);

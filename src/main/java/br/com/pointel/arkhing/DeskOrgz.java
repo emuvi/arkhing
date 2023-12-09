@@ -536,7 +536,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void menuFolderNewSiblingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderNewSiblingActionPerformed
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
-            new ViewNamer(selected.path, (newName) -> {
+            new ViewNamer(selected.path, "New Sibling", (newName) -> {
                 try {
                     var newFolder = new File(selected.path.getParentFile(), newName);
                     Files.createDirectories(newFolder.toPath());
@@ -708,7 +708,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void menuFolderNewChildActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderNewChildActionPerformed
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
-            new ViewNamer(selected.path, (newName) -> {
+            new ViewNamer(selected.path, "New Child", (newName) -> {
                 try {
                     var newFolder = new File(selected.path, newName);
                     Files.createDirectories(newFolder.toPath());
