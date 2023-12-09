@@ -143,6 +143,7 @@ public class ViewNamer extends javax.swing.JFrame {
 
     private void toolAddParentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolAddParentNameActionPerformed
         addOnName(path.getParentFile().getName());
+        editNamer.requestFocus();
     }//GEN-LAST:event_toolAddParentNameActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -167,6 +168,7 @@ public class ViewNamer extends javax.swing.JFrame {
                 }
                 var newName = WizChars.getNameWithNewIndex(editNamer.getText(), addIndex);
                 editNamer.setText(newName);
+                editNamer.requestFocus();
             }
         } catch (Exception e) {
             WizSwing.showError(e);
