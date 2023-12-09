@@ -10,6 +10,7 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="toolAddIndex">
           <Properties>
+            <Property name="mnemonic" type="int" value="73"/>
             <Property name="text" type="java.lang.String" value="Add Index"/>
           </Properties>
           <Events>
@@ -18,6 +19,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="toolAddParentName">
           <Properties>
+            <Property name="mnemonic" type="int" value="80"/>
             <Property name="text" type="java.lang.String" value="Add Parent Name"/>
           </Properties>
           <Events>

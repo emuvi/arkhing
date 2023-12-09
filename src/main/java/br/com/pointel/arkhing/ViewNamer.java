@@ -38,6 +38,7 @@ public class ViewNamer extends javax.swing.JFrame {
         buttonAccept = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
 
+        toolAddIndex.setMnemonic('I');
         toolAddIndex.setText("Add Index");
         toolAddIndex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -46,6 +47,7 @@ public class ViewNamer extends javax.swing.JFrame {
         });
         menuTools.add(toolAddIndex);
 
+        toolAddParentName.setMnemonic('P');
         toolAddParentName.setText("Add Parent Name");
         toolAddParentName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
