@@ -511,7 +511,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         if (selected != null) {
             new ViewNamer(selected.path, (newName) -> {
                 try {
-                    var newFolder = new File(selected.path, newName);
+                    var newFolder = new File(selected.path.getParentFile(), newName);
                     Files.createDirectories(newFolder.toPath());
                     updateFolder(lastLoadedBase);
                 } catch (Exception e) {
