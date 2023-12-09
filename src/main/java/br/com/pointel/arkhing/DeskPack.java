@@ -426,7 +426,7 @@ public class DeskPack extends javax.swing.JPanel {
                 .replace("\\", "-")
                 .replace("?", "")
                 .replaceAll("\\s+", " ")
-                .replaceAll("\\S\\-\\s", " - ")
+                .replaceAll("(\\S)\\-\\s", "$1 - ")
                 .trim();
     }
 
