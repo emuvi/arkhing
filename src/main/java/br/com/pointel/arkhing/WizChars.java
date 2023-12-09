@@ -28,5 +28,30 @@ public class WizChars {
         }
         return result.toString();
     }
+
+    public static String getNameWithNewIndex(String name, int addIndex) {
+        int begin = -1;
+        int end = name.length();
+        for (int i = 0; i < name.length(); i++) {
+            char charAt = name.charAt(i);
+            if (begin == -1) {
+                if (Character.isDigit(charAt)) {
+                    begin = i;
+                }
+            } else {
+                if (!Character.isDigit(charAt)) {
+                    end = i;
+                    break;
+                }
+            }
+        }
+        if (begin == -1) {
+            return name;
+        }
+        int number = Integer.parseInt(name.substring(begin, end));
+        int newNumber = number + addIndex;
+        String newNameNumber = StringUtils.leftPad(newNumber + "", end - begin, '0');
+        return name.substring(0, begin) + newNameNumber + name.substring(end);
+    }
     
 }

@@ -8,6 +8,14 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
+        <MenuItem class="javax.swing.JMenuItem" name="toolAddIndex">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Add Index"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toolAddIndexActionPerformed"/>
+          </Events>
+        </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="toolAddParentName">
           <Properties>
             <Property name="text" type="java.lang.String" value="Add Parent Name"/>
@@ -50,7 +58,7 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="textNamer" alignment="0" max="32767" attributes="0"/>
+                  <Component id="editNamer" alignment="0" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="buttonTools" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="216" max="32767" attributes="0"/>
@@ -67,7 +75,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="textNamer" min="-2" max="-2" attributes="0"/>
+              <Component id="editNamer" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonCancel" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -80,9 +88,9 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JTextField" name="textNamer">
+    <Component class="javax.swing.JTextField" name="editNamer">
       <Events>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textNamerKeyPressed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="editNamerKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonTools">

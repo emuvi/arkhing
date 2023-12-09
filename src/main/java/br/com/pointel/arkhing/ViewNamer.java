@@ -3,6 +3,7 @@ package br.com.pointel.arkhing;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.function.Consumer;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +19,7 @@ public class ViewNamer extends javax.swing.JFrame {
         this.onAccept = onAccept;
         initComponents();
         if (path != null) {
-            textNamer.setText(path.getName());
+            editNamer.setText(path.getName());
         }
         getRootPane().setDefaultButton(buttonAccept);
         WizSwing.initPositioner(this);
@@ -30,11 +31,20 @@ public class ViewNamer extends javax.swing.JFrame {
     private void initComponents() {
 
         menuTools = new javax.swing.JPopupMenu();
+        toolAddIndex = new javax.swing.JMenuItem();
         toolAddParentName = new javax.swing.JMenuItem();
-        textNamer = new javax.swing.JTextField();
+        editNamer = new javax.swing.JTextField();
         buttonTools = new javax.swing.JButton();
         buttonAccept = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
+
+        toolAddIndex.setText("Add Index");
+        toolAddIndex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                toolAddIndexActionPerformed(evt);
+            }
+        });
+        menuTools.add(toolAddIndex);
 
         toolAddParentName.setText("Add Parent Name");
         toolAddParentName.addActionListener(new java.awt.event.ActionListener() {
@@ -54,9 +64,9 @@ public class ViewNamer extends javax.swing.JFrame {
             }
         });
 
-        textNamer.addKeyListener(new java.awt.event.KeyAdapter() {
+        editNamer.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                textNamerKeyPressed(evt);
+                editNamerKeyPressed(evt);
             }
         });
 
@@ -91,7 +101,7 @@ public class ViewNamer extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textNamer)
+                    .addComponent(editNamer)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(buttonTools)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
@@ -104,7 +114,7 @@ public class ViewNamer extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(textNamer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(editNamer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonCancel)
@@ -121,7 +131,7 @@ public class ViewNamer extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonToolsActionPerformed
 
     private void buttonAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAcceptActionPerformed
-        onAccept.accept(textNamer.getText());
+        onAccept.accept(editNamer.getText());
         WizSwing.close(this);
     }//GEN-LAST:event_buttonAcceptActionPerformed
 
@@ -134,24 +144,40 @@ public class ViewNamer extends javax.swing.JFrame {
     }//GEN-LAST:event_toolAddParentNameActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        textNamer.setSelectionStart(0);
-        textNamer.setSelectionEnd(0);
-        textNamer.requestFocus();
+        editNamer.setSelectionStart(0);
+        editNamer.setSelectionEnd(0);
+        editNamer.requestFocus();
     }//GEN-LAST:event_formWindowOpened
 
-    private void textNamerKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textNamerKeyPressed
+    private void editNamerKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editNamerKeyPressed
         if (evt.getExtendedKeyCode() == KeyEvent.VK_ESCAPE) {
             WizSwing.close(this);
         }
-    }//GEN-LAST:event_textNamerKeyPressed
+    }//GEN-LAST:event_editNamerKeyPressed
+
+    private void toolAddIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolAddIndexActionPerformed
+        try {
+            var input = JOptionPane.showInputDialog("Index to add:", "1");
+            if (input != null && !input.isBlank()) {
+                var addIndex = Integer.valueOf(input);
+                if (addIndex == 0) {
+                    return;
+                }
+                var newName = WizChars.getNameWithNewIndex(editNamer.getText(), addIndex);
+                editNamer.setText(newName);
+            }
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_toolAddIndexActionPerformed
 
     private void addOnName(String text) {
-        var oldName = textNamer.getText();
-        var prefix = oldName.substring(0, textNamer.getSelectionStart());
-        var sufix = oldName.substring(textNamer.getSelectionEnd(), oldName.length());
-        textNamer.setText(prefix + text + sufix);
-        textNamer.setSelectionStart(prefix.length());
-        textNamer.setSelectionEnd(prefix.length() + text.length());
+        var oldName = editNamer.getText();
+        var prefix = oldName.substring(0, editNamer.getSelectionStart());
+        var sufix = oldName.substring(editNamer.getSelectionEnd(), oldName.length());
+        editNamer.setText(prefix + text + sufix);
+        editNamer.setSelectionStart(prefix.length());
+        editNamer.setSelectionEnd(prefix.length() + text.length());
     }
     
     public void close() {
@@ -162,8 +188,9 @@ public class ViewNamer extends javax.swing.JFrame {
     private javax.swing.JButton buttonAccept;
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonTools;
+    private javax.swing.JTextField editNamer;
     private javax.swing.JPopupMenu menuTools;
-    private javax.swing.JTextField textNamer;
+    private javax.swing.JMenuItem toolAddIndex;
     private javax.swing.JMenuItem toolAddParentName;
     // End of variables declaration//GEN-END:variables
 }

@@ -567,7 +567,7 @@ public class DeskOrgz extends javax.swing.JPanel {
 
     private void makeFolderAddIndex(List<OrgzFolder> allSelected, int i, Integer addIndex) throws Exception {
         var selected = allSelected.get(i);
-        var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
+        var newName = WizChars.getNameWithNewIndex(selected.path.getName(), addIndex);
         renameFolder(selected, newName);
     }
 
@@ -586,13 +586,13 @@ public class DeskOrgz extends javax.swing.JPanel {
                 if (addIndex < 0) {
                     for (int i = 0; i < allSelected.size(); i++) {
                         var selected = allSelected.get(i);
-                        var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
+                        var newName = WizChars.getNameWithNewIndex(selected.path.getName(), addIndex);
                         renameAssets(selected, newName);
                     }
                 } else {
                     for (int i = allSelected.size() - 1; i >= 0; i--) {
                         var selected = allSelected.get(i);
-                        var newName = getNameWithNewIndex(selected.path.getName(), addIndex);
+                        var newName = WizChars.getNameWithNewIndex(selected.path.getName(), addIndex);
                         renameAssets(selected, newName);
                     }
                 }
@@ -730,30 +730,6 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }
 
-    private String getNameWithNewIndex(String name, int addIndex) {
-        int begin = -1;
-        int end = name.length();
-        for (int i = 0; i < name.length(); i++) {
-            var charAt = name.charAt(i);
-            if (begin == -1) {
-                if (Character.isDigit(charAt)) {
-                    begin = i;
-                }
-            } else {
-                if (!Character.isDigit(charAt)) {
-                    end = i;
-                    break;
-                }
-            }
-        }
-        if (begin == -1) {
-            return name;
-        }
-        var number = Integer.parseInt(name.substring(begin, end));
-        var newNumber = number + addIndex;
-        var newNameNumber = StringUtils.leftPad(newNumber + "", end - begin, '0');
-        return name.substring(0, begin) + newNameNumber + name.substring(end);
-    }
 
     private File renameFolder(OrgzFolder orgz, String newName) throws Exception {
         if (Objects.equals(newName, orgz.path.getName())) {
