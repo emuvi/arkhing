@@ -366,6 +366,15 @@ public class DeskOrgz extends javax.swing.JPanel {
             case KeyEvent.VK_F3:
                 searchNextFolder();
                 break;
+            case KeyEvent.VK_F4:
+                menuFolderAddIndexActionPerformed(null);
+                break;
+            case KeyEvent.VK_F5:
+                menuFolderNewSiblingActionPerformed(null);
+                break;
+            case KeyEvent.VK_F6:
+                menuFolderNewChildActionPerformed(null);
+                break;
             default:
                 break;
         }
@@ -384,6 +393,9 @@ public class DeskOrgz extends javax.swing.JPanel {
                 break;
             case KeyEvent.VK_F3:
                 searchNextAssets();
+                break;
+            case KeyEvent.VK_F4:
+                menuAssetsAddIndexActionPerformed(null);
                 break;
             default:
                 break;
