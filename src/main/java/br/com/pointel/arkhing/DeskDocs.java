@@ -72,6 +72,7 @@ public class DeskDocs extends javax.swing.JPanel {
         });
 
         textMessages.setColumns(20);
+        textMessages.setFont(new java.awt.Font("Courier New", 0, 14)); // NOI18N
         textMessages.setRows(5);
         scrollMessages.setViewportView(textMessages);
 
