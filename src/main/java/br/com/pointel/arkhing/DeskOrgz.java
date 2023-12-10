@@ -10,11 +10,11 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.stream.IntStream;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -26,6 +26,7 @@ public class DeskOrgz extends javax.swing.JPanel {
 
     private final DefaultListModel<OrgzFolder> modelFolder = new DefaultListModel<>();
     private final DefaultListModel<OrgzAssets> modelAssets = new DefaultListModel<>();
+    private final DefaultComboBoxModel<OrgzSubFolder> modelSubFolders = new DefaultComboBoxModel<>();
 
     public DeskOrgz(Desk desk) {
         this.desk = desk;
@@ -58,11 +59,12 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuAssetsAddIndex = new javax.swing.JMenuItem();
         menuAssetsRandom = new javax.swing.JMenuItem();
         menuAssetsGroovy = new javax.swing.JMenuItem();
+        comboSubFolders = new javax.swing.JComboBox<>();
         splitBody = new javax.swing.JSplitPane();
-        scrollFolder = new javax.swing.JScrollPane();
-        listFolder = new javax.swing.JList<>();
         scrollAssets = new javax.swing.JScrollPane();
         listAssets = new javax.swing.JList<>();
+        scrollFolder = new javax.swing.JScrollPane();
+        listFolder = new javax.swing.JList<>();
 
         menuFolderUpdate.setText("Update");
         menuFolderUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -214,8 +216,27 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuAssetsGroovy.setText("Groovy");
         menuAssets.add(menuAssetsGroovy);
 
+        comboSubFolders.setFont(WizSwing.fontMonospaced());
+        comboSubFolders.setModel(modelSubFolders);
+
         splitBody.setDividerLocation(200);
         splitBody.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
+        listAssets.setFont(WizSwing.fontMonospaced());
+        listAssets.setModel(modelAssets);
+        listAssets.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listAssetsMouseClicked(evt);
+            }
+        });
+        listAssets.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                listAssetsKeyPressed(evt);
+            }
+        });
+        scrollAssets.setViewportView(listAssets);
+
+        splitBody.setRightComponent(scrollAssets);
 
         listFolder.setFont(WizSwing.fontMonospaced());
         listFolder.setModel(modelFolder);
@@ -236,23 +257,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         scrollFolder.setViewportView(listFolder);
 
-        splitBody.setTopComponent(scrollFolder);
-
-        listAssets.setFont(WizSwing.fontMonospaced());
-        listAssets.setModel(modelAssets);
-        listAssets.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listAssetsMouseClicked(evt);
-            }
-        });
-        listAssets.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                listAssetsKeyPressed(evt);
-            }
-        });
-        scrollAssets.setViewportView(listAssets);
-
-        splitBody.setRightComponent(scrollAssets);
+        splitBody.setLeftComponent(scrollFolder);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -260,14 +265,18 @@ public class DeskOrgz extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+                    .addComponent(comboSubFolders, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                .addComponent(comboSubFolders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -339,6 +348,7 @@ public class DeskOrgz extends javax.swing.JPanel {
 
     private void listFolderValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listFolderValueChanged
         modelAssets.removeAllElements();
+        modelSubFolders.removeAllElements();
         var allSelected = listFolder.getSelectedValuesList();
         if (allSelected == null || allSelected.isEmpty()) {
             return;
@@ -347,6 +357,8 @@ public class DeskOrgz extends javax.swing.JPanel {
             for (var inside : selected.path.listFiles()) {
                 if (inside.isFile()) {
                     modelAssets.addElement(new OrgzAssets(inside));
+                } else if (inside.isDirectory()) {
+                    modelSubFolders.addElement(new OrgzSubFolder(inside));
                 }
             }
         }
@@ -787,6 +799,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<OrgzSubFolder> comboSubFolders;
     private javax.swing.JList<OrgzAssets> listAssets;
     private javax.swing.JList<OrgzFolder> listFolder;
     private javax.swing.JPopupMenu menuAssets;
@@ -880,6 +893,21 @@ public class DeskOrgz extends javax.swing.JPanel {
             return "|-> " + path.getName();
         }
 
+    }
+    
+    private class OrgzSubFolder {
+        
+        public final File path;
+
+        public OrgzSubFolder(File path) {
+            this.path = path;
+        }
+
+        @Override
+        public String toString() {
+            return path.getName();
+        }
+        
     }
 
 }
