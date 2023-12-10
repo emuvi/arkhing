@@ -218,6 +218,11 @@ public class DeskOrgz extends javax.swing.JPanel {
 
         comboSubFolders.setFont(WizSwing.fontMonospaced());
         comboSubFolders.setModel(modelSubFolders);
+        comboSubFolders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboSubFoldersActionPerformed(evt);
+            }
+        });
 
         splitBody.setDividerLocation(200);
         splitBody.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -322,6 +327,9 @@ public class DeskOrgz extends javax.swing.JPanel {
     }
     
     private void selectFolderOrAsset(File path) {
+        if (path == null) {
+            return;
+        }
         for (int i = 0; i < modelFolder.getSize(); i++) {
             if (Objects.equals(path, modelFolder.get(i).path)) {
                 listFolder.setSelectedValue(modelFolder.get(i), true);
@@ -349,6 +357,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void listFolderValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listFolderValueChanged
         modelAssets.removeAllElements();
         modelSubFolders.removeAllElements();
+        modelSubFolders.addElement(new OrgzSubFolderTitle());
         var allSelected = listFolder.getSelectedValuesList();
         if (allSelected == null || allSelected.isEmpty()) {
             return;
@@ -733,6 +742,13 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_menuFolderNewChildActionPerformed
 
+    private void comboSubFoldersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSubFoldersActionPerformed
+        var selected = (OrgzSubFolder) comboSubFolders.getSelectedItem();
+        if (selected != null && selected.path != null) {
+            selectFolderOrAsset(selected.path);
+        }
+    }//GEN-LAST:event_comboSubFoldersActionPerformed
+
     private void searchNextAssets() {
         if (searchAssets.isBlank()) {
             return;
@@ -906,6 +922,19 @@ public class DeskOrgz extends javax.swing.JPanel {
         @Override
         public String toString() {
             return path.getName();
+        }
+        
+    }
+    
+    private class OrgzSubFolderTitle extends OrgzSubFolder {
+        
+        public OrgzSubFolderTitle() {
+            super(null);
+        }
+
+        @Override
+        public String toString() {
+            return "<-- SubFolders -->";
         }
         
     }
