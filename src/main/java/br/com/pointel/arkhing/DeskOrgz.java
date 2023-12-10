@@ -15,6 +15,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  *
@@ -457,11 +458,17 @@ public class DeskOrgz extends javax.swing.JPanel {
     }//GEN-LAST:event_menuFolderReplaceActionPerformed
 
     private void menuAssetsRenameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsRenameActionPerformed
-        var selected = listAssets.getSelectedValue();
-        if (selected != null) {
-            new ViewNamer(selected.path, (newName) -> {
+        var allSelected = listAssets.getSelectedValuesList();
+        if (allSelected != null && !allSelected.isEmpty()) {
+            var selectedFirstName = new File(
+                    allSelected.get(0).path.getParentFile(),
+                    FilenameUtils.getBaseName(allSelected.get(0).path.getName())
+            );
+            new ViewNamer(selectedFirstName, (newName) -> {
                 try {
-                    renameAssets(selected, newName);
+                    for (var selected : allSelected) {
+                        renameAssets(selected, newName + "." + FilenameUtils.getExtension(selected.path.getName()));
+                    }
                     listAssets.requestFocus();
                 } catch (Exception e) {
                     WizSwing.showError(e);
