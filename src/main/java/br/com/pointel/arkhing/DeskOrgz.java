@@ -746,6 +746,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         var selected = (OrgzSubFolder) comboSubFolders.getSelectedItem();
         if (selected != null && selected.path != null) {
             selectFolderOrAsset(selected.path);
+            listFolder.requestFocus();
         }
     }//GEN-LAST:event_comboSubFoldersActionPerformed
 
