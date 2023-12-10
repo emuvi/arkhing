@@ -30,8 +30,8 @@ public class DeskPack extends javax.swing.JPanel {
 
     private final DefaultListModel<WatchFoundDisplay> modelWatch = new DefaultListModel<>();
     private final List<WatchFound> watchFounds = new ArrayList<>();
-    private final AtomicBoolean hasWatchChanges = new AtomicBoolean(true);
-    private final AtomicBoolean shouldWait = new AtomicBoolean(true);
+    private final AtomicBoolean hasWatchChanges = new AtomicBoolean(false);
+    private final AtomicBoolean shouldWait = new AtomicBoolean(false);
     private final AtomicInteger watchedWithNoChanges = new AtomicInteger(0);
 
     public DeskPack(Desk desk) {
@@ -436,7 +436,12 @@ public class DeskPack extends javax.swing.JPanel {
     private void buttonWatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonWatchActionPerformed
         var selected = WizSwing.selectFolder(new File(editWatch.getText()));
         if (selected != null) {
-            editWatch.setText(selected.getAbsolutePath());
+            synchronized (hasWatchChanges) {
+                editWatch.setText(selected.getAbsolutePath());
+                modelWatch.removeAllElements();
+                watchFounds.clear();
+                hasWatchChanges.set(false);
+            }
             WizProps.set("DESK_PACK_WATCH", editWatch.getText());
         }
     }//GEN-LAST:event_buttonWatchActionPerformed
