@@ -39,7 +39,7 @@ public class DeskPack extends javax.swing.JPanel {
         initComponents();
         labelFound.setVisible(false);
     }
-    
+
     public void initUpdater() {
         WizBase.startDaemon(() -> {
             while (desk.isVisible()) {
@@ -48,7 +48,7 @@ public class DeskPack extends javax.swing.JPanel {
             }
         }, "DeskPack - Updater");
     }
-    
+
     public void setDestinyFolder(String path) {
         editDestinyFolder.setText(path);
     }
@@ -312,7 +312,7 @@ public class DeskPack extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void updateWatch() {
         if (checkWatch.isSelected()) {
             updateClipboard();
@@ -350,9 +350,11 @@ public class DeskPack extends javax.swing.JPanel {
                             hasWatchChanges.set(false);
                         } else {
                             var cyclesWithNoChanges = watchedWithNoChanges.incrementAndGet();
-                            if (cyclesWithNoChanges >= (Integer) spinnerAutoMake.getValue() && !watchFounds.isEmpty() && checkAutoMake.isSelected()) {
-                                buttonMakeAutoNameActionPerformed(null);
+                            if (cyclesWithNoChanges >= (Integer) spinnerAutoMake.getValue()) {
                                 watchedWithNoChanges.set(0);
+                                if (!watchFounds.isEmpty() && checkAutoMake.isSelected()) {
+                                    buttonMakeAutoNameActionPerformed(null);
+                                }
                             }
                         }
                     }
