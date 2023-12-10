@@ -48,7 +48,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuFolderRemove = new javax.swing.JMenuItem();
         menuFolderAddIndex = new javax.swing.JMenuItem();
         menuFolderRandom = new javax.swing.JMenuItem();
-        menuFolderGroovy = new javax.swing.JMenuItem();
+        menuFolderDestinyPack = new javax.swing.JMenuItem();
         menuAssets = new javax.swing.JPopupMenu();
         menuAssetsUpdate = new javax.swing.JMenuItem();
         menuAssetsSearch = new javax.swing.JMenuItem();
@@ -58,7 +58,6 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuAssetsRemove = new javax.swing.JMenuItem();
         menuAssetsAddIndex = new javax.swing.JMenuItem();
         menuAssetsRandom = new javax.swing.JMenuItem();
-        menuAssetsGroovy = new javax.swing.JMenuItem();
         comboSubFolders = new javax.swing.JComboBox<>();
         splitBody = new javax.swing.JSplitPane();
         scrollAssets = new javax.swing.JScrollPane();
@@ -146,8 +145,13 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderRandom);
 
-        menuFolderGroovy.setText("Groovy");
-        menuFolder.add(menuFolderGroovy);
+        menuFolderDestinyPack.setText("Destiny Pack");
+        menuFolderDestinyPack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuFolderDestinyPackActionPerformed(evt);
+            }
+        });
+        menuFolder.add(menuFolderDestinyPack);
 
         menuAssetsUpdate.setText("Update");
         menuAssetsUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -212,9 +216,6 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         });
         menuAssets.add(menuAssetsRandom);
-
-        menuAssetsGroovy.setText("Groovy");
-        menuAssets.add(menuAssetsGroovy);
 
         comboSubFolders.setFont(WizSwing.fontMonospaced());
         comboSubFolders.setModel(modelSubFolders);
@@ -750,6 +751,13 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_comboSubFoldersActionPerformed
 
+    private void menuFolderDestinyPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderDestinyPackActionPerformed
+        var selected = listFolder.getSelectedValue();
+        if (selected != null) {
+            desk.deskPack.setDestinyFolder(selected.path.getAbsolutePath());
+        }
+    }//GEN-LAST:event_menuFolderDestinyPackActionPerformed
+
     private void searchNextAssets() {
         if (searchAssets.isBlank()) {
             return;
@@ -821,7 +829,6 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JList<OrgzFolder> listFolder;
     private javax.swing.JPopupMenu menuAssets;
     private javax.swing.JMenuItem menuAssetsAddIndex;
-    private javax.swing.JMenuItem menuAssetsGroovy;
     private javax.swing.JMenuItem menuAssetsOpen;
     private javax.swing.JMenuItem menuAssetsRandom;
     private javax.swing.JMenuItem menuAssetsRemove;
@@ -831,7 +838,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JMenuItem menuAssetsUpdate;
     private javax.swing.JPopupMenu menuFolder;
     private javax.swing.JMenuItem menuFolderAddIndex;
-    private javax.swing.JMenuItem menuFolderGroovy;
+    private javax.swing.JMenuItem menuFolderDestinyPack;
     private javax.swing.JMenuItem menuFolderNewChild;
     private javax.swing.JMenuItem menuFolderNewSibling;
     private javax.swing.JMenuItem menuFolderOpen;

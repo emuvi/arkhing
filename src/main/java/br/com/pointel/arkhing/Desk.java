@@ -5,11 +5,11 @@ import com.formdev.flatlaf.FlatLightLaf;
 
 public class Desk extends javax.swing.JFrame {
     
-    private final DeskBase deskBase = new DeskBase(this);
-    private final DeskPack deskPack = new DeskPack(this);
-    private final DeskOrgz deskOrgz = new DeskOrgz(this);
-    private final DeskDocs deskDocs = new DeskDocs(this);
-    private final DeskCapt deskCapt = new DeskCapt(this);
+    public final DeskBase deskBase = new DeskBase(this);
+    public final DeskPack deskPack = new DeskPack(this);
+    public final DeskOrgz deskOrgz = new DeskOrgz(this);
+    public final DeskDocs deskDocs = new DeskDocs(this);
+    public final DeskCapt deskCapt = new DeskCapt(this);
     
     public volatile ArkhBase arkhBase = null;
     

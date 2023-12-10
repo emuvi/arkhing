@@ -37,6 +37,19 @@ public class DeskPack extends javax.swing.JPanel {
         initComponents();
         labelFound.setVisible(false);
     }
+    
+    public void initUpdater() {
+        WizBase.startDaemon(() -> {
+            while (desk.isVisible()) {
+                WizBase.sleep(500);
+                updateWatch();
+            }
+        }, "DeskPack - Updater");
+    }
+    
+    public void setDestinyFolder(String path) {
+        editDestinyFolder.setText(path);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -274,15 +287,6 @@ public class DeskPack extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    public void initUpdater() {
-        WizBase.startDaemon(() -> {
-            while (desk.isVisible()) {
-                WizBase.sleep(500);
-                updateWatch();
-            }
-        }, "DeskPack - Updater");
-    }
 
     private void updateWatch() {
         if (checkWatch.isSelected()) {

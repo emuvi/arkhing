@@ -88,10 +88,13 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFolderRandomActionPerformed"/>
           </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="menuFolderGroovy">
+        <MenuItem class="javax.swing.JMenuItem" name="menuFolderDestinyPack">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Groovy"/>
+            <Property name="text" type="java.lang.String" value="Destiny Pack"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFolderDestinyPackActionPerformed"/>
+          </Events>
         </MenuItem>
       </SubComponents>
     </Container>
@@ -164,11 +167,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAssetsRandomActionPerformed"/>
           </Events>
-        </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="menuAssetsGroovy">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Groovy"/>
-          </Properties>
         </MenuItem>
       </SubComponents>
     </Container>
