@@ -83,6 +83,7 @@ public class DeskPack extends javax.swing.JPanel {
         checkAutoCopy = new javax.swing.JCheckBox();
         labelStatus = new javax.swing.JLabel();
         checkAutoMake = new javax.swing.JCheckBox();
+        spinnerAutoMake = new javax.swing.JSpinner();
 
         editWatch.setEditable(false);
         editWatch.setText(WizProps.get("DESK_PACK_WATCH", ""));
@@ -263,6 +264,8 @@ public class DeskPack extends javax.swing.JPanel {
 
         checkAutoMake.setText("Auto Make");
 
+        spinnerAutoMake.setModel(new javax.swing.SpinnerNumberModel(12, null, null, 1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -278,7 +281,9 @@ public class DeskPack extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(checkWatch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkAutoMake)))
+                        .addComponent(checkAutoMake)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(spinnerAutoMake, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -289,7 +294,8 @@ public class DeskPack extends javax.swing.JPanel {
                     .addComponent(editWatch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkWatch)
                     .addComponent(buttonWatch)
-                    .addComponent(checkAutoMake))
+                    .addComponent(checkAutoMake)
+                    .addComponent(spinnerAutoMake, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(splitPack, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
                 .addContainerGap())
@@ -333,7 +339,7 @@ public class DeskPack extends javax.swing.JPanel {
                             hasWatchChanges.set(false);
                         } else {
                             var cyclesWithNoChanges = watchedWithNoChanges.incrementAndGet();
-                            if (cyclesWithNoChanges > 18 && !watchFounds.isEmpty() && checkAutoMake.isSelected()) {
+                            if (cyclesWithNoChanges >= (Integer) spinnerAutoMake.getValue() && !watchFounds.isEmpty() && checkAutoMake.isSelected()) {
                                 buttonMakeAutoNameActionPerformed(null);
                                 watchedWithNoChanges.set(0);
                             }
@@ -650,6 +656,7 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JPanel panelProcess;
     private javax.swing.JPanel panelWatch;
     private javax.swing.JScrollPane scrollWatch;
+    private javax.swing.JSpinner spinnerAutoMake;
     private javax.swing.JSplitPane splitPack;
     // End of variables declaration//GEN-END:variables
 
