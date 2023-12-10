@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.DefaultListModel;
 import javax.swing.SwingUtilities;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -31,6 +32,7 @@ public class DeskPack extends javax.swing.JPanel {
     private final List<WatchFound> watchFounds = new ArrayList<>();
     private final AtomicBoolean hasWatchChanges = new AtomicBoolean(true);
     private final AtomicBoolean shouldWait = new AtomicBoolean(true);
+    private final AtomicInteger watchedWithNoChanges = new AtomicInteger(0);
 
     public DeskPack(Desk desk) {
         this.desk = desk;
@@ -72,19 +74,20 @@ public class DeskPack extends javax.swing.JPanel {
         buttonNameCopy = new javax.swing.JButton();
         buttonFolderCopy = new javax.swing.JButton();
         panelProcess = new javax.swing.JPanel();
-        buttonMakeAutoName = new javax.swing.JButton();
         buttonMakeAulaName = new javax.swing.JButton();
         buttonSameFoundName = new javax.swing.JButton();
+        buttonMakeAutoName = new javax.swing.JButton();
         buttonSameRootName = new javax.swing.JButton();
         buttonFolderOpen = new javax.swing.JButton();
         labelFound = new javax.swing.JLabel();
         checkAutoCopy = new javax.swing.JCheckBox();
         labelStatus = new javax.swing.JLabel();
+        checkAutoMake = new javax.swing.JCheckBox();
 
         editWatch.setEditable(false);
         editWatch.setText(WizProps.get("DESK_PACK_WATCH", ""));
 
-        buttonWatch.setText("&");
+        buttonWatch.setText("Select");
         buttonWatch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonWatchActionPerformed(evt);
@@ -141,14 +144,6 @@ public class DeskPack extends javax.swing.JPanel {
 
         panelProcess.setLayout(new java.awt.GridLayout(1, 0, 8, 0));
 
-        buttonMakeAutoName.setText("Make Auto Name");
-        buttonMakeAutoName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonMakeAutoNameActionPerformed(evt);
-            }
-        });
-        panelProcess.add(buttonMakeAutoName);
-
         buttonMakeAulaName.setText("Make Aula Name");
         buttonMakeAulaName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,6 +159,14 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
         panelProcess.add(buttonSameFoundName);
+
+        buttonMakeAutoName.setText("Make Auto Name");
+        buttonMakeAutoName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMakeAutoNameActionPerformed(evt);
+            }
+        });
+        panelProcess.add(buttonMakeAutoName);
 
         buttonSameRootName.setText("Same Root Name");
         buttonSameRootName.addActionListener(new java.awt.event.ActionListener() {
@@ -258,6 +261,8 @@ public class DeskPack extends javax.swing.JPanel {
 
         splitPack.setRightComponent(panelWatch);
 
+        checkAutoMake.setText("Auto Make");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -271,7 +276,9 @@ public class DeskPack extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonWatch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkWatch)))
+                        .addComponent(checkWatch)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkAutoMake)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -281,13 +288,14 @@ public class DeskPack extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editWatch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkWatch)
-                    .addComponent(buttonWatch))
+                    .addComponent(buttonWatch)
+                    .addComponent(checkAutoMake))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(splitPack, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void updateWatch() {
         if (checkWatch.isSelected()) {
             updateClipboard();
@@ -297,6 +305,7 @@ public class DeskPack extends javax.swing.JPanel {
                 SwingUtilities.invokeLater(() -> {
                     synchronized (hasWatchChanges) {
                         if (hasWatchChanges.get()) {
+                            watchedWithNoChanges.set(0);
                             var selected = listWatch.getSelectedValue();
                             labelFound.setVisible(false);
                             modelWatch.removeAllElements();
@@ -322,6 +331,12 @@ public class DeskPack extends javax.swing.JPanel {
                             labelStatus.setText("Size: " + watchFounds.size() + " - Wait: " + (wait ? "Yes" : "No"));
                             shouldWait.set(wait);
                             hasWatchChanges.set(false);
+                        } else {
+                            var cyclesWithNoChanges = watchedWithNoChanges.incrementAndGet();
+                            if (cyclesWithNoChanges > 18 && !watchFounds.isEmpty() && checkAutoMake.isSelected()) {
+                                buttonMakeAutoNameActionPerformed(null);
+                                watchedWithNoChanges.set(0);
+                            }
                         }
                     }
                 });
@@ -620,6 +635,7 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JButton buttonSameRootName;
     private javax.swing.JButton buttonWatch;
     private javax.swing.JCheckBox checkAutoCopy;
+    private javax.swing.JCheckBox checkAutoMake;
     private javax.swing.JCheckBox checkWatch;
     private javax.swing.JTextField editClipboard;
     private javax.swing.JTextField editDestinyFolder;

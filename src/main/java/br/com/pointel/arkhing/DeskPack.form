@@ -19,13 +19,15 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="splitPack" alignment="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Component id="splitPack" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Component id="editWatch" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonWatch" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="checkWatch" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="checkAutoMake" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -40,6 +42,7 @@
                   <Component id="editWatch" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="checkWatch" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonWatch" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkAutoMake" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="splitPack" pref="413" max="32767" attributes="0"/>
@@ -59,7 +62,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonWatch">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&amp;"/>
+        <Property name="text" type="java.lang.String" value="Select"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonWatchActionPerformed"/>
@@ -250,14 +253,6 @@
                 <Property name="rows" type="int" value="1"/>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="buttonMakeAutoName">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Make Auto Name"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeAutoNameActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="javax.swing.JButton" name="buttonMakeAulaName">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Make Aula Name"/>
@@ -272,6 +267,14 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSameFoundNameActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="buttonMakeAutoName">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Make Auto Name"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeAutoNameActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="buttonSameRootName">
@@ -323,5 +326,10 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JCheckBox" name="checkAutoMake">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Auto Make"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>
