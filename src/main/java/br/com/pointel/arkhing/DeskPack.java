@@ -404,7 +404,11 @@ public class DeskPack extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonWatchActionPerformed
 
     private void buttonDestinyFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDestinyFolderActionPerformed
-        var selected = WizSwing.selectFolder(new File(editDestinyFolder.getText()));
+        var initial = desk.arkhBase.root;
+        if (!editDestinyFolder.getText().isBlank()) {
+            initial = new File(editDestinyFolder.getText());
+        }
+        var selected = WizSwing.selectFolder(initial);
         if (selected != null) {
             editDestinyFolder.setText(selected.getAbsolutePath());
         }
