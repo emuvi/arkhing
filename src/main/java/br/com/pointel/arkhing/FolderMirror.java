@@ -141,7 +141,11 @@ public class FolderMirror {
             } else {
                 send("Remove on clean: " + path.getAbsolutePath());
                 path.delete();
-                path.getParentFile().delete();
+                var parent = path.getParentFile();
+                while (parent != null) {
+                    parent.delete();
+                    parent = parent.getParentFile();
+                }
             }
         }
     }
