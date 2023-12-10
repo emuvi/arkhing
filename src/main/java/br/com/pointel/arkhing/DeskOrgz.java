@@ -327,7 +327,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }
     
-    private void selectFolderOrAsset(File path) {
+    public void selectFolderOrAsset(File path) {
         if (path == null) {
             return;
         }
@@ -755,6 +755,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
             desk.deskPack.setDestinyFolder(selected.path.getAbsolutePath());
+            desk.showPack();
         }
     }//GEN-LAST:event_menuFolderDestinyPackActionPerformed
 

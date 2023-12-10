@@ -140,6 +140,8 @@
                                       <Component id="buttonFolderCopy" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="buttonDestinyFolder" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="buttonSelectOrgz" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -188,6 +190,7 @@
                               <Component id="buttonNameCopy" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonFolderCopy" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonFolderOpen" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonSelectOrgz" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -324,6 +327,14 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Size: 0 | Wait: No"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonSelectOrgz">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Orgz"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelectOrgzActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

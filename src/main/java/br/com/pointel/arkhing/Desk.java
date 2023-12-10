@@ -23,6 +23,18 @@ public class Desk extends javax.swing.JFrame {
         WizSwing.initPositioner(this);
     }
     
+    public void showBase() {
+        tabsBody.setSelectedIndex(0);
+    }
+    
+    public void showPack() {
+        tabsBody.setSelectedIndex(1);
+    }
+    
+    public void showOrgz() {
+        tabsBody.setSelectedIndex(2);
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

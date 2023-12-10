@@ -82,6 +82,7 @@ public class DeskPack extends javax.swing.JPanel {
         labelFound = new javax.swing.JLabel();
         checkAutoCopy = new javax.swing.JCheckBox();
         labelStatus = new javax.swing.JLabel();
+        buttonSelectOrgz = new javax.swing.JButton();
         checkAutoMake = new javax.swing.JCheckBox();
         spinnerAutoMake = new javax.swing.JSpinner();
 
@@ -194,6 +195,13 @@ public class DeskPack extends javax.swing.JPanel {
         labelStatus.setForeground(new java.awt.Color(0, 0, 153));
         labelStatus.setText("Size: 0 | Wait: No");
 
+        buttonSelectOrgz.setText("Orgz");
+        buttonSelectOrgz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSelectOrgzActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelWatchLayout = new javax.swing.GroupLayout(panelWatch);
         panelWatch.setLayout(panelWatchLayout);
         panelWatchLayout.setHorizontalGroup(
@@ -212,7 +220,9 @@ public class DeskPack extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonFolderCopy)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonDestinyFolder)))
+                                .addComponent(buttonDestinyFolder)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonSelectOrgz)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelWatchLayout.createSequentialGroup()
@@ -250,7 +260,8 @@ public class DeskPack extends javax.swing.JPanel {
                         .addComponent(buttonDestinyFolder)
                         .addComponent(buttonNameCopy)
                         .addComponent(buttonFolderCopy)
-                        .addComponent(buttonFolderOpen)))
+                        .addComponent(buttonFolderOpen)
+                        .addComponent(buttonSelectOrgz)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editDestinyFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -616,6 +627,13 @@ public class DeskPack extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonMakeAutoNameActionPerformed
 
+    private void buttonSelectOrgzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectOrgzActionPerformed
+        if (!editDestinyFolder.getText().isEmpty()) {
+            desk.deskOrgz.selectFolderOrAsset(new File(editDestinyFolder.getText()));
+            desk.showOrgz();
+        }
+    }//GEN-LAST:event_buttonSelectOrgzActionPerformed
+
     private Set<WatchFound> getSelectedToProcess() {
         Set<WatchFound> results = new HashSet<>();
         int[] selectAll = new int[modelWatch.size()];
@@ -639,6 +657,7 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JButton buttonNameCopy;
     private javax.swing.JButton buttonSameFoundName;
     private javax.swing.JButton buttonSameRootName;
+    private javax.swing.JButton buttonSelectOrgz;
     private javax.swing.JButton buttonWatch;
     private javax.swing.JCheckBox checkAutoCopy;
     private javax.swing.JCheckBox checkAutoMake;
