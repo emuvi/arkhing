@@ -8,7 +8,6 @@ public class Desk extends javax.swing.JFrame {
     private final DeskBase deskBase = new DeskBase(this);
     private final DeskPack deskPack = new DeskPack(this);
     private final DeskOrgz deskOrgz = new DeskOrgz(this);
-    private final DeskName deskName = new DeskName(this);
     private final DeskDocs deskDocs = new DeskDocs(this);
     private final DeskCapt deskCapt = new DeskCapt(this);
     
@@ -19,7 +18,6 @@ public class Desk extends javax.swing.JFrame {
         tabsBody.addTab("Base", deskBase);
         tabsBody.addTab("Pack", deskPack);
         tabsBody.addTab("Orgz", deskOrgz);
-        tabsBody.addTab("Name", deskName);
         tabsBody.addTab("Docs", deskDocs);
         tabsBody.addTab("Capt", deskCapt);
         WizSwing.initPositioner(this);

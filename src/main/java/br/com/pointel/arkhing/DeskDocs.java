@@ -32,6 +32,7 @@ public class DeskDocs extends javax.swing.JPanel {
         buttonDestinySelect = new javax.swing.JButton();
         scrollMessages = new javax.swing.JScrollPane();
         textMessages = new javax.swing.JTextArea();
+        btnProcessName = new javax.swing.JButton();
 
         buttonExtract.setText("Extract");
         buttonExtract.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +77,13 @@ public class DeskDocs extends javax.swing.JPanel {
         textMessages.setRows(5);
         scrollMessages.setViewportView(textMessages);
 
+        btnProcessName.setText("Hard Rename");
+        btnProcessName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcessNameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,7 +98,6 @@ public class DeskDocs extends javax.swing.JPanel {
                     .addComponent(scrollMessages, javax.swing.GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonExtract)
                             .addComponent(labelOrigin)
                             .addComponent(labelDestiny))
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -101,14 +108,20 @@ public class DeskDocs extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelFolderMirror)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonExecute)))
+                        .addComponent(buttonExecute))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonExtract)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnProcessName)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(buttonExtract)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonExtract)
+                    .addComponent(btnProcessName))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelFolderMirror)
@@ -173,8 +186,28 @@ public class DeskDocs extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonDestinySelectActionPerformed
 
+    private void btnProcessNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessNameActionPerformed
+        var origin = new File("C:\\Users\\emuvi\\Downloads");
+        for (var inside : origin.listFiles()) {
+            if (inside.getName().startsWith("Aula ")) {
+                continue;
+            }
+            int i = 1;
+            var name = "Aula " + (i < 10 ? "0" + i : i) + ".mp4";
+            var destiny = new File(origin, name);
+            while (destiny.exists()) {
+                i++;
+                name = "Aula " + (i < 10 ? "0" + i : i) + ".mp4";
+                destiny = new File(origin, name);
+            }
+            inside.renameTo(destiny);
+        }
+        JOptionPane.showMessageDialog(null, "Done");
+    }//GEN-LAST:event_btnProcessNameActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnProcessName;
     private javax.swing.JButton buttonDestinySelect;
     private javax.swing.JButton buttonExecute;
     private javax.swing.JButton buttonExtract;
