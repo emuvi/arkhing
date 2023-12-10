@@ -440,19 +440,32 @@ public class DeskPack extends javax.swing.JPanel {
     }
 
     private void buttonSameRootNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSameRootNameActionPerformed
-        try {
-            checkIfDownloading();
-            var allSelected = getSelectedToProcess();
-            var rootFolder = new File(editDestinyFolder.getText());
-            for (var selected : allSelected) {
-                if (!selected.places.isEmpty()) {
-                    selected.file.delete();
-                } else {
-                    doMove(selected.file, rootFolder, rootFolder.getName(), selected.verifier);
+        if (!shootPacker.get()) {
+            shootPacker.set(true);
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        while (shouldWait.get()) {
+                            WizBase.sleep(10);
+                        }
+                        checkIfDownloading();
+                        var allSelected = getSelectedToProcess();
+                        var rootFolder = new File(editDestinyFolder.getText());
+                        for (var selected : allSelected) {
+                            if (!selected.places.isEmpty()) {
+                                selected.file.delete();
+                            } else {
+                                doMove(selected.file, rootFolder, rootFolder.getName(), selected.verifier);
+                            }
+                        }
+                    } catch (Exception e) {
+                        WizSwing.showError(e);
+                    } finally {
+                        shootPacker.set(false);
+                    }
                 }
-            }
-        } catch (Exception ex) {
-            WizSwing.showError(ex);
+            }.start();
         }
     }//GEN-LAST:event_buttonSameRootNameActionPerformed
 
@@ -545,11 +558,11 @@ public class DeskPack extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_listWatchMouseClicked
 
-    private final AtomicBoolean shootMakeAutoName = new AtomicBoolean(false);
+    private final AtomicBoolean shootPacker = new AtomicBoolean(false);
 
     private void buttonMakeAutoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeAutoNameActionPerformed
-        if (!shootMakeAutoName.get()) {
-            shootMakeAutoName.set(true);
+        if (!shootPacker.get()) {
+            shootPacker.set(true);
             new Thread() {
                 @Override
                 public void run() {
@@ -565,9 +578,9 @@ public class DeskPack extends javax.swing.JPanel {
                             }
                         });
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        WizSwing.showError(e);
                     } finally {
-                        shootMakeAutoName.set(false);
+                        shootPacker.set(false);
                     }
                 }
             }.start();
