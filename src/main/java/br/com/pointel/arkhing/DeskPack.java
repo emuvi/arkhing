@@ -79,10 +79,10 @@ public class DeskPack extends javax.swing.JPanel {
         editDestinyFolder = new javax.swing.JTextField();
         editDestinyName = new javax.swing.JTextField();
         panelProcess = new javax.swing.JPanel();
-        buttonMakeAulaName = new javax.swing.JButton();
-        buttonSameFoundName = new javax.swing.JButton();
-        buttonMakeAutoName = new javax.swing.JButton();
         buttonSameRootName = new javax.swing.JButton();
+        buttonSameFoundName = new javax.swing.JButton();
+        buttonMakeAulaName = new javax.swing.JButton();
+        buttonMakeAutoName = new javax.swing.JButton();
         checkQuickMake = new javax.swing.JCheckBox();
         spinnerAutoMake = new javax.swing.JSpinner();
 
@@ -205,14 +205,14 @@ public class DeskPack extends javax.swing.JPanel {
 
         panelProcess.setLayout(new java.awt.GridLayout(1, 0, 8, 0));
 
-        buttonMakeAulaName.setMnemonic('1');
-        buttonMakeAulaName.setText("1 - Make Aula Name");
-        buttonMakeAulaName.addActionListener(new java.awt.event.ActionListener() {
+        buttonSameRootName.setMnemonic('1');
+        buttonSameRootName.setText("1 - Same Root Name");
+        buttonSameRootName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonMakeAulaNameActionPerformed(evt);
+                buttonSameRootNameActionPerformed(evt);
             }
         });
-        panelProcess.add(buttonMakeAulaName);
+        panelProcess.add(buttonSameRootName);
 
         buttonSameFoundName.setMnemonic('2');
         buttonSameFoundName.setText("2 - Same Found Name");
@@ -223,23 +223,23 @@ public class DeskPack extends javax.swing.JPanel {
         });
         panelProcess.add(buttonSameFoundName);
 
-        buttonMakeAutoName.setMnemonic('3');
-        buttonMakeAutoName.setText("3 - Make Auto Name");
+        buttonMakeAulaName.setMnemonic('3');
+        buttonMakeAulaName.setText("3 - Make Aula Name");
+        buttonMakeAulaName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMakeAulaNameActionPerformed(evt);
+            }
+        });
+        panelProcess.add(buttonMakeAulaName);
+
+        buttonMakeAutoName.setMnemonic('4');
+        buttonMakeAutoName.setText("4 - Make Auto Name");
         buttonMakeAutoName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMakeAutoNameActionPerformed(evt);
             }
         });
         panelProcess.add(buttonMakeAutoName);
-
-        buttonSameRootName.setMnemonic('4');
-        buttonSameRootName.setText("4 - Same Root Name");
-        buttonSameRootName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSameRootNameActionPerformed(evt);
-            }
-        });
-        panelProcess.add(buttonSameRootName);
 
         javax.swing.GroupLayout panelWatchLayout = new javax.swing.GroupLayout(panelWatch);
         panelWatch.setLayout(panelWatchLayout);
@@ -525,32 +525,19 @@ public class DeskPack extends javax.swing.JPanel {
     }
 
     private void buttonSameRootNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSameRootNameActionPerformed
-        if (!shootPacker.get()) {
-            shootPacker.set(true);
-            new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        while (shouldWait.get()) {
-                            WizBase.sleep(10);
-                        }
-                        checkIfDownloading();
-                        var allSelected = getSelectedToProcess();
-                        var rootFolder = new File(editDestinyFolder.getText());
-                        for (var selected : allSelected) {
-                            if (!selected.places.isEmpty()) {
-                                selected.file.delete();
-                            } else {
-                                doMove(selected.file, rootFolder, rootFolder.getName(), selected.verifier);
-                            }
-                        }
-                    } catch (Exception e) {
-                        WizSwing.showError(e);
-                    } finally {
-                        shootPacker.set(false);
-                    }
+        try {
+            checkIfDownloading();
+            var allSelected = getSelectedToProcess();
+            var rootFolder = new File(editDestinyFolder.getText());
+            for (var selected : allSelected) {
+                if (!selected.places.isEmpty()) {
+                    selected.file.delete();
+                } else {
+                    doMove(selected.file, rootFolder, rootFolder.getName(), selected.verifier);
                 }
-            }.start();
+            }
+        } catch (Exception e) {
+            WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonSameRootNameActionPerformed
 
@@ -647,6 +634,10 @@ public class DeskPack extends javax.swing.JPanel {
 
     private final AtomicBoolean shootPacker = new AtomicBoolean(false);
 
+    private boolean isOnlyPDFs() {
+        return watchFounds.stream().allMatch((found) -> found.file.getName().toLowerCase().endsWith(".pdf"));
+    }
+
     private void buttonMakeAutoNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeAutoNameActionPerformed
         if (!shootPacker.get()) {
             shootPacker.set(true);
@@ -658,7 +649,9 @@ public class DeskPack extends javax.swing.JPanel {
                             WizBase.sleep(10);
                         }
                         SwingUtilities.invokeLater(() -> {
-                            if (labelFound.isVisible()) {
+                            if (isOnlyPDFs()) {
+                                buttonSameRootNameActionPerformed(evt);
+                            } else if (labelFound.isVisible()) {
                                 buttonSameFoundNameActionPerformed(evt);
                             } else {
                                 buttonMakeAulaNameActionPerformed(evt);
@@ -696,9 +689,7 @@ public class DeskPack extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonDestinyFolderActionPerformed
 
     private void splitPackComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_splitPackComponentResized
-        splitPack.setDividerLocation(
-                splitPack.getHeight() - (panelWatch.getMinimumSize().height + 30)
-        );
+        splitPack.setDividerLocation(splitPack.getHeight() - (panelWatch.getMinimumSize().height + 30));
     }//GEN-LAST:event_splitPackComponentResized
 
     private Set<WatchFound> getSelectedToProcess() {
