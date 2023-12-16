@@ -339,6 +339,12 @@ public class DeskOrgz extends javax.swing.JPanel {
             return;
         }
         for (int i = 0; i < modelFolder.getSize(); i++) {
+            if (Objects.equals(path.getParentFile(), modelFolder.get(i).path)) {
+                listFolder.setSelectedValue(modelFolder.get(i), true);
+                return;
+            }
+        }
+        for (int i = 0; i < modelFolder.getSize(); i++) {
             if (Objects.equals(path, modelFolder.get(i).path)) {
                 listFolder.setSelectedValue(modelFolder.get(i), true);
                 return;
@@ -350,6 +356,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 return;
             }
         }
+        listFolderValueChanged(null);
     }
 
     private List<OrgzFolder> loadFolders(File path, int depth, List<OrgzFolder> list) {
