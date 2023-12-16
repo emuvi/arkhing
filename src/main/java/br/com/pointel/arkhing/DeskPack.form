@@ -48,7 +48,7 @@
                   <Component id="spinnerAutoMake" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="splitPack" pref="413" max="32767" attributes="0"/>
+              <Component id="splitPack" pref="409" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -137,31 +137,21 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="editClipboard" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="editDestinyFolder" min="-2" pref="450" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="buttonDestinyFolder" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="buttonFolderCopy" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonSelectFolder" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonSelectOrgz" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonFolderOpen" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="buttonDestinyFolder" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="buttonFolderCopy" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="butttonDestinyName" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="38" max="32767" attributes="0"/>
-                                      <Component id="checkAutoCopy" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonNameCopy" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="editDestinyName" max="32767" attributes="0"/>
-                              </Group>
+                              <Component id="buttonSelectFolder" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonSelectOrgz" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonFolderOpen" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="butttonDestinyName" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="checkAutoCopy" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonNameCopy" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelStatus" min="-2" max="-2" attributes="0"/>
@@ -170,7 +160,9 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="labelClipboard" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="panelProcess" max="32767" attributes="0"/>
+                          <Component id="panelProcess" pref="726" max="32767" attributes="0"/>
+                          <Component id="editDestinyName" alignment="0" max="32767" attributes="0"/>
+                          <Component id="editDestinyFolder" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -189,24 +181,25 @@
                       <Component id="editClipboard" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="checkAutoCopy" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
+                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                              <Component id="checkAutoCopy" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                              <Component id="butttonDestinyName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="buttonSelectFolder" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonNameCopy" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonFolderCopy" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonFolderOpen" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonSelectOrgz" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="butttonDestinyName" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="editDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="editDestinyName" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="editDestinyFolder" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelProcess" pref="88" max="32767" attributes="0"/>
+                      <Component id="editDestinyName" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="panelProcess" pref="56" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
