@@ -97,6 +97,11 @@ public class DeskPack extends javax.swing.JPanel {
         });
 
         checkWatch.setText("Watch");
+        checkWatch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkWatchActionPerformed(evt);
+            }
+        });
 
         splitPack.setDividerLocation(200);
         splitPack.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -640,6 +645,12 @@ public class DeskPack extends javax.swing.JPanel {
             desk.showOrgz();
         }
     }//GEN-LAST:event_buttonSelectOrgzActionPerformed
+
+    private void checkWatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkWatchActionPerformed
+        if (checkWatch.isSelected()) {
+            checkAutoCopy.setSelected(true);
+        }
+    }//GEN-LAST:event_checkWatchActionPerformed
 
     private Set<WatchFound> getSelectedToProcess() {
         Set<WatchFound> results = new HashSet<>();
