@@ -25,6 +25,7 @@ public class DeskBase extends javax.swing.JPanel {
         buttonCheck = new javax.swing.JButton();
 
         editRoot.setEditable(false);
+        editRoot.setFont(WizSwing.fontMonospaced());
         editRoot.setText(WizProps.get("DESK_BASE_ROOT", ""));
 
         textStatus.setEditable(false);

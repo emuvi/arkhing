@@ -52,6 +52,9 @@
     <Component class="javax.swing.JTextField" name="editRoot">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="WizSwing.fontMonospaced()" type="code"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="WizProps.get(&quot;DESK_BASE_ROOT&quot;, &quot;&quot;)" type="code"/>
         </Property>

@@ -87,6 +87,7 @@ public class DeskPack extends javax.swing.JPanel {
         spinnerAutoMake = new javax.swing.JSpinner();
 
         editWatch.setEditable(false);
+        editWatch.setFont(WizSwing.fontMonospaced());
         editWatch.setText(WizProps.get("DESK_PACK_WATCH", ""));
 
         buttonWatch.setText("Select");
@@ -137,6 +138,8 @@ public class DeskPack extends javax.swing.JPanel {
         labelFound.setText("Already Present on Base!!!");
 
         labelClipboard.setText("Clipboard");
+
+        editClipboard.setFont(WizSwing.fontMonospaced());
 
         buttonDestinyFolder.setMnemonic('F');
         buttonDestinyFolder.setText("Destiny Folder");
@@ -195,6 +198,10 @@ public class DeskPack extends javax.swing.JPanel {
                 buttonNameCopyActionPerformed(evt);
             }
         });
+
+        editDestinyFolder.setFont(WizSwing.fontMonospaced());
+
+        editDestinyName.setFont(WizSwing.fontMonospaced());
 
         panelProcess.setLayout(new java.awt.GridLayout(1, 0, 8, 0));
 
