@@ -55,6 +55,8 @@ public class DeskCapt extends javax.swing.JPanel {
         buttonMakeDocuments = new javax.swing.JButton();
         checkAutoMakeDocuments = new javax.swing.JCheckBox();
 
+        comboDisplays.setFont(WizSwing.fontMonospaced());
+
         buttonView.setText("Source");
         buttonView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,6 +65,7 @@ public class DeskCapt extends javax.swing.JPanel {
         });
 
         editDestiny.setEditable(false);
+        editDestiny.setFont(WizSwing.fontMonospaced());
         editDestiny.setText(WizProps.get("DESK_CAPT_DESTINY", ""));
 
         buttonSelect.setText("Select");
@@ -72,6 +75,8 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
+        editSource.setFont(WizSwing.fontMonospaced());
+
         buttonStart.setText("Start");
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,12 +84,14 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
+        editPages.setFont(WizSwing.fontMonospaced());
         editPages.setValue(50);
 
         labelPages.setText("Pages");
 
         labelMethod.setText("Method");
 
+        comboMethod.setFont(WizSwing.fontMonospaced());
         comboMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Press Right", "Press Down", "Drag Mouse", "" }));
 
         buttonOpen.setText("Open");
@@ -94,6 +101,7 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
+        editWait.setFont(WizSwing.fontMonospaced());
         editWait.setModel(new javax.swing.SpinnerNumberModel(2.0d, null, null, 0.2d));
 
         labelWait.setText("Wait");
@@ -390,7 +398,7 @@ public class DeskCapt extends javax.swing.JPanel {
             try {
                 var documentFile = new CaptPDF(folder).make();
                 if (documentFile != null) {
-                    desk.putStatus("Done document: " + documentFile.getAbsolutePath());
+                    desk.putStatus("Made: " + documentFile.getAbsolutePath());
                 }
             } catch (Exception e) {
                 WizSwing.showError(e);

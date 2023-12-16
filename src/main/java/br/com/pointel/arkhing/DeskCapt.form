@@ -111,6 +111,11 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JComboBox" name="comboDisplays">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="WizSwing.fontMonospaced()" type="code"/>
+        </Property>
+      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Display&gt;"/>
       </AuxValues>
@@ -126,6 +131,9 @@
     <Component class="javax.swing.JTextField" name="editDestiny">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="WizSwing.fontMonospaced()" type="code"/>
+        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="WizProps.get(&quot;DESK_CAPT_DESTINY&quot;, &quot;&quot;)" type="code"/>
         </Property>
@@ -140,6 +148,11 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="editSource">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="WizSwing.fontMonospaced()" type="code"/>
+        </Property>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonStart">
       <Properties>
@@ -151,6 +164,9 @@
     </Component>
     <Component class="javax.swing.JSpinner" name="editPages">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="WizSwing.fontMonospaced()" type="code"/>
+        </Property>
         <Property name="value" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="50" type="code"/>
         </Property>
@@ -168,6 +184,9 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="comboMethod">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="WizSwing.fontMonospaced()" type="code"/>
+        </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
             <StringItem index="0" value="Press Right"/>
@@ -191,6 +210,9 @@
     </Component>
     <Component class="javax.swing.JSpinner" name="editWait">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="WizSwing.fontMonospaced()" type="code"/>
+        </Property>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
           <SpinnerModel initial="2.0" numberType="java.lang.Double" stepSize="0.2" type="number"/>
         </Property>
