@@ -308,7 +308,7 @@ public class DeskCapt extends javax.swing.JPanel {
                             SwingUtilities.invokeLater(() -> buttonStart.requestFocusInWindow());
                             robot.delay((int) waitTime);
                         }
-                        
+
                     } catch (Exception e) {
                         WizSwing.showError(e);
                     } finally {
@@ -388,7 +388,10 @@ public class DeskCapt extends javax.swing.JPanel {
     private void makeDocuments(File folder) {
         documentRunner.execute(() -> {
             try {
-                new CaptPDF(folder).make();
+                var documentFile = new CaptPDF(folder).make();
+                if (documentFile != null) {
+                    desk.putStatus("Done document: " + documentFile.getAbsolutePath());
+                }
             } catch (Exception e) {
                 WizSwing.showError(e);
             }

@@ -3,7 +3,9 @@ package br.com.pointel.arkhing;
 import javax.swing.UIManager;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 
 public class Desk extends javax.swing.JFrame {
 
@@ -37,6 +39,14 @@ public class Desk extends javax.swing.JFrame {
     public void showOrgz() {
         tabsBody.setSelectedIndex(2);
     }
+    
+    public void putStatus(String status) {
+        if (SwingUtilities.isEventDispatchThread()) {
+            editStatus.setText(status);
+        } else {
+            SwingUtilities.invokeLater(() -> editStatus.setText(status));
+        }
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -44,6 +54,7 @@ public class Desk extends javax.swing.JFrame {
 
         tabsBody = new javax.swing.JTabbedPane();
         checkAlwaysOnTop = new javax.swing.JCheckBox();
+        editStatus = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Arkhing");
@@ -54,12 +65,16 @@ public class Desk extends javax.swing.JFrame {
             }
         });
 
-        checkAlwaysOnTop.setText("Always on Top");
+        checkAlwaysOnTop.setText("OnTop");
         checkAlwaysOnTop.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkAlwaysOnTopActionPerformed(evt);
             }
         });
+
+        editStatus.setEditable(false);
+        editStatus.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        editStatus.setText("Status");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,16 +86,19 @@ public class Desk extends javax.swing.JFrame {
                     .addComponent(tabsBody, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(checkAlwaysOnTop)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editStatus)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabsBody, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                .addComponent(tabsBody, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkAlwaysOnTop)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkAlwaysOnTop)
+                    .addComponent(editStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -120,6 +138,7 @@ public class Desk extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkAlwaysOnTop;
+    private javax.swing.JTextField editStatus;
     private javax.swing.JTabbedPane tabsBody;
     // End of variables declaration//GEN-END:variables
 

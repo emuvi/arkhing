@@ -15,7 +15,7 @@ public class CaptPDF {
         this.folder = folder;
     }
 
-    public void make() throws Exception {
+    public File make() throws Exception {
         try (PDDocument document = new PDDocument()) {
             var hasPages = false;
             for (var inside : folder.listFiles()) {
@@ -28,8 +28,10 @@ public class CaptPDF {
                 var destiny = new File(folder, "document.pdf");
                 destiny.delete();
                 document.save(destiny);
+                return destiny;
             }
         }
+        return null;
     }
 
     private void addPage(PDDocument inDocument, File fromImageFile) throws Exception {
