@@ -10,6 +10,8 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Files;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringUtils;
@@ -50,6 +52,8 @@ public class DeskCapt extends javax.swing.JPanel {
         editWait = new javax.swing.JSpinner();
         labelWait = new javax.swing.JLabel();
         buttonNew = new javax.swing.JButton();
+        buttonMakeDocuments = new javax.swing.JButton();
+        checkAutoMakeDocuments = new javax.swing.JCheckBox();
 
         buttonView.setText("Source");
         buttonView.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +105,15 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
+        buttonMakeDocuments.setText("Make Documents");
+        buttonMakeDocuments.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMakeDocumentsActionPerformed(evt);
+            }
+        });
+
+        checkAutoMakeDocuments.setText("Auto");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -125,19 +138,25 @@ public class DeskCapt extends javax.swing.JPanel {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelMethod)
-                            .addComponent(comboMethod, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelWait)
-                            .addComponent(editWait, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelPages)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(editPages, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelMethod)
+                                    .addComponent(comboMethod, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelWait)
+                                    .addComponent(editWait, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(labelPages)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(editPages, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(checkAutoMakeDocuments)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonMakeDocuments)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -165,7 +184,11 @@ public class DeskCapt extends javax.swing.JPanel {
                     .addComponent(editPages, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboMethod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(editWait, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonMakeDocuments)
+                    .addComponent(checkAutoMakeDocuments))
+                .addContainerGap(194, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -198,6 +221,10 @@ public class DeskCapt extends javax.swing.JPanel {
     private volatile boolean making = false;
 
     private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartActionPerformed
+        if (!making && !"Start".equals(buttonStart.getText())) {
+            WizSwing.showError(new Throwable("Wait the process to stop."));
+            return;
+        }
         if (making) {
             making = false;
         } else {
@@ -211,9 +238,8 @@ public class DeskCapt extends javax.swing.JPanel {
             var dragMouse = "Drag Mouse".equals(comboMethod.getSelectedItem());
             var pressDown = "Press Down".equals(comboMethod.getSelectedItem());
             new Thread() {
-                
                 BufferedImage beforeCapture = null;
-                
+
                 private void save(BufferedImage capture) throws Exception {
                     var indexPage = 1;
                     var pageNameSuffix = StringUtils.leftPad(String.valueOf(indexPage), 3, '0');
@@ -225,7 +251,7 @@ public class DeskCapt extends javax.swing.JPanel {
                     }
                     ImageIO.write(capture, "PNG", filePage);
                 }
-                
+
                 @Override
                 public void run() {
                     try {
@@ -234,8 +260,8 @@ public class DeskCapt extends javax.swing.JPanel {
                         while (making && indexMaking < totalPages) {
                             indexMaking++;
                             BufferedImage thisCapture = robot.createScreenCapture(captureSource);
-                            if (beforeCapture == null || 
-                                    WizImage.isSame(beforeCapture, thisCapture)) {
+                            if (beforeCapture == null
+                                    || WizImage.isSame(beforeCapture, thisCapture)) {
                                 save(thisCapture);
                             } else {
                                 save(beforeCapture);
@@ -282,12 +308,18 @@ public class DeskCapt extends javax.swing.JPanel {
                             SwingUtilities.invokeLater(() -> buttonStart.requestFocusInWindow());
                             robot.delay((int) waitTime);
                         }
+                        
                     } catch (Exception e) {
                         WizSwing.showError(e);
                     } finally {
                         making = false;
-                        SwingUtilities.invokeLater(() -> buttonStart.setText("Start"));
-                        WizSwing.showInfo("Done Capture");
+                        SwingUtilities.invokeLater(() -> {
+                            buttonStart.setText("Start");
+                            if (checkAutoMakeDocuments.isSelected()) {
+                                makeDocuments(destinyFolder);
+                            }
+                            WizSwing.showInfo("Done Capture");
+                        });
                     }
                 }
             }.start();
@@ -319,8 +351,15 @@ public class DeskCapt extends javax.swing.JPanel {
         } catch (Exception e) {
             WizSwing.showError(e);
         }
-        
+
     }//GEN-LAST:event_buttonNewActionPerformed
+
+    private void buttonMakeDocumentsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeDocumentsActionPerformed
+        var selected = WizSwing.selectFolder(new File(editDestiny.getText()));
+        if (selected != null) {
+            makeDocuments(selected);
+        }
+    }//GEN-LAST:event_buttonMakeDocumentsActionPerformed
 
     private int getCaptFolderIndex(String folderName) {
         if (folderName.startsWith("Capt-")) {
@@ -331,7 +370,7 @@ public class DeskCapt extends javax.swing.JPanel {
         }
         return 0;
     }
-    
+
     private void captureAllScreens() {
         try {
             var index = 1;
@@ -346,12 +385,31 @@ public class DeskCapt extends javax.swing.JPanel {
         }
     }
 
+    private void makeDocuments(File folder) {
+        documentRunner.execute(() -> {
+            try {
+                new CaptPDF(folder).make();
+            } catch (Exception e) {
+                WizSwing.showError(e);
+            }
+        });
+        for (var inside : folder.listFiles()) {
+            if (inside.isDirectory()) {
+                makeDocuments(inside);
+            }
+        }
+    }
+
+    Executor documentRunner = Executors.newSingleThreadExecutor();
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonMakeDocuments;
     private javax.swing.JButton buttonNew;
     private javax.swing.JButton buttonOpen;
     private javax.swing.JButton buttonSelect;
     private javax.swing.JButton buttonStart;
     private javax.swing.JButton buttonView;
+    private javax.swing.JCheckBox checkAutoMakeDocuments;
     private javax.swing.JComboBox<Display> comboDisplays;
     private javax.swing.JComboBox<String> comboMethod;
     private javax.swing.JTextField editDestiny;

@@ -38,21 +38,30 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelMethod" min="-2" max="-2" attributes="0"/>
-                          <Component id="comboMethod" min="-2" pref="113" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelWait" min="-2" max="-2" attributes="0"/>
-                          <Component id="editWait" min="-2" pref="85" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="labelPages" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="editPages" min="-2" pref="94" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="labelMethod" min="-2" max="-2" attributes="0"/>
+                                  <Component id="comboMethod" min="-2" pref="113" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="buttonStart" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="labelWait" min="-2" max="-2" attributes="0"/>
+                                  <Component id="editWait" min="-2" pref="85" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="labelPages" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="editPages" min="-2" pref="94" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="buttonStart" min="-2" pref="90" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="checkAutoMakeDocuments" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonMakeDocuments" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -90,7 +99,12 @@
                   <Component id="comboMethod" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="editWait" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="235" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="buttonMakeDocuments" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkAutoMakeDocuments" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="194" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -194,6 +208,19 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNewActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonMakeDocuments">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Make Documents"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeDocumentsActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkAutoMakeDocuments">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Auto"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
