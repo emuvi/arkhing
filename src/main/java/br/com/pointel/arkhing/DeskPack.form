@@ -136,14 +136,14 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="editDestinyFolder" min="-2" pref="450" max="-2" attributes="0"/>
-                                  <Group type="102" attributes="0">
-                                      <Component id="labelDestinyFolder" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="buttonDestinyFolder" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
                                       <Component id="buttonFolderOpen" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="buttonFolderCopy" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonDestinyFolder" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonSelectFolder" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="buttonSelectOrgz" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -151,8 +151,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="butttonDestiny" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="41" max="32767" attributes="0"/>
+                                      <Component id="butttonDestinyName" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace pref="38" max="32767" attributes="0"/>
                                       <Component id="checkAutoCopy" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="buttonNameCopy" min="-2" max="-2" attributes="0"/>
@@ -188,13 +188,13 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="checkAutoCopy" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="labelDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonSelectFolder" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonNameCopy" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonFolderCopy" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonFolderOpen" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonSelectOrgz" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="butttonDestiny" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="butttonDestinyName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -217,20 +217,15 @@
             </Component>
             <Component class="javax.swing.JTextField" name="editClipboard">
             </Component>
-            <Component class="javax.swing.JLabel" name="labelDestinyFolder">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Destiny Folder"/>
-              </Properties>
-            </Component>
             <Component class="javax.swing.JTextField" name="editDestinyFolder">
             </Component>
-            <Component class="javax.swing.JButton" name="buttonDestinyFolder">
+            <Component class="javax.swing.JButton" name="buttonSelectFolder">
               <Properties>
                 <Property name="mnemonic" type="int" value="83"/>
                 <Property name="text" type="java.lang.String" value="Select"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDestinyFolderActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelectFolderActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="editDestinyName">
@@ -246,6 +241,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonFolderCopy">
               <Properties>
+                <Property name="mnemonic" type="int" value="80"/>
                 <Property name="text" type="java.lang.String" value="Copy"/>
               </Properties>
               <Events>
@@ -262,8 +258,8 @@
               <SubComponents>
                 <Component class="javax.swing.JButton" name="buttonMakeAulaName">
                   <Properties>
-                    <Property name="mnemonic" type="int" value="78"/>
-                    <Property name="text" type="java.lang.String" value="Make Aula Name"/>
+                    <Property name="mnemonic" type="int" value="49"/>
+                    <Property name="text" type="java.lang.String" value="1 - Make Aula Name"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeAulaNameActionPerformed"/>
@@ -271,8 +267,8 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="buttonSameFoundName">
                   <Properties>
-                    <Property name="mnemonic" type="int" value="70"/>
-                    <Property name="text" type="java.lang.String" value="Same Found Name"/>
+                    <Property name="mnemonic" type="int" value="50"/>
+                    <Property name="text" type="java.lang.String" value="2 - Same Found Name"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSameFoundNameActionPerformed"/>
@@ -280,8 +276,8 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="buttonMakeAutoName">
                   <Properties>
-                    <Property name="mnemonic" type="int" value="65"/>
-                    <Property name="text" type="java.lang.String" value="Make Auto Name"/>
+                    <Property name="mnemonic" type="int" value="51"/>
+                    <Property name="text" type="java.lang.String" value="3 - Make Auto Name"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeAutoNameActionPerformed"/>
@@ -289,8 +285,8 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="buttonSameRootName">
                   <Properties>
-                    <Property name="mnemonic" type="int" value="82"/>
-                    <Property name="text" type="java.lang.String" value="Same Root Name"/>
+                    <Property name="mnemonic" type="int" value="52"/>
+                    <Property name="text" type="java.lang.String" value="4 - Same Root Name"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSameRootNameActionPerformed"/>
@@ -343,13 +339,22 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelectOrgzActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="butttonDestiny">
+            <Component class="javax.swing.JButton" name="butttonDestinyName">
               <Properties>
                 <Property name="mnemonic" type="int" value="68"/>
-                <Property name="text" type="java.lang.String" value="Destiny"/>
+                <Property name="text" type="java.lang.String" value="Destiny Name"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butttonDestinyActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butttonDestinyNameActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonDestinyFolder">
+              <Properties>
+                <Property name="mnemonic" type="int" value="70"/>
+                <Property name="text" type="java.lang.String" value="Destiny Folder"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDestinyFolderActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -365,7 +370,7 @@
     <Component class="javax.swing.JSpinner" name="spinnerAutoMake">
       <Properties>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="12" numberType="java.lang.Integer" stepSize="1" type="number"/>
+          <SpinnerModel initial="9" numberType="java.lang.Integer" stepSize="1" type="number"/>
         </Property>
       </Properties>
     </Component>

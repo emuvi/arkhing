@@ -66,9 +66,8 @@ public class DeskPack extends javax.swing.JPanel {
         panelWatch = new javax.swing.JPanel();
         labelClipboard = new javax.swing.JLabel();
         editClipboard = new javax.swing.JTextField();
-        labelDestinyFolder = new javax.swing.JLabel();
         editDestinyFolder = new javax.swing.JTextField();
-        buttonDestinyFolder = new javax.swing.JButton();
+        buttonSelectFolder = new javax.swing.JButton();
         editDestinyName = new javax.swing.JTextField();
         buttonNameCopy = new javax.swing.JButton();
         buttonFolderCopy = new javax.swing.JButton();
@@ -82,7 +81,8 @@ public class DeskPack extends javax.swing.JPanel {
         checkAutoCopy = new javax.swing.JCheckBox();
         labelStatus = new javax.swing.JLabel();
         buttonSelectOrgz = new javax.swing.JButton();
-        butttonDestiny = new javax.swing.JButton();
+        butttonDestinyName = new javax.swing.JButton();
+        buttonDestinyFolder = new javax.swing.JButton();
         checkQuickMake = new javax.swing.JCheckBox();
         spinnerAutoMake = new javax.swing.JSpinner();
 
@@ -125,13 +125,11 @@ public class DeskPack extends javax.swing.JPanel {
 
         labelClipboard.setText("Clipboard");
 
-        labelDestinyFolder.setText("Destiny Folder");
-
-        buttonDestinyFolder.setMnemonic('S');
-        buttonDestinyFolder.setText("Select");
-        buttonDestinyFolder.addActionListener(new java.awt.event.ActionListener() {
+        buttonSelectFolder.setMnemonic('S');
+        buttonSelectFolder.setText("Select");
+        buttonSelectFolder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDestinyFolderActionPerformed(evt);
+                buttonSelectFolderActionPerformed(evt);
             }
         });
 
@@ -143,6 +141,7 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
 
+        buttonFolderCopy.setMnemonic('P');
         buttonFolderCopy.setText("Copy");
         buttonFolderCopy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,8 +151,8 @@ public class DeskPack extends javax.swing.JPanel {
 
         panelProcess.setLayout(new java.awt.GridLayout(1, 0, 8, 0));
 
-        buttonMakeAulaName.setMnemonic('N');
-        buttonMakeAulaName.setText("Make Aula Name");
+        buttonMakeAulaName.setMnemonic('1');
+        buttonMakeAulaName.setText("1 - Make Aula Name");
         buttonMakeAulaName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMakeAulaNameActionPerformed(evt);
@@ -161,8 +160,8 @@ public class DeskPack extends javax.swing.JPanel {
         });
         panelProcess.add(buttonMakeAulaName);
 
-        buttonSameFoundName.setMnemonic('F');
-        buttonSameFoundName.setText("Same Found Name");
+        buttonSameFoundName.setMnemonic('2');
+        buttonSameFoundName.setText("2 - Same Found Name");
         buttonSameFoundName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSameFoundNameActionPerformed(evt);
@@ -170,8 +169,8 @@ public class DeskPack extends javax.swing.JPanel {
         });
         panelProcess.add(buttonSameFoundName);
 
-        buttonMakeAutoName.setMnemonic('A');
-        buttonMakeAutoName.setText("Make Auto Name");
+        buttonMakeAutoName.setMnemonic('3');
+        buttonMakeAutoName.setText("3 - Make Auto Name");
         buttonMakeAutoName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonMakeAutoNameActionPerformed(evt);
@@ -179,8 +178,8 @@ public class DeskPack extends javax.swing.JPanel {
         });
         panelProcess.add(buttonMakeAutoName);
 
-        buttonSameRootName.setMnemonic('R');
-        buttonSameRootName.setText("Same Root Name");
+        buttonSameRootName.setMnemonic('4');
+        buttonSameRootName.setText("4 - Same Root Name");
         buttonSameRootName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSameRootNameActionPerformed(evt);
@@ -214,11 +213,19 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
 
-        butttonDestiny.setMnemonic('D');
-        butttonDestiny.setText("Destiny");
-        butttonDestiny.addActionListener(new java.awt.event.ActionListener() {
+        butttonDestinyName.setMnemonic('D');
+        butttonDestinyName.setText("Destiny Name");
+        butttonDestinyName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butttonDestinyActionPerformed(evt);
+                butttonDestinyNameActionPerformed(evt);
+            }
+        });
+
+        buttonDestinyFolder.setMnemonic('F');
+        buttonDestinyFolder.setText("Destiny Folder");
+        buttonDestinyFolder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDestinyFolderActionPerformed(evt);
             }
         });
 
@@ -233,21 +240,21 @@ public class DeskPack extends javax.swing.JPanel {
                     .addGroup(panelWatchLayout.createSequentialGroup()
                         .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(editDestinyFolder, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelWatchLayout.createSequentialGroup()
-                                .addComponent(labelDestinyFolder)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelWatchLayout.createSequentialGroup()
+                                .addComponent(buttonDestinyFolder)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(buttonFolderOpen)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonFolderCopy)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonDestinyFolder)
+                                .addComponent(buttonSelectFolder)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonSelectOrgz)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelWatchLayout.createSequentialGroup()
-                                .addComponent(butttonDestiny)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                                .addComponent(butttonDestinyName)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                                 .addComponent(checkAutoCopy)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonNameCopy))
@@ -275,13 +282,13 @@ public class DeskPack extends javax.swing.JPanel {
                 .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(checkAutoCopy, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelDestinyFolder)
-                        .addComponent(buttonDestinyFolder)
+                        .addComponent(buttonSelectFolder)
                         .addComponent(buttonNameCopy)
                         .addComponent(buttonFolderCopy)
                         .addComponent(buttonFolderOpen)
                         .addComponent(buttonSelectOrgz)
-                        .addComponent(butttonDestiny)))
+                        .addComponent(butttonDestinyName)
+                        .addComponent(buttonDestinyFolder)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editDestinyFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -296,7 +303,7 @@ public class DeskPack extends javax.swing.JPanel {
         checkQuickMake.setMnemonic('Q');
         checkQuickMake.setText("Quick Make");
 
-        spinnerAutoMake.setModel(new javax.swing.SpinnerNumberModel(12, null, null, 1));
+        spinnerAutoMake.setModel(new javax.swing.SpinnerNumberModel(9, null, null, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -467,7 +474,7 @@ public class DeskPack extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonWatchActionPerformed
 
-    private void buttonDestinyFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDestinyFolderActionPerformed
+    private void buttonSelectFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectFolderActionPerformed
         var initial = desk.arkhBase.root;
         if (!editDestinyFolder.getText().isBlank()) {
             initial = new File(editDestinyFolder.getText());
@@ -476,7 +483,7 @@ public class DeskPack extends javax.swing.JPanel {
         if (selected != null) {
             editDestinyFolder.setText(selected.getAbsolutePath());
         }
-    }//GEN-LAST:event_buttonDestinyFolderActionPerformed
+    }//GEN-LAST:event_buttonSelectFolderActionPerformed
 
     private void buttonNameCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNameCopyActionPerformed
         editDestinyName.setText(cleanName(editClipboard.getText()));
@@ -668,9 +675,13 @@ public class DeskPack extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_checkWatchActionPerformed
 
-    private void butttonDestinyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butttonDestinyActionPerformed
+    private void butttonDestinyNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butttonDestinyNameActionPerformed
         editDestinyName.requestFocus();
-    }//GEN-LAST:event_butttonDestinyActionPerformed
+    }//GEN-LAST:event_butttonDestinyNameActionPerformed
+
+    private void buttonDestinyFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDestinyFolderActionPerformed
+        editDestinyFolder.requestFocus();
+    }//GEN-LAST:event_buttonDestinyFolderActionPerformed
 
     private Set<WatchFound> getSelectedToProcess() {
         Set<WatchFound> results = new HashSet<>();
@@ -695,9 +706,10 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JButton buttonNameCopy;
     private javax.swing.JButton buttonSameFoundName;
     private javax.swing.JButton buttonSameRootName;
+    private javax.swing.JButton buttonSelectFolder;
     private javax.swing.JButton buttonSelectOrgz;
     private javax.swing.JButton buttonWatch;
-    private javax.swing.JButton butttonDestiny;
+    private javax.swing.JButton butttonDestinyName;
     private javax.swing.JCheckBox checkAutoCopy;
     private javax.swing.JCheckBox checkQuickMake;
     private javax.swing.JCheckBox checkWatch;
@@ -706,7 +718,6 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JTextField editDestinyName;
     private javax.swing.JTextField editWatch;
     private javax.swing.JLabel labelClipboard;
-    private javax.swing.JLabel labelDestinyFolder;
     private javax.swing.JLabel labelFound;
     private javax.swing.JLabel labelStatus;
     private javax.swing.JList<WatchFoundDisplay> listWatch;
