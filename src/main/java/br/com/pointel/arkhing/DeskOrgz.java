@@ -449,7 +449,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 menuFolderNewChildActionPerformed(null);
                 break;
             case KeyEvent.VK_F12:
-                menuFolder.show(listFolder, listFolder.getX(), listFolder.getY());
+                menuFolder.show(listFolder, 0, 0);
                 break;
             default:
                 break;
@@ -474,7 +474,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 menuAssetsAddIndexActionPerformed(null);
                 break;
             case KeyEvent.VK_F12:
-                menuAssets.show(listAssets, listAssets.getX(), listAssets.getY());
+                menuAssets.show(listAssets, 0, 0);
                 break;
             default:
                 break;
