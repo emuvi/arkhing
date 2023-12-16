@@ -17,6 +17,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFolderUpdateActionPerformed"/>
           </Events>
         </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="menuFolderRandom">
+          <Properties>
+            <Property name="mnemonic" type="int" value="77"/>
+            <Property name="text" type="java.lang.String" value="Random"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFolderRandomActionPerformed"/>
+          </Events>
+        </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderSearch">
           <Properties>
             <Property name="mnemonic" type="int" value="83"/>
@@ -82,20 +91,11 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderAddIndex">
           <Properties>
-            <Property name="mnemonic" type="int" value="65"/>
+            <Property name="mnemonic" type="int" value="73"/>
             <Property name="text" type="java.lang.String" value="Add Index"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFolderAddIndexActionPerformed"/>
-          </Events>
-        </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="menuFolderRandom">
-          <Properties>
-            <Property name="mnemonic" type="int" value="77"/>
-            <Property name="text" type="java.lang.String" value="Random"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuFolderRandomActionPerformed"/>
           </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderDestinyPack">
@@ -122,6 +122,15 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAssetsUpdateActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="menuAssetsRandom">
+          <Properties>
+            <Property name="mnemonic" type="int" value="77"/>
+            <Property name="label" type="java.lang.String" value="Random"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAssetsRandomActionPerformed"/>
           </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuAssetsSearch">
@@ -171,20 +180,29 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuAssetsAddIndex">
           <Properties>
-            <Property name="mnemonic" type="int" value="65"/>
+            <Property name="mnemonic" type="int" value="73"/>
             <Property name="text" type="java.lang.String" value="Add Index"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAssetsAddIndexActionPerformed"/>
           </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="menuAssetsRandom">
+        <MenuItem class="javax.swing.JMenuItem" name="menuAssetsRecortar">
           <Properties>
-            <Property name="mnemonic" type="int" value="77"/>
-            <Property name="label" type="java.lang.String" value="Random"/>
+            <Property name="mnemonic" type="int" value="67"/>
+            <Property name="text" type="java.lang.String" value="Recortar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAssetsRandomActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAssetsRecortarActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="menuAssetsColar">
+          <Properties>
+            <Property name="mnemonic" type="int" value="65"/>
+            <Property name="text" type="java.lang.String" value="Colar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAssetsColarActionPerformed"/>
           </Events>
         </MenuItem>
       </SubComponents>
