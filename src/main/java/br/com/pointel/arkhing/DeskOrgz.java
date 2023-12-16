@@ -341,19 +341,16 @@ public class DeskOrgz extends javax.swing.JPanel {
         for (int i = 0; i < modelFolder.getSize(); i++) {
             if (Objects.equals(path.getParentFile(), modelFolder.get(i).path)) {
                 listFolder.setSelectedValue(modelFolder.get(i), true);
-                return;
             }
         }
         for (int i = 0; i < modelFolder.getSize(); i++) {
             if (Objects.equals(path, modelFolder.get(i).path)) {
                 listFolder.setSelectedValue(modelFolder.get(i), true);
-                return;
             }
         }
         for (int i = 0; i < modelAssets.getSize(); i++) {
             if (Objects.equals(path, modelAssets.get(i).path)) {
                 listAssets.setSelectedValue(modelAssets.get(i), true);
-                return;
             }
         }
         listFolderValueChanged(null);
