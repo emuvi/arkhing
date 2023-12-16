@@ -2,17 +2,19 @@ package br.com.pointel.arkhing;
 
 import javax.swing.UIManager;
 import com.formdev.flatlaf.FlatLightLaf;
+import javax.swing.JComponent;
+import javax.swing.KeyStroke;
 
 public class Desk extends javax.swing.JFrame {
-    
+
     public final DeskBase deskBase = new DeskBase(this);
     public final DeskPack deskPack = new DeskPack(this);
     public final DeskOrgz deskOrgz = new DeskOrgz(this);
     public final DeskDocs deskDocs = new DeskDocs(this);
     public final DeskCapt deskCapt = new DeskCapt(this);
-    
+
     public volatile ArkhBase arkhBase = null;
-    
+
     public Desk() {
         initComponents();
         tabsBody.addTab("Base", deskBase);
@@ -21,20 +23,21 @@ public class Desk extends javax.swing.JFrame {
         tabsBody.addTab("Docs", deskDocs);
         tabsBody.addTab("Capt", deskCapt);
         WizSwing.initPositioner(this);
+        initShortcuts();
     }
-    
+
     public void showBase() {
         tabsBody.setSelectedIndex(0);
     }
-    
+
     public void showPack() {
         tabsBody.setSelectedIndex(1);
     }
-    
+
     public void showOrgz() {
         tabsBody.setSelectedIndex(2);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -84,6 +87,26 @@ public class Desk extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void initShortcuts() {
+        getRootPane().registerKeyboardAction((e) -> swingToLeft(), KeyStroke.getKeyStroke("alt LEFT"), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        getRootPane().registerKeyboardAction((e) -> swingToRight(), KeyStroke.getKeyStroke("alt RIGHT"), JComponent.WHEN_IN_FOCUSED_WINDOW);
+    }
+
+    private void swingToLeft() {
+        if (tabsBody.getSelectedIndex() > 0) {
+            tabsBody.setSelectedIndex(tabsBody.getSelectedIndex() - 1);
+        } else {
+            tabsBody.setSelectedIndex(tabsBody.getTabCount() - 1);
+        }
+    }
+
+    private void swingToRight() {
+        if (tabsBody.getSelectedIndex() < tabsBody.getTabCount() - 1) {
+            tabsBody.setSelectedIndex(tabsBody.getSelectedIndex() + 1);
+        } else {
+            tabsBody.setSelectedIndex(0);
+        }
+    }
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         deskBase.initUpdater();
@@ -94,7 +117,7 @@ public class Desk extends javax.swing.JFrame {
     private void checkAlwaysOnTopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAlwaysOnTopActionPerformed
         this.setAlwaysOnTop(checkAlwaysOnTop.isSelected());
     }//GEN-LAST:event_checkAlwaysOnTopActionPerformed
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkAlwaysOnTop;
     private javax.swing.JTabbedPane tabsBody;
@@ -110,5 +133,5 @@ public class Desk extends javax.swing.JFrame {
             new Desk().setVisible(true);
         });
     }
-    
+
 }
