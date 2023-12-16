@@ -510,6 +510,7 @@ public class DeskPack extends javax.swing.JPanel {
                 .replace("/", "-")
                 .replace("\\", "-")
                 .replace("?", "")
+                .replace("\"", "'")
                 .replaceAll("\\s+", " ")
                 .replaceAll("(\\S)\\-\\s", "$1 - ")
                 .trim();
