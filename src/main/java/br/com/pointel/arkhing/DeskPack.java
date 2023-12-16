@@ -64,25 +64,25 @@ public class DeskPack extends javax.swing.JPanel {
         scrollWatch = new javax.swing.JScrollPane();
         listWatch = new javax.swing.JList<>();
         panelWatch = new javax.swing.JPanel();
+        labelStatus = new javax.swing.JLabel();
+        labelFound = new javax.swing.JLabel();
         labelClipboard = new javax.swing.JLabel();
         editClipboard = new javax.swing.JTextField();
-        editDestinyFolder = new javax.swing.JTextField();
-        buttonSelectFolder = new javax.swing.JButton();
-        editDestinyName = new javax.swing.JTextField();
-        buttonNameCopy = new javax.swing.JButton();
+        buttonDestinyFolder = new javax.swing.JButton();
         buttonFolderCopy = new javax.swing.JButton();
+        buttonSelectFolder = new javax.swing.JButton();
+        buttonSelectOrgz = new javax.swing.JButton();
+        buttonFolderOpen = new javax.swing.JButton();
+        butttonDestinyName = new javax.swing.JButton();
+        checkAutoCopy = new javax.swing.JCheckBox();
+        buttonNameCopy = new javax.swing.JButton();
+        editDestinyFolder = new javax.swing.JTextField();
+        editDestinyName = new javax.swing.JTextField();
         panelProcess = new javax.swing.JPanel();
         buttonMakeAulaName = new javax.swing.JButton();
         buttonSameFoundName = new javax.swing.JButton();
         buttonMakeAutoName = new javax.swing.JButton();
         buttonSameRootName = new javax.swing.JButton();
-        buttonFolderOpen = new javax.swing.JButton();
-        labelFound = new javax.swing.JLabel();
-        checkAutoCopy = new javax.swing.JCheckBox();
-        labelStatus = new javax.swing.JLabel();
-        buttonSelectOrgz = new javax.swing.JButton();
-        butttonDestinyName = new javax.swing.JButton();
-        buttonDestinyFolder = new javax.swing.JButton();
         checkQuickMake = new javax.swing.JCheckBox();
         spinnerAutoMake = new javax.swing.JSpinner();
 
@@ -106,6 +106,11 @@ public class DeskPack extends javax.swing.JPanel {
 
         splitPack.setDividerLocation(200);
         splitPack.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+        splitPack.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                splitPackComponentResized(evt);
+            }
+        });
 
         listWatch.setFont(WizSwing.fontMonospaced());
         listWatch.setModel(modelWatch);
@@ -123,7 +128,31 @@ public class DeskPack extends javax.swing.JPanel {
 
         splitPack.setTopComponent(scrollWatch);
 
+        labelStatus.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
+        labelStatus.setForeground(new java.awt.Color(0, 0, 153));
+        labelStatus.setText("Size: 0 | Wait: No");
+
+        labelFound.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
+        labelFound.setForeground(new java.awt.Color(255, 0, 0));
+        labelFound.setText("Already Present on Base!!!");
+
         labelClipboard.setText("Clipboard");
+
+        buttonDestinyFolder.setMnemonic('F');
+        buttonDestinyFolder.setText("Destiny Folder");
+        buttonDestinyFolder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDestinyFolderActionPerformed(evt);
+            }
+        });
+
+        buttonFolderCopy.setMnemonic('P');
+        buttonFolderCopy.setText("Copy");
+        buttonFolderCopy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonFolderCopyActionPerformed(evt);
+            }
+        });
 
         buttonSelectFolder.setMnemonic('S');
         buttonSelectFolder.setText("Select");
@@ -133,19 +162,37 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
 
+        buttonSelectOrgz.setMnemonic('G');
+        buttonSelectOrgz.setText("Orgz");
+        buttonSelectOrgz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSelectOrgzActionPerformed(evt);
+            }
+        });
+
+        buttonFolderOpen.setMnemonic('O');
+        buttonFolderOpen.setText("Open");
+        buttonFolderOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonFolderOpenActionPerformed(evt);
+            }
+        });
+
+        butttonDestinyName.setMnemonic('D');
+        butttonDestinyName.setText("Destiny Name");
+        butttonDestinyName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butttonDestinyNameActionPerformed(evt);
+            }
+        });
+
+        checkAutoCopy.setText("Auto");
+
         buttonNameCopy.setMnemonic('C');
         buttonNameCopy.setText("Copy");
         buttonNameCopy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonNameCopyActionPerformed(evt);
-            }
-        });
-
-        buttonFolderCopy.setMnemonic('P');
-        buttonFolderCopy.setText("Copy");
-        buttonFolderCopy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonFolderCopyActionPerformed(evt);
             }
         });
 
@@ -186,48 +233,6 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
         panelProcess.add(buttonSameRootName);
-
-        buttonFolderOpen.setMnemonic('O');
-        buttonFolderOpen.setText("Open");
-        buttonFolderOpen.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonFolderOpenActionPerformed(evt);
-            }
-        });
-
-        labelFound.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
-        labelFound.setForeground(new java.awt.Color(255, 0, 0));
-        labelFound.setText("Already Present on Base!!!");
-
-        checkAutoCopy.setText("Auto");
-
-        labelStatus.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
-        labelStatus.setForeground(new java.awt.Color(0, 0, 153));
-        labelStatus.setText("Size: 0 | Wait: No");
-
-        buttonSelectOrgz.setMnemonic('G');
-        buttonSelectOrgz.setText("Orgz");
-        buttonSelectOrgz.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSelectOrgzActionPerformed(evt);
-            }
-        });
-
-        butttonDestinyName.setMnemonic('D');
-        butttonDestinyName.setText("Destiny Name");
-        butttonDestinyName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butttonDestinyNameActionPerformed(evt);
-            }
-        });
-
-        buttonDestinyFolder.setMnemonic('F');
-        buttonDestinyFolder.setText("Destiny Folder");
-        buttonDestinyFolder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDestinyFolderActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelWatchLayout = new javax.swing.GroupLayout(panelWatch);
         panelWatch.setLayout(panelWatchLayout);
@@ -684,6 +689,12 @@ public class DeskPack extends javax.swing.JPanel {
     private void buttonDestinyFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDestinyFolderActionPerformed
         editDestinyFolder.requestFocus();
     }//GEN-LAST:event_buttonDestinyFolderActionPerformed
+
+    private void splitPackComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_splitPackComponentResized
+        splitPack.setDividerLocation(
+                splitPack.getHeight() - (panelWatch.getMinimumSize().height + 30)
+        );
+    }//GEN-LAST:event_splitPackComponentResized
 
     private Set<WatchFound> getSelectedToProcess() {
         Set<WatchFound> results = new HashSet<>();

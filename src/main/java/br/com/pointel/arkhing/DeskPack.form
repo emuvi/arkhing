@@ -85,6 +85,9 @@
         <Property name="dividerLocation" type="int" value="200"/>
         <Property name="orientation" type="int" value="0"/>
       </Properties>
+      <Events>
+        <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="splitPackComponentResized"/>
+      </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
       <SubComponents>
@@ -210,6 +213,28 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
+            <Component class="javax.swing.JLabel" name="labelStatus">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Courier New" size="12" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="99" green="0" red="0" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Size: 0 | Wait: No"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="labelFound">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Courier New" size="12" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Already Present on Base!!!"/>
+              </Properties>
+            </Component>
             <Component class="javax.swing.JLabel" name="labelClipboard">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Clipboard"/>
@@ -217,26 +242,13 @@
             </Component>
             <Component class="javax.swing.JTextField" name="editClipboard">
             </Component>
-            <Component class="javax.swing.JTextField" name="editDestinyFolder">
-            </Component>
-            <Component class="javax.swing.JButton" name="buttonSelectFolder">
+            <Component class="javax.swing.JButton" name="buttonDestinyFolder">
               <Properties>
-                <Property name="mnemonic" type="int" value="83"/>
-                <Property name="text" type="java.lang.String" value="Select"/>
+                <Property name="mnemonic" type="int" value="70"/>
+                <Property name="text" type="java.lang.String" value="Destiny Folder"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelectFolderActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JTextField" name="editDestinyName">
-            </Component>
-            <Component class="javax.swing.JButton" name="buttonNameCopy">
-              <Properties>
-                <Property name="mnemonic" type="int" value="67"/>
-                <Property name="text" type="java.lang.String" value="Copy"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNameCopyActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDestinyFolderActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buttonFolderCopy">
@@ -247,6 +259,60 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonFolderCopyActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonSelectFolder">
+              <Properties>
+                <Property name="mnemonic" type="int" value="83"/>
+                <Property name="text" type="java.lang.String" value="Select"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelectFolderActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonSelectOrgz">
+              <Properties>
+                <Property name="mnemonic" type="int" value="71"/>
+                <Property name="text" type="java.lang.String" value="Orgz"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelectOrgzActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonFolderOpen">
+              <Properties>
+                <Property name="mnemonic" type="int" value="79"/>
+                <Property name="text" type="java.lang.String" value="Open"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonFolderOpenActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="butttonDestinyName">
+              <Properties>
+                <Property name="mnemonic" type="int" value="68"/>
+                <Property name="text" type="java.lang.String" value="Destiny Name"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butttonDestinyNameActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkAutoCopy">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Auto"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonNameCopy">
+              <Properties>
+                <Property name="mnemonic" type="int" value="67"/>
+                <Property name="text" type="java.lang.String" value="Copy"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNameCopyActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="editDestinyFolder">
+            </Component>
+            <Component class="javax.swing.JTextField" name="editDestinyName">
             </Component>
             <Container class="javax.swing.JPanel" name="panelProcess">
 
@@ -294,69 +360,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="buttonFolderOpen">
-              <Properties>
-                <Property name="mnemonic" type="int" value="79"/>
-                <Property name="text" type="java.lang.String" value="Open"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonFolderOpenActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JLabel" name="labelFound">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Courier New" size="12" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Already Present on Base!!!"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="checkAutoCopy">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Auto"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="labelStatus">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Courier New" size="12" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="0" red="0" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Size: 0 | Wait: No"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="buttonSelectOrgz">
-              <Properties>
-                <Property name="mnemonic" type="int" value="71"/>
-                <Property name="text" type="java.lang.String" value="Orgz"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelectOrgzActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="butttonDestinyName">
-              <Properties>
-                <Property name="mnemonic" type="int" value="68"/>
-                <Property name="text" type="java.lang.String" value="Destiny Name"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butttonDestinyNameActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="buttonDestinyFolder">
-              <Properties>
-                <Property name="mnemonic" type="int" value="70"/>
-                <Property name="text" type="java.lang.String" value="Destiny Folder"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDestinyFolderActionPerformed"/>
-              </Events>
-            </Component>
           </SubComponents>
         </Container>
       </SubComponents>
