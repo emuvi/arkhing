@@ -243,13 +243,13 @@ public class DeskPack extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelWatchLayout.createSequentialGroup()
                                 .addComponent(buttonDestinyFolder)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(buttonFolderOpen)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonFolderCopy)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonSelectFolder)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonSelectOrgz)))
+                                .addComponent(buttonSelectOrgz)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonFolderOpen)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelWatchLayout.createSequentialGroup()
@@ -616,7 +616,9 @@ public class DeskPack extends javax.swing.JPanel {
 
     private void buttonFolderOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderOpenActionPerformed
         try {
-            Desktop.getDesktop().open(new File(editDestinyFolder.getText()));
+            var destinyFolder = new File(editDestinyFolder.getText());
+            Files.createDirectories(destinyFolder.toPath());
+            Desktop.getDesktop().open(destinyFolder);
         } catch (IOException ex) {
             WizSwing.showError(ex);
         }
