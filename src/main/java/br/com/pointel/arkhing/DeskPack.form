@@ -383,6 +383,9 @@
     </Component>
     <Component class="javax.swing.JSpinner" name="spinnerAutoMake">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="WizSwing.fontMonospaced()" type="code"/>
+        </Property>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
           <SpinnerModel initial="9" numberType="java.lang.Integer" stepSize="1" type="number"/>
         </Property>
