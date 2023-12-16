@@ -10,6 +10,7 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderUpdate">
           <Properties>
+            <Property name="mnemonic" type="int" value="85"/>
             <Property name="text" type="java.lang.String" value="Update"/>
           </Properties>
           <Events>
@@ -18,6 +19,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderSearch">
           <Properties>
+            <Property name="mnemonic" type="int" value="83"/>
             <Property name="text" type="java.lang.String" value="Search"/>
           </Properties>
           <Events>
@@ -26,6 +28,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderNewChild">
           <Properties>
+            <Property name="mnemonic" type="int" value="67"/>
             <Property name="text" type="java.lang.String" value="New Child"/>
           </Properties>
           <Events>
@@ -34,6 +37,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderNewSibling">
           <Properties>
+            <Property name="mnemonic" type="int" value="66"/>
             <Property name="text" type="java.lang.String" value="New Sibling"/>
           </Properties>
           <Events>
@@ -42,6 +46,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderOpen">
           <Properties>
+            <Property name="mnemonic" type="int" value="79"/>
             <Property name="text" type="java.lang.String" value="Open"/>
           </Properties>
           <Events>
@@ -50,6 +55,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderRename">
           <Properties>
+            <Property name="mnemonic" type="int" value="78"/>
             <Property name="text" type="java.lang.String" value="Rename"/>
           </Properties>
           <Events>
@@ -58,6 +64,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderReplace">
           <Properties>
+            <Property name="mnemonic" type="int" value="80"/>
             <Property name="text" type="java.lang.String" value="Replace"/>
           </Properties>
           <Events>
@@ -66,6 +73,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderRemove">
           <Properties>
+            <Property name="mnemonic" type="int" value="82"/>
             <Property name="text" type="java.lang.String" value="Remove"/>
           </Properties>
           <Events>
@@ -74,6 +82,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderAddIndex">
           <Properties>
+            <Property name="mnemonic" type="int" value="65"/>
             <Property name="text" type="java.lang.String" value="Add Index"/>
           </Properties>
           <Events>
@@ -82,6 +91,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderRandom">
           <Properties>
+            <Property name="mnemonic" type="int" value="77"/>
             <Property name="text" type="java.lang.String" value="Random"/>
           </Properties>
           <Events>
@@ -90,6 +100,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuFolderDestinyPack">
           <Properties>
+            <Property name="mnemonic" type="int" value="68"/>
             <Property name="text" type="java.lang.String" value="Destiny Pack"/>
           </Properties>
           <Events>
@@ -106,6 +117,7 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="menuAssetsUpdate">
           <Properties>
+            <Property name="mnemonic" type="int" value="85"/>
             <Property name="text" type="java.lang.String" value="Update"/>
           </Properties>
           <Events>
@@ -114,6 +126,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuAssetsSearch">
           <Properties>
+            <Property name="mnemonic" type="int" value="83"/>
             <Property name="text" type="java.lang.String" value="Search"/>
           </Properties>
           <Events>
@@ -122,6 +135,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuAssetsOpen">
           <Properties>
+            <Property name="mnemonic" type="int" value="79"/>
             <Property name="text" type="java.lang.String" value="Open"/>
           </Properties>
           <Events>
@@ -130,6 +144,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuAssetsRename">
           <Properties>
+            <Property name="mnemonic" type="int" value="78"/>
             <Property name="text" type="java.lang.String" value="Rename"/>
           </Properties>
           <Events>
@@ -138,6 +153,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuAssetsReplace">
           <Properties>
+            <Property name="mnemonic" type="int" value="80"/>
             <Property name="text" type="java.lang.String" value="Replace"/>
           </Properties>
           <Events>
@@ -146,6 +162,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuAssetsRemove">
           <Properties>
+            <Property name="mnemonic" type="int" value="82"/>
             <Property name="text" type="java.lang.String" value="Remove"/>
           </Properties>
           <Events>
@@ -154,6 +171,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuAssetsAddIndex">
           <Properties>
+            <Property name="mnemonic" type="int" value="65"/>
             <Property name="text" type="java.lang.String" value="Add Index"/>
           </Properties>
           <Events>
@@ -162,6 +180,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="menuAssetsRandom">
           <Properties>
+            <Property name="mnemonic" type="int" value="77"/>
             <Property name="label" type="java.lang.String" value="Random"/>
           </Properties>
           <Events>

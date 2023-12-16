@@ -78,6 +78,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="buttonLoad">
       <Properties>
+        <Property name="mnemonic" type="int" value="76"/>
         <Property name="text" type="java.lang.String" value="Load"/>
       </Properties>
       <Events>
@@ -86,6 +87,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonCheck">
       <Properties>
+        <Property name="mnemonic" type="int" value="67"/>
         <Property name="text" type="java.lang.String" value="Check"/>
       </Properties>
       <Events>

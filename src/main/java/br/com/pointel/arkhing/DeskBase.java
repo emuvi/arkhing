@@ -33,6 +33,7 @@ public class DeskBase extends javax.swing.JPanel {
         textStatus.setRows(5);
         scrollStatus.setViewportView(textStatus);
 
+        buttonLoad.setMnemonic('L');
         buttonLoad.setText("Load");
         buttonLoad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -40,6 +41,7 @@ public class DeskBase extends javax.swing.JPanel {
             }
         });
 
+        buttonCheck.setMnemonic('C');
         buttonCheck.setText("Check");
         buttonCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

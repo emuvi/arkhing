@@ -66,6 +66,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         scrollFolder = new javax.swing.JScrollPane();
         listFolder = new javax.swing.JList<>();
 
+        menuFolderUpdate.setMnemonic('U');
         menuFolderUpdate.setText("Update");
         menuFolderUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -74,6 +75,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderUpdate);
 
+        menuFolderSearch.setMnemonic('S');
         menuFolderSearch.setText("Search");
         menuFolderSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,6 +84,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderSearch);
 
+        menuFolderNewChild.setMnemonic('C');
         menuFolderNewChild.setText("New Child");
         menuFolderNewChild.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +93,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderNewChild);
 
+        menuFolderNewSibling.setMnemonic('B');
         menuFolderNewSibling.setText("New Sibling");
         menuFolderNewSibling.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,6 +102,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderNewSibling);
 
+        menuFolderOpen.setMnemonic('O');
         menuFolderOpen.setText("Open");
         menuFolderOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -106,6 +111,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderOpen);
 
+        menuFolderRename.setMnemonic('N');
         menuFolderRename.setText("Rename");
         menuFolderRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -114,6 +120,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderRename);
 
+        menuFolderReplace.setMnemonic('P');
         menuFolderReplace.setText("Replace");
         menuFolderReplace.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,6 +129,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderReplace);
 
+        menuFolderRemove.setMnemonic('R');
         menuFolderRemove.setText("Remove");
         menuFolderRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +138,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderRemove);
 
+        menuFolderAddIndex.setMnemonic('A');
         menuFolderAddIndex.setText("Add Index");
         menuFolderAddIndex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -138,6 +147,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderAddIndex);
 
+        menuFolderRandom.setMnemonic('M');
         menuFolderRandom.setText("Random");
         menuFolderRandom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,6 +156,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderRandom);
 
+        menuFolderDestinyPack.setMnemonic('D');
         menuFolderDestinyPack.setText("Destiny Pack");
         menuFolderDestinyPack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,6 +165,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuFolder.add(menuFolderDestinyPack);
 
+        menuAssetsUpdate.setMnemonic('U');
         menuAssetsUpdate.setText("Update");
         menuAssetsUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,6 +174,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuAssets.add(menuAssetsUpdate);
 
+        menuAssetsSearch.setMnemonic('S');
         menuAssetsSearch.setText("Search");
         menuAssetsSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -170,6 +183,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuAssets.add(menuAssetsSearch);
 
+        menuAssetsOpen.setMnemonic('O');
         menuAssetsOpen.setText("Open");
         menuAssetsOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,6 +192,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuAssets.add(menuAssetsOpen);
 
+        menuAssetsRename.setMnemonic('N');
         menuAssetsRename.setText("Rename");
         menuAssetsRename.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,6 +201,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuAssets.add(menuAssetsRename);
 
+        menuAssetsReplace.setMnemonic('P');
         menuAssetsReplace.setText("Replace");
         menuAssetsReplace.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,6 +210,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuAssets.add(menuAssetsReplace);
 
+        menuAssetsRemove.setMnemonic('R');
         menuAssetsRemove.setText("Remove");
         menuAssetsRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,6 +219,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuAssets.add(menuAssetsRemove);
 
+        menuAssetsAddIndex.setMnemonic('A');
         menuAssetsAddIndex.setText("Add Index");
         menuAssetsAddIndex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,6 +228,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuAssets.add(menuAssetsAddIndex);
 
+        menuAssetsRandom.setMnemonic('M');
         menuAssetsRandom.setLabel("Random");
         menuAssetsRandom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -408,6 +427,9 @@ public class DeskOrgz extends javax.swing.JPanel {
             case KeyEvent.VK_F6:
                 menuFolderNewChildActionPerformed(null);
                 break;
+            case KeyEvent.VK_F12:
+                menuFolder.show(listFolder, 0, 0);
+                break;
             default:
                 break;
         }
@@ -429,6 +451,9 @@ public class DeskOrgz extends javax.swing.JPanel {
                 break;
             case KeyEvent.VK_F4:
                 menuAssetsAddIndexActionPerformed(null);
+                break;
+            case KeyEvent.VK_F12:
+                menuAssets.show(listAssets, 0, 0);
                 break;
             default:
                 break;
