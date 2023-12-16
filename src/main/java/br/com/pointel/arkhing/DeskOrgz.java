@@ -844,7 +844,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 if (transfering.path == null) continue;
                 var originFile = transfering.path;
                 var destinyFile = new File(destinyFolder, originFile.getName());
-                Files.move(originFile.toPath(), destinyFile.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
+                Files.move(originFile.toPath(), destinyFile.toPath());
                 desk.arkhBase.moveFile(originFile, destinyFile);
             }
             transferArea.clear();
