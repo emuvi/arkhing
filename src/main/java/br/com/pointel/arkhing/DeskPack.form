@@ -27,7 +27,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="checkWatch" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="checkAutoMake" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkQuickMake" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="spinnerAutoMake" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -44,7 +44,7 @@
                   <Component id="editWatch" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="checkWatch" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonWatch" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="checkAutoMake" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="checkQuickMake" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="spinnerAutoMake" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -73,6 +73,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkWatch">
       <Properties>
+        <Property name="mnemonic" type="int" value="87"/>
         <Property name="text" type="java.lang.String" value="Watch"/>
       </Properties>
       <Events>
@@ -355,9 +356,10 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JCheckBox" name="checkAutoMake">
+    <Component class="javax.swing.JCheckBox" name="checkQuickMake">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Auto Make"/>
+        <Property name="mnemonic" type="int" value="81"/>
+        <Property name="text" type="java.lang.String" value="Quick Make"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="spinnerAutoMake">

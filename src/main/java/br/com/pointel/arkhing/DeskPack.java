@@ -83,7 +83,7 @@ public class DeskPack extends javax.swing.JPanel {
         labelStatus = new javax.swing.JLabel();
         buttonSelectOrgz = new javax.swing.JButton();
         butttonDestiny = new javax.swing.JButton();
-        checkAutoMake = new javax.swing.JCheckBox();
+        checkQuickMake = new javax.swing.JCheckBox();
         spinnerAutoMake = new javax.swing.JSpinner();
 
         editWatch.setEditable(false);
@@ -96,6 +96,7 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
 
+        checkWatch.setMnemonic('W');
         checkWatch.setText("Watch");
         checkWatch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -292,7 +293,8 @@ public class DeskPack extends javax.swing.JPanel {
 
         splitPack.setRightComponent(panelWatch);
 
-        checkAutoMake.setText("Auto Make");
+        checkQuickMake.setMnemonic('Q');
+        checkQuickMake.setText("Quick Make");
 
         spinnerAutoMake.setModel(new javax.swing.SpinnerNumberModel(12, null, null, 1));
 
@@ -311,7 +313,7 @@ public class DeskPack extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(checkWatch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkAutoMake)
+                        .addComponent(checkQuickMake)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(spinnerAutoMake, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -324,7 +326,7 @@ public class DeskPack extends javax.swing.JPanel {
                     .addComponent(editWatch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkWatch)
                     .addComponent(buttonWatch)
-                    .addComponent(checkAutoMake)
+                    .addComponent(checkQuickMake)
                     .addComponent(spinnerAutoMake, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(splitPack, javax.swing.GroupLayout.DEFAULT_SIZE, 413, Short.MAX_VALUE)
@@ -371,7 +373,7 @@ public class DeskPack extends javax.swing.JPanel {
                             var cyclesWithNoChanges = watchedWithNoChanges.incrementAndGet();
                             if (cyclesWithNoChanges >= (Integer) spinnerAutoMake.getValue()) {
                                 watchedWithNoChanges.set(0);
-                                if (!watchFounds.isEmpty() && checkAutoMake.isSelected()) {
+                                if (!watchFounds.isEmpty() && checkQuickMake.isSelected()) {
                                     buttonMakeAutoNameActionPerformed(null);
                                 }
                             }
@@ -697,7 +699,7 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JButton buttonWatch;
     private javax.swing.JButton butttonDestiny;
     private javax.swing.JCheckBox checkAutoCopy;
-    private javax.swing.JCheckBox checkAutoMake;
+    private javax.swing.JCheckBox checkQuickMake;
     private javax.swing.JCheckBox checkWatch;
     private javax.swing.JTextField editClipboard;
     private javax.swing.JTextField editDestinyFolder;

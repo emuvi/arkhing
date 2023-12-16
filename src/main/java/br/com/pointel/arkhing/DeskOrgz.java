@@ -310,10 +310,12 @@ public class DeskOrgz extends javax.swing.JPanel {
             loadFolders(path, 0, new ArrayList<>())
                     .stream().forEach((folder) -> modelFolder.addElement(folder));
         }
+        var anySelected = false;
         if (folderSelected != null) {
             for (int i = 0; i < modelFolder.getSize(); i++) {
                 if (Objects.equals(folderSelected, modelFolder.get(i))) {
                     listFolder.setSelectedIndex(i);
+                    anySelected = true;
                     break;
                 }
             }
@@ -322,9 +324,13 @@ public class DeskOrgz extends javax.swing.JPanel {
             for (int i = 0; i < modelAssets.getSize(); i++) {
                 if (Objects.equals(assetSelected, modelAssets.get(i))) {
                     listAssets.setSelectedIndex(i);
+                    anySelected = true;
                     break;
                 }
             }
+        }
+        if (!anySelected && !modelFolder.isEmpty()) {
+            listFolder.setSelectedIndex(0);
         }
     }
     
