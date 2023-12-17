@@ -39,10 +39,13 @@ public class Estrategia {
         var buttons = webDriver.findElements(By.tagName("button"));
         var nextEl = buttons.stream().filter(el -> el.getText().contains("Continuar")).findFirst().orElseThrow();
         userEl.click();
+        WizBase.sleep(700);
         userEl.sendKeys("everton.muvi@gmail.com");
         passEl.click();
+        WizBase.sleep(700);
         passEl.sendKeys(System.getenv("ESTRATEGIA_PASSWORD"));
         nextEl.click();
+        WizBase.sleep(700);
     }
 
     public void clean() {
@@ -56,11 +59,12 @@ public class Estrategia {
     }
 
     public void openHeader(int headerIndex) {
-        WebElement divLesson = getHeader(headerIndex);
+        var divLesson = getHeader(headerIndex);
         var headerLesson = divLesson.findElement(By.cssSelector("h2.SectionTitle"));
         webDriver.findElement(By.tagName("body")).sendKeys(Keys.HOME);
         scrollToElement(headerLesson);
         headerLesson.click();
+        WizBase.sleep(700);
     }
 
     private void scrollToElement(WebElement element) {
@@ -85,16 +89,92 @@ public class Estrategia {
     }
 
     public void getLessonMaterials(int headerIndex) {
-        WebElement divLesson = getHeader(headerIndex);
+        var divLesson = getHeader(headerIndex);
         var divMaterials = divLesson.findElement(By.cssSelector("div.LessonButtonList"));
         var links = divMaterials.findElements(By.tagName("a"));
         for (var link : links) {
             if (link.getAttribute("href").contains("pdf")) {
                 scrollToElement(link);
                 altClickElement(link);
-                WizBase.sleep(1000);
+                WizBase.sleep(1200);
             }
         }
+    }
+
+    public void openDownloads(int headerIndex) {
+        var divLesson = getHeader(headerIndex);
+        var divLessonContent = divLesson.findElement(By.cssSelector("div.Lesson-content"));
+        var iconDownload = divLessonContent.findElement(By.cssSelector("i.icon-download"));
+        var iconNotes = divLessonContent.findElement(By.cssSelector("i.icon-notes"));
+        iconDownload.click();
+        WizBase.sleep(1200);
+        scrollToElement(iconNotes);
+    }
+
+    public void openItem(int headerIndex, int itemIndex) {
+        var divLesson = getHeader(headerIndex);
+        var divsItems = divLesson.findElements(By.cssSelector("div.ListVideos-items-video"));
+        var divItem = divsItems.get(itemIndex);
+        scrollToElement(divItem);
+        divItem.click();
+        WizBase.sleep(1200);
+    }
+
+    public void makeDownloads(int headerIndex) {
+        var divLesson = getHeader(headerIndex);
+        var divLessonContent = divLesson.findElement(By.cssSelector("div.Lesson-content"));
+        var divLessonPDFs = divLessonContent.findElement(By.cssSelector("div.LessonButtonList"));
+        var linksLessonPDFs = divLessonPDFs.findElements(By.tagName("a"));
+        for (var linkLessonPDFs : linksLessonPDFs) {
+            if (linkLessonPDFs.getAttribute("href").contains("download")) {
+                scrollToElement(linkLessonPDFs);
+                altClickElement(linkLessonPDFs);
+                WizBase.sleep(1200);
+            }
+        }
+        var doneVideo = false;
+        var doneAudio = false;
+        var linksMedia = divLessonContent.findElements(By.tagName("a"));
+        for (var linkMedia : linksMedia) {
+            var contents = linkMedia.getText().toLowerCase();
+            if (!doneVideo) {
+                if (contents.contains("720p") || contents.contains("480p") || contents.contains("360p") || contents.contains("240p")) {
+                    scrollToElement(linkMedia);
+                    altClickElement(linkMedia);
+                    WizBase.sleep(1200);
+                    doneVideo = true;
+                }
+            }
+            if (!doneAudio) {
+                if (contents.contains("baixar áudio")) {
+                    scrollToElement(linkMedia);
+                    altClickElement(linkMedia);
+                    WizBase.sleep(1200);
+                    doneAudio = true;
+                }
+            }
+            if (doneVideo && doneAudio) {
+                break;
+            }
+        }
+    }
+    
+    public void copyTitle(int headerIndex, int itemIndex) {
+        var divLesson = getHeader(headerIndex);
+        var divsItems = divLesson.findElements(By.cssSelector("div.ListVideos-items-video"));
+        var divItem = divsItems.get(itemIndex);
+        var spanTitle = divItem.findElement(By.cssSelector("span.VideoItem-info-title"));
+        WizSwing.putStringOnClipboard(spanTitle.getText());
+        WizBase.sleep(1200);
+    }
+    
+    public void tickView(int headerIndex) {
+        var divLesson = getHeader(headerIndex);
+        var divView = divLesson.findElement(By.cssSelector("div.boxVisualizado"));
+        var checkTick = divView.findElement(By.cssSelector("div[color='#1352aa']"));
+        scrollToElement(checkTick);
+        checkTick.click();
+        WizBase.sleep(1200);
     }
 
 }

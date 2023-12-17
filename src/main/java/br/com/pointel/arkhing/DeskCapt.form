@@ -24,7 +24,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonView" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="editSource" pref="266" max="32767" attributes="0"/>
+                      <Component id="editSource" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="editDestiny" max="32767" attributes="0"/>
@@ -65,7 +65,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <Component id="editEstrategia" alignment="1" max="32767" attributes="0"/>
+                  <Component id="editEstrategia" alignment="1" pref="729" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="labelEstrategia" min="-2" max="-2" attributes="0"/>
@@ -78,15 +78,32 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonEstrategiaClean" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="editHeader" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="buttonOpenHeader" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="buttonGetLessonMaterials" min="-2" max="-2" attributes="0"/>
-                          </Group>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="editHeader" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonNextHeader" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonGetLessonMaterials" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonOpenDownloads" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="buttonHeaderGrouped" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="editItem" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonNextItem" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonMakeDownload" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonCopyTitle" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonTickView" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="buttonItemGrouped" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -141,10 +158,21 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="editHeader" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonOpenHeader" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonNextHeader" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonOpenDownloads" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonHeaderGrouped" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonGetLessonMaterials" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="107" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="editItem" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonNextItem" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonMakeDownload" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonItemGrouped" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonCopyTitle" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonTickView" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="70" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -269,9 +297,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="editEstrategia">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="https://www.estrategiaconcursos.com.br/app/dashboard/cursos/259378/aulas"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonEstrategiaStart">
       <Properties>
@@ -297,12 +322,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEstrategiaLoginActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonOpenHeader">
+    <Component class="javax.swing.JButton" name="buttonNextHeader">
       <Properties>
         <Property name="text" type="java.lang.String" value="Next Header"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOpenHeaderActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNextHeaderActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JSpinner" name="editHeader">
@@ -326,6 +351,69 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEstrategiaCleanActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="editItem">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="-1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonNextItem">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Next Item"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNextItemActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonOpenDownloads">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Open Downloads"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOpenDownloadsActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonMakeDownload">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Make Download"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeDownloadActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonHeaderGrouped">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Run This Line"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonHeaderGroupedActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonItemGrouped">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Run This Line"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonItemGroupedActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonCopyTitle">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Copy Title"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCopyTitleActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonTickView">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Tick View"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTickViewActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

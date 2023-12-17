@@ -60,10 +60,18 @@ public class DeskCapt extends javax.swing.JPanel {
         buttonEstrategiaStart = new javax.swing.JButton();
         buttonEstrategiaStop = new javax.swing.JButton();
         buttonEstrategiaLogin = new javax.swing.JButton();
-        buttonOpenHeader = new javax.swing.JButton();
+        buttonNextHeader = new javax.swing.JButton();
         editHeader = new javax.swing.JSpinner();
         buttonGetLessonMaterials = new javax.swing.JButton();
         buttonEstrategiaClean = new javax.swing.JButton();
+        editItem = new javax.swing.JSpinner();
+        buttonNextItem = new javax.swing.JButton();
+        buttonOpenDownloads = new javax.swing.JButton();
+        buttonMakeDownload = new javax.swing.JButton();
+        buttonHeaderGrouped = new javax.swing.JButton();
+        buttonItemGrouped = new javax.swing.JButton();
+        buttonCopyTitle = new javax.swing.JButton();
+        buttonTickView = new javax.swing.JButton();
 
         buttonView.setText("Source");
         buttonView.addActionListener(new java.awt.event.ActionListener() {
@@ -127,8 +135,6 @@ public class DeskCapt extends javax.swing.JPanel {
 
         labelEstrategia.setText("Estratégia");
 
-        editEstrategia.setText("https://www.estrategiaconcursos.com.br/app/dashboard/cursos/259378/aulas");
-
         buttonEstrategiaStart.setText("Start");
         buttonEstrategiaStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,10 +156,10 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
-        buttonOpenHeader.setText("Next Header");
-        buttonOpenHeader.addActionListener(new java.awt.event.ActionListener() {
+        buttonNextHeader.setText("Next Header");
+        buttonNextHeader.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonOpenHeaderActionPerformed(evt);
+                buttonNextHeaderActionPerformed(evt);
             }
         });
 
@@ -173,6 +179,57 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
+        editItem.setModel(new javax.swing.SpinnerNumberModel(-1, null, null, 1));
+
+        buttonNextItem.setText("Next Item");
+        buttonNextItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNextItemActionPerformed(evt);
+            }
+        });
+
+        buttonOpenDownloads.setText("Open Downloads");
+        buttonOpenDownloads.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOpenDownloadsActionPerformed(evt);
+            }
+        });
+
+        buttonMakeDownload.setText("Make Download");
+        buttonMakeDownload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMakeDownloadActionPerformed(evt);
+            }
+        });
+
+        buttonHeaderGrouped.setText("Run This Line");
+        buttonHeaderGrouped.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHeaderGroupedActionPerformed(evt);
+            }
+        });
+
+        buttonItemGrouped.setText("Run This Line");
+        buttonItemGrouped.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonItemGroupedActionPerformed(evt);
+            }
+        });
+
+        buttonCopyTitle.setText("Copy Title");
+        buttonCopyTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCopyTitleActionPerformed(evt);
+            }
+        });
+
+        buttonTickView.setText("Tick View");
+        buttonTickView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTickViewActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,7 +242,7 @@ public class DeskCapt extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonView)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editSource, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
+                        .addComponent(editSource))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(editDestiny)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -216,7 +273,7 @@ public class DeskCapt extends javax.swing.JPanel {
                                 .addComponent(checkAutoMakeDocuments)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonMakeDocuments))))
-                    .addComponent(editEstrategia, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(editEstrategia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelEstrategia)
@@ -227,14 +284,30 @@ public class DeskCapt extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonEstrategiaLogin)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonEstrategiaClean))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(editHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonOpenHeader)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonGetLessonMaterials)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(buttonEstrategiaClean)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(editHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonNextHeader)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonGetLessonMaterials)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonOpenDownloads)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonHeaderGrouped))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(editItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonNextItem)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonMakeDownload)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonCopyTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonTickView)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonItemGrouped)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -279,9 +352,19 @@ public class DeskCapt extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonOpenHeader)
+                    .addComponent(buttonNextHeader)
+                    .addComponent(buttonOpenDownloads)
+                    .addComponent(buttonHeaderGrouped)
                     .addComponent(buttonGetLessonMaterials))
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonNextItem)
+                    .addComponent(buttonMakeDownload)
+                    .addComponent(buttonItemGrouped)
+                    .addComponent(buttonCopyTitle)
+                    .addComponent(buttonTickView))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -488,22 +571,31 @@ public class DeskCapt extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonEstrategiaLoginActionPerformed
 
-    private void buttonOpenHeaderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOpenHeaderActionPerformed
+    private void buttonNextHeaderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextHeaderActionPerformed
         try {
-            editHeader.setValue(((int) editHeader.getValue()) + 1);
-            estrategia.openHeader((int) editHeader.getValue());
+            actNextHeader();
         } catch (Exception e) {
             WizSwing.showError(e);
         }
-    }//GEN-LAST:event_buttonOpenHeaderActionPerformed
+    }//GEN-LAST:event_buttonNextHeaderActionPerformed
+
+    private void actNextHeader() {
+        editHeader.setValue(((int) editHeader.getValue()) + 1);
+        estrategia.openHeader((int) editHeader.getValue());
+        editItem.setValue(-1);
+    }
 
     private void buttonGetLessonMaterialsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGetLessonMaterialsActionPerformed
         try {
-            estrategia.getLessonMaterials((int) editHeader.getValue());
+            actGetLessonMaterials();
         } catch (Exception e) {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonGetLessonMaterialsActionPerformed
+
+    private void actGetLessonMaterials() {
+        estrategia.getLessonMaterials((int) editHeader.getValue());
+    }
 
     private void buttonEstrategiaCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEstrategiaCleanActionPerformed
         try {
@@ -512,6 +604,97 @@ public class DeskCapt extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonEstrategiaCleanActionPerformed
+
+    private void buttonNextItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextItemActionPerformed
+        try {
+            actNextItem();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonNextItemActionPerformed
+
+    private void actNextItem() {
+        editItem.setValue(((int) editItem.getValue()) + 1);
+        estrategia.openItem((int) editHeader.getValue(), (int) editItem.getValue());
+    }
+
+    private void buttonOpenDownloadsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOpenDownloadsActionPerformed
+        try {
+            actOpenDownloads();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonOpenDownloadsActionPerformed
+
+    private void actOpenDownloads() {
+        estrategia.openDownloads((int) editHeader.getValue());
+    }
+
+    private void buttonMakeDownloadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeDownloadActionPerformed
+        try {
+            actMakeDownloads();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonMakeDownloadActionPerformed
+
+    private void actMakeDownloads() {
+        estrategia.makeDownloads((int) editHeader.getValue());
+    }
+
+    private void buttonHeaderGroupedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHeaderGroupedActionPerformed
+        try {
+            actNextHeader();
+            WizBase.sleep(1200);
+            actGetLessonMaterials();
+            WizBase.sleep(1200);
+            actOpenDownloads();
+            WizSwing.showInfo("Done!");
+            buttonItemGrouped.requestFocus();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonHeaderGroupedActionPerformed
+
+    private void buttonItemGroupedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonItemGroupedActionPerformed
+        try {
+            actNextItem();
+            WizBase.sleep(1200);
+            actMakeDownloads();
+            WizBase.sleep(1200);
+            actCopyTitle();
+            WizBase.sleep(1200);
+            actTickView();
+            WizSwing.showInfo("Done!");
+            buttonHeaderGrouped.requestFocus();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonItemGroupedActionPerformed
+
+    private void buttonCopyTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyTitleActionPerformed
+        try {
+            actCopyTitle();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonCopyTitleActionPerformed
+
+    private void buttonTickViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTickViewActionPerformed
+        try {
+            actTickView();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonTickViewActionPerformed
+
+    private void actCopyTitle() {
+        estrategia.copyTitle((int) editHeader.getValue(), (int) editItem.getValue());
+    }
+    
+    private void actTickView() {
+        estrategia.tickView((int) editHeader.getValue());
+    }
 
     private int getCaptFolderIndex(String folderName) {
         if (folderName.startsWith("Capt-")) {
@@ -558,17 +741,24 @@ public class DeskCapt extends javax.swing.JPanel {
     Executor documentRunner = Executors.newSingleThreadExecutor();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonCopyTitle;
     private javax.swing.JButton buttonEstrategiaClean;
     private javax.swing.JButton buttonEstrategiaLogin;
     private javax.swing.JButton buttonEstrategiaStart;
     private javax.swing.JButton buttonEstrategiaStop;
     private javax.swing.JButton buttonGetLessonMaterials;
+    private javax.swing.JButton buttonHeaderGrouped;
+    private javax.swing.JButton buttonItemGrouped;
     private javax.swing.JButton buttonMakeDocuments;
+    private javax.swing.JButton buttonMakeDownload;
     private javax.swing.JButton buttonNew;
+    private javax.swing.JButton buttonNextHeader;
+    private javax.swing.JButton buttonNextItem;
     private javax.swing.JButton buttonOpen;
-    private javax.swing.JButton buttonOpenHeader;
+    private javax.swing.JButton buttonOpenDownloads;
     private javax.swing.JButton buttonSelect;
     private javax.swing.JButton buttonStart;
+    private javax.swing.JButton buttonTickView;
     private javax.swing.JButton buttonView;
     private javax.swing.JCheckBox checkAutoMakeDocuments;
     private javax.swing.JComboBox<Display> comboDisplays;
@@ -576,6 +766,7 @@ public class DeskCapt extends javax.swing.JPanel {
     private javax.swing.JTextField editDestiny;
     private javax.swing.JTextField editEstrategia;
     private javax.swing.JSpinner editHeader;
+    private javax.swing.JSpinner editItem;
     private javax.swing.JSpinner editPages;
     private javax.swing.JTextField editSource;
     private javax.swing.JSpinner editWait;
