@@ -52,6 +52,15 @@ public class DeskPack extends javax.swing.JPanel {
     public void setDestinyFolder(String path) {
         editDestinyFolder.setText(path);
     }
+    
+    public boolean isDownloadingInWatchFolder() {
+        for (var inside : new File(editWatch.getText()).listFiles()) {
+            if (inside.isFile() && inside.getName().toLowerCase().endsWith(".crdownload")) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -519,7 +528,7 @@ public class DeskPack extends javax.swing.JPanel {
     private void checkIfDownloading() throws Exception {
         var allSelected = getSelectedToProcess();
         for (var selected : allSelected) {
-            if (selected.file.getName().endsWith(".crdownload")) {
+            if (selected.file.getName().toLowerCase().endsWith(".crdownload")) {
                 throw new Exception("Are downloading yet.");
             }
         }

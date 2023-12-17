@@ -3,7 +3,6 @@ package br.com.pointel.arkhing;
 import javax.swing.UIManager;
 import com.formdev.flatlaf.FlatLightLaf;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 

@@ -74,6 +74,7 @@ public class DeskCapt extends javax.swing.JPanel {
         buttonTickView = new javax.swing.JButton();
         buttonAutoItems = new javax.swing.JButton();
         editAutoItem = new javax.swing.JSpinner();
+        checkWatch = new javax.swing.JCheckBox();
 
         buttonView.setText("Source");
         buttonView.addActionListener(new java.awt.event.ActionListener() {
@@ -241,6 +242,9 @@ public class DeskCapt extends javax.swing.JPanel {
 
         editAutoItem.setModel(new javax.swing.SpinnerNumberModel(9, null, null, 1));
 
+        checkWatch.setSelected(true);
+        checkWatch.setText("Check Watch");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -320,6 +324,8 @@ public class DeskCapt extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonMakeDocuments))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(checkWatch)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(editAutoItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonAutoItems)))))
@@ -364,14 +370,14 @@ public class DeskCapt extends javax.swing.JPanel {
                     .addComponent(buttonEstrategiaStop)
                     .addComponent(buttonEstrategiaLogin)
                     .addComponent(buttonEstrategiaClean))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonNextHeader)
                     .addComponent(buttonOpenDownloads)
                     .addComponent(buttonHeaderGrouped)
                     .addComponent(buttonGetLessonMaterials))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonNextItem)
@@ -382,8 +388,9 @@ public class DeskCapt extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonAutoItems)
-                    .addComponent(editAutoItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                    .addComponent(editAutoItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(checkWatch))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -719,7 +726,10 @@ public class DeskCapt extends javax.swing.JPanel {
         try {
             while (((int) editItem.getValue()) <= ((int) editAutoItem.getValue())) {
                 runItemLine();
-                WizBase.sleep(3600);
+                WizBase.sleep(2700);
+                while (checkWatch.isSelected() && desk.deskPack.isDownloadingInWatchFolder()) {
+                    WizBase.sleep(2700);
+                }
             }
             WizSwing.showInfo("Done!");
             buttonItemGrouped.requestFocus();
@@ -802,6 +812,7 @@ public class DeskCapt extends javax.swing.JPanel {
     private javax.swing.JButton buttonTickView;
     private javax.swing.JButton buttonView;
     private javax.swing.JCheckBox checkAutoMakeDocuments;
+    private javax.swing.JCheckBox checkWatch;
     private javax.swing.JComboBox<Display> comboDisplays;
     private javax.swing.JComboBox<String> comboMethod;
     private javax.swing.JSpinner editAutoItem;
