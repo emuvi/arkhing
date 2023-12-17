@@ -666,7 +666,7 @@ public class DeskCapt extends javax.swing.JPanel {
             WizBase.sleep(1200);
             actTickView();
             WizSwing.showInfo("Done!");
-            buttonHeaderGrouped.requestFocus();
+            buttonItemGrouped.requestFocus();
         } catch (Exception e) {
             WizSwing.showError(e);
         }
