@@ -719,7 +719,7 @@ public class DeskCapt extends javax.swing.JPanel {
         try {
             while (((int) editItem.getValue()) <= ((int) editAutoItem.getValue())) {
                 runItemLine();
-                WizBase.sleep(2400);
+                WizBase.sleep(3600);
             }
             WizSwing.showInfo("Done!");
             buttonItemGrouped.requestFocus();
