@@ -72,6 +72,8 @@ public class DeskCapt extends javax.swing.JPanel {
         buttonItemGrouped = new javax.swing.JButton();
         buttonCopyTitle = new javax.swing.JButton();
         buttonTickView = new javax.swing.JButton();
+        buttonAutoItems = new javax.swing.JButton();
+        editAutoItem = new javax.swing.JSpinner();
 
         buttonView.setText("Source");
         buttonView.addActionListener(new java.awt.event.ActionListener() {
@@ -202,14 +204,14 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
-        buttonHeaderGrouped.setText("Run This Line");
+        buttonHeaderGrouped.setText("Run Header Line");
         buttonHeaderGrouped.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonHeaderGroupedActionPerformed(evt);
             }
         });
 
-        buttonItemGrouped.setText("Run This Line");
+        buttonItemGrouped.setText("Run Item Line");
         buttonItemGrouped.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonItemGroupedActionPerformed(evt);
@@ -229,6 +231,15 @@ public class DeskCapt extends javax.swing.JPanel {
                 buttonTickViewActionPerformed(evt);
             }
         });
+
+        buttonAutoItems.setText("Auto Items");
+        buttonAutoItems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAutoItemsActionPerformed(evt);
+            }
+        });
+
+        editAutoItem.setModel(new javax.swing.SpinnerNumberModel(9, null, null, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -251,28 +262,6 @@ public class DeskCapt extends javax.swing.JPanel {
                         .addComponent(buttonSelect)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonOpen))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelMethod)
-                                    .addComponent(comboMethod, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelWait)
-                                    .addComponent(editWait, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(labelPages)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(editPages, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(checkAutoMakeDocuments)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonMakeDocuments))))
                     .addComponent(editEstrategia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -307,7 +296,33 @@ public class DeskCapt extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonTickView)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonItemGrouped)))
+                        .addComponent(buttonItemGrouped))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelMethod)
+                                    .addComponent(comboMethod, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelWait)
+                                    .addComponent(editWait, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(labelPages)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(editPages, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonStart, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(checkAutoMakeDocuments)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonMakeDocuments))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(editAutoItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonAutoItems)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -364,7 +379,11 @@ public class DeskCapt extends javax.swing.JPanel {
                     .addComponent(buttonItemGrouped)
                     .addComponent(buttonCopyTitle)
                     .addComponent(buttonTickView))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonAutoItems)
+                    .addComponent(editAutoItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -644,11 +663,7 @@ public class DeskCapt extends javax.swing.JPanel {
 
     private void buttonHeaderGroupedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHeaderGroupedActionPerformed
         try {
-            actNextHeader();
-            WizBase.sleep(1200);
-            actGetLessonMaterials();
-            WizBase.sleep(1200);
-            actOpenDownloads();
+            runHeaderLine();
             WizSwing.showInfo("Done!");
             buttonItemGrouped.requestFocus();
         } catch (Exception e) {
@@ -656,21 +671,33 @@ public class DeskCapt extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonHeaderGroupedActionPerformed
 
+    private void runHeaderLine() {
+        actNextHeader();
+        WizBase.sleep(1200);
+        actGetLessonMaterials();
+        WizBase.sleep(1200);
+        actOpenDownloads();
+    }
+
     private void buttonItemGroupedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonItemGroupedActionPerformed
         try {
-            actNextItem();
-            WizBase.sleep(1200);
-            actMakeDownloads();
-            WizBase.sleep(1200);
-            actCopyTitle();
-            WizBase.sleep(1200);
-            actTickView();
+            runItemLine();
             WizSwing.showInfo("Done!");
             buttonItemGrouped.requestFocus();
         } catch (Exception e) {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonItemGroupedActionPerformed
+
+    private void runItemLine() {
+        actNextItem();
+        WizBase.sleep(1200);
+        actMakeDownloads();
+        WizBase.sleep(1200);
+        actCopyTitle();
+        WizBase.sleep(1200);
+        actTickView();
+    }
 
     private void buttonCopyTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCopyTitleActionPerformed
         try {
@@ -688,10 +715,23 @@ public class DeskCapt extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonTickViewActionPerformed
 
+    private void buttonAutoItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAutoItemsActionPerformed
+        try {
+            while (((int) editItem.getValue()) <= ((int) editAutoItem.getValue())) {
+                runItemLine();
+                WizBase.sleep(2400);
+            }
+            WizSwing.showInfo("Done!");
+            buttonItemGrouped.requestFocus();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonAutoItemsActionPerformed
+
     private void actCopyTitle() {
         estrategia.copyTitle((int) editHeader.getValue(), (int) editItem.getValue());
     }
-    
+
     private void actTickView() {
         estrategia.tickView((int) editHeader.getValue());
     }
@@ -741,6 +781,7 @@ public class DeskCapt extends javax.swing.JPanel {
     Executor documentRunner = Executors.newSingleThreadExecutor();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAutoItems;
     private javax.swing.JButton buttonCopyTitle;
     private javax.swing.JButton buttonEstrategiaClean;
     private javax.swing.JButton buttonEstrategiaLogin;
@@ -763,6 +804,7 @@ public class DeskCapt extends javax.swing.JPanel {
     private javax.swing.JCheckBox checkAutoMakeDocuments;
     private javax.swing.JComboBox<Display> comboDisplays;
     private javax.swing.JComboBox<String> comboMethod;
+    private javax.swing.JSpinner editAutoItem;
     private javax.swing.JTextField editDestiny;
     private javax.swing.JTextField editEstrategia;
     private javax.swing.JSpinner editHeader;
