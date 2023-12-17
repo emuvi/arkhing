@@ -24,7 +24,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonView" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="editSource" pref="215" max="32767" attributes="0"/>
+                      <Component id="editSource" pref="266" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="editDestiny" max="32767" attributes="0"/>
@@ -65,6 +65,29 @@
                           </Group>
                       </Group>
                   </Group>
+                  <Component id="editEstrategia" alignment="1" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="labelEstrategia" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="buttonEstrategiaStart" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonEstrategiaStop" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonEstrategiaLogin" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonEstrategiaClean" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="editHeader" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonOpenHeader" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonGetLessonMaterials" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -104,18 +127,30 @@
                   <Component id="buttonMakeDocuments" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="checkAutoMakeDocuments" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="194" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="labelEstrategia" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="editEstrategia" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="buttonEstrategiaStart" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonEstrategiaStop" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonEstrategiaLogin" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonEstrategiaClean" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="editHeader" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonOpenHeader" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonGetLessonMaterials" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="107" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JComboBox" name="comboDisplays">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="WizSwing.fontMonospaced()" type="code"/>
-        </Property>
-      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Display&gt;"/>
       </AuxValues>
@@ -131,9 +166,6 @@
     <Component class="javax.swing.JTextField" name="editDestiny">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="WizSwing.fontMonospaced()" type="code"/>
-        </Property>
         <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="WizProps.get(&quot;DESK_CAPT_DESTINY&quot;, &quot;&quot;)" type="code"/>
         </Property>
@@ -148,11 +180,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="editSource">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="WizSwing.fontMonospaced()" type="code"/>
-        </Property>
-      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonStart">
       <Properties>
@@ -164,9 +191,6 @@
     </Component>
     <Component class="javax.swing.JSpinner" name="editPages">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="WizSwing.fontMonospaced()" type="code"/>
-        </Property>
         <Property name="value" type="java.lang.Object" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="50" type="code"/>
         </Property>
@@ -184,9 +208,6 @@
     </Component>
     <Component class="javax.swing.JComboBox" name="comboMethod">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="WizSwing.fontMonospaced()" type="code"/>
-        </Property>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
             <StringItem index="0" value="Press Right"/>
@@ -210,9 +231,6 @@
     </Component>
     <Component class="javax.swing.JSpinner" name="editWait">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="WizSwing.fontMonospaced()" type="code"/>
-        </Property>
         <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
           <SpinnerModel initial="2.0" numberType="java.lang.Double" stepSize="0.2" type="number"/>
         </Property>
@@ -241,8 +259,74 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkAutoMakeDocuments">
       <Properties>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Auto"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelEstrategia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Estrat&#xe9;gia"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="editEstrategia">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="https://www.estrategiaconcursos.com.br/app/dashboard/cursos/259378/aulas"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonEstrategiaStart">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Start"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEstrategiaStartActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonEstrategiaStop">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Stop"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEstrategiaStopActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonEstrategiaLogin">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Login"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEstrategiaLoginActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonOpenHeader">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Next Header"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOpenHeaderActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="editHeader">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="-1" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonGetLessonMaterials">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Get Lesson Materials"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonGetLessonMaterialsActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonEstrategiaClean">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Clean"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEstrategiaCleanActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

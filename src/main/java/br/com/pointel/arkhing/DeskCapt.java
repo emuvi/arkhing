@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
 import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.WebDriver;
 
 /**
  *
@@ -54,8 +55,15 @@ public class DeskCapt extends javax.swing.JPanel {
         buttonNew = new javax.swing.JButton();
         buttonMakeDocuments = new javax.swing.JButton();
         checkAutoMakeDocuments = new javax.swing.JCheckBox();
-
-        comboDisplays.setFont(WizSwing.fontMonospaced());
+        labelEstrategia = new javax.swing.JLabel();
+        editEstrategia = new javax.swing.JTextField();
+        buttonEstrategiaStart = new javax.swing.JButton();
+        buttonEstrategiaStop = new javax.swing.JButton();
+        buttonEstrategiaLogin = new javax.swing.JButton();
+        buttonOpenHeader = new javax.swing.JButton();
+        editHeader = new javax.swing.JSpinner();
+        buttonGetLessonMaterials = new javax.swing.JButton();
+        buttonEstrategiaClean = new javax.swing.JButton();
 
         buttonView.setText("Source");
         buttonView.addActionListener(new java.awt.event.ActionListener() {
@@ -65,7 +73,6 @@ public class DeskCapt extends javax.swing.JPanel {
         });
 
         editDestiny.setEditable(false);
-        editDestiny.setFont(WizSwing.fontMonospaced());
         editDestiny.setText(WizProps.get("DESK_CAPT_DESTINY", ""));
 
         buttonSelect.setText("Select");
@@ -75,8 +82,6 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
-        editSource.setFont(WizSwing.fontMonospaced());
-
         buttonStart.setText("Start");
         buttonStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -84,14 +89,12 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
-        editPages.setFont(WizSwing.fontMonospaced());
         editPages.setValue(50);
 
         labelPages.setText("Pages");
 
         labelMethod.setText("Method");
 
-        comboMethod.setFont(WizSwing.fontMonospaced());
         comboMethod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Press Right", "Press Down", "Drag Mouse", "" }));
 
         buttonOpen.setText("Open");
@@ -101,7 +104,6 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
-        editWait.setFont(WizSwing.fontMonospaced());
         editWait.setModel(new javax.swing.SpinnerNumberModel(2.0d, null, null, 0.2d));
 
         labelWait.setText("Wait");
@@ -120,7 +122,56 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
+        checkAutoMakeDocuments.setSelected(true);
         checkAutoMakeDocuments.setText("Auto");
+
+        labelEstrategia.setText("Estratégia");
+
+        editEstrategia.setText("https://www.estrategiaconcursos.com.br/app/dashboard/cursos/259378/aulas");
+
+        buttonEstrategiaStart.setText("Start");
+        buttonEstrategiaStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEstrategiaStartActionPerformed(evt);
+            }
+        });
+
+        buttonEstrategiaStop.setText("Stop");
+        buttonEstrategiaStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEstrategiaStopActionPerformed(evt);
+            }
+        });
+
+        buttonEstrategiaLogin.setText("Login");
+        buttonEstrategiaLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEstrategiaLoginActionPerformed(evt);
+            }
+        });
+
+        buttonOpenHeader.setText("Next Header");
+        buttonOpenHeader.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOpenHeaderActionPerformed(evt);
+            }
+        });
+
+        editHeader.setModel(new javax.swing.SpinnerNumberModel(-1, null, null, 1));
+
+        buttonGetLessonMaterials.setText("Get Lesson Materials");
+        buttonGetLessonMaterials.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGetLessonMaterialsActionPerformed(evt);
+            }
+        });
+
+        buttonEstrategiaClean.setText("Clean");
+        buttonEstrategiaClean.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEstrategiaCleanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -134,7 +185,7 @@ public class DeskCapt extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonView)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editSource, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE))
+                        .addComponent(editSource, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(editDestiny)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -164,7 +215,26 @@ public class DeskCapt extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(checkAutoMakeDocuments)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonMakeDocuments)))))
+                                .addComponent(buttonMakeDocuments))))
+                    .addComponent(editEstrategia, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelEstrategia)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(buttonEstrategiaStart)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonEstrategiaStop)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonEstrategiaLogin)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonEstrategiaClean))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(editHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonOpenHeader)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonGetLessonMaterials)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -196,7 +266,22 @@ public class DeskCapt extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonMakeDocuments)
                     .addComponent(checkAutoMakeDocuments))
-                .addContainerGap(194, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(labelEstrategia)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(editEstrategia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonEstrategiaStart)
+                    .addComponent(buttonEstrategiaStop)
+                    .addComponent(buttonEstrategiaLogin)
+                    .addComponent(buttonEstrategiaClean))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(editHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonOpenHeader)
+                    .addComponent(buttonGetLessonMaterials))
+                .addContainerGap(107, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -369,6 +454,65 @@ public class DeskCapt extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonMakeDocumentsActionPerformed
 
+    private Estrategia estrategia = null;
+
+    private void buttonEstrategiaStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEstrategiaStartActionPerformed
+        try {
+            if (estrategia != null) {
+                estrategia.stop();
+                estrategia = null;
+            }
+            estrategia = new Estrategia(editEstrategia.getText());
+            estrategia.start();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonEstrategiaStartActionPerformed
+
+    private void buttonEstrategiaStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEstrategiaStopActionPerformed
+        try {
+            if (estrategia != null) {
+                estrategia.stop();
+                estrategia = null;
+            }
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonEstrategiaStopActionPerformed
+
+    private void buttonEstrategiaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEstrategiaLoginActionPerformed
+        try {
+            estrategia.login();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonEstrategiaLoginActionPerformed
+
+    private void buttonOpenHeaderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOpenHeaderActionPerformed
+        try {
+            editHeader.setValue(((int) editHeader.getValue()) + 1);
+            estrategia.openHeader((int) editHeader.getValue());
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonOpenHeaderActionPerformed
+
+    private void buttonGetLessonMaterialsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGetLessonMaterialsActionPerformed
+        try {
+            estrategia.getLessonMaterials((int) editHeader.getValue());
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonGetLessonMaterialsActionPerformed
+
+    private void buttonEstrategiaCleanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEstrategiaCleanActionPerformed
+        try {
+            estrategia.clean();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonEstrategiaCleanActionPerformed
+
     private int getCaptFolderIndex(String folderName) {
         if (folderName.startsWith("Capt-")) {
             try {
@@ -414,9 +558,15 @@ public class DeskCapt extends javax.swing.JPanel {
     Executor documentRunner = Executors.newSingleThreadExecutor();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonEstrategiaClean;
+    private javax.swing.JButton buttonEstrategiaLogin;
+    private javax.swing.JButton buttonEstrategiaStart;
+    private javax.swing.JButton buttonEstrategiaStop;
+    private javax.swing.JButton buttonGetLessonMaterials;
     private javax.swing.JButton buttonMakeDocuments;
     private javax.swing.JButton buttonNew;
     private javax.swing.JButton buttonOpen;
+    private javax.swing.JButton buttonOpenHeader;
     private javax.swing.JButton buttonSelect;
     private javax.swing.JButton buttonStart;
     private javax.swing.JButton buttonView;
@@ -424,9 +574,12 @@ public class DeskCapt extends javax.swing.JPanel {
     private javax.swing.JComboBox<Display> comboDisplays;
     private javax.swing.JComboBox<String> comboMethod;
     private javax.swing.JTextField editDestiny;
+    private javax.swing.JTextField editEstrategia;
+    private javax.swing.JSpinner editHeader;
     private javax.swing.JSpinner editPages;
     private javax.swing.JTextField editSource;
     private javax.swing.JSpinner editWait;
+    private javax.swing.JLabel labelEstrategia;
     private javax.swing.JLabel labelMethod;
     private javax.swing.JLabel labelPages;
     private javax.swing.JLabel labelWait;
