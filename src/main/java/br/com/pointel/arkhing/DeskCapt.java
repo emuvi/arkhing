@@ -727,7 +727,7 @@ public class DeskCapt extends javax.swing.JPanel {
             while (((int) editItem.getValue()) <= ((int) editAutoItem.getValue())) {
                 runItemLine();
                 WizBase.sleep(2700);
-                while (checkWatch.isSelected() && desk.deskPack.isDownloadingInWatchFolder()) {
+                while (checkWatch.isSelected() && desk.deskPack.hasAnyInWatchFolder()) {
                     WizBase.sleep(2700);
                 }
             }

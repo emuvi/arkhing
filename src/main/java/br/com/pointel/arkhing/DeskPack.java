@@ -53,9 +53,18 @@ public class DeskPack extends javax.swing.JPanel {
         editDestinyFolder.setText(path);
     }
     
-    public boolean isDownloadingInWatchFolder() {
+    public boolean hasDownloadingInWatchFolder() {
         for (var inside : new File(editWatch.getText()).listFiles()) {
             if (inside.isFile() && inside.getName().toLowerCase().endsWith(".crdownload")) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean hasAnyInWatchFolder() {
+        for (var inside : new File(editWatch.getText()).listFiles()) {
+            if (inside.isFile()) {
                 return true;
             }
         }
