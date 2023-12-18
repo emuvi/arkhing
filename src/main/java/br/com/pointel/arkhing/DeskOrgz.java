@@ -817,7 +817,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void menuFolderDestinyPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderDestinyPackActionPerformed
         var selected = listFolder.getSelectedValue();
         if (selected != null) {
-            desk.deskPack.setDestinyFolder(selected.path.getAbsolutePath());
+            desk.deskPack.setDestinyFolder(selected.path);
             desk.showPack();
         }
     }//GEN-LAST:event_menuFolderDestinyPackActionPerformed

@@ -51,8 +51,9 @@ public class DeskPack extends javax.swing.JPanel {
         }, "DeskPack - Updater");
     }
 
-    public void setDestinyFolder(String path) {
-        editDestinyFolder.setText(path);
+    public void setDestinyFolder(File path) {
+        defaultDestinyFolder = path;
+        editDestinyFolder.setText(path.getAbsolutePath());
     }
 
     public boolean hasDownloadingInWatchFolder() {
