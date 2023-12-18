@@ -138,6 +138,8 @@ public class DeskCapt extends javax.swing.JPanel {
 
         labelEstrategia.setText("Estratégia");
 
+        editEstrategia.setText("https://www.estrategiaconcursos.com.br/app/dashboard/cursos");
+
         buttonEstrategiaStart.setText("Start");
         buttonEstrategiaStart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,7 +242,7 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
-        editAutoItem.setModel(new javax.swing.SpinnerNumberModel(9, null, null, 1));
+        editAutoItem.setModel(new javax.swing.SpinnerNumberModel(90, null, null, 1));
 
         checkWatch.setSelected(true);
         checkWatch.setText("Check Watch");
