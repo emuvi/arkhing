@@ -142,8 +142,6 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="buttonDestinyFolder" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="buttonFolderCopy" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonSelectFolder" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonSelectOrgz" min="-2" max="-2" attributes="0"/>
@@ -191,7 +189,6 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="buttonSelectFolder" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonNameCopy" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonFolderCopy" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonFolderOpen" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonSelectOrgz" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -252,15 +249,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDestinyFolderActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonFolderCopy">
-              <Properties>
-                <Property name="mnemonic" type="int" value="80"/>
-                <Property name="text" type="java.lang.String" value="Copy"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonFolderCopyActionPerformed"/>
-              </Events>
-            </Component>
             <Component class="javax.swing.JButton" name="buttonSelectFolder">
               <Properties>
                 <Property name="mnemonic" type="int" value="83"/>
@@ -313,6 +301,7 @@
             </Component>
             <Component class="javax.swing.JTextField" name="editDestinyFolder">
               <Properties>
+                <Property name="editable" type="boolean" value="false"/>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="WizSwing.fontMonospaced()" type="code"/>
                 </Property>

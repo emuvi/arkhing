@@ -34,6 +34,8 @@ public class DeskPack extends javax.swing.JPanel {
     private final AtomicBoolean shouldWait = new AtomicBoolean(false);
     private final AtomicInteger watchedWithNoChanges = new AtomicInteger(0);
 
+    private volatile File defaultDestinyFolder = null;
+
     public DeskPack(Desk desk) {
         this.desk = desk;
         initComponents();
@@ -52,7 +54,7 @@ public class DeskPack extends javax.swing.JPanel {
     public void setDestinyFolder(String path) {
         editDestinyFolder.setText(path);
     }
-    
+
     public boolean hasDownloadingInWatchFolder() {
         for (var inside : new File(editWatch.getText()).listFiles()) {
             if (inside.isFile() && inside.getName().toLowerCase().endsWith(".crdownload")) {
@@ -61,7 +63,7 @@ public class DeskPack extends javax.swing.JPanel {
         }
         return false;
     }
-    
+
     public boolean hasAnyInWatchFolder() {
         for (var inside : new File(editWatch.getText()).listFiles()) {
             if (inside.isFile()) {
@@ -87,7 +89,6 @@ public class DeskPack extends javax.swing.JPanel {
         labelClipboard = new javax.swing.JLabel();
         editClipboard = new javax.swing.JTextField();
         buttonDestinyFolder = new javax.swing.JButton();
-        buttonFolderCopy = new javax.swing.JButton();
         buttonSelectFolder = new javax.swing.JButton();
         buttonSelectOrgz = new javax.swing.JButton();
         buttonFolderOpen = new javax.swing.JButton();
@@ -167,14 +168,6 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
 
-        buttonFolderCopy.setMnemonic('P');
-        buttonFolderCopy.setText("Copy");
-        buttonFolderCopy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonFolderCopyActionPerformed(evt);
-            }
-        });
-
         buttonSelectFolder.setMnemonic('S');
         buttonSelectFolder.setText("Select");
         buttonSelectFolder.addActionListener(new java.awt.event.ActionListener() {
@@ -217,6 +210,7 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
 
+        editDestinyFolder.setEditable(false);
         editDestinyFolder.setFont(WizSwing.fontMonospaced());
 
         editDestinyName.setFont(WizSwing.fontMonospaced());
@@ -270,8 +264,6 @@ public class DeskPack extends javax.swing.JPanel {
                     .addGroup(panelWatchLayout.createSequentialGroup()
                         .addComponent(buttonDestinyFolder)
                         .addGap(18, 18, 18)
-                        .addComponent(buttonFolderCopy)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSelectFolder)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSelectOrgz)
@@ -312,7 +304,6 @@ public class DeskPack extends javax.swing.JPanel {
                     .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonSelectFolder)
                         .addComponent(buttonNameCopy)
-                        .addComponent(buttonFolderCopy)
                         .addComponent(buttonFolderOpen)
                         .addComponent(buttonSelectOrgz)
                         .addComponent(buttonDestinyFolder)))
@@ -378,6 +369,9 @@ public class DeskPack extends javax.swing.JPanel {
                 SwingUtilities.invokeLater(() -> {
                     synchronized (hasWatchChanges) {
                         if (hasWatchChanges.get()) {
+                            if (defaultDestinyFolder != null) {
+                                editDestinyFolder.setText(defaultDestinyFolder.getAbsolutePath());
+                            }
                             watchedWithNoChanges.set(0);
                             var selected = listWatch.getSelectedValue();
                             labelFound.setVisible(false);
@@ -503,12 +497,9 @@ public class DeskPack extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonWatchActionPerformed
 
     private void buttonSelectFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectFolderActionPerformed
-        var initial = desk.arkhBase.root;
-        if (!editDestinyFolder.getText().isBlank()) {
-            initial = new File(editDestinyFolder.getText());
-        }
-        var selected = WizSwing.selectFolder(initial);
+        var selected = WizSwing.selectFolder(defaultDestinyFolder != null ? defaultDestinyFolder : desk.arkhBase.root);
         if (selected != null) {
+            defaultDestinyFolder = selected;
             editDestinyFolder.setText(selected.getAbsolutePath());
         }
     }//GEN-LAST:event_buttonSelectFolderActionPerformed
@@ -516,10 +507,6 @@ public class DeskPack extends javax.swing.JPanel {
     private void buttonNameCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNameCopyActionPerformed
         editDestinyName.setText(cleanName(editClipboard.getText()));
     }//GEN-LAST:event_buttonNameCopyActionPerformed
-
-    private void buttonFolderCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderCopyActionPerformed
-        editDestinyFolder.setText(editDestinyFolder.getText() + File.separator + cleanName(editClipboard.getText()));
-    }//GEN-LAST:event_buttonFolderCopyActionPerformed
 
     private String cleanName(String name) {
         return name
@@ -727,7 +714,6 @@ public class DeskPack extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonDestinyFolder;
-    private javax.swing.JButton buttonFolderCopy;
     private javax.swing.JButton buttonFolderOpen;
     private javax.swing.JButton buttonMakeAulaName;
     private javax.swing.JButton buttonMakeAutoName;
