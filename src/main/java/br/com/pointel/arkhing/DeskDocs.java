@@ -22,8 +22,10 @@ public class DeskDocs extends javax.swing.JPanel {
     private void initComponents() {
 
         buttonExtract = new javax.swing.JButton();
-        buttonExecute = new javax.swing.JButton();
         labelFolderMirror = new javax.swing.JLabel();
+        labelSpeed = new javax.swing.JLabel();
+        editSpeed = new javax.swing.JSpinner();
+        buttonExecute = new javax.swing.JButton();
         labelOrigin = new javax.swing.JLabel();
         editOrigin = new javax.swing.JTextField();
         labelDestiny = new javax.swing.JLabel();
@@ -41,14 +43,18 @@ public class DeskDocs extends javax.swing.JPanel {
             }
         });
 
+        labelFolderMirror.setText("Folder Mirror");
+
+        labelSpeed.setText("Speed:");
+
+        editSpeed.setModel(new javax.swing.SpinnerNumberModel(4, null, null, 1));
+
         buttonExecute.setText("Execute");
         buttonExecute.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExecuteActionPerformed(evt);
             }
         });
-
-        labelFolderMirror.setText("Folder Mirror");
 
         labelOrigin.setText("Origin:");
 
@@ -108,6 +114,10 @@ public class DeskDocs extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelFolderMirror)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelSpeed)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonExecute))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonExtract)
@@ -125,7 +135,9 @@ public class DeskDocs extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelFolderMirror)
-                    .addComponent(buttonExecute))
+                    .addComponent(buttonExecute)
+                    .addComponent(editSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelSpeed))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelOrigin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -162,11 +174,8 @@ public class DeskDocs extends javax.swing.JPanel {
         if (JOptionPane.showConfirmDialog(this, "Are you sure?", "Arkhing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) != JOptionPane.YES_OPTION) {
             return;
         }
-        new FolderMirror(
-                new File(editOrigin.getText()),
-                new File(editDestiny.getText()))
-                .addObserver((message)
-                        -> SwingUtilities.invokeLater(() -> textMessages.append(message + "\n")))
+        new FolderMirror(new File(editOrigin.getText()), new File(editDestiny.getText()), (Integer) editSpeed.getValue())
+                .addObserver((message) -> SwingUtilities.invokeLater(() -> textMessages.append(message + "\n")))
                 .start();
     }//GEN-LAST:event_buttonExecuteActionPerformed
 
@@ -214,9 +223,11 @@ public class DeskDocs extends javax.swing.JPanel {
     private javax.swing.JButton buttonOriginSelect;
     private javax.swing.JTextField editDestiny;
     private javax.swing.JTextField editOrigin;
+    private javax.swing.JSpinner editSpeed;
     private javax.swing.JLabel labelDestiny;
     private javax.swing.JLabel labelFolderMirror;
     private javax.swing.JLabel labelOrigin;
+    private javax.swing.JLabel labelSpeed;
     private javax.swing.JScrollPane scrollMessages;
     private javax.swing.JTextArea textMessages;
     // End of variables declaration//GEN-END:variables

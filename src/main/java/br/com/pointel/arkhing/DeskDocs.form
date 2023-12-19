@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -40,6 +40,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="labelFolderMirror" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="labelSpeed" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="editSpeed" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonExecute" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -64,6 +68,8 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelFolderMirror" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonExecute" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="editSpeed" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelSpeed" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="labelOrigin" min="-2" max="-2" attributes="0"/>
@@ -95,6 +101,23 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExtractActionPerformed"/>
       </Events>
     </Component>
+    <Component class="javax.swing.JLabel" name="labelFolderMirror">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Folder Mirror"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelSpeed">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Speed:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="editSpeed">
+      <Properties>
+        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+          <SpinnerModel initial="4" numberType="java.lang.Integer" stepSize="1" type="number"/>
+        </Property>
+      </Properties>
+    </Component>
     <Component class="javax.swing.JButton" name="buttonExecute">
       <Properties>
         <Property name="text" type="java.lang.String" value="Execute"/>
@@ -102,11 +125,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExecuteActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JLabel" name="labelFolderMirror">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Folder Mirror"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelOrigin">
       <Properties>

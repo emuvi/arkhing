@@ -17,6 +17,7 @@ public class FolderMirror {
     private final File origin;
     private final String originPath;
     private final File destiny;
+    private final Integer speed;
     private final Deque<File> founds;
     private final List<File> destinyFounds;
     private final AtomicBoolean doneFinder;
@@ -24,10 +25,11 @@ public class FolderMirror {
     private final AtomicBoolean doneClean;
     private final List<Consumer<String>> observers;
 
-    public FolderMirror(File origin, File destiny) {
+    public FolderMirror(File origin, File destiny, Integer speed) {
         this.origin = origin;
         this.originPath = origin.getAbsolutePath();
         this.destiny = destiny;
+        this.speed = speed;
         this.founds = new ConcurrentLinkedDeque<>();
         this.destinyFounds =  Collections.synchronizedList(new ArrayList<>());
         this.doneFinder = new AtomicBoolean(false);
@@ -43,7 +45,7 @@ public class FolderMirror {
 
     public FolderMirror start() {
         new Thread(() -> find(), "FolderMirror - Finder").start();
-        for (int i = 1; i <= VELOCITY; i++) {
+        for (int i = 1; i <= speed; i++) {
             new Thread(() -> load(), "FolderMirror - Loader " + i).start();
         }
         new Thread(() -> clean(), "FolderMirror - Clean").start();
@@ -51,7 +53,7 @@ public class FolderMirror {
     }
     
     public boolean isDoneLoad() {
-        return doneFinder.get() && doneLoader.get() == VELOCITY;
+        return doneFinder.get() && doneLoader.get() == speed;
     }
     
     public boolean isDoneClean() {
@@ -162,6 +164,4 @@ public class FolderMirror {
         return new File(destiny,
                 ofOrigin.getAbsolutePath().substring(originPath.length()));
     }
-
-    private static final int VELOCITY = 8;
 }
