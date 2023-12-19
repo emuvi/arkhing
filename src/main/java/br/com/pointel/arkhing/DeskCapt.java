@@ -674,7 +674,7 @@ public class DeskCapt extends javax.swing.JPanel {
     private void buttonHeaderGroupedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHeaderGroupedActionPerformed
         try {
             runHeaderLine();
-            WizSwing.showInfo("Done!");
+            WizSwing.showInfo("Done Header Line!");
             buttonAutoItems.requestFocus();
         } catch (Exception e) {
             WizSwing.showError(e);
@@ -694,7 +694,7 @@ public class DeskCapt extends javax.swing.JPanel {
     private void buttonItemGroupedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonItemGroupedActionPerformed
         try {
             runItemLine();
-            WizSwing.showInfo("Done!");
+            WizSwing.showInfo("Done Item Line!");
             buttonItemGrouped.requestFocus();
         } catch (Exception e) {
             WizSwing.showError(e);
@@ -766,7 +766,7 @@ public class DeskCapt extends javax.swing.JPanel {
                     } finally {
                         isMakingAutoItems = false;
                         SwingUtilities.invokeLater(() -> buttonAutoItems.setText("Start Auto Items"));
-                        WizSwing.showInfo("Done.");
+                        WizSwing.showInfo("Done Auto Items.");
                     }
                 }
             }.start();
