@@ -65,7 +65,7 @@ public class DeskPack extends javax.swing.JPanel {
         return false;
     }
 
-    public boolean hasAnyInWatchFolder() {
+    public boolean hasAnyFileInWatchFolder() {
         for (var inside : new File(editWatch.getText()).listFiles()) {
             if (inside.isFile()) {
                 return true;

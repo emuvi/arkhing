@@ -68,14 +68,13 @@ public class DeskCapt extends javax.swing.JPanel {
         buttonNextItem = new javax.swing.JButton();
         buttonOpenDownloads = new javax.swing.JButton();
         buttonMakeDownload = new javax.swing.JButton();
+        checkGetLessonMaterials = new javax.swing.JCheckBox();
         buttonHeaderGrouped = new javax.swing.JButton();
-        buttonItemGrouped = new javax.swing.JButton();
         buttonCopyTitle = new javax.swing.JButton();
         buttonTickView = new javax.swing.JButton();
-        buttonAutoItems = new javax.swing.JButton();
-        editAutoItem = new javax.swing.JSpinner();
+        buttonItemGrouped = new javax.swing.JButton();
         checkWatch = new javax.swing.JCheckBox();
-        checkGetLessonMaterials = new javax.swing.JCheckBox();
+        buttonAutoItems = new javax.swing.JButton();
 
         buttonView.setText("Source");
         buttonView.addActionListener(new java.awt.event.ActionListener() {
@@ -208,17 +207,13 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
+        checkGetLessonMaterials.setSelected(true);
+        checkGetLessonMaterials.setText("Lessons");
+
         buttonHeaderGrouped.setText("Run Header Line");
         buttonHeaderGrouped.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonHeaderGroupedActionPerformed(evt);
-            }
-        });
-
-        buttonItemGrouped.setText("Run Item Line");
-        buttonItemGrouped.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonItemGroupedActionPerformed(evt);
             }
         });
 
@@ -236,20 +231,22 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
-        buttonAutoItems.setText("Auto Items");
+        buttonItemGrouped.setText("Run Item Line");
+        buttonItemGrouped.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonItemGroupedActionPerformed(evt);
+            }
+        });
+
+        checkWatch.setSelected(true);
+        checkWatch.setText("Check Watch");
+
+        buttonAutoItems.setText("Start Auto Items");
         buttonAutoItems.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonAutoItemsActionPerformed(evt);
             }
         });
-
-        editAutoItem.setModel(new javax.swing.SpinnerNumberModel(90, null, null, 1));
-
-        checkWatch.setSelected(true);
-        checkWatch.setText("Check Watch");
-
-        checkGetLessonMaterials.setSelected(true);
-        checkGetLessonMaterials.setText("Lessons");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -334,8 +331,6 @@ public class DeskCapt extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(checkWatch)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(editAutoItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonAutoItems)))))
                 .addContainerGap())
         );
@@ -397,7 +392,6 @@ public class DeskCapt extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonAutoItems)
-                    .addComponent(editAutoItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkWatch))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
@@ -733,20 +727,45 @@ public class DeskCapt extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonTickViewActionPerformed
 
+    private volatile boolean isMakingAutoItems = false;
+    private volatile boolean stopMakingAutoItems = false;
+
     private void buttonAutoItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAutoItemsActionPerformed
-        try {
-            while (((int) editItem.getValue()) <= ((int) editAutoItem.getValue())) {
-                runItemLine();
-                WizBase.sleep(2700);
-                while (checkWatch.isSelected() && desk.deskPack.hasAnyInWatchFolder()) {
-                    WizBase.sleep(2700);
+        if (isMakingAutoItems) {
+            stopMakingAutoItems = true;
+        } else {
+            isMakingAutoItems = true;
+            stopMakingAutoItems = false;
+            buttonAutoItems.setText("Stop Auto Items");
+            var isToCheckWatch = checkWatch.isSelected();
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        while (!stopMakingAutoItems) {
+                            while (isToCheckWatch && desk.deskPack.hasAnyFileInWatchFolder()) {
+                                WizBase.sleep(1200);
+                            }
+                            SwingUtilities.invokeAndWait(() -> {
+                                try {
+                                    runItemLine();
+                                } catch (Exception e) {
+                                    stopMakingAutoItems = true;
+                                    WizSwing.showError(e);
+                                }
+                            });
+                        }
+                    } catch (Exception e) {
+                        WizSwing.showError(e);
+                    } finally {
+                        isMakingAutoItems = false;
+                        SwingUtilities.invokeLater(() -> buttonAutoItems.setText("Start Auto Items"));
+                    }
                 }
-            }
-            WizSwing.showInfo("Done!");
-            buttonItemGrouped.requestFocus();
-        } catch (Exception e) {
-            WizSwing.showError(e);
+            }.start();
         }
+
+
     }//GEN-LAST:event_buttonAutoItemsActionPerformed
 
     private void actCopyTitle() {
@@ -827,7 +846,6 @@ public class DeskCapt extends javax.swing.JPanel {
     private javax.swing.JCheckBox checkWatch;
     private javax.swing.JComboBox<Display> comboDisplays;
     private javax.swing.JComboBox<String> comboMethod;
-    private javax.swing.JSpinner editAutoItem;
     private javax.swing.JTextField editDestiny;
     private javax.swing.JTextField editEstrategia;
     private javax.swing.JSpinner editHeader;

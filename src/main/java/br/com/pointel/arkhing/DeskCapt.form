@@ -108,8 +108,6 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="checkWatch" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="editAutoItem" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonAutoItems" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -185,7 +183,6 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonAutoItems" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="editAutoItem" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="checkWatch" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="17" max="32767" attributes="0"/>
@@ -403,20 +400,18 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeDownloadActionPerformed"/>
       </Events>
     </Component>
+    <Component class="javax.swing.JCheckBox" name="checkGetLessonMaterials">
+      <Properties>
+        <Property name="selected" type="boolean" value="true"/>
+        <Property name="text" type="java.lang.String" value="Lessons"/>
+      </Properties>
+    </Component>
     <Component class="javax.swing.JButton" name="buttonHeaderGrouped">
       <Properties>
         <Property name="text" type="java.lang.String" value="Run Header Line"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonHeaderGroupedActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="buttonItemGrouped">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Run Item Line"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonItemGroupedActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonCopyTitle">
@@ -435,20 +430,13 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTickViewActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="buttonAutoItems">
+    <Component class="javax.swing.JButton" name="buttonItemGrouped">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Auto Items"/>
+        <Property name="text" type="java.lang.String" value="Run Item Line"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAutoItemsActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonItemGroupedActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="editAutoItem">
-      <Properties>
-        <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
-          <SpinnerModel initial="90" numberType="java.lang.Integer" stepSize="1" type="number"/>
-        </Property>
-      </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkWatch">
       <Properties>
@@ -456,11 +444,13 @@
         <Property name="text" type="java.lang.String" value="Check Watch"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JCheckBox" name="checkGetLessonMaterials">
+    <Component class="javax.swing.JButton" name="buttonAutoItems">
       <Properties>
-        <Property name="selected" type="boolean" value="true"/>
-        <Property name="text" type="java.lang.String" value="Lessons"/>
+        <Property name="text" type="java.lang.String" value="Start Auto Items"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAutoItemsActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
