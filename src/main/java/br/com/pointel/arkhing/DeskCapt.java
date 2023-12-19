@@ -75,6 +75,7 @@ public class DeskCapt extends javax.swing.JPanel {
         buttonAutoItems = new javax.swing.JButton();
         editAutoItem = new javax.swing.JSpinner();
         checkWatch = new javax.swing.JCheckBox();
+        checkGetLessonMaterials = new javax.swing.JCheckBox();
 
         buttonView.setText("Source");
         buttonView.addActionListener(new java.awt.event.ActionListener() {
@@ -247,6 +248,9 @@ public class DeskCapt extends javax.swing.JPanel {
         checkWatch.setSelected(true);
         checkWatch.setText("Check Watch");
 
+        checkGetLessonMaterials.setSelected(true);
+        checkGetLessonMaterials.setText("Lessons");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -290,6 +294,8 @@ public class DeskCapt extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonOpenDownloads)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(checkGetLessonMaterials)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonHeaderGrouped))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(editItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -378,7 +384,8 @@ public class DeskCapt extends javax.swing.JPanel {
                     .addComponent(buttonNextHeader)
                     .addComponent(buttonOpenDownloads)
                     .addComponent(buttonHeaderGrouped)
-                    .addComponent(buttonGetLessonMaterials))
+                    .addComponent(buttonGetLessonMaterials)
+                    .addComponent(checkGetLessonMaterials))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -683,7 +690,9 @@ public class DeskCapt extends javax.swing.JPanel {
     private void runHeaderLine() {
         actNextHeader();
         WizBase.sleep(1200);
-        actGetLessonMaterials();
+        if (checkGetLessonMaterials.isSelected()) {
+            actGetLessonMaterials();
+        }
         WizBase.sleep(1200);
         actOpenDownloads();
     }
@@ -814,6 +823,7 @@ public class DeskCapt extends javax.swing.JPanel {
     private javax.swing.JButton buttonTickView;
     private javax.swing.JButton buttonView;
     private javax.swing.JCheckBox checkAutoMakeDocuments;
+    private javax.swing.JCheckBox checkGetLessonMaterials;
     private javax.swing.JCheckBox checkWatch;
     private javax.swing.JComboBox<Display> comboDisplays;
     private javax.swing.JComboBox<String> comboMethod;
