@@ -766,6 +766,7 @@ public class DeskCapt extends javax.swing.JPanel {
                     } finally {
                         isMakingAutoItems = false;
                         SwingUtilities.invokeLater(() -> buttonAutoItems.setText("Start Auto Items"));
+                        WizSwing.showInfo("Done.");
                     }
                 }
             }.start();
