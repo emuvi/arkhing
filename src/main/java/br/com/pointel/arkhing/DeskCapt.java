@@ -745,6 +745,12 @@ public class DeskCapt extends javax.swing.JPanel {
                         while (!stopMakingAutoItems) {
                             while (isToCheckWatch && desk.deskPack.hasAnyFileInWatchFolder()) {
                                 WizBase.sleep(1200);
+                                if (stopMakingAutoItems) {
+                                    break;
+                                }
+                            }
+                            if (stopMakingAutoItems) {
+                                break;
                             }
                             SwingUtilities.invokeAndWait(() -> {
                                 try {
