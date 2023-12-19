@@ -692,8 +692,8 @@ public class DeskCapt extends javax.swing.JPanel {
         WizBase.sleep(1200);
         if (checkGetLessonMaterials.isSelected()) {
             actGetLessonMaterials();
+            WizBase.sleep(1200);
         }
-        WizBase.sleep(1200);
         actOpenDownloads();
     }
 
