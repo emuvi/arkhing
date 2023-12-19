@@ -121,7 +121,8 @@ public class FolderMirror {
             while (!isDoneLoad()) {
                 WizBase.sleep(100);
             }
-            findToClean(destiny);
+            findFilesToClean(destiny);
+            findFoldersToClean(destiny);
             send("Finished to clean: " + destiny.getAbsolutePath());
         } catch (Exception e) {
             send("Error on clean: " + e.getMessage());
@@ -130,10 +131,10 @@ public class FolderMirror {
         }
     }
     
-    private void findToClean(File path) {
+    private void findFilesToClean(File path) {
         if (path.isDirectory()) {
             for (var inside : path.listFiles()) {
-                findToClean(inside);
+                findFilesToClean(inside);
             }
         } else {
             if (destinyFounds.contains(path)) {
@@ -141,12 +142,16 @@ public class FolderMirror {
             } else {
                 send("Remove on clean: " + path.getAbsolutePath());
                 path.delete();
-                var parent = path.getParentFile();
-                while (parent != null) {
-                    parent.delete();
-                    parent = parent.getParentFile();
-                }
             }
+        }
+    }
+    
+    private void findFoldersToClean(File path) {
+        if (path.isDirectory()) {
+            for (var inside : path.listFiles()) {
+                findFoldersToClean(inside);
+            }
+            path.delete();
         }
     }
 
