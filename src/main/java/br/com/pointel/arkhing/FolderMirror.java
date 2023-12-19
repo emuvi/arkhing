@@ -104,6 +104,7 @@ public class FolderMirror {
                         send("Finished copying: " + relative.getAbsolutePath());
                     } catch (Exception e) {
                         send("Error on copy: " + e.getMessage());
+                        e.printStackTrace();
                     }
                 } else {
                     send("No need to copy: " + relative.getAbsolutePath());
@@ -111,6 +112,7 @@ public class FolderMirror {
             }
         } catch (Exception e) {
             send("Error on load: " + e.getMessage());
+            e.printStackTrace();
         } finally {
             doneLoader.incrementAndGet();
         }
@@ -126,6 +128,7 @@ public class FolderMirror {
             send("Finished to clean: " + destiny.getAbsolutePath());
         } catch (Exception e) {
             send("Error on clean: " + e.getMessage());
+            e.printStackTrace();
         } finally {
             doneClean.set(true);
         }
