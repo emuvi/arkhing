@@ -15,18 +15,17 @@ import java.util.concurrent.Executors;
 import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.WebDriver;
 
 /**
  *
  * @author emuvi
  */
 public class DeskCapt extends javax.swing.JPanel {
-
+    
     private final Desk desk;
-
+    
     private Rectangle source;
-
+    
     public DeskCapt(Desk desk) {
         this.desk = desk;
         initComponents();
@@ -34,13 +33,14 @@ public class DeskCapt extends javax.swing.JPanel {
             comboDisplays.addItem(new Display(device));
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         panelImaging = new javax.swing.JPanel();
+        labelScraping = new javax.swing.JLabel();
         comboDisplays = new javax.swing.JComboBox<>();
         buttonView = new javax.swing.JButton();
         editDestiny = new javax.swing.JTextField();
@@ -57,8 +57,13 @@ public class DeskCapt extends javax.swing.JPanel {
         buttonNew = new javax.swing.JButton();
         buttonMakeDocuments = new javax.swing.JButton();
         checkAutoMakeDocuments = new javax.swing.JCheckBox();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelStacking = new javax.swing.JLabel();
+        buttonClear = new javax.swing.JButton();
+        buttonStack = new javax.swing.JButton();
+        comboAlignment = new javax.swing.JComboBox<>();
+        buttonCompose = new javax.swing.JButton();
+        checkAutoStack = new javax.swing.JCheckBox();
+        labelStackStatus = new javax.swing.JLabel();
         panelCrawling = new javax.swing.JPanel();
         buttonEstrategiaStart = new javax.swing.JButton();
         buttonEstrategiaStop = new javax.swing.JButton();
@@ -80,6 +85,8 @@ public class DeskCapt extends javax.swing.JPanel {
         buttonAutoItems = new javax.swing.JButton();
         labelEstrategia = new javax.swing.JLabel();
         editEstrategia = new javax.swing.JTextField();
+
+        labelScraping.setText("Scraping");
 
         buttonView.setText("Source");
         buttonView.addActionListener(new java.awt.event.ActionListener() {
@@ -141,9 +148,39 @@ public class DeskCapt extends javax.swing.JPanel {
         checkAutoMakeDocuments.setSelected(true);
         checkAutoMakeDocuments.setText("Auto");
 
-        jLabel1.setText("Scraping");
+        labelStacking.setText("Stacking");
 
-        jLabel2.setText("Stacking");
+        buttonClear.setText("Clear");
+        buttonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonClearActionPerformed(evt);
+            }
+        });
+
+        buttonStack.setText("Stack");
+        buttonStack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonStackActionPerformed(evt);
+            }
+        });
+
+        comboAlignment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Left", "Center", "Right" }));
+
+        buttonCompose.setText("Compose");
+        buttonCompose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonComposeActionPerformed(evt);
+            }
+        });
+
+        checkAutoStack.setText("Auto");
+        checkAutoStack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkAutoStackActionPerformed(evt);
+            }
+        });
+
+        labelStackStatus.setText("0 stacked");
 
         javax.swing.GroupLayout panelImagingLayout = new javax.swing.GroupLayout(panelImaging);
         panelImaging.setLayout(panelImagingLayout);
@@ -190,8 +227,21 @@ public class DeskCapt extends javax.swing.JPanel {
                                 .addComponent(buttonMakeDocuments))))
                     .addGroup(panelImagingLayout.createSequentialGroup()
                         .addGroup(panelImagingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(labelScraping)
+                            .addComponent(labelStacking)
+                            .addGroup(panelImagingLayout.createSequentialGroup()
+                                .addComponent(buttonClear)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelImagingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonStack)
+                                    .addComponent(checkAutoStack))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelImagingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelImagingLayout.createSequentialGroup()
+                                        .addComponent(comboAlignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonCompose))
+                                    .addComponent(labelStackStatus))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -199,7 +249,7 @@ public class DeskCapt extends javax.swing.JPanel {
             panelImagingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelImagingLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(labelScraping)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelImagingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboDisplays, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -227,8 +277,18 @@ public class DeskCapt extends javax.swing.JPanel {
                     .addComponent(buttonMakeDocuments)
                     .addComponent(checkAutoMakeDocuments))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addContainerGap(177, Short.MAX_VALUE))
+                .addComponent(labelStacking)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelImagingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonClear)
+                    .addComponent(buttonStack)
+                    .addComponent(comboAlignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonCompose))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelImagingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkAutoStack)
+                    .addComponent(labelStackStatus))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Imaging", panelImaging);
@@ -477,7 +537,7 @@ public class DeskCapt extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonSelectActionPerformed
-
+    
     private volatile boolean making = false;
 
     private void buttonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStartActionPerformed
@@ -499,7 +559,7 @@ public class DeskCapt extends javax.swing.JPanel {
             var pressDown = "Press Down".equals(comboMethod.getSelectedItem());
             new Thread() {
                 BufferedImage beforeCapture = null;
-
+                
                 private void save(BufferedImage capture) throws Exception {
                     var indexPage = 1;
                     var pageNameSuffix = StringUtils.leftPad(String.valueOf(indexPage), 3, '0');
@@ -511,7 +571,7 @@ public class DeskCapt extends javax.swing.JPanel {
                     }
                     ImageIO.write(capture, "PNG", filePage);
                 }
-
+                
                 @Override
                 public void run() {
                     try {
@@ -568,7 +628,7 @@ public class DeskCapt extends javax.swing.JPanel {
                             SwingUtilities.invokeLater(() -> buttonStart.requestFocusInWindow());
                             robot.delay((int) waitTime);
                         }
-
+                        
                     } catch (Exception e) {
                         WizSwing.showError(e);
                     } finally {
@@ -620,7 +680,7 @@ public class DeskCapt extends javax.swing.JPanel {
             makeDocuments(selected);
         }
     }//GEN-LAST:event_buttonMakeDocumentsActionPerformed
-
+    
     private Estrategia estrategia = null;
 
     private void buttonEstrategiaStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEstrategiaStartActionPerformed
@@ -662,7 +722,7 @@ public class DeskCapt extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonNextHeaderActionPerformed
-
+    
     private void actNextHeader() {
         editHeader.setValue(((int) editHeader.getValue()) + 1);
         estrategia.openHeader((int) editHeader.getValue());
@@ -676,7 +736,7 @@ public class DeskCapt extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonGetLessonMaterialsActionPerformed
-
+    
     private void actGetLessonMaterials() {
         estrategia.getLessonMaterials((int) editHeader.getValue());
     }
@@ -696,7 +756,7 @@ public class DeskCapt extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonNextItemActionPerformed
-
+    
     private void actNextItem() {
         editItem.setValue(((int) editItem.getValue()) + 1);
         estrategia.openItem((int) editHeader.getValue(), (int) editItem.getValue());
@@ -709,7 +769,7 @@ public class DeskCapt extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonOpenDownloadsActionPerformed
-
+    
     private void actOpenDownloads() {
         estrategia.openDownloads((int) editHeader.getValue());
     }
@@ -721,7 +781,7 @@ public class DeskCapt extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonMakeDownloadActionPerformed
-
+    
     private void actMakeDownloads() {
         estrategia.makeDownloads((int) editHeader.getValue());
     }
@@ -735,7 +795,7 @@ public class DeskCapt extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonHeaderGroupedActionPerformed
-
+    
     private void runHeaderLine() {
         actNextHeader();
         WizBase.sleep(1200);
@@ -755,7 +815,7 @@ public class DeskCapt extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonItemGroupedActionPerformed
-
+    
     private void runItemLine() {
         actNextItem();
         WizBase.sleep(1200);
@@ -781,7 +841,7 @@ public class DeskCapt extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonTickViewActionPerformed
-
+    
     private volatile boolean isMakingAutoItems = false;
     private volatile boolean stopMakingAutoItems = false;
 
@@ -826,18 +886,68 @@ public class DeskCapt extends javax.swing.JPanel {
                 }
             }.start();
         }
-
-
     }//GEN-LAST:event_buttonAutoItemsActionPerformed
+    
+    private final StackImage stackImage = new StackImage();
 
+    private void buttonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClearActionPerformed
+        try {
+            stackImage.clear();
+            labelStackStatus.setText(stackImage.getSize() + " stacked");
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonClearActionPerformed
+
+    private void buttonStackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStackActionPerformed
+        try {
+            stackImage.stackFromClipboard();
+            labelStackStatus.setText(stackImage.getSize() + " stacked");
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonStackActionPerformed
+
+    private void buttonComposeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonComposeActionPerformed
+        try {
+            stackImage.composeToClipboard((String) comboAlignment.getSelectedItem());
+            WizSwing.showInfo("Image composed and sent to clipboard.");
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonComposeActionPerformed
+    
+    private volatile boolean isStackingImages = false;
+
+    private void checkAutoStackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkAutoStackActionPerformed
+        isStackingImages = checkAutoStack.isSelected();
+        if (isStackingImages) {
+            new Thread("Auto Stack Images") {
+                @Override
+                public void run() {
+                    try {
+                        while (isStackingImages) {
+                            if (stackImage.tryToStackFromClipboardIfNew()) {
+                                SwingUtilities.invokeLater(() -> labelStackStatus.setText(stackImage.getSize() + " stacked"));
+                            }
+                            WizBase.sleep(500);
+                        }
+                    } catch (Exception e) {
+                        WizSwing.showError(e);
+                    }
+                }
+            }.start();
+        }
+    }//GEN-LAST:event_checkAutoStackActionPerformed
+    
     private void actCopyTitle() {
         estrategia.copyTitle((int) editHeader.getValue(), (int) editItem.getValue());
     }
-
+    
     private void actTickView() {
         estrategia.tickView((int) editHeader.getValue());
     }
-
+    
     private int getCaptFolderIndex(String folderName) {
         if (folderName.startsWith("Capt-")) {
             try {
@@ -847,7 +957,7 @@ public class DeskCapt extends javax.swing.JPanel {
         }
         return 0;
     }
-
+    
     private void captureAllScreens() {
         try {
             var index = 1;
@@ -861,7 +971,7 @@ public class DeskCapt extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }
-
+    
     private void makeDocuments(File folder) {
         documentRunner.execute(() -> {
             try {
@@ -879,11 +989,13 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         }
     }
-
+    
     Executor documentRunner = Executors.newSingleThreadExecutor();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAutoItems;
+    private javax.swing.JButton buttonClear;
+    private javax.swing.JButton buttonCompose;
     private javax.swing.JButton buttonCopyTitle;
     private javax.swing.JButton buttonEstrategiaClean;
     private javax.swing.JButton buttonEstrategiaLogin;
@@ -900,12 +1012,15 @@ public class DeskCapt extends javax.swing.JPanel {
     private javax.swing.JButton buttonOpen;
     private javax.swing.JButton buttonOpenDownloads;
     private javax.swing.JButton buttonSelect;
+    private javax.swing.JButton buttonStack;
     private javax.swing.JButton buttonStart;
     private javax.swing.JButton buttonTickView;
     private javax.swing.JButton buttonView;
     private javax.swing.JCheckBox checkAutoMakeDocuments;
+    private javax.swing.JCheckBox checkAutoStack;
     private javax.swing.JCheckBox checkGetLessonMaterials;
     private javax.swing.JCheckBox checkWatch;
+    private javax.swing.JComboBox<String> comboAlignment;
     private javax.swing.JComboBox<Display> comboDisplays;
     private javax.swing.JComboBox<String> comboMethod;
     private javax.swing.JTextField editDestiny;
@@ -915,12 +1030,13 @@ public class DeskCapt extends javax.swing.JPanel {
     private javax.swing.JSpinner editPages;
     private javax.swing.JTextField editSource;
     private javax.swing.JSpinner editWait;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel labelEstrategia;
     private javax.swing.JLabel labelMethod;
     private javax.swing.JLabel labelPages;
+    private javax.swing.JLabel labelScraping;
+    private javax.swing.JLabel labelStackStatus;
+    private javax.swing.JLabel labelStacking;
     private javax.swing.JLabel labelWait;
     private javax.swing.JPanel panelCrawling;
     private javax.swing.JPanel panelImaging;
