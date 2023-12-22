@@ -166,6 +166,7 @@ public class DeskCapt extends javax.swing.JPanel {
         });
 
         comboAlignment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Left", "Center", "Right" }));
+        comboAlignment.setSelectedIndex(1);
 
         buttonCompose.setText("Compose");
         buttonCompose.addActionListener(new java.awt.event.ActionListener() {
