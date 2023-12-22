@@ -17,6 +17,10 @@ public class StackImage implements ClipboardOwner {
     private BufferedImage discardOnTryToStack = null;
 
     public void clear() {
+        try {
+            discardOnTryToStack = getFromClipboard();
+        } catch (Exception e) {
+        }
         images.clear();
     }
 
