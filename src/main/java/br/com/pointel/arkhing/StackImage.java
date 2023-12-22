@@ -14,6 +14,8 @@ public class StackImage implements ClipboardOwner {
 
     private final List<BufferedImage> images = new ArrayList<>();
 
+    private BufferedImage discardOnTryToStack = null;
+
     public void clear() {
         images.clear();
     }
@@ -26,7 +28,8 @@ public class StackImage implements ClipboardOwner {
     public boolean tryToStackFromClipboardIfNew() throws Exception {
         try {
             var image = getFromClipboard();
-            if (getSize() == 0 || !WizImage.isSame(image, images.get(getSize() - 1))) {
+            if ((discardOnTryToStack == null || !WizImage.isSame(image, discardOnTryToStack))
+                    && (getSize() == 0 || !WizImage.isSame(image, images.get(getSize() - 1)))) {
                 images.add(image);
                 return true;
             }
@@ -69,6 +72,7 @@ public class StackImage implements ClipboardOwner {
             composed.getGraphics().drawImage(image, x, top, null);
             top += image.getHeight();
         }
+        discardOnTryToStack = composed;
         Toolkit.getDefaultToolkit().getSystemClipboard()
                 .setContents(new TransferableImage(composed), this);
     }

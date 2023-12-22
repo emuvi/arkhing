@@ -112,16 +112,17 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="comboAlignment" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="buttonCompose" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="labelStackStatus" min="-2" max="-2" attributes="0"/>
+                                          <Component id="comboAlignment" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="labelStackStatus" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="checkClearOnCompose" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonCompose" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="382" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -177,6 +178,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="checkAutoStack" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="labelStackStatus" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkClearOnCompose" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="122" max="32767" attributes="0"/>
                   </Group>
@@ -356,6 +358,11 @@
             <Component class="javax.swing.JLabel" name="labelStackStatus">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0 stacked"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkClearOnCompose">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Clear"/>
               </Properties>
             </Component>
           </SubComponents>

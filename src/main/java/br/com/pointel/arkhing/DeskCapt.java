@@ -64,6 +64,7 @@ public class DeskCapt extends javax.swing.JPanel {
         buttonCompose = new javax.swing.JButton();
         checkAutoStack = new javax.swing.JCheckBox();
         labelStackStatus = new javax.swing.JLabel();
+        checkClearOnCompose = new javax.swing.JCheckBox();
         panelCrawling = new javax.swing.JPanel();
         buttonEstrategiaStart = new javax.swing.JButton();
         buttonEstrategiaStop = new javax.swing.JButton();
@@ -182,6 +183,8 @@ public class DeskCapt extends javax.swing.JPanel {
 
         labelStackStatus.setText("0 stacked");
 
+        checkClearOnCompose.setText("Clear");
+
         javax.swing.GroupLayout panelImagingLayout = new javax.swing.GroupLayout(panelImaging);
         panelImaging.setLayout(panelImagingLayout);
         panelImagingLayout.setHorizontalGroup(
@@ -237,12 +240,13 @@ public class DeskCapt extends javax.swing.JPanel {
                                     .addComponent(checkAutoStack))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelImagingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelImagingLayout.createSequentialGroup()
-                                        .addComponent(comboAlignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonCompose))
-                                    .addComponent(labelStackStatus))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                    .addComponent(comboAlignment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labelStackStatus))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelImagingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(checkClearOnCompose)
+                                    .addComponent(buttonCompose))))
+                        .addGap(0, 382, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelImagingLayout.setVerticalGroup(
@@ -287,7 +291,8 @@ public class DeskCapt extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelImagingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(checkAutoStack)
-                    .addComponent(labelStackStatus))
+                    .addComponent(labelStackStatus)
+                    .addComponent(checkClearOnCompose))
                 .addContainerGap(122, Short.MAX_VALUE))
         );
 
@@ -1018,6 +1023,7 @@ public class DeskCapt extends javax.swing.JPanel {
     private javax.swing.JButton buttonView;
     private javax.swing.JCheckBox checkAutoMakeDocuments;
     private javax.swing.JCheckBox checkAutoStack;
+    private javax.swing.JCheckBox checkClearOnCompose;
     private javax.swing.JCheckBox checkGetLessonMaterials;
     private javax.swing.JCheckBox checkWatch;
     private javax.swing.JComboBox<String> comboAlignment;
