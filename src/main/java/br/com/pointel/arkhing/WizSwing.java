@@ -47,6 +47,12 @@ public class WizSwing {
                         null, message, "Confirm",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
+    
+    public static String showInput(String message) {
+        return JOptionPane.showInputDialog(
+                        null, message, "Input",
+                        JOptionPane.QUESTION_MESSAGE);
+    }
 
     public static String getStringOnClipboard() throws Exception {
         Clipboard systemClipboard = Toolkit.getDefaultToolkit().getSystemClipboard();

@@ -5,9 +5,12 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.file.Files;
 import java.util.List;
-import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -29,13 +32,23 @@ public class Catalog extends javax.swing.JFrame {
         this.files = files;
         WizSwing.initPositioner(this);
         initComponents();
+        loadRoot();
         panelPage.add(drawPanel);
+    }
+
+    private void loadRoot() {
+        for (var inside : desk.arkhBase.root.listFiles()) {
+            if (inside.isDirectory()) {
+                comboRaiz.addItem(inside.getName());
+            }
+        }
     }
 
     private void loadPage() throws Exception {
         try (var document = PDDocument.load(files.get(fileIndex))) {
             loadPageImage(document);
             loadPageText(document);
+            textPage.requestFocus();
         }
     }
 
@@ -77,7 +90,6 @@ public class Catalog extends javax.swing.JFrame {
         buttonAuthor = new javax.swing.JButton();
         buttonCatalog = new javax.swing.JButton();
         buttonJump = new javax.swing.JButton();
-        buttonTerminate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Arkhing - Catalog");
@@ -174,14 +186,6 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
-        buttonTerminate.setMnemonic('M');
-        buttonTerminate.setText("Terminate");
-        buttonTerminate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTerminateActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelActionsLayout = new javax.swing.GroupLayout(panelActions);
         panelActions.setLayout(panelActionsLayout);
         panelActionsLayout.setHorizontalGroup(
@@ -190,7 +194,7 @@ public class Catalog extends javax.swing.JFrame {
                 .addComponent(buttonPrior)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonNext)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
                 .addComponent(buttonTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonSubtitle)
@@ -199,16 +203,13 @@ public class Catalog extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(buttonCatalog)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonJump)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonTerminate))
+                .addComponent(buttonJump))
         );
         panelActionsLayout.setVerticalGroup(
             panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelActionsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonTerminate)
                     .addComponent(buttonPrior)
                     .addComponent(buttonNext)
                     .addComponent(buttonJump)
@@ -279,37 +280,61 @@ public class Catalog extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNextActionPerformed
 
     private void buttonTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTitleActionPerformed
-        editTitle.setText(textPage.getSelectedText());
+        editTitle.setText(StringUtils.capitalize(textPage.getSelectedText().toLowerCase()));
     }//GEN-LAST:event_buttonTitleActionPerformed
 
     private void buttonSubtitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSubtitleActionPerformed
-        editSubtitle.setText(textPage.getSelectedText());
+        editSubtitle.setText(StringUtils.capitalize(textPage.getSelectedText().toLowerCase()));
     }//GEN-LAST:event_buttonSubtitleActionPerformed
 
     private void buttonCatalogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCatalogActionPerformed
-        // TODO add your handling code here:
+        try {
+            var destinyFolder = new File(desk.arkhBase.root, (String) comboRaiz.getSelectedItem());
+            Files.createDirectories(destinyFolder.toPath());
+            var destinyName = editTitle.getText().trim();
+            if (!editSubtitle.getText().isBlank()) {
+                destinyName += " - " + editSubtitle.getText().trim();
+            }
+            if (!editAuthor.getText().isBlank()) {
+                destinyName += " - " + editAuthor.getText().trim();
+            }
+            destinyName += "." + FilenameUtils.getExtension(files.get(fileIndex).getName());
+            var destinyFile = new File(destinyFolder, destinyName);
+            Files.move(files.get(fileIndex).toPath(), destinyFile.toPath());
+            actJump();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
     }//GEN-LAST:event_buttonCatalogActionPerformed
 
     private void buttonJumpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonJumpActionPerformed
         try {
-            if (fileIndex < files.size() - 1) {
-                fileIndex++;
-                pageIndex = 0;
-                loadPage();
-            } else {
-                WizSwing.close(this);
-            }
+            actJump();
         } catch (Exception e) {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonJumpActionPerformed
 
-    private void buttonTerminateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTerminateActionPerformed
-        WizSwing.close(this);
-    }//GEN-LAST:event_buttonTerminateActionPerformed
+    private void actJump() throws Exception {
+        if (fileIndex < files.size() - 1) {
+            fileIndex++;
+            pageIndex = 0;
+            loadPage();
+        } else {
+            WizSwing.close(this);
+        }
+    }
 
     private void buttonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNewActionPerformed
-        // TODO add your handling code here:
+        try {
+            var newClass = WizSwing.showInput("New Class");
+            if (newClass != null && !newClass.isBlank()) {
+                comboRaiz.addItem(newClass);
+                comboRaiz.setSelectedItem(newClass);
+            }
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
     }//GEN-LAST:event_buttonNewActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -320,7 +345,6 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JButton buttonNext;
     private javax.swing.JButton buttonPrior;
     private javax.swing.JButton buttonSubtitle;
-    private javax.swing.JButton buttonTerminate;
     private javax.swing.JButton buttonTitle;
     private javax.swing.JComboBox<String> comboRaiz;
     private javax.swing.JTextField editAuthor;
