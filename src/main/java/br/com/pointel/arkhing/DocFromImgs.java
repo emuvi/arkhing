@@ -7,12 +7,12 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
-public class CaptPDF {
+public class DocFromImgs {
 
     private final File folder;
 
-    public CaptPDF(File folder) {
-        this.folder = folder;
+    public DocFromImgs(File inFolder) {
+        this.folder = inFolder;
     }
 
     public File make() throws Exception {

@@ -74,10 +74,7 @@ public class DeskClog extends javax.swing.JPanel {
             } catch (UnsupportedFlavorException | IOException ex) {
                 return false;
             }
-            
-            for (File file : files) {
-                System.out.println(file);
-            }
+            new Catalog(desk, files).setVisible(true);
             return true;
         }
     }

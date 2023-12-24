@@ -964,24 +964,10 @@ public class DeskCapt extends javax.swing.JPanel {
         return 0;
     }
     
-    private void captureAllScreens() {
-        try {
-            var index = 1;
-            for (GraphicsDevice gd : GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()) {
-                Rectangle screenRect = gd.getDefaultConfiguration().getBounds();
-                BufferedImage capture = new Robot().createScreenCapture(screenRect);
-                ImageIO.write(capture, "PNG", new File("screen-" + index + ".png"));
-                index++;
-            }
-        } catch (Exception e) {
-            WizSwing.showError(e);
-        }
-    }
-    
     private void makeDocuments(File folder) {
         documentRunner.execute(() -> {
             try {
-                var documentFile = new CaptPDF(folder).make();
+                var documentFile = new DocFromImgs(folder).make();
                 if (documentFile != null) {
                     desk.putStatus("Made: " + documentFile.getAbsolutePath());
                 }
