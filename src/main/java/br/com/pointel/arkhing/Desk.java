@@ -13,6 +13,8 @@ public class Desk extends javax.swing.JFrame {
     public final DeskOrgz deskOrgz = new DeskOrgz(this);
     public final DeskDocs deskDocs = new DeskDocs(this);
     public final DeskCapt deskCapt = new DeskCapt(this);
+    public final DeskClog deskClog = new DeskClog(this);
+    public final DeskMirr deskMirr = new DeskMirr(this);
 
     public volatile ArkhBase arkhBase = null;
 
@@ -23,6 +25,8 @@ public class Desk extends javax.swing.JFrame {
         tabsBody.addTab("Orgz", deskOrgz);
         tabsBody.addTab("Docs", deskDocs);
         tabsBody.addTab("Capt", deskCapt);
+        tabsBody.addTab("Clog", deskClog);
+        tabsBody.addTab("Mirr", deskMirr);
         WizSwing.initPositioner(this);
         initShortcuts();
     }
