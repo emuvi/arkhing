@@ -8,15 +8,15 @@ import java.util.List;
 import javax.swing.TransferHandler;
 
 public class DeskClog extends javax.swing.JPanel {
-    
+
     private final Desk desk;
-    
+
     public DeskClog(Desk desk) {
         this.desk = desk;
         setTransferHandler(new FileDropHandler());
         initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -59,24 +59,23 @@ public class DeskClog extends javax.swing.JPanel {
             }
             return false;
         }
-        
+
         @Override
         @SuppressWarnings("unchecked")
         public boolean importData(TransferHandler.TransferSupport support) {
             if (!this.canImport(support)) {
                 return false;
             }
-            
-            List<File> files;
             try {
-                files = (List<File>) support.getTransferable()
+                var files = (List<File>) support.getTransferable()
                         .getTransferData(DataFlavor.javaFileListFlavor);
-            } catch (UnsupportedFlavorException | IOException ex) {
+                new Catalog(desk, files).setVisible(true);
+                return true;
+            } catch (Exception ex) {
+                WizSwing.showError(ex);
                 return false;
             }
-            new Catalog(desk, files).setVisible(true);
-            return true;
         }
     }
-    
+
 }

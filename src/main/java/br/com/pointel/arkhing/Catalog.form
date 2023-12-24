@@ -88,6 +88,9 @@
         <Property name="mnemonic" type="int" value="78"/>
         <Property name="text" type="java.lang.String" value="New"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNewActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="panelNaming">
 
@@ -130,17 +133,9 @@
       <SubComponents>
         <Container class="javax.swing.JPanel" name="panelPage">
 
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="394" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="490" max="32767" attributes="0"/>
-              </Group>
-            </DimensionLayout>
+          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignGridLayout">
+            <Property name="columns" type="int" value="1"/>
+            <Property name="rows" type="int" value="1"/>
           </Layout>
         </Container>
         <Container class="javax.swing.JScrollPane" name="scrollPage">
@@ -212,24 +207,36 @@
             <Property name="mnemonic" type="int" value="82"/>
             <Property name="text" type="java.lang.String" value="Prior"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPriorActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonNext">
           <Properties>
             <Property name="mnemonic" type="int" value="88"/>
             <Property name="text" type="java.lang.String" value="Next"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNextActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonTitle">
           <Properties>
             <Property name="mnemonic" type="int" value="84"/>
             <Property name="text" type="java.lang.String" value="Title"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTitleActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonSubtitle">
           <Properties>
             <Property name="mnemonic" type="int" value="83"/>
             <Property name="text" type="java.lang.String" value="Subtitle"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSubtitleActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonAuthor">
           <Properties>
@@ -245,18 +252,27 @@
             <Property name="mnemonic" type="int" value="67"/>
             <Property name="text" type="java.lang.String" value="Catalog"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCatalogActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonJump">
           <Properties>
             <Property name="mnemonic" type="int" value="74"/>
             <Property name="text" type="java.lang.String" value="Jump"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonJumpActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonTerminate">
           <Properties>
             <Property name="mnemonic" type="int" value="77"/>
             <Property name="text" type="java.lang.String" value="Terminate"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTerminateActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

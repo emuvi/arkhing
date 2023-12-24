@@ -1,19 +1,57 @@
 package br.com.pointel.arkhing;
 
-import java.awt.HeadlessException;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.rendering.ImageType;
+import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.pdfbox.text.PDFTextStripper;
 
 public class Catalog extends javax.swing.JFrame {
 
     private final Desk desk;
     private final List<File> files;
 
-    public Catalog(Desk desk, List<File> files) throws HeadlessException {
+    private int fileIndex = 0;
+    private int pageIndex = -1;
+
+    private Image pageImage = null;
+    private final DrawPanel drawPanel = new DrawPanel();
+
+    public Catalog(Desk desk, List<File> files) throws Exception {
         this.desk = desk;
         this.files = files;
         WizSwing.initPositioner(this);
         initComponents();
+        panelPage.add(drawPanel);
+    }
+
+    private void loadPage() throws Exception {
+        try (var document = PDDocument.load(files.get(fileIndex))) {
+            loadPageImage(document);
+            loadPageText(document);
+        }
+    }
+
+    private void loadPageImage(PDDocument document) throws Exception {
+        PDFRenderer pdfRenderer = new PDFRenderer(document);
+        BufferedImage imageRendered = pdfRenderer.renderImageWithDPI(pageIndex, 300, ImageType.RGB);
+        var scaledDimension = WizImage.getScaledDimension(new Dimension(imageRendered.getWidth(), imageRendered.getHeight()), panelPage.getSize());
+        pageImage = imageRendered.getScaledInstance((int) scaledDimension.getWidth(), (int) scaledDimension.getHeight(), Image.SCALE_SMOOTH);
+        panelPage.repaint();
+    }
+
+    private void loadPageText(PDDocument document) throws Exception {
+        var stripper = new PDFTextStripper();
+        stripper.setStartPage(pageIndex + 1);
+        stripper.setEndPage(pageIndex + 1);
+        textPage.setText(stripper.getText(document));
     }
 
     @SuppressWarnings("unchecked")
@@ -51,6 +89,11 @@ public class Catalog extends javax.swing.JFrame {
 
         buttonNew.setMnemonic('N');
         buttonNew.setText("New");
+        buttonNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNewActionPerformed(evt);
+            }
+        });
 
         panelNaming.setLayout(new java.awt.GridLayout(1, 0, 5, 5));
 
@@ -65,17 +108,7 @@ public class Catalog extends javax.swing.JFrame {
 
         panelViewer.setLayout(new java.awt.GridLayout());
 
-        javax.swing.GroupLayout panelPageLayout = new javax.swing.GroupLayout(panelPage);
-        panelPage.setLayout(panelPageLayout);
-        panelPageLayout.setHorizontalGroup(
-            panelPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
-        );
-        panelPageLayout.setVerticalGroup(
-            panelPageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
-        );
-
+        panelPage.setLayout(new java.awt.GridLayout(1, 1));
         panelViewer.add(panelPage);
 
         textPage.setColumns(20);
@@ -87,15 +120,35 @@ public class Catalog extends javax.swing.JFrame {
 
         buttonPrior.setMnemonic('R');
         buttonPrior.setText("Prior");
+        buttonPrior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPriorActionPerformed(evt);
+            }
+        });
 
         buttonNext.setMnemonic('X');
         buttonNext.setText("Next");
+        buttonNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNextActionPerformed(evt);
+            }
+        });
 
         buttonTitle.setMnemonic('T');
         buttonTitle.setText("Title");
+        buttonTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTitleActionPerformed(evt);
+            }
+        });
 
         buttonSubtitle.setMnemonic('S');
         buttonSubtitle.setText("Subtitle");
+        buttonSubtitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSubtitleActionPerformed(evt);
+            }
+        });
 
         buttonAuthor.setMnemonic('A');
         buttonAuthor.setText("Author");
@@ -107,12 +160,27 @@ public class Catalog extends javax.swing.JFrame {
 
         buttonCatalog.setMnemonic('C');
         buttonCatalog.setText("Catalog");
+        buttonCatalog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCatalogActionPerformed(evt);
+            }
+        });
 
         buttonJump.setMnemonic('J');
         buttonJump.setText("Jump");
+        buttonJump.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonJumpActionPerformed(evt);
+            }
+        });
 
         buttonTerminate.setMnemonic('M');
         buttonTerminate.setText("Terminate");
+        buttonTerminate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTerminateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelActionsLayout = new javax.swing.GroupLayout(panelActions);
         panelActions.setLayout(panelActionsLayout);
@@ -187,8 +255,62 @@ public class Catalog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAuthorActionPerformed
-        // TODO add your handling code here:
+        editAuthor.setText(textPage.getSelectedText());
     }//GEN-LAST:event_buttonAuthorActionPerformed
+
+    private void buttonPriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPriorActionPerformed
+        try {
+            if (pageIndex > -1) {
+                pageIndex--;
+                loadPage();
+            }
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonPriorActionPerformed
+
+    private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
+        try {
+            pageIndex++;
+            loadPage();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonNextActionPerformed
+
+    private void buttonTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTitleActionPerformed
+        editTitle.setText(textPage.getSelectedText());
+    }//GEN-LAST:event_buttonTitleActionPerformed
+
+    private void buttonSubtitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSubtitleActionPerformed
+        editSubtitle.setText(textPage.getSelectedText());
+    }//GEN-LAST:event_buttonSubtitleActionPerformed
+
+    private void buttonCatalogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCatalogActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonCatalogActionPerformed
+
+    private void buttonJumpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonJumpActionPerformed
+        try {
+            if (fileIndex < files.size() - 1) {
+                fileIndex++;
+                pageIndex = 0;
+                loadPage();
+            } else {
+                WizSwing.close(this);
+            }
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonJumpActionPerformed
+
+    private void buttonTerminateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTerminateActionPerformed
+        WizSwing.close(this);
+    }//GEN-LAST:event_buttonTerminateActionPerformed
+
+    private void buttonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNewActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonNewActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
@@ -212,4 +334,17 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPage;
     private javax.swing.JTextArea textPage;
     // End of variables declaration//GEN-END:variables
+
+    private class DrawPanel extends JPanel {
+
+        @Override
+        public void paint(Graphics g) {
+            super.paint(g);
+            if (pageImage != null) {
+                g.drawImage(pageImage, 0, 0, null);
+            }
+        }
+
+    }
+
 }
