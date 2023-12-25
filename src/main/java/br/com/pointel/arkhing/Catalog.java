@@ -8,7 +8,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.util.List;
 import javax.swing.JPanel;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -21,6 +20,9 @@ public class Catalog extends javax.swing.JFrame {
     private final Desk desk;
     private final List<File> files;
 
+    private PDDocument document = null;
+
+    private int loadIndex = -1;
     private int fileIndex = 0;
     private int pageIndex = -1;
 
@@ -44,15 +46,21 @@ public class Catalog extends javax.swing.JFrame {
         }
     }
 
-    private void loadPage() throws Exception {
-        try (var document = PDDocument.load(files.get(fileIndex))) {
-            loadPageImage(document);
-            loadPageText(document);
-            textPage.requestFocus();
+    private void loadDocument() throws Exception {
+        if (loadIndex != fileIndex) {
+            document = PDDocument.load(files.get(fileIndex));
+            loadIndex = fileIndex;
         }
     }
 
-    private void loadPageImage(PDDocument document) throws Exception {
+    private void loadPage() throws Exception {
+        loadDocument();
+        loadPageImage();
+        loadPageText();
+        textPage.requestFocus();
+    }
+
+    private void loadPageImage() throws Exception {
         PDFRenderer pdfRenderer = new PDFRenderer(document);
         BufferedImage imageRendered = pdfRenderer.renderImageWithDPI(pageIndex, 300, ImageType.RGB);
         var scaledDimension = WizImage.getScaledDimension(new Dimension(imageRendered.getWidth(), imageRendered.getHeight()), panelPage.getSize());
@@ -60,7 +68,7 @@ public class Catalog extends javax.swing.JFrame {
         panelPage.repaint();
     }
 
-    private void loadPageText(PDDocument document) throws Exception {
+    private void loadPageText() throws Exception {
         var stripper = new PDFTextStripper();
         stripper.setStartPage(pageIndex + 1);
         stripper.setEndPage(pageIndex + 1);
