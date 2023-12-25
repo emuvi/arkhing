@@ -316,6 +316,9 @@ public class Catalog extends javax.swing.JFrame {
             }
             destinyName += "." + FilenameUtils.getExtension(files.get(fileIndex).getName());
             var destinyFile = new File(destinyFolder, destinyName);
+            if (destinyFile.exists()) {
+                throw new Exception ("Destiny file already exists.");
+            }
             Files.move(files.get(fileIndex).toPath(), destinyFile.toPath());
             actJump();
         } catch (Exception e) {
