@@ -372,12 +372,27 @@ public class Catalog extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonNextActionPerformed
 
+    private String cleanName(String name) {
+        return name.trim()
+                .replace("?", "")
+                .replace("\\", "")
+                .replace("\"", "")
+                .replace("/", "")
+                .replace("*", "")
+                .replace("<", "")
+                .replace(">", "")
+                .replace("|", "")
+                .replace(":", "~")
+                .replaceAll("\\s+", " ")
+                .toLowerCase();
+    }
+    
     private String cleanTitles(String titles) {
-        return StringUtils.capitalize(titles.trim().replaceAll("\\s+", " ").toLowerCase());
+        return StringUtils.capitalize(cleanName(titles));
     }
 
     private String cleanAuthor(String author) {
-        var parts = author.trim().toLowerCase().split("\\s+");
+        var parts = cleanName(author).split("\\s+");
         var result = "";
         for (int i = 0; i < parts.length; i++) {
             if (i > 0) {
