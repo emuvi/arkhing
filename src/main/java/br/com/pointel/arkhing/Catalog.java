@@ -8,6 +8,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -130,6 +131,7 @@ public class Catalog extends javax.swing.JFrame {
         panelActions = new javax.swing.JPanel();
         buttonPrior = new javax.swing.JButton();
         buttonNext = new javax.swing.JButton();
+        buttonClear = new javax.swing.JButton();
         buttonTitle = new javax.swing.JButton();
         buttonSubtitle = new javax.swing.JButton();
         buttonAuthor = new javax.swing.JButton();
@@ -200,6 +202,14 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
+        buttonClear.setMnemonic('e');
+        buttonClear.setText("Clear");
+        buttonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonClearActionPerformed(evt);
+            }
+        });
+
         buttonTitle.setMnemonic('T');
         buttonTitle.setText("Title");
         buttonTitle.addActionListener(new java.awt.event.ActionListener() {
@@ -252,7 +262,9 @@ public class Catalog extends javax.swing.JFrame {
                 .addComponent(buttonNext)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                .addComponent(buttonClear)
+                .addGap(18, 18, 18)
                 .addComponent(buttonTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonSubtitle)
@@ -275,7 +287,8 @@ public class Catalog extends javax.swing.JFrame {
                     .addComponent(buttonTitle)
                     .addComponent(buttonSubtitle)
                     .addComponent(buttonAuthor)
-                    .addComponent(labelStatus))
+                    .addComponent(labelStatus)
+                    .addComponent(buttonClear))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -319,7 +332,7 @@ public class Catalog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAuthorActionPerformed
-        editAuthor.setText(cleanAuthor(textPage.getSelectedText()));
+        editAuthor.setText(cleanAuthor(composeSelected(editAuthor)));
         textPage.requestFocus();
     }//GEN-LAST:event_buttonAuthorActionPerformed
 
@@ -361,13 +374,22 @@ public class Catalog extends javax.swing.JFrame {
         return result;
     }
 
+    private String composeSelected(JTextField withField) {
+        var result = withField.getText().trim();
+        var selected = textPage.getSelectedText().trim();
+        if (!result.isBlank() && !selected.isEmpty()) {
+            result = result + " " + selected;
+        }
+        return result;
+    }
+    
     private void buttonTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTitleActionPerformed
-        editTitle.setText(cleanTitles(textPage.getSelectedText()));
+        editTitle.setText(cleanTitles(composeSelected(editTitle)));
         textPage.requestFocus();
     }//GEN-LAST:event_buttonTitleActionPerformed
 
     private void buttonSubtitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSubtitleActionPerformed
-        editSubtitle.setText(cleanTitles(textPage.getSelectedText()));
+        editSubtitle.setText(cleanTitles(composeSelected(editSubtitle)));
         textPage.requestFocus();
     }//GEN-LAST:event_buttonSubtitleActionPerformed
 
@@ -442,10 +464,17 @@ public class Catalog extends javax.swing.JFrame {
         comboRaiz.requestFocus();
     }//GEN-LAST:event_buttonClazzActionPerformed
 
+    private void buttonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClearActionPerformed
+        editTitle.setText("");
+        editSubtitle.setText("");
+        editAuthor.setText("");
+    }//GEN-LAST:event_buttonClearActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
     private javax.swing.JButton buttonCatalog;
     private javax.swing.JButton buttonClazz;
+    private javax.swing.JButton buttonClear;
     private javax.swing.JButton buttonJump;
     private javax.swing.JButton buttonNew;
     private javax.swing.JButton buttonNext;
