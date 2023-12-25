@@ -256,7 +256,7 @@ public class Catalog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAuthorActionPerformed
-        editAuthor.setText(textPage.getSelectedText());
+        editAuthor.setText(cleanAuthor(textPage.getSelectedText()));
     }//GEN-LAST:event_buttonAuthorActionPerformed
 
     private void buttonPriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPriorActionPerformed
@@ -279,12 +279,28 @@ public class Catalog extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonNextActionPerformed
 
+    private String cleanTitles(String titles) {
+        return StringUtils.capitalize(titles.trim().replaceAll("\\s+", " ").toLowerCase());
+    }
+    
+    private String cleanAuthor(String author) {
+        var parts = author.trim().toLowerCase().split("\\s+");
+        var result = "";
+        for (int i = 0; i < parts.length; i++) {
+            if (i > 0) {
+                result += " ";
+            }
+            result += StringUtils.capitalize(parts[i]);
+        }
+        return result;
+    }
+    
     private void buttonTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTitleActionPerformed
-        editTitle.setText(StringUtils.capitalize(textPage.getSelectedText().toLowerCase()));
+        editTitle.setText(cleanTitles(textPage.getSelectedText()));
     }//GEN-LAST:event_buttonTitleActionPerformed
 
     private void buttonSubtitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSubtitleActionPerformed
-        editSubtitle.setText(StringUtils.capitalize(textPage.getSelectedText().toLowerCase()));
+        editSubtitle.setText(cleanTitles(textPage.getSelectedText()));
     }//GEN-LAST:event_buttonSubtitleActionPerformed
 
     private void buttonCatalogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCatalogActionPerformed
