@@ -128,7 +128,7 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
-        editWait.setModel(new javax.swing.SpinnerNumberModel(2.0d, null, null, 0.2d));
+        editWait.setModel(new javax.swing.SpinnerNumberModel(3.0d, null, null, 0.2d));
 
         labelWait.setText("Wait");
 
@@ -887,6 +887,7 @@ public class DeskCapt extends javax.swing.JPanel {
                     } finally {
                         isMakingAutoItems = false;
                         SwingUtilities.invokeLater(() -> buttonAutoItems.setText("Start Auto Items"));
+                        SwingUtilities.invokeLater(() -> editHeader.setValue(-1));
                         WizSwing.showInfo("Done Auto Items.");
                     }
                 }
