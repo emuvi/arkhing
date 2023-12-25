@@ -380,10 +380,10 @@ public class Catalog extends javax.swing.JFrame {
     private String composeSelected(JTextField withField) {
         var result = withField.getText().trim();
         var selected = textPage.getSelectedText().trim();
-        if (!result.isBlank() && !selected.isEmpty()) {
+        if (!selected.isBlank()) {
             result = result + " " + selected;
         }
-        return result;
+        return result.trim();
     }
     
     private void buttonTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTitleActionPerformed
