@@ -3,6 +3,7 @@ package br.com.pointel.arkhing;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.file.Files;
@@ -138,6 +139,7 @@ public class Catalog extends javax.swing.JFrame {
         buttonCatalog = new javax.swing.JButton();
         buttonJump = new javax.swing.JButton();
         labelStatus = new javax.swing.JLabel();
+        buttonOpen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Arkhing - Catalog");
@@ -292,6 +294,13 @@ public class Catalog extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        buttonOpen.setText("Open");
+        buttonOpen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOpenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -307,7 +316,9 @@ public class Catalog extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelDestiny, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonNew)))
+                        .addComponent(buttonNew)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonOpen)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -317,7 +328,9 @@ public class Catalog extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(buttonClazz, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(buttonNew, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonNew)
+                            .addComponent(buttonOpen)))
                     .addComponent(panelDestiny, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelNaming, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -470,6 +483,15 @@ public class Catalog extends javax.swing.JFrame {
         editAuthor.setText("");
     }//GEN-LAST:event_buttonClearActionPerformed
 
+    private void buttonOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOpenActionPerformed
+        try {
+            var destinyFolder = new File(desk.arkhBase.root, (String) comboRaiz.getSelectedItem());
+            WizSwing.open(destinyFolder);
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonOpenActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
     private javax.swing.JButton buttonCatalog;
@@ -478,6 +500,7 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JButton buttonJump;
     private javax.swing.JButton buttonNew;
     private javax.swing.JButton buttonNext;
+    private javax.swing.JButton buttonOpen;
     private javax.swing.JButton buttonPrior;
     private javax.swing.JButton buttonSubtitle;
     private javax.swing.JButton buttonTitle;
