@@ -8,6 +8,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -20,13 +21,13 @@ public class Catalog extends javax.swing.JFrame {
     private final Desk desk;
     private final List<File> files;
 
-    private PDDocument document = null;
+    private volatile PDDocument document = null;
 
-    private int loadIndex = -1;
-    private int fileIndex = 0;
-    private int pageIndex = -1;
+    private volatile int loadIndex = -1;
+    private volatile int fileIndex = 0;
+    private volatile int pageIndex = -1;
 
-    private Image pageImage = null;
+    private volatile Image pageImage = null;
     private final DrawPanel drawPanel = new DrawPanel();
 
     public Catalog(Desk desk, List<File> files) throws Exception {
@@ -61,11 +62,40 @@ public class Catalog extends javax.swing.JFrame {
     }
 
     private void loadPageImage() throws Exception {
-        PDFRenderer pdfRenderer = new PDFRenderer(document);
-        BufferedImage imageRendered = pdfRenderer.renderImageWithDPI(pageIndex, 300, ImageType.RGB);
-        var scaledDimension = WizImage.getScaledDimension(new Dimension(imageRendered.getWidth(), imageRendered.getHeight()), panelPage.getSize());
-        pageImage = imageRendered.getScaledInstance((int) scaledDimension.getWidth(), (int) scaledDimension.getHeight(), Image.SCALE_SMOOTH);
-        panelPage.repaint();
+        final var finalDocument = document;
+        final var finalFileIndex = fileIndex;
+        final var finalPageIndex = pageIndex;
+        new Thread() {
+            private boolean yetSame() {
+                return finalFileIndex == fileIndex && finalPageIndex == pageIndex;
+            }
+
+            @Override
+            public void run() {
+                try {
+                    PDFRenderer pdfRenderer = new PDFRenderer(finalDocument);
+                    if (!yetSame()) {
+                        return;
+                    }
+                    BufferedImage imageRendered = pdfRenderer.renderImageWithDPI(finalPageIndex, 300, ImageType.RGB);
+                    if (!yetSame()) {
+                        return;
+                    }
+                    var scaledDimension = WizImage.getScaledDimension(new Dimension(imageRendered.getWidth(), imageRendered.getHeight()), panelPage.getSize());
+                    if (!yetSame()) {
+                        return;
+                    }
+                    var scaledImage = imageRendered.getScaledInstance((int) scaledDimension.getWidth(), (int) scaledDimension.getHeight(), Image.SCALE_SMOOTH);
+                    if (!yetSame()) {
+                        return;
+                    }
+                    pageImage = scaledImage;
+                    SwingUtilities.invokeLater(() -> panelPage.repaint());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
     }
 
     private void loadPageText() throws Exception {
