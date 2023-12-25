@@ -374,8 +374,9 @@ public class Catalog extends javax.swing.JFrame {
             if (destinyFile.exists()) {
                 throw new Exception("Destiny file already exists.");
             }
+            closeDocument();
             Files.move(files.get(fileIndex).toPath(), destinyFile.toPath());
-            actJump();
+            doJump();
             textPage.requestFocus();
         } catch (Exception e) {
             WizSwing.showError(e);
@@ -384,15 +385,23 @@ public class Catalog extends javax.swing.JFrame {
 
     private void buttonJumpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonJumpActionPerformed
         try {
-            actJump();
+            doJump();
             textPage.requestFocus();
         } catch (Exception e) {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonJumpActionPerformed
 
-    private void actJump() throws Exception {
+    private void closeDocument() throws Exception {
+        if (document != null) {
+            document.close();
+            document = null;
+        }
+    }
+    
+    private void doJump() throws Exception {
         if (fileIndex < files.size() - 1) {
+            closeDocument();
             fileIndex++;
             pageIndex = 0;
             loadPage();
