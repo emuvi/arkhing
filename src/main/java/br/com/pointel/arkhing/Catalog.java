@@ -58,6 +58,7 @@ public class Catalog extends javax.swing.JFrame {
         loadDocument();
         loadPageImage();
         loadPageText();
+        updateStatus();
         textPage.requestFocus();
     }
 
@@ -104,6 +105,11 @@ public class Catalog extends javax.swing.JFrame {
         stripper.setEndPage(pageIndex + 1);
         textPage.setText(stripper.getText(document));
     }
+    
+    private void updateStatus() {
+        final var status = "Page " + (pageIndex + 1) + " Doc " + (fileIndex + 1);
+        SwingUtilities.invokeLater(() -> labelStatus.setText(status));
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -128,6 +134,7 @@ public class Catalog extends javax.swing.JFrame {
         buttonAuthor = new javax.swing.JButton();
         buttonCatalog = new javax.swing.JButton();
         buttonJump = new javax.swing.JButton();
+        labelStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Arkhing - Catalog");
@@ -224,6 +231,8 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
+        labelStatus.setText("Page 0 Doc 0");
+
         javax.swing.GroupLayout panelActionsLayout = new javax.swing.GroupLayout(panelActions);
         panelActions.setLayout(panelActionsLayout);
         panelActionsLayout.setHorizontalGroup(
@@ -232,7 +241,9 @@ public class Catalog extends javax.swing.JFrame {
                 .addComponent(buttonPrior)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonNext)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelStatus)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
                 .addComponent(buttonTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonSubtitle)
@@ -254,7 +265,8 @@ public class Catalog extends javax.swing.JFrame {
                     .addComponent(buttonCatalog)
                     .addComponent(buttonTitle)
                     .addComponent(buttonSubtitle)
-                    .addComponent(buttonAuthor))
+                    .addComponent(buttonAuthor)
+                    .addComponent(labelStatus))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -414,6 +426,7 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JTextField editAuthor;
     private javax.swing.JTextField editSubtitle;
     private javax.swing.JTextField editTitle;
+    private javax.swing.JLabel labelStatus;
     private javax.swing.JPanel panelActions;
     private javax.swing.JPanel panelDestiny;
     private javax.swing.JPanel panelNaming;

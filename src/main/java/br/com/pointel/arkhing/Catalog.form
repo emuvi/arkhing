@@ -167,7 +167,9 @@
                   <Component id="buttonPrior" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonNext" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="243" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="labelStatus" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="167" max="32767" attributes="0"/>
                   <Component id="buttonTitle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonSubtitle" min="-2" max="-2" attributes="0"/>
@@ -192,6 +194,7 @@
                       <Component id="buttonTitle" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonSubtitle" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -261,6 +264,11 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonJumpActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelStatus">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Page 0 Doc 0"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
