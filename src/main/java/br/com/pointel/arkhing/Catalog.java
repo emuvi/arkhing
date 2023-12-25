@@ -115,6 +115,7 @@ public class Catalog extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonClazz = new javax.swing.JButton();
         panelDestiny = new javax.swing.JPanel();
         comboRaiz = new javax.swing.JComboBox<>();
         buttonNew = new javax.swing.JButton();
@@ -138,6 +139,14 @@ public class Catalog extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Arkhing - Catalog");
+
+        buttonClazz.setMnemonic('Z');
+        buttonClazz.setText("Clazz");
+        buttonClazz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonClazzActionPerformed(evt);
+            }
+        });
 
         panelDestiny.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 0, 0));
 
@@ -281,6 +290,8 @@ public class Catalog extends javax.swing.JFrame {
                     .addComponent(panelNaming, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelActions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(buttonClazz)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelDestiny, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonNew)))
@@ -291,8 +302,10 @@ public class Catalog extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelDestiny, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonNew))
+                    .addComponent(buttonNew)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(buttonClazz)
+                        .addComponent(panelDestiny, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelNaming, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -405,6 +418,9 @@ public class Catalog extends javax.swing.JFrame {
             fileIndex++;
             pageIndex = 0;
             loadPage();
+            editTitle.setText("");
+            editSubtitle.setText("");
+            editAuthor.setText("");
         } else {
             WizSwing.close(this);
         }
@@ -422,9 +438,14 @@ public class Catalog extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonNewActionPerformed
 
+    private void buttonClazzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClazzActionPerformed
+        comboRaiz.requestFocus();
+    }//GEN-LAST:event_buttonClazzActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
     private javax.swing.JButton buttonCatalog;
+    private javax.swing.JButton buttonClazz;
     private javax.swing.JButton buttonJump;
     private javax.swing.JButton buttonNew;
     private javax.swing.JButton buttonNext;
