@@ -51,7 +51,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelNaming" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelViewer" max="32767" attributes="0"/>
+              <Component id="panelViewer" pref="482" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelActions" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>

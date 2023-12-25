@@ -118,7 +118,7 @@ public class Catalog extends javax.swing.JFrame {
         editAuthor.setFont(WizSwing.fontMonospaced());
         panelNaming.add(editAuthor);
 
-        panelViewer.setLayout(new java.awt.GridLayout());
+        panelViewer.setLayout(new java.awt.GridLayout(1, 0));
 
         panelPage.setLayout(new java.awt.GridLayout(1, 1));
         panelViewer.add(panelPage);
@@ -246,7 +246,7 @@ public class Catalog extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelNaming, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelViewer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelViewer, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelActions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
