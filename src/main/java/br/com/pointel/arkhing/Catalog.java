@@ -257,6 +257,7 @@ public class Catalog extends javax.swing.JFrame {
 
     private void buttonAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAuthorActionPerformed
         editAuthor.setText(cleanAuthor(textPage.getSelectedText()));
+        textPage.requestFocus();
     }//GEN-LAST:event_buttonAuthorActionPerformed
 
     private void buttonPriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPriorActionPerformed
@@ -265,6 +266,7 @@ public class Catalog extends javax.swing.JFrame {
                 pageIndex--;
                 loadPage();
             }
+            textPage.requestFocus();
         } catch (Exception e) {
             WizSwing.showError(e);
         }
@@ -274,6 +276,7 @@ public class Catalog extends javax.swing.JFrame {
         try {
             pageIndex++;
             loadPage();
+            textPage.requestFocus();
         } catch (Exception e) {
             WizSwing.showError(e);
         }
@@ -282,7 +285,7 @@ public class Catalog extends javax.swing.JFrame {
     private String cleanTitles(String titles) {
         return StringUtils.capitalize(titles.trim().replaceAll("\\s+", " ").toLowerCase());
     }
-    
+
     private String cleanAuthor(String author) {
         var parts = author.trim().toLowerCase().split("\\s+");
         var result = "";
@@ -294,13 +297,15 @@ public class Catalog extends javax.swing.JFrame {
         }
         return result;
     }
-    
+
     private void buttonTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTitleActionPerformed
         editTitle.setText(cleanTitles(textPage.getSelectedText()));
+        textPage.requestFocus();
     }//GEN-LAST:event_buttonTitleActionPerformed
 
     private void buttonSubtitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSubtitleActionPerformed
         editSubtitle.setText(cleanTitles(textPage.getSelectedText()));
+        textPage.requestFocus();
     }//GEN-LAST:event_buttonSubtitleActionPerformed
 
     private void buttonCatalogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCatalogActionPerformed
@@ -317,10 +322,11 @@ public class Catalog extends javax.swing.JFrame {
             destinyName += "." + FilenameUtils.getExtension(files.get(fileIndex).getName());
             var destinyFile = new File(destinyFolder, destinyName);
             if (destinyFile.exists()) {
-                throw new Exception ("Destiny file already exists.");
+                throw new Exception("Destiny file already exists.");
             }
             Files.move(files.get(fileIndex).toPath(), destinyFile.toPath());
             actJump();
+            textPage.requestFocus();
         } catch (Exception e) {
             WizSwing.showError(e);
         }
@@ -329,6 +335,7 @@ public class Catalog extends javax.swing.JFrame {
     private void buttonJumpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonJumpActionPerformed
         try {
             actJump();
+            textPage.requestFocus();
         } catch (Exception e) {
             WizSwing.showError(e);
         }
