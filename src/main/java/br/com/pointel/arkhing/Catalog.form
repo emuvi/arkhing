@@ -305,6 +305,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="buttonOpen">
       <Properties>
+        <Property name="mnemonic" type="int" value="79"/>
         <Property name="text" type="java.lang.String" value="Open"/>
       </Properties>
       <Events>
