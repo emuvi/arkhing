@@ -188,9 +188,11 @@
                   <Component id="buttonNext" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="labelStatus" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="77" max="32767" attributes="0"/>
+                  <EmptySpace pref="44" max="32767" attributes="0"/>
                   <Component id="buttonClear" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="checkClean" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonTitle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonSubtitle" min="-2" max="-2" attributes="0"/>
@@ -217,6 +219,7 @@
                       <Component id="buttonAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="labelStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonClear" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkClean" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -299,6 +302,11 @@
         <Component class="javax.swing.JLabel" name="labelStatus">
           <Properties>
             <Property name="text" type="java.lang.String" value="Page 0 Doc 0"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="checkClean">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Clean"/>
           </Properties>
         </Component>
       </SubComponents>
