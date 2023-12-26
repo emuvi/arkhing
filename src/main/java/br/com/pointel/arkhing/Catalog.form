@@ -307,6 +307,7 @@
         <Component class="javax.swing.JCheckBox" name="checkClean">
           <Properties>
             <Property name="mnemonic" type="int" value="78"/>
+            <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Clean"/>
           </Properties>
         </Component>
