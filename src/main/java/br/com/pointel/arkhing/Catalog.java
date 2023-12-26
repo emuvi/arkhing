@@ -6,11 +6,13 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -107,7 +109,7 @@ public class Catalog extends javax.swing.JFrame {
         stripper.setEndPage(pageIndex + 1);
         textPage.setText(stripper.getText(document));
     }
-    
+
     private void updateStatus() {
         final var status = "Page " + (pageIndex + 1) + " Doc " + (fileIndex + 1);
         SwingUtilities.invokeLater(() -> labelStatus.setText(status));
@@ -394,7 +396,7 @@ public class Catalog extends javax.swing.JFrame {
                 .replaceAll("\\s+", " ")
                 .toLowerCase();
     }
-    
+
     private String cleanTitles(String titles) {
         if (!checkClean.isSelected()) {
             return titles;
@@ -425,7 +427,7 @@ public class Catalog extends javax.swing.JFrame {
         }
         return result.trim();
     }
-    
+
     private void buttonTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTitleActionPerformed
         editTitle.setText(cleanTitles(composeSelected(editTitle)));
         textPage.requestFocus();
@@ -448,14 +450,28 @@ public class Catalog extends javax.swing.JFrame {
                 destinyName += " - " + editAuthor.getText().trim();
             }
             destinyName += "." + FilenameUtils.getExtension(files.get(fileIndex).getName());
-            var destinyFile = new File(destinyFolder, destinyName);
+            final var originFile = files.get(fileIndex);
+            final var destinyFile = new File(destinyFolder, destinyName);
             if (destinyFile.exists()) {
                 throw new Exception("Destiny file already exists.");
             }
             closeDocument();
-            Files.move(files.get(fileIndex).toPath(), destinyFile.toPath());
             doJump();
             textPage.requestFocus();
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        Files.move(originFile.toPath(), destinyFile.toPath());
+                        try (var input = new FileInputStream(destinyFile)) {
+                            var verifier = DigestUtils.sha256Hex(input);
+                            desk.arkhBase.putFile(destinyFile, verifier);
+                        }
+                    } catch (Exception e) {
+                        WizSwing.showError(e);
+                    }
+                }
+            }.start();
         } catch (Exception e) {
             WizSwing.showError(e);
         }
@@ -476,7 +492,7 @@ public class Catalog extends javax.swing.JFrame {
             document = null;
         }
     }
-    
+
     private void doJump() throws Exception {
         if (fileIndex < files.size() - 1) {
             closeDocument();
