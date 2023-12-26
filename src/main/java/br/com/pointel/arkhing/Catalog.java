@@ -255,6 +255,7 @@ public class Catalog extends javax.swing.JFrame {
 
         labelStatus.setText("Page 0 Doc 0");
 
+        checkClean.setMnemonic('N');
         checkClean.setText("Clean");
 
         javax.swing.GroupLayout panelActionsLayout = new javax.swing.GroupLayout(panelActions);
