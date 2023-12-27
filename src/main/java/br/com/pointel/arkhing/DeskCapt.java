@@ -674,6 +674,7 @@ public class DeskCapt extends javax.swing.JPanel {
             var destiny = new File(directory, name);
             Files.createDirectories(destiny.toPath());
             editDestiny.setText(destiny.getAbsolutePath());
+            WizProps.set("DESK_CAPT_DESTINY", editDestiny.getText());
         } catch (Exception e) {
             WizSwing.showError(e);
         }
