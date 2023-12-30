@@ -141,7 +141,6 @@ public class Catalog extends javax.swing.JFrame {
         buttonCatalog = new javax.swing.JButton();
         buttonJump = new javax.swing.JButton();
         labelStatus = new javax.swing.JLabel();
-        checkClean = new javax.swing.JCheckBox();
         buttonOpen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -257,10 +256,6 @@ public class Catalog extends javax.swing.JFrame {
 
         labelStatus.setText("Page 0 Doc 0");
 
-        checkClean.setMnemonic('N');
-        checkClean.setSelected(true);
-        checkClean.setText("Clean");
-
         javax.swing.GroupLayout panelActionsLayout = new javax.swing.GroupLayout(panelActions);
         panelActions.setLayout(panelActionsLayout);
         panelActionsLayout.setHorizontalGroup(
@@ -271,11 +266,9 @@ public class Catalog extends javax.swing.JFrame {
                 .addComponent(buttonNext)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addComponent(buttonClear)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkClean)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(buttonTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonSubtitle)
@@ -299,8 +292,7 @@ public class Catalog extends javax.swing.JFrame {
                     .addComponent(buttonSubtitle)
                     .addComponent(buttonAuthor)
                     .addComponent(labelStatus)
-                    .addComponent(buttonClear)
-                    .addComponent(checkClean))
+                    .addComponent(buttonClear))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -393,28 +385,21 @@ public class Catalog extends javax.swing.JFrame {
                 .replace(">", "")
                 .replace("|", "")
                 .replace(":", "~")
-                .replaceAll("\\s+", " ")
-                .toLowerCase();
+                .replaceAll("\\s+", " ");
     }
 
     private String cleanTitles(String titles) {
-        if (!checkClean.isSelected()) {
-            return titles;
-        }
-        return StringUtils.capitalize(cleanName(titles));
+        return cleanName(titles);
     }
 
     private String cleanAuthor(String author) {
-        if (!checkClean.isSelected()) {
-            return author;
-        }
         var parts = cleanName(author).split("\\s+");
         var result = "";
         for (int i = 0; i < parts.length; i++) {
             if (i > 0) {
                 result += " ";
             }
-            result += StringUtils.capitalize(parts[i]);
+            result += parts[i];
         }
         return result;
     }
@@ -553,7 +538,6 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JButton buttonPrior;
     private javax.swing.JButton buttonSubtitle;
     private javax.swing.JButton buttonTitle;
-    private javax.swing.JCheckBox checkClean;
     private javax.swing.JComboBox<String> comboRaiz;
     private javax.swing.JTextField editAuthor;
     private javax.swing.JTextField editSubtitle;
