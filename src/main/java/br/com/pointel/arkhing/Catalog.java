@@ -443,6 +443,9 @@ public class Catalog extends javax.swing.JFrame {
             var destinyFolder = new File(desk.arkhBase.root, (String) comboRaiz.getSelectedItem());
             Files.createDirectories(destinyFolder.toPath());
             var destinyName = editTitle.getText().trim();
+            if (destinyName.isBlank()) {
+                throw new Exception("You must select a title.");
+            }
             if (!editSubtitle.getText().isBlank()) {
                 destinyName += " - " + editSubtitle.getText().trim();
             }
