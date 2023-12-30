@@ -134,13 +134,14 @@ public class Catalog extends javax.swing.JFrame {
         panelActions = new javax.swing.JPanel();
         buttonPrior = new javax.swing.JButton();
         buttonNext = new javax.swing.JButton();
+        labelStatus = new javax.swing.JLabel();
         buttonClear = new javax.swing.JButton();
+        checkReCase = new javax.swing.JCheckBox();
         buttonTitle = new javax.swing.JButton();
         buttonSubtitle = new javax.swing.JButton();
         buttonAuthor = new javax.swing.JButton();
         buttonCatalog = new javax.swing.JButton();
         buttonJump = new javax.swing.JButton();
-        labelStatus = new javax.swing.JLabel();
         buttonOpen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -206,6 +207,8 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
+        labelStatus.setText("Page 0 Doc 0");
+
         buttonClear.setMnemonic('e');
         buttonClear.setText("Clear");
         buttonClear.addActionListener(new java.awt.event.ActionListener() {
@@ -213,6 +216,8 @@ public class Catalog extends javax.swing.JFrame {
                 buttonClearActionPerformed(evt);
             }
         });
+
+        checkReCase.setText("ReCase");
 
         buttonTitle.setMnemonic('T');
         buttonTitle.setText("Title");
@@ -254,8 +259,6 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
-        labelStatus.setText("Page 0 Doc 0");
-
         javax.swing.GroupLayout panelActionsLayout = new javax.swing.GroupLayout(panelActions);
         panelActions.setLayout(panelActionsLayout);
         panelActionsLayout.setHorizontalGroup(
@@ -266,9 +269,11 @@ public class Catalog extends javax.swing.JFrame {
                 .addComponent(buttonNext)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(buttonClear)
                 .addGap(18, 18, 18)
+                .addComponent(checkReCase)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonTitle)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonSubtitle)
@@ -292,7 +297,8 @@ public class Catalog extends javax.swing.JFrame {
                     .addComponent(buttonSubtitle)
                     .addComponent(buttonAuthor)
                     .addComponent(labelStatus)
-                    .addComponent(buttonClear))
+                    .addComponent(buttonClear)
+                    .addComponent(checkReCase))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -348,7 +354,22 @@ public class Catalog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonAuthorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAuthorActionPerformed
-        editAuthor.setText(cleanAuthor(composeSelected(editAuthor)));
+        var cleaned = cleanAuthor(composeSelected(editAuthor));
+        if (checkReCase.isSelected()) {
+            var result = "";
+            var parts = cleaned.toLowerCase().split("\\s+");
+            for (int i = 0; i < parts.length; i++) {
+                if (i > 0) {
+                    result += " ";
+                }
+                if (parts[i].length() > 2) {
+                    parts[i] = StringUtils.capitalize(parts[i]);
+                }
+                result += parts[i];
+            }
+            cleaned = result;
+        }
+        editAuthor.setText(cleaned);
         textPage.requestFocus();
     }//GEN-LAST:event_buttonAuthorActionPerformed
 
@@ -393,15 +414,7 @@ public class Catalog extends javax.swing.JFrame {
     }
 
     private String cleanAuthor(String author) {
-        var parts = cleanName(author).split("\\s+");
-        var result = "";
-        for (int i = 0; i < parts.length; i++) {
-            if (i > 0) {
-                result += " ";
-            }
-            result += parts[i];
-        }
-        return result;
+        return cleanName(author);
     }
 
     private String composeSelected(JTextField withField) {
@@ -414,12 +427,20 @@ public class Catalog extends javax.swing.JFrame {
     }
 
     private void buttonTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTitleActionPerformed
-        editTitle.setText(cleanTitles(composeSelected(editTitle)));
+        var cleaned = cleanTitles(composeSelected(editTitle));
+        if (checkReCase.isSelected()) {
+            cleaned = StringUtils.capitalize(cleaned.toLowerCase());
+        }
+        editTitle.setText(cleaned);
         textPage.requestFocus();
     }//GEN-LAST:event_buttonTitleActionPerformed
 
     private void buttonSubtitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSubtitleActionPerformed
-        editSubtitle.setText(cleanTitles(composeSelected(editSubtitle)));
+        var cleaned = cleanTitles(composeSelected(editSubtitle));
+        if (checkReCase.isSelected()) {
+            cleaned = cleaned.toLowerCase();
+        }
+        editSubtitle.setText(cleaned);
         textPage.requestFocus();
     }//GEN-LAST:event_buttonSubtitleActionPerformed
 
@@ -540,6 +561,7 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JButton buttonPrior;
     private javax.swing.JButton buttonSubtitle;
     private javax.swing.JButton buttonTitle;
+    private javax.swing.JCheckBox checkReCase;
     private javax.swing.JComboBox<String> comboRaiz;
     private javax.swing.JTextField editAuthor;
     private javax.swing.JTextField editSubtitle;
