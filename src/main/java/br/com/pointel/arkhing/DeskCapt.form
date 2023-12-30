@@ -385,21 +385,6 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="editEstrategia" alignment="1" pref="696" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="labelEstrategia" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="buttonEstrategiaStart" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonEstrategiaStop" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonEstrategiaLogin" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonEstrategiaClean" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
                               <Component id="editHeader" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonNextHeader" min="-2" max="-2" attributes="0"/>
@@ -407,7 +392,7 @@
                               <Component id="buttonGetLessonMaterials" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonOpenDownloads" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="67" max="32767" attributes="0"/>
                               <Component id="checkGetLessonMaterials" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonHeaderGrouped" min="-2" max="-2" attributes="0"/>
@@ -431,6 +416,23 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonAutoItems" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="labelEstrategia" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="buttonEstrategiaStart" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="buttonEstrategiaStop" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="buttonEstrategiaLogin" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="buttonEstrategiaClean" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="buttonRestart" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -449,6 +451,7 @@
                           <Component id="buttonEstrategiaStop" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonEstrategiaLogin" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonEstrategiaClean" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonRestart" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -626,6 +629,14 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="https://www.estrategiaconcursos.com.br/app/dashboard/cursos"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonRestart">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Restart"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRestartActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

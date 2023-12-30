@@ -86,6 +86,7 @@ public class DeskCapt extends javax.swing.JPanel {
         buttonAutoItems = new javax.swing.JButton();
         labelEstrategia = new javax.swing.JLabel();
         editEstrategia = new javax.swing.JTextField();
+        buttonRestart = new javax.swing.JButton();
 
         labelScraping.setText("Scraping");
 
@@ -411,6 +412,13 @@ public class DeskCapt extends javax.swing.JPanel {
 
         editEstrategia.setText("https://www.estrategiaconcursos.com.br/app/dashboard/cursos");
 
+        buttonRestart.setText("Restart");
+        buttonRestart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRestartActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelCrawlingLayout = new javax.swing.GroupLayout(panelCrawling);
         panelCrawling.setLayout(panelCrawlingLayout);
         panelCrawlingLayout.setHorizontalGroup(
@@ -420,18 +428,6 @@ public class DeskCapt extends javax.swing.JPanel {
                 .addGroup(panelCrawlingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(editEstrategia, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 696, Short.MAX_VALUE)
                     .addGroup(panelCrawlingLayout.createSequentialGroup()
-                        .addGroup(panelCrawlingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelEstrategia)
-                            .addGroup(panelCrawlingLayout.createSequentialGroup()
-                                .addComponent(buttonEstrategiaStart)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonEstrategiaStop)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonEstrategiaLogin)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonEstrategiaClean)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(panelCrawlingLayout.createSequentialGroup()
                         .addComponent(editHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonNextHeader)
@@ -439,7 +435,7 @@ public class DeskCapt extends javax.swing.JPanel {
                         .addComponent(buttonGetLessonMaterials)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonOpenDownloads)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                         .addComponent(checkGetLessonMaterials)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonHeaderGrouped))
@@ -459,7 +455,21 @@ public class DeskCapt extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(checkWatch)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonAutoItems)))
+                        .addComponent(buttonAutoItems))
+                    .addGroup(panelCrawlingLayout.createSequentialGroup()
+                        .addGroup(panelCrawlingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelEstrategia)
+                            .addGroup(panelCrawlingLayout.createSequentialGroup()
+                                .addComponent(buttonEstrategiaStart)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonEstrategiaStop)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonEstrategiaLogin)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonEstrategiaClean)
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonRestart)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelCrawlingLayout.setVerticalGroup(
@@ -474,7 +484,8 @@ public class DeskCapt extends javax.swing.JPanel {
                     .addComponent(buttonEstrategiaStart)
                     .addComponent(buttonEstrategiaStop)
                     .addComponent(buttonEstrategiaLogin)
-                    .addComponent(buttonEstrategiaClean))
+                    .addComponent(buttonEstrategiaClean)
+                    .addComponent(buttonRestart))
                 .addGap(18, 18, 18)
                 .addGroup(panelCrawlingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -946,6 +957,11 @@ public class DeskCapt extends javax.swing.JPanel {
             }.start();
         }
     }//GEN-LAST:event_checkAutoStackActionPerformed
+
+    private void buttonRestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRestartActionPerformed
+        editHeader.setValue(-1);
+        editItem.setValue(-1);
+    }//GEN-LAST:event_buttonRestartActionPerformed
     
     private void actCopyTitle() {
         estrategia.copyTitle((int) editHeader.getValue(), (int) editItem.getValue());
@@ -1004,6 +1020,7 @@ public class DeskCapt extends javax.swing.JPanel {
     private javax.swing.JButton buttonNextItem;
     private javax.swing.JButton buttonOpen;
     private javax.swing.JButton buttonOpenDownloads;
+    private javax.swing.JButton buttonRestart;
     private javax.swing.JButton buttonSelect;
     private javax.swing.JButton buttonStack;
     private javax.swing.JButton buttonStart;
