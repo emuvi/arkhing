@@ -142,6 +142,7 @@ public class Catalog extends javax.swing.JFrame {
         buttonAuthor = new javax.swing.JButton();
         buttonCatalog = new javax.swing.JButton();
         buttonJump = new javax.swing.JButton();
+        buttonSearch = new javax.swing.JButton();
         buttonOpen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -227,7 +228,7 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
-        buttonSubtitle.setMnemonic('S');
+        buttonSubtitle.setMnemonic('B');
         buttonSubtitle.setText("Subtitle");
         buttonSubtitle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -259,6 +260,14 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
+        buttonSearch.setMnemonic('S');
+        buttonSearch.setText("Search");
+        buttonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSearchActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelActionsLayout = new javax.swing.GroupLayout(panelActions);
         panelActions.setLayout(panelActionsLayout);
         panelActionsLayout.setHorizontalGroup(
@@ -269,7 +278,9 @@ public class Catalog extends javax.swing.JFrame {
                 .addComponent(buttonNext)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(buttonClear)
                 .addGap(18, 18, 18)
                 .addComponent(checkReCase)
@@ -298,7 +309,8 @@ public class Catalog extends javax.swing.JFrame {
                     .addComponent(buttonAuthor)
                     .addComponent(labelStatus)
                     .addComponent(buttonClear)
-                    .addComponent(checkReCase))
+                    .addComponent(checkReCase)
+                    .addComponent(buttonSearch))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -549,6 +561,10 @@ public class Catalog extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonOpenActionPerformed
 
+    private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
+        textPage.requestFocus();
+    }//GEN-LAST:event_buttonSearchActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
     private javax.swing.JButton buttonCatalog;
@@ -559,6 +575,7 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JButton buttonNext;
     private javax.swing.JButton buttonOpen;
     private javax.swing.JButton buttonPrior;
+    private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonSubtitle;
     private javax.swing.JButton buttonTitle;
     private javax.swing.JCheckBox checkReCase;

@@ -188,7 +188,9 @@
                   <Component id="buttonNext" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="labelStatus" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="29" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="buttonSearch" min="-2" pref="75" max="-2" attributes="0"/>
+                  <EmptySpace pref="14" max="32767" attributes="0"/>
                   <Component id="buttonClear" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="checkReCase" min="-2" max="-2" attributes="0"/>
@@ -220,6 +222,7 @@
                       <Component id="labelStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonClear" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="checkReCase" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -275,7 +278,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonSubtitle">
           <Properties>
-            <Property name="mnemonic" type="int" value="83"/>
+            <Property name="mnemonic" type="int" value="66"/>
             <Property name="text" type="java.lang.String" value="Subtitle"/>
           </Properties>
           <Events>
@@ -307,6 +310,15 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonJumpActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonSearch">
+          <Properties>
+            <Property name="mnemonic" type="int" value="83"/>
+            <Property name="text" type="java.lang.String" value="Search"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSearchActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
