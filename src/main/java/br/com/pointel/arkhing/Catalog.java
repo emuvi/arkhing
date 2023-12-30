@@ -53,6 +53,7 @@ public class Catalog extends javax.swing.JFrame {
 
     private void loadDocument() throws Exception {
         if (loadIndex != fileIndex) {
+            closeDocument();
             document = PDDocument.load(files.get(fileIndex));
             loadIndex = fileIndex;
         }
