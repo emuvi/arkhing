@@ -436,6 +436,8 @@ public class Catalog extends javax.swing.JFrame {
             }
             if (!editAuthor.getText().isBlank()) {
                 destinyName += " - " + editAuthor.getText().trim();
+            } else {
+                destinyName += " - Indefinido";
             }
             destinyName += "." + FilenameUtils.getExtension(files.get(fileIndex).getName());
             final var originFile = files.get(fileIndex);
