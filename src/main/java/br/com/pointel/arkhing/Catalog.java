@@ -113,9 +113,8 @@ public class Catalog extends javax.swing.JFrame {
 
     private void updateStatus() {
         final var status = "Page " + (pageIndex + 1)
-                + " of " + (fileIndex + 1)
-                + " ( <" + (files.size() - fileIndex) + " ) - "
-                + files.get(fileIndex).getName();
+                + " of Doc " + (fileIndex + 1)
+                + " ( -" + (files.size() - fileIndex) + " )";
         SwingUtilities.invokeLater(() -> labelStatus.setText(status));
     }
 
