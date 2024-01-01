@@ -3,12 +3,14 @@ package br.com.pointel.arkhing;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -25,6 +27,8 @@ public class Catalog extends javax.swing.JFrame {
     private final Desk desk;
     private final List<File> files;
 
+    private final List<JComboBox> combosPath;
+
     private volatile PDDocument document = null;
 
     private volatile int loadIndex = -1;
@@ -40,10 +44,14 @@ public class Catalog extends javax.swing.JFrame {
         WizSwing.initPositioner(this);
         initComponents();
         loadRoot();
+        combosPath = new ArrayList<>();
+        combosPath.add(comboRaiz);
         panelPage.add(drawPanel);
     }
 
     private void loadRoot() {
+        comboRaiz.removeAllItems();
+        comboRaiz.addItem("");
         for (var inside : desk.arkhBase.root.listFiles()) {
             if (inside.isDirectory()) {
                 comboRaiz.addItem(inside.getName());
@@ -151,6 +159,7 @@ public class Catalog extends javax.swing.JFrame {
         buttonAuthorAdd = new javax.swing.JButton();
         buttonCatalog = new javax.swing.JButton();
         buttonJump = new javax.swing.JButton();
+        buttonOCR = new javax.swing.JButton();
         buttonOpen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -167,6 +176,11 @@ public class Catalog extends javax.swing.JFrame {
         panelDestiny.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 0));
 
         comboRaiz.setFont(WizSwing.fontMonospaced());
+        comboRaiz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboPathActionPerformed(evt);
+            }
+        });
         panelDestiny.add(comboRaiz);
 
         buttonNew.setMnemonic('N');
@@ -313,6 +327,9 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
+        buttonOCR.setMnemonic('O');
+        buttonOCR.setText("OCR");
+
         javax.swing.GroupLayout panelActionsLayout = new javax.swing.GroupLayout(panelActions);
         panelActions.setLayout(panelActionsLayout);
         panelActionsLayout.setHorizontalGroup(
@@ -327,7 +344,9 @@ public class Catalog extends javax.swing.JFrame {
                 .addComponent(buttonLast, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(buttonOCR, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonClear)
@@ -370,7 +389,8 @@ public class Catalog extends javax.swing.JFrame {
                     .addComponent(buttonSubtitleAdd)
                     .addComponent(buttonTitleAdd)
                     .addComponent(buttonFirst)
-                    .addComponent(buttonLast))
+                    .addComponent(buttonLast)
+                    .addComponent(buttonOCR))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -463,7 +483,7 @@ public class Catalog extends javax.swing.JFrame {
     private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
         try {
             loadDocument();
-            if (pageIndex < document.getNumberOfPages() -1) {
+            if (pageIndex < document.getNumberOfPages() - 1) {
                 pageIndex++;
                 loadPage();
                 textPage.requestFocus();
@@ -532,7 +552,7 @@ public class Catalog extends javax.swing.JFrame {
 
     private void buttonCatalogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCatalogActionPerformed
         try {
-            var destinyFolder = new File(desk.arkhBase.root, (String) comboRaiz.getSelectedItem());
+            File destinyFolder = getSelectedPath();
             Files.createDirectories(destinyFolder.toPath());
             var destinyName = editTitle.getText().trim();
             if (destinyName.isBlank()) {
@@ -574,6 +594,37 @@ public class Catalog extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonCatalogActionPerformed
 
+    private void setSelectedPath(File path) throws Exception {
+        var rootPath = desk.arkhBase.root.getAbsolutePath();
+        var selectedPath = path.getAbsolutePath();
+        if (!selectedPath.startsWith(rootPath)) {
+            throw new Exception("The selected path must be inside the root base.");
+        }
+        selectedPath = selectedPath.substring(rootPath.length() + 1);
+        loadRoot();
+        var parts = selectedPath.split("\\" + File.separator);
+        for (int i = 0; i < parts.length; i++) {
+            combosPath.get(i).setSelectedItem(parts[i]);
+            comboPathActionPerformed(new ActionEvent(combosPath.get(i), 0, "SELECTED"));
+        }
+    }
+    
+    private File getSelectedPath() {
+        return getSelectedPath(combosPath.size() - 1);
+    }
+
+    private File getSelectedPath(int untilIndex) {
+        var result = desk.arkhBase.root;
+        for (int i = 0; i <= untilIndex; i++) {
+            var part = (String) combosPath.get(i).getSelectedItem();
+            if (part == null || part.isBlank()) {
+                break;
+            }
+            result = new File(result, part);
+        }
+        return result;
+    }
+
     private void buttonJumpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonJumpActionPerformed
         try {
             doJump();
@@ -606,10 +657,12 @@ public class Catalog extends javax.swing.JFrame {
 
     private void buttonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNewActionPerformed
         try {
-            var newClass = WizSwing.showInput("New Class");
-            if (newClass != null && !newClass.isBlank()) {
-                comboRaiz.addItem(newClass);
-                comboRaiz.setSelectedItem(newClass);
+            var newClazz = WizSwing.showInput("New Clazz");
+            if (newClazz != null && !newClazz.isBlank()) {
+                var selectPath = getSelectedPath();
+                var newPath = new File(selectPath, newClazz);
+                Files.createDirectories(newPath.toPath());
+                setSelectedPath(newPath);
             }
         } catch (Exception e) {
             WizSwing.showError(e);
@@ -628,7 +681,7 @@ public class Catalog extends javax.swing.JFrame {
 
     private void buttonOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOpenActionPerformed
         try {
-            var destinyFolder = new File(desk.arkhBase.root, (String) comboRaiz.getSelectedItem());
+            File destinyFolder = getSelectedPath();
             WizSwing.open(destinyFolder);
         } catch (Exception e) {
             WizSwing.showError(e);
@@ -665,8 +718,8 @@ public class Catalog extends javax.swing.JFrame {
 
     private void buttonLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLastActionPerformed
         try {
-            if (pageIndex != document.getNumberOfPages() -1) {
-                pageIndex = document.getNumberOfPages() -1;
+            if (pageIndex != document.getNumberOfPages() - 1) {
+                pageIndex = document.getNumberOfPages() - 1;
                 loadPage();
                 textPage.requestFocus();
             }
@@ -674,6 +727,46 @@ public class Catalog extends javax.swing.JFrame {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonLastActionPerformed
+
+    private void comboPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPathActionPerformed
+        if (combosPath == null) {
+            return;
+        }
+        int index = combosPath.indexOf(evt.getSource());
+        for (int i = combosPath.size() - 1; i > index; i--) {
+            panelDestiny.remove(combosPath.get(i));
+            combosPath.remove(i);
+        }
+        var untilSelected = getSelectedPath(index - 1);
+        var actualSelected = (String) combosPath.get(index).getSelectedItem();
+        if (actualSelected == null || actualSelected.isBlank()) {
+            return;
+        }
+        var selected = new File(untilSelected, actualSelected);
+        var hasSubFolders = false;
+        if (selected.isDirectory()) {
+            for (var inside : selected.listFiles()) {
+                if (inside.isDirectory()) {
+                    hasSubFolders = true;
+                    break;
+                }
+            }
+        }
+        if (hasSubFolders) {
+            var subCombo = new JComboBox<>();
+            subCombo.setFont(WizSwing.fontMonospaced());
+            subCombo.addItem("");
+            for (var inside : selected.listFiles()) {
+                if (inside.isDirectory()) {
+                    subCombo.addItem(inside.getName());
+                }
+            }
+            subCombo.addActionListener((ActionEvent e) -> comboPathActionPerformed(e));
+            combosPath.add(subCombo);
+            panelDestiny.add(subCombo);
+        }
+        SwingUtilities.updateComponentTreeUI(panelDestiny);
+    }//GEN-LAST:event_comboPathActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
@@ -686,6 +779,7 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JButton buttonLast;
     private javax.swing.JButton buttonNew;
     private javax.swing.JButton buttonNext;
+    private javax.swing.JButton buttonOCR;
     private javax.swing.JButton buttonOpen;
     private javax.swing.JButton buttonPrior;
     private javax.swing.JButton buttonSearch;
