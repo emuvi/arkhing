@@ -137,6 +137,8 @@ public class Catalog extends javax.swing.JFrame {
         panelActions = new javax.swing.JPanel();
         buttonPrior = new javax.swing.JButton();
         buttonNext = new javax.swing.JButton();
+        buttonFirst = new javax.swing.JButton();
+        buttonLast = new javax.swing.JButton();
         labelStatus = new javax.swing.JLabel();
         buttonSearch = new javax.swing.JButton();
         buttonClear = new javax.swing.JButton();
@@ -211,6 +213,22 @@ public class Catalog extends javax.swing.JFrame {
         buttonNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonNextActionPerformed(evt);
+            }
+        });
+
+        buttonFirst.setMnemonic('F');
+        buttonFirst.setText("First");
+        buttonFirst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonFirstActionPerformed(evt);
+            }
+        });
+
+        buttonLast.setMnemonic('L');
+        buttonLast.setText("Last");
+        buttonLast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonLastActionPerformed(evt);
             }
         });
 
@@ -304,8 +322,12 @@ public class Catalog extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonNext)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonLast, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonClear)
@@ -346,7 +368,9 @@ public class Catalog extends javax.swing.JFrame {
                     .addComponent(buttonSearch)
                     .addComponent(buttonAuthorAdd)
                     .addComponent(buttonSubtitleAdd)
-                    .addComponent(buttonTitleAdd))
+                    .addComponent(buttonTitleAdd)
+                    .addComponent(buttonFirst)
+                    .addComponent(buttonLast))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -438,9 +462,12 @@ public class Catalog extends javax.swing.JFrame {
 
     private void buttonNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNextActionPerformed
         try {
-            pageIndex++;
-            loadPage();
-            textPage.requestFocus();
+            loadDocument();
+            if (pageIndex < document.getNumberOfPages() -1) {
+                pageIndex++;
+                loadPage();
+                textPage.requestFocus();
+            }
         } catch (Exception e) {
             WizSwing.showError(e);
         }
@@ -624,13 +651,39 @@ public class Catalog extends javax.swing.JFrame {
         makeAuthor(true);
     }//GEN-LAST:event_buttonAuthorAddActionPerformed
 
+    private void buttonFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFirstActionPerformed
+        try {
+            if (pageIndex != 0) {
+                pageIndex = 0;
+                loadPage();
+            }
+            textPage.requestFocus();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonFirstActionPerformed
+
+    private void buttonLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLastActionPerformed
+        try {
+            if (pageIndex != document.getNumberOfPages() -1) {
+                pageIndex = document.getNumberOfPages() -1;
+                loadPage();
+                textPage.requestFocus();
+            }
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonLastActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
     private javax.swing.JButton buttonAuthorAdd;
     private javax.swing.JButton buttonCatalog;
     private javax.swing.JButton buttonClazz;
     private javax.swing.JButton buttonClear;
+    private javax.swing.JButton buttonFirst;
     private javax.swing.JButton buttonJump;
+    private javax.swing.JButton buttonLast;
     private javax.swing.JButton buttonNew;
     private javax.swing.JButton buttonNext;
     private javax.swing.JButton buttonOpen;
