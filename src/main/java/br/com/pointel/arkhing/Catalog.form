@@ -59,7 +59,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelNaming" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelViewer" pref="444" max="32767" attributes="0"/>
+              <Component id="panelViewer" pref="459" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelActions" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -185,18 +185,24 @@
                   <Component id="buttonNext" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="labelStatus" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="89" max="32767" attributes="0"/>
+                  <EmptySpace pref="74" max="32767" attributes="0"/>
                   <Component id="buttonSearch" min="-2" pref="75" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonClear" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="checkReCase" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="buttonTitle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="buttonTitleAdd" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="buttonSubtitle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+                  <Component id="buttonSubtitleAdd" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="buttonAuthor" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="buttonAuthorAdd" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="buttonCatalog" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -220,6 +226,9 @@
                       <Component id="buttonClear" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="checkReCase" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonSearch" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonAuthorAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonSubtitleAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonTitleAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -250,6 +259,15 @@
             <Property name="text" type="java.lang.String" value="..."/>
           </Properties>
         </Component>
+        <Component class="javax.swing.JButton" name="buttonSearch">
+          <Properties>
+            <Property name="mnemonic" type="int" value="83"/>
+            <Property name="text" type="java.lang.String" value="Search"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSearchActionPerformed"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JButton" name="buttonClear">
           <Properties>
             <Property name="mnemonic" type="int" value="101"/>
@@ -273,6 +291,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTitleActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JButton" name="buttonTitleAdd">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="+"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTitleAddActionPerformed"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JButton" name="buttonSubtitle">
           <Properties>
             <Property name="mnemonic" type="int" value="66"/>
@@ -282,6 +308,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSubtitleActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JButton" name="buttonSubtitleAdd">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="+"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSubtitleAddActionPerformed"/>
+          </Events>
+        </Component>
         <Component class="javax.swing.JButton" name="buttonAuthor">
           <Properties>
             <Property name="mnemonic" type="int" value="65"/>
@@ -289,6 +323,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAuthorActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonAuthorAdd">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="+"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonAuthorAddActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonCatalog">
@@ -307,15 +349,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonJumpActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonSearch">
-          <Properties>
-            <Property name="mnemonic" type="int" value="83"/>
-            <Property name="text" type="java.lang.String" value="Search"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSearchActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
