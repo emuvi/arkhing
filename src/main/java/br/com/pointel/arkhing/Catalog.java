@@ -376,7 +376,7 @@ public class Catalog extends javax.swing.JFrame {
                 if (i > 0) {
                     result += " ";
                 }
-                if (parts[i].length() > 2) {
+                if (parts[i].length() > 2 || parts[i].contains(".")) {
                     parts[i] = StringUtils.capitalize(parts[i]);
                 }
                 result += parts[i];
