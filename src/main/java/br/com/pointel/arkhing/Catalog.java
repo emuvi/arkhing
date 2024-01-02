@@ -597,10 +597,9 @@ public class Catalog extends javax.swing.JFrame {
                 throw new Exception("Destiny file already exists.");
             }
             closeDocument();
+            lastSelectedPath = destinyFolder;
             doJump();
             textPage.requestFocus();
-            lastSelectedPath = destinyFolder;
-            setSelectedPath(null);
             new Thread() {
                 @Override
                 public void run() {
@@ -680,6 +679,7 @@ public class Catalog extends javax.swing.JFrame {
             editTitle.setText("");
             editSubtitle.setText("");
             editAuthor.setText("");
+            setSelectedPath(null);
         } else {
             WizSwing.close(this);
         }
