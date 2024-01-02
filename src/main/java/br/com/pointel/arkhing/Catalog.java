@@ -14,6 +14,8 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
+import net.sourceforge.tess4j.ITesseract;
+import net.sourceforge.tess4j.Tesseract;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -251,6 +253,11 @@ public class Catalog extends javax.swing.JFrame {
 
         buttonOCR.setMnemonic('O');
         buttonOCR.setText("OCR");
+        buttonOCR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOCRActionPerformed(evt);
+            }
+        });
 
         buttonSearch.setMnemonic('S');
         buttonSearch.setText("Search");
@@ -621,7 +628,7 @@ public class Catalog extends javax.swing.JFrame {
             comboPathActionPerformed(new ActionEvent(combosPath.get(i), 0, "SELECTED"));
         }
     }
-    
+
     private File getSelectedPath() {
         return getSelectedPath(combosPath.size() - 1);
     }
@@ -791,6 +798,27 @@ public class Catalog extends javax.swing.JFrame {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonRemoveActionPerformed
+
+    private void buttonOCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOCRActionPerformed
+        try {
+            PDFRenderer pdfRenderer = new PDFRenderer(document);
+            BufferedImage imageRendered = pdfRenderer.renderImageWithDPI(pageIndex, 300, ImageType.RGB);
+            ITesseract tesseract = new Tesseract();
+            tesseract.setDatapath("C:\\Tesseract\\tessdata");
+            switch ((String) comboRaiz.getSelectedItem()) {
+                case "Auf Deutsch" -> tesseract.setLanguage("deu");
+                case "Em Español" -> tesseract.setLanguage("spa");
+                case "Em Português" -> tesseract.setLanguage("por");
+                case "En Français" -> tesseract.setLanguage("fra");
+                case "In English" -> tesseract.setLanguage("eng");
+                default -> throw new AssertionError("You must select the destiny language.");
+            }
+            String result = tesseract.doOCR(imageRendered);
+            textPage.setText(result);
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonOCRActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
