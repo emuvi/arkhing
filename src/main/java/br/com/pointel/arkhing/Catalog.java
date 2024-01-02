@@ -752,7 +752,6 @@ public class Catalog extends javax.swing.JFrame {
                 }
             }
         }
-        var toFocus = combosPath.get(index);
         if (hasSubFolders) {
             var subCombo = new JComboBox<>();
             subCombo.setFont(WizSwing.fontMonospaced());
@@ -765,10 +764,8 @@ public class Catalog extends javax.swing.JFrame {
             subCombo.addActionListener((ActionEvent e) -> comboPathActionPerformed(e));
             combosPath.add(subCombo);
             panelDestiny.add(subCombo);
-            toFocus = subCombo;
         }
         SwingUtilities.updateComponentTreeUI(panelDestiny);
-        toFocus.requestFocus();
     }//GEN-LAST:event_comboPathActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
