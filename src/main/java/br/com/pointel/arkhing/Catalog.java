@@ -811,7 +811,7 @@ public class Catalog extends javax.swing.JFrame {
                 case "Em Português" -> tesseract.setLanguage("por");
                 case "En Français" -> tesseract.setLanguage("fra");
                 case "In English" -> tesseract.setLanguage("eng");
-                default -> throw new AssertionError("You must select the destiny language.");
+                default -> throw new Exception("You must select the destiny language.");
             }
             String result = tesseract.doOCR(imageRendered);
             textPage.setText(result);
