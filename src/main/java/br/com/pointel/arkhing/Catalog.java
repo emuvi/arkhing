@@ -120,8 +120,8 @@ public class Catalog extends javax.swing.JFrame {
     }
 
     private void updateStatus() {
-        final var status = "Page " + (pageIndex + 1)
-                + " of Doc " + (fileIndex + 1)
+        final var status = "Page " + (pageIndex + 1) + "/" + document.getNumberOfPages()
+                + " of Doc " + (fileIndex + 1) + "/" + files.size()
                 + " ( -" + (files.size() - fileIndex) + " )";
         SwingUtilities.invokeLater(() -> labelStatus.setText(status));
     }
