@@ -331,7 +331,7 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
-        buttonRemove.setMnemonic('R');
+        buttonRemove.setMnemonic('M');
         buttonRemove.setText("Remove");
         buttonRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
