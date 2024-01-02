@@ -10,6 +10,8 @@ import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -30,6 +32,8 @@ public class Catalog extends javax.swing.JFrame {
     private final List<File> files;
 
     private final List<JComboBox> combosPath;
+    
+    private volatile File lastSelectedPath = null;
 
     private volatile PDDocument document = null;
 
@@ -595,6 +599,8 @@ public class Catalog extends javax.swing.JFrame {
             closeDocument();
             doJump();
             textPage.requestFocus();
+            lastSelectedPath = destinyFolder;
+            setSelectedPath(null);
             new Thread() {
                 @Override
                 public void run() {
@@ -615,6 +621,10 @@ public class Catalog extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonCatalogActionPerformed
 
     private void setSelectedPath(File path) throws Exception {
+        if (path == null) {
+            comboRaiz.setSelectedItem("");
+            return;
+        }
         var rootPath = desk.arkhBase.root.getAbsolutePath();
         var selectedPath = path.getAbsolutePath();
         if (!selectedPath.startsWith(rootPath)) {
@@ -690,7 +700,12 @@ public class Catalog extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNewActionPerformed
 
     private void buttonClazzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClazzActionPerformed
-        comboRaiz.requestFocus();
+        try {
+            setSelectedPath(lastSelectedPath);
+            comboRaiz.requestFocus();
+        } catch (Exception ex) {
+            WizSwing.showError(ex);
+        }
     }//GEN-LAST:event_buttonClazzActionPerformed
 
     private void buttonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClearActionPerformed
@@ -760,6 +775,7 @@ public class Catalog extends javax.swing.JFrame {
         var untilSelected = getSelectedPath(index - 1);
         var actualSelected = (String) combosPath.get(index).getSelectedItem();
         if (actualSelected == null || actualSelected.isBlank()) {
+            SwingUtilities.updateComponentTreeUI(panelDestiny);
             return;
         }
         var selected = new File(untilSelected, actualSelected);
