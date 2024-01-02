@@ -702,7 +702,7 @@ public class Catalog extends javax.swing.JFrame {
     private void buttonClazzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClazzActionPerformed
         try {
             setSelectedPath(lastSelectedPath);
-            comboRaiz.requestFocus();
+            combosPath.get(combosPath.size() -1).requestFocus();
         } catch (Exception ex) {
             WizSwing.showError(ex);
         }
