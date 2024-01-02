@@ -192,9 +192,9 @@
                   <Component id="buttonLast" min="-2" pref="75" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="labelStatus" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="30" max="32767" attributes="0"/>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
                   <Component id="buttonOCR" min="-2" pref="75" max="-2" attributes="0"/>
-                  <EmptySpace pref="30" max="32767" attributes="0"/>
+                  <EmptySpace pref="12" max="32767" attributes="0"/>
                   <Component id="buttonSearch" min="-2" pref="75" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonClear" min="-2" max="-2" attributes="0"/>
@@ -216,6 +216,9 @@
                   <Component id="buttonCatalog" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonJump" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="buttonRemove" min="-2" pref="75" max="-2" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -241,6 +244,7 @@
                       <Component id="buttonFirst" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonLast" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonOCR" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonRemove" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -287,6 +291,12 @@
         <Component class="javax.swing.JLabel" name="labelStatus">
           <Properties>
             <Property name="text" type="java.lang.String" value="..."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="buttonOCR">
+          <Properties>
+            <Property name="mnemonic" type="int" value="79"/>
+            <Property name="text" type="java.lang.String" value="OCR"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="buttonSearch">
@@ -381,11 +391,14 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonJumpActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonOCR">
+        <Component class="javax.swing.JButton" name="buttonRemove">
           <Properties>
-            <Property name="mnemonic" type="int" value="79"/>
-            <Property name="text" type="java.lang.String" value="OCR"/>
+            <Property name="mnemonic" type="int" value="82"/>
+            <Property name="text" type="java.lang.String" value="Remove"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

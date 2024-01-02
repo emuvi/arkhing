@@ -148,6 +148,7 @@ public class Catalog extends javax.swing.JFrame {
         buttonFirst = new javax.swing.JButton();
         buttonLast = new javax.swing.JButton();
         labelStatus = new javax.swing.JLabel();
+        buttonOCR = new javax.swing.JButton();
         buttonSearch = new javax.swing.JButton();
         buttonClear = new javax.swing.JButton();
         checkReCase = new javax.swing.JCheckBox();
@@ -159,7 +160,7 @@ public class Catalog extends javax.swing.JFrame {
         buttonAuthorAdd = new javax.swing.JButton();
         buttonCatalog = new javax.swing.JButton();
         buttonJump = new javax.swing.JButton();
-        buttonOCR = new javax.swing.JButton();
+        buttonRemove = new javax.swing.JButton();
         buttonOpen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -248,6 +249,9 @@ public class Catalog extends javax.swing.JFrame {
 
         labelStatus.setText("...");
 
+        buttonOCR.setMnemonic('O');
+        buttonOCR.setText("OCR");
+
         buttonSearch.setMnemonic('S');
         buttonSearch.setText("Search");
         buttonSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -327,8 +331,13 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
-        buttonOCR.setMnemonic('O');
-        buttonOCR.setText("OCR");
+        buttonRemove.setMnemonic('R');
+        buttonRemove.setText("Remove");
+        buttonRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoveActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelActionsLayout = new javax.swing.GroupLayout(panelActions);
         panelActions.setLayout(panelActionsLayout);
@@ -344,9 +353,9 @@ public class Catalog extends javax.swing.JFrame {
                 .addComponent(buttonLast, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(buttonOCR, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                 .addComponent(buttonSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonClear)
@@ -367,7 +376,10 @@ public class Catalog extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(buttonCatalog)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonJump))
+                .addComponent(buttonJump)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0))
         );
         panelActionsLayout.setVerticalGroup(
             panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,7 +402,8 @@ public class Catalog extends javax.swing.JFrame {
                     .addComponent(buttonTitleAdd)
                     .addComponent(buttonFirst)
                     .addComponent(buttonLast)
-                    .addComponent(buttonOCR))
+                    .addComponent(buttonOCR)
+                    .addComponent(buttonRemove))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -768,6 +781,17 @@ public class Catalog extends javax.swing.JFrame {
         SwingUtilities.updateComponentTreeUI(panelDestiny);
     }//GEN-LAST:event_comboPathActionPerformed
 
+    private void buttonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveActionPerformed
+        try {
+            var file = files.get(fileIndex);
+            doJump();
+            textPage.requestFocus();
+            file.delete();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonRemoveActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
     private javax.swing.JButton buttonAuthorAdd;
@@ -782,6 +806,7 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JButton buttonOCR;
     private javax.swing.JButton buttonOpen;
     private javax.swing.JButton buttonPrior;
+    private javax.swing.JButton buttonRemove;
     private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonSubtitle;
     private javax.swing.JButton buttonSubtitleAdd;
