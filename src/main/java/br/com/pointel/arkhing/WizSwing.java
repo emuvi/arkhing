@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.net.URI;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -101,6 +102,10 @@ public class WizSwing {
 
     public static void open(File file) throws Exception {
         Desktop.getDesktop().open(file);
+    }
+    
+    public static void navigate(String address) throws Exception {
+        Desktop.getDesktop().browse(new URI(address));
     }
 
     public static Font fontMonospaced() {
