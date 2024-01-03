@@ -594,6 +594,16 @@ public class Catalog extends javax.swing.JFrame {
             final var originFile = files.get(fileIndex);
             final var destinyFile = new File(destinyFolder, destinyName);
             if (destinyFile.exists()) {
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            WizSwing.open(destinyFile);
+                        } catch (Exception e) {
+                            WizSwing.showError(e);
+                        }
+                    }
+                }.start();
                 throw new Exception("Destiny file already exists.");
             }
             closeDocument();
