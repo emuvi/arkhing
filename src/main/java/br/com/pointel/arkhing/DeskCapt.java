@@ -674,6 +674,11 @@ public class DeskCapt extends javax.swing.JPanel {
     private void buttonNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNewActionPerformed
         try {
             var selected = new File(editDestiny.getText());
+            if (selected.isDirectory()) {
+                if (selected.listFiles().length == 0) {
+                    throw new Exception("The selected destiny is already new.");
+                }
+            }
             var directory = selected.getParentFile();
             var bigger = 0;
             for (var inside : directory.listFiles()) {
