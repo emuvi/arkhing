@@ -62,15 +62,15 @@
                       <Component id="buttonOpen" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
+              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panelNaming" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="buttonNameSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonNameCopy" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="panelViewer" pref="457" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="panelActions" min="-2" max="-2" attributes="0"/>
@@ -204,9 +204,9 @@
                   <Component id="buttonLast" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="labelStatus" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="30" max="32767" attributes="0"/>
+                  <EmptySpace pref="39" max="32767" attributes="0"/>
                   <Component id="buttonOCR" min="-2" pref="75" max="-2" attributes="0"/>
-                  <EmptySpace pref="30" max="32767" attributes="0"/>
+                  <EmptySpace pref="40" max="32767" attributes="0"/>
                   <Component id="buttonSuggest" min="-2" pref="75" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="checkReCase" min="-2" max="-2" attributes="0"/>
@@ -220,7 +220,7 @@
                   <Component id="buttonSubtitle" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonSubtitleAdd" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="buttonSubtitleEquals" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="buttonAuthor" min="-2" max="-2" attributes="0"/>
@@ -290,7 +290,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonFirst">
           <Properties>
-            <Property name="mnemonic" type="int" value="60"/>
+            <Property name="mnemonic" type="int" value="70"/>
             <Property name="text" type="java.lang.String" value="&lt;"/>
           </Properties>
           <Events>
@@ -299,7 +299,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonLast">
           <Properties>
-            <Property name="mnemonic" type="int" value="62"/>
+            <Property name="mnemonic" type="int" value="76"/>
             <Property name="text" type="java.lang.String" value="&gt;"/>
           </Properties>
           <Events>
@@ -449,6 +449,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonNameSearch">
       <Properties>
+        <Property name="mnemonic" type="int" value="72"/>
         <Property name="text" type="java.lang.String" value="Search"/>
       </Properties>
       <Events>
@@ -457,6 +458,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonNameCopy">
       <Properties>
+        <Property name="mnemonic" type="int" value="80"/>
         <Property name="text" type="java.lang.String" value="Copy"/>
       </Properties>
       <Events>
