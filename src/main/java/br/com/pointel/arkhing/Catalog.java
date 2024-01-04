@@ -569,14 +569,15 @@ public class Catalog extends javax.swing.JFrame {
     private String cleanName(String name) {
         return name.trim()
                 .replace("?", "")
-                .replace("\\", "")
-                .replace("\"", "")
-                .replace("/", "")
                 .replace("*", "")
                 .replace("<", "")
                 .replace(">", "")
                 .replace("|", "")
                 .replace(":", "~")
+                .replace("\"", "`")
+                .replaceAll("\\s*\\\\\\s*", "-")
+                .replaceAll("\\s*/\\s*", "-")
+                .replaceAll("\\-+", "-")
                 .replaceAll("\\s+", " ");
     }
 
