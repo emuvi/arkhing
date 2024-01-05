@@ -10,10 +10,9 @@ import javax.swing.DefaultListModel;
  */
 public class CatalogClazz extends javax.swing.JFrame {
 
-    
     private final Consumer<String> onSelect;
     private final DefaultListModel<String> suggestionsModel = new DefaultListModel<>();
-    
+
     public CatalogClazz(List<String> suggestions, Consumer<String> onSelect) {
         this.onSelect = onSelect;
         initComponents();
@@ -21,6 +20,9 @@ public class CatalogClazz extends javax.swing.JFrame {
             suggestionsModel.addElement(suggestion);
         }
         listSuggestions.setModel(suggestionsModel);
+        if (!suggestions.isEmpty()) {
+            listSuggestions.setSelectedIndex(0);
+        }
         getRootPane().setDefaultButton(buttonConfirm);
         WizSwing.initPositioner(this);
     }
