@@ -16,15 +16,13 @@ import org.apache.logging.log4j.util.Strings;
  */
 public class ArkhDockData {
 
-    private final ArkhDock arkhDocs;
     private final File folder;
     private final Connection connection;
 
-    public ArkhDockData(ArkhDock arkhDocs, File folder) throws Exception {
-        this.arkhDocs = arkhDocs;
+    public ArkhDockData(File folder) throws Exception {
         this.folder = folder;
         this.connection = DriverManager.getConnection("jdbc:sqlite:"
-                + new File(folder, "arkhdocs.sdb").getAbsolutePath());
+                + new File(folder, "arkhdock.sdb").getAbsolutePath());
         this.initDatabase();
     }
 

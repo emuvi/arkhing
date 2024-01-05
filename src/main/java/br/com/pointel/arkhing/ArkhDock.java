@@ -31,7 +31,7 @@ public class ArkhDock {
             if (this.arkhDocsDatas.containsKey(folder)) {
                 return this.arkhDocsDatas.get(folder);
             } else {
-                var arkhDocsData = new ArkhDockData(this, folder);
+                var arkhDocsData = new ArkhDockData(folder);
                 this.arkhDocsDatas.put(folder, arkhDocsData);
                 return arkhDocsData;
             }
