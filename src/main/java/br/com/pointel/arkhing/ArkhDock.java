@@ -38,4 +38,10 @@ public class ArkhDock {
         }
     }
     
+    public void delDock(File file) throws Exception {
+        var folder = file.getParentFile();
+        var dockData = getDockData(folder);
+        dockData.delDock(file.getName());
+    }
+    
 }

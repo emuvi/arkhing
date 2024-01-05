@@ -53,8 +53,6 @@ public class ArkhDockData {
             return null;
         }
     }
-    
-    
 
     public Long getModifiedByName(String name) throws Exception {
         var select = this.connection.prepareStatement(
@@ -118,6 +116,14 @@ public class ArkhDockData {
         if (results == 0) {
             throw new Exception("Could not put the dock.");
         }
+    }
+    
+    public void delDock(String name) throws Exception {
+        var delete = this.connection.prepareStatement(
+                "DELETE FROM docks "
+                + "WHERE name = ?");
+        delete.setString(1, name);
+        delete.executeUpdate();
     }
 
 }

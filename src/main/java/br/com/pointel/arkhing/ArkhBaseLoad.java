@@ -157,13 +157,15 @@ public class ArkhBaseLoad {
                     return;
                 }
                 try {
-                    if (!new File(arkhBase.root, place).exists()) {
-                        arkhBase.sendToListeners("Cleaning: " + place);
+                    var file = new File(arkhBase.root, place);
+                    if (!file.exists()) {
+                        arkhBase.sendToListeners("[BASE] Cleaning: " + place);
                         arkhBase.baseData.delFile(place);
+                        arkhBase.arkhDocs.delDock(file);
                         statusNumberOfCleaned.incrementAndGet();
                     }
                 } catch (Exception e) {
-                    arkhBase.sendToListeners("{BASE} [ERROR] Linter: " + e.getMessage());
+                    arkhBase.sendToListeners("[BASE] Error: " + e.getMessage());
                     statusNumberOfErros.incrementAndGet();
                 } finally {
                     statusProgressPos.incrementAndGet();
