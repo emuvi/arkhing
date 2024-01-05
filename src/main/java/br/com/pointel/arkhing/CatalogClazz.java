@@ -38,6 +38,7 @@ public class CatalogClazz extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Catalog Clazz");
+        setAlwaysOnTop(true);
 
         listSuggestions.setFont(WizSwing.fontMonospaced());
         listSuggestions.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
