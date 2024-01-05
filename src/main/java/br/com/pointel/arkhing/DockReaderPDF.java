@@ -6,15 +6,15 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
-public class DocsReaderPDF {
+public class DockReaderPDF {
     
     public static boolean canRead(File file) {
-        return DocsReaderPDFUtils.isPDFFile(file);
+        return DockReaderPDFUtils.isPDFFile(file);
     }
     
     private final File file;
 
-    public DocsReaderPDF(File file) {
+    public DockReaderPDF(File file) {
         this.file = file;
     }
 

@@ -15,27 +15,27 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
  *
  * @author emuvi
  */
-public class DocsReaderMSO {
+public class DockReaderMSO {
     
     public static boolean canRead(File file) {
-        return DocsReaderMSOUtils.isMSWordFile(file)
-                || DocsReaderMSOUtils.isMSExcelFile(file)
-                || DocsReaderMSOUtils.isMSPowerPointFile(file);
+        return DockReaderMSOUtils.isMSWordFile(file)
+                || DockReaderMSOUtils.isMSExcelFile(file)
+                || DockReaderMSOUtils.isMSPowerPointFile(file);
     }
     
 
     private final File path;
 
-    public DocsReaderMSO(File path) {
+    public DockReaderMSO(File path) {
         this.path = path;
     }
 
     public String read() throws Exception {
-        if (DocsReaderMSOUtils.isMSWordFile(path)) {
+        if (DockReaderMSOUtils.isMSWordFile(path)) {
             return extractTextFromWord();
-        } else if (DocsReaderMSOUtils.isMSExcelFile(path)) {
+        } else if (DockReaderMSOUtils.isMSExcelFile(path)) {
             return extractTextFromExcel();
-        } else if (DocsReaderMSOUtils.isMSPowerPointFile(path)) {
+        } else if (DockReaderMSOUtils.isMSPowerPointFile(path)) {
             return extractTextFromPowerPoint();
         } else {
             throw new Exception("File type not expected: " + path.getName());

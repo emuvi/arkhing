@@ -7,7 +7,7 @@ import org.apache.commons.io.FilenameUtils;
  *
  * @author emuvi
  */
-public class DocsReaderPDFUtils {
+public class DockReaderPDFUtils {
 
     public static String[] PDF_EXTENSIONS = new String[]{"pdf", "fdf", "xfdf", "pdx", "ppdf"};
 

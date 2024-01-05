@@ -7,7 +7,7 @@ import org.apache.commons.io.FilenameUtils;
  *
  * @author emuvi
  */
-public class DocsReaderTXTUtils {
+public class DockReaderTXTUtils {
 
     public static String[] TXT_EXTENSIONS = new String[]{"txt", "md", "htm", "html"};
 

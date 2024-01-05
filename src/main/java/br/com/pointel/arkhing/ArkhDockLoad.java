@@ -47,7 +47,7 @@ public class ArkhDockLoad {
             }
             try {
                 arkhDocs.arkhBase.sendToListeners("{DOCK} Verifing: " + file.getName());
-                if (DocsReader.canRead(file)) {
+                if (DockReader.canRead(file)) {
                     loadDocument(file);
                 }
             } catch (Exception e) {

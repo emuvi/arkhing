@@ -7,7 +7,7 @@ import org.apache.commons.io.FilenameUtils;
  *
  * @author emuvi
  */
-public class DocsReaderMSOUtils {
+public class DockReaderMSOUtils {
 
     public static String[] MSPOWERPOINT_EXTENSIONS = new String[]{"ppt", "pptx"};
     public static String[] MSEXCEL_EXTENSIONS = new String[]{"xls", "xlsx"};
