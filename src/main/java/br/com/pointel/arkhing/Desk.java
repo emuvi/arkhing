@@ -29,6 +29,7 @@ public class Desk extends javax.swing.JFrame {
         tabsBody.addTab("Mirr", deskMirr);
         WizSwing.initPositioner(this);
         initShortcuts();
+        arkhBase.baseLoad.addListener((message) -> putStatus(message));
     }
 
     public void showBase() {
