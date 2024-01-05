@@ -1021,6 +1021,7 @@ public class Catalog extends javax.swing.JFrame {
     private void buttonReClazzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReClazzActionPerformed
         try {
             setSelectedPath(lastSelectedPath);
+            combosPath.get(combosPath.size() - 1).requestFocus();
         } catch (Exception e) {
             WizSwing.showError(e);
         }
