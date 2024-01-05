@@ -16,44 +16,13 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="buttonExtract" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="231" max="32767" attributes="0"/>
-              <Component id="btnProcessName" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
+          <EmptySpace min="0" pref="418" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonExtract" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnProcessName" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="269" max="32767" attributes="0"/>
-          </Group>
+          <EmptySpace min="0" pref="298" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
-  <SubComponents>
-    <Component class="javax.swing.JButton" name="buttonExtract">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Extract"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExtractActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnProcessName">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Hard Rename"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProcessNameActionPerformed"/>
-      </Events>
-    </Component>
-  </SubComponents>
 </Form>

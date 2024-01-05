@@ -2,7 +2,6 @@ package br.com.pointel.arkhing;
 
 import java.io.File;
 import java.io.FileInputStream;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.extractor.ExcelExtractor;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -11,26 +10,32 @@ import org.apache.poi.sl.extractor.SlideShowExtractor;
 import org.apache.poi.sl.usermodel.SlideShowFactory;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
 /**
  *
  * @author emuvi
  */
-public class ArkhDocs {
+public class DocsReaderMSO {
+    
+    public static boolean canRead(File file) {
+        return DocsReaderMSOUtils.isMSWordFile(file)
+                || DocsReaderMSOUtils.isMSExcelFile(file)
+                || DocsReaderMSOUtils.isMSPowerPointFile(file);
+    }
+    
 
     private final File path;
 
-    public ArkhDocs(File path) {
+    public DocsReaderMSO(File path) {
         this.path = path;
     }
 
-    public String extractText() throws Exception {
-        if (WizFiles.isMSWordFile(path)) {
+    public String read() throws Exception {
+        if (DocsReaderMSOUtils.isMSWordFile(path)) {
             return extractTextFromWord();
-        } else if (WizFiles.isMSExcelFile(path)) {
+        } else if (DocsReaderMSOUtils.isMSExcelFile(path)) {
             return extractTextFromExcel();
-        } else if (WizFiles.isMSPowerPointFile(path)) {
+        } else if (DocsReaderMSOUtils.isMSPowerPointFile(path)) {
             return extractTextFromPowerPoint();
         } else {
             throw new Exception("File type not expected: " + path.getName());
@@ -67,15 +72,6 @@ public class ArkhDocs {
                 extractor.setCommentsByDefault(true);
                 return extractor.getText();
             }
-        }
-    }
-
-    @Override
-    public String toString() {
-        try {
-            return extractText();
-        } catch (Exception e) {
-            return "Erro: " + e.getMessage();
         }
     }
 

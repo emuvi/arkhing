@@ -7,12 +7,12 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
-public class DocFromImgs {
+public class MakePDFInFolder {
 
     private final File folder;
 
-    public DocFromImgs(File inFolder) {
-        this.folder = inFolder;
+    public MakePDFInFolder(File folder) {
+        this.folder = folder;
     }
 
     public File make() throws Exception {

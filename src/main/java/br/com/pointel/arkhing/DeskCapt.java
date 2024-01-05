@@ -989,7 +989,7 @@ public class DeskCapt extends javax.swing.JPanel {
     private void makeDocuments(File folder) {
         documentRunner.execute(() -> {
             try {
-                var documentFile = new DocFromImgs(folder).make();
+                var documentFile = new MakePDFInFolder(folder).make();
                 if (documentFile != null) {
                     desk.putStatus("Made: " + documentFile.getAbsolutePath());
                 }
