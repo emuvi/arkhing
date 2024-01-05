@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -334,8 +333,8 @@ public class DeskOrgz extends javax.swing.JPanel {
         WizBase.startDaemon(() -> {
             while (desk.isVisible()) {
                 WizBase.sleep(500);
-                if (!Objects.equals(lastLoadedBase, desk.arkhBase == null ? null : desk.arkhBase.root)) {
-                    lastLoadedBase = desk.arkhBase.root;
+                if (!Objects.equals(lastLoadedBase, desk.getBase() == null ? null : desk.getBase().root)) {
+                    lastLoadedBase = desk.getBase().root;
                     updateFolder(lastLoadedBase);
                 }
             }
@@ -757,7 +756,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
             for (var selected : allSelected) {
                 FileUtils.deleteDirectory(selected.path);
-                desk.arkhBase.delFolder(selected.path);
+                desk.getBase().delFolder(selected.path);
                 modelFolder.removeElement(selected);
             }
             updateFolder(lastLoadedBase);
@@ -777,7 +776,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
             for (var selected : allSelected) {
                 FileUtils.delete(selected.path);
-                desk.arkhBase.delFile(selected.path);
+                desk.getBase().delFile(selected.path);
                 modelAssets.removeElement(selected);
             }
             SwingUtilities.invokeLater(() -> SwingUtilities.updateComponentTreeUI(listAssets));
@@ -845,7 +844,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 var originFile = transfering.path;
                 var destinyFile = new File(destinyFolder, originFile.getName());
                 Files.move(originFile.toPath(), destinyFile.toPath());
-                desk.arkhBase.moveFile(originFile, destinyFile);
+                desk.getBase().moveFile(originFile, destinyFile);
             }
             transferArea.clear();
             updateFolder(lastLoadedBase);
@@ -893,7 +892,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
             orgz.path = destinyFolder;
             SwingUtilities.invokeLater(() -> SwingUtilities.updateComponentTreeUI(listFolder));
-            desk.arkhBase.moveFolder(originFolder, destinyFolder);
+            desk.getBase().moveFolder(originFolder, destinyFolder);
             return destinyFolder;
         } else {
             throw new Exception("Could not rename folder from: " + originFolder.getAbsolutePath() + " to: " + destinyFolder.getAbsolutePath());
@@ -915,7 +914,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         if (!origin.renameTo(destiny)) {
             throw new Exception("Could not rename file from: " + origin.getAbsolutePath() + " to: " + destiny.getAbsolutePath());
         }
-        desk.arkhBase.moveFile(origin, destiny);
+        desk.getBase().moveFile(origin, destiny);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

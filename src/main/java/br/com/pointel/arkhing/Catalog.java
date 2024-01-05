@@ -58,7 +58,7 @@ public class Catalog extends javax.swing.JFrame {
     private void loadRoot() {
         comboRaiz.removeAllItems();
         comboRaiz.addItem("");
-        for (var inside : desk.arkhBase.root.listFiles()) {
+        for (var inside : desk.getBase().root.listFiles()) {
             if (inside.isDirectory()) {
                 comboRaiz.addItem(inside.getName());
             }
@@ -658,7 +658,7 @@ public class Catalog extends javax.swing.JFrame {
                         Files.move(originFile.toPath(), destinyFile.toPath());
                         try (var input = new FileInputStream(destinyFile)) {
                             var verifier = DigestUtils.sha256Hex(input);
-                            desk.arkhBase.putFile(destinyFile, verifier);
+                            desk.getBase().putFile(destinyFile, verifier);
                         }
                     } catch (Exception e) {
                         WizSwing.showError(e);
@@ -704,7 +704,7 @@ public class Catalog extends javax.swing.JFrame {
             comboRaiz.setSelectedItem("");
             return;
         }
-        var rootPath = desk.arkhBase.root.getAbsolutePath();
+        var rootPath = desk.getBase().root.getAbsolutePath();
         var selectedPath = path.getAbsolutePath();
         if (!selectedPath.startsWith(rootPath)) {
             throw new Exception("The selected path must be inside the root base.");
@@ -723,7 +723,7 @@ public class Catalog extends javax.swing.JFrame {
     }
 
     private File getSelectedPath(int untilIndex) {
-        var result = desk.arkhBase.root;
+        var result = desk.getBase().root;
         for (int i = 0; i <= untilIndex; i++) {
             var part = (String) combosPath.get(i).getSelectedItem();
             if (part == null || part.isBlank()) {

@@ -4,6 +4,9 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -14,6 +17,8 @@ public class ArkhBase implements Closeable {
 
     public final File root;
     private final int rootLength;
+    
+    private final List<Consumer<String>> listeners;
 
     public final ArkhBaseData baseData;
     public final ArkhBaseLoad baseLoad;
@@ -24,8 +29,23 @@ public class ArkhBase implements Closeable {
         }
         this.root = root;
         this.rootLength = this.root.getAbsolutePath().length();
+        this.listeners = new ArrayList<>();
         this.baseData = new ArkhBaseData(this);
         this.baseLoad = new ArkhBaseLoad(this);
+    }
+    
+    public void addListener(Consumer<String> listener) {
+        listeners.add(listener);
+    }
+    
+    public void delListener(Consumer<String> listener) {
+        listeners.remove(listener);
+    }
+    
+    public void sendToListeners(String message) {
+        for (var listener : listeners) {
+            listener.accept(message);
+        }
     }
 
     public ArkhBase load() throws Exception {

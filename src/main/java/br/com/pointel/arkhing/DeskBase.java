@@ -105,20 +105,20 @@ public class DeskBase extends javax.swing.JPanel {
     }
 
     private String mountStatus() {
-        if (desk.arkhBase == null) {
+        if (desk.getBase() == null) {
             return "ArkhBase not loaded.";
         } else {
             var grid = new ArrayList<Pair<String, String>>();
             grid.add(Pair.of("Loading Progress",
-                    desk.arkhBase.baseLoad.getProgressFormated()));
+                    desk.getBase().baseLoad.getProgressFormated()));
             grid.add(Pair.of("Number Of Files",
-                    desk.arkhBase.baseLoad.statusNumberOfFiles.toString()));
+                    desk.getBase().baseLoad.statusNumberOfFiles.toString()));
             grid.add(Pair.of("Number Of Checked",
-                    desk.arkhBase.baseLoad.statusNumberOfChecked.toString()));
+                    desk.getBase().baseLoad.statusNumberOfChecked.toString()));
             grid.add(Pair.of("Number Of Cleaned",
-                    desk.arkhBase.baseLoad.statusNumberOfCleaned.toString()));
+                    desk.getBase().baseLoad.statusNumberOfCleaned.toString()));
             grid.add(Pair.of("Number Of Erros",
-                    desk.arkhBase.baseLoad.statusNumberOfErros.toString()));
+                    desk.getBase().baseLoad.statusNumberOfErros.toString()));
             return WizChars.mountGrid(grid);
         }
     }
@@ -129,11 +129,7 @@ public class DeskBase extends javax.swing.JPanel {
             if (selected != null) {
                 editRoot.setText(selected.getAbsolutePath());
                 WizProps.set("DESK_BASE_ROOT", editRoot.getText());
-                if (desk.arkhBase != null) {
-                    desk.arkhBase.close();
-                    desk.arkhBase = null;
-                }
-                desk.arkhBase = new ArkhBase(selected).load();
+                desk.openBase(selected);
             }
         } catch (Exception e) {
             WizSwing.showError(e);
@@ -147,7 +143,7 @@ public class DeskBase extends javax.swing.JPanel {
             var selected = WizSwing.select(lastSelectedCheck);
             if (selected != null) {
                 lastSelectedCheck = selected;
-                new ViewReport(desk.arkhBase.makeCheck(selected)).setVisible(true);
+                new ViewReport(desk.getBase().makeCheck(selected)).setVisible(true);
             }
         } catch (Exception e) {
             WizSwing.showError(e);

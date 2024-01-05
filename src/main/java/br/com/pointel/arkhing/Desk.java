@@ -2,24 +2,33 @@ package br.com.pointel.arkhing;
 
 import javax.swing.UIManager;
 import com.formdev.flatlaf.FlatLightLaf;
+import java.io.File;
+import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 
 public class Desk extends javax.swing.JFrame {
 
-    public final DeskBase deskBase = new DeskBase(this);
-    public final DeskPack deskPack = new DeskPack(this);
-    public final DeskOrgz deskOrgz = new DeskOrgz(this);
-    public final DeskDocs deskDocs = new DeskDocs(this);
-    public final DeskCapt deskCapt = new DeskCapt(this);
-    public final DeskClog deskClog = new DeskClog(this);
-    public final DeskMirr deskMirr = new DeskMirr(this);
-
-    public volatile ArkhBase arkhBase = null;
+    public final DeskBase deskBase;
+    public final DeskPack deskPack;
+    public final DeskOrgz deskOrgz;
+    public final DeskDocs deskDocs;
+    public final DeskCapt deskCapt;
+    public final DeskClog deskClog;
+    public final DeskMirr deskMirr;
 
     public Desk() {
         initComponents();
+        initShortcuts();
+        WizSwing.initPositioner(this);
+        deskBase = new DeskBase(this);
+        deskPack = new DeskPack(this);
+        deskOrgz = new DeskOrgz(this);
+        deskDocs = new DeskDocs(this);
+        deskCapt = new DeskCapt(this);
+        deskClog = new DeskClog(this);
+        deskMirr = new DeskMirr(this);
         tabsBody.addTab("Base", deskBase);
         tabsBody.addTab("Pack", deskPack);
         tabsBody.addTab("Orgz", deskOrgz);
@@ -27,9 +36,28 @@ public class Desk extends javax.swing.JFrame {
         tabsBody.addTab("Capt", deskCapt);
         tabsBody.addTab("Clog", deskClog);
         tabsBody.addTab("Mirr", deskMirr);
-        WizSwing.initPositioner(this);
-        initShortcuts();
-        arkhBase.baseLoad.addListener((message) -> putStatus(message));
+
+    }
+
+    private volatile ArkhBase arkhBase = null;
+    private final Object arkhBaseLocker = new Object();
+
+    public void openBase(File root) throws Exception {
+        synchronized (arkhBaseLocker) {
+            if (arkhBase != null) {
+                arkhBase.close();
+                arkhBase = null;
+            }
+            arkhBase = new ArkhBase(root);
+            arkhBase.addListener((message) -> putStatus(message));
+            arkhBase.load();
+        }
+    }
+
+    public ArkhBase getBase() {
+        synchronized (arkhBaseLocker) {
+            return arkhBase;
+        }
     }
 
     public void showBase() {
@@ -43,7 +71,7 @@ public class Desk extends javax.swing.JFrame {
     public void showOrgz() {
         tabsBody.setSelectedIndex(2);
     }
-    
+
     public void putStatus(String status) {
         if (SwingUtilities.isEventDispatchThread()) {
             editStatus.setText(status);

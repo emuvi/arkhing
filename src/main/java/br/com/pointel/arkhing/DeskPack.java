@@ -388,7 +388,7 @@ public class DeskPack extends javax.swing.JPanel {
                                 } else {
                                     for (var place : watchFound.places) {
                                         modelWatch.addElement(new WatchFoundPlace(watchFound, place));
-                                        var destiny = new File(desk.arkhBase.root, place);
+                                        var destiny = new File(desk.getBase().root, place);
                                         editDestinyFolder.setText(destiny.getParent());
                                         editDestinyName.setText(FilenameUtils.getBaseName(destiny.getName()));
                                         labelFound.setVisible(true);
@@ -462,7 +462,7 @@ public class DeskPack extends javax.swing.JPanel {
         hasWatchChanges.set(true);
         try (var input = new FileInputStream(file)) {
             var verifier = DigestUtils.sha256Hex(input);
-            var founds = desk.arkhBase.baseData.getByVerifier(verifier);
+            var founds = desk.getBase().baseData.getByVerifier(verifier);
             var watchFound = new WatchFound(file, verifier);
             watchFounds.add(watchFound);
             if (!founds.isEmpty()) {
@@ -498,7 +498,7 @@ public class DeskPack extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonWatchActionPerformed
 
     private void buttonSelectFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectFolderActionPerformed
-        var selected = WizSwing.selectFolder(defaultDestinyFolder != null ? defaultDestinyFolder : desk.arkhBase.root);
+        var selected = WizSwing.selectFolder(defaultDestinyFolder != null ? defaultDestinyFolder : desk.getBase().root);
         if (selected != null) {
             defaultDestinyFolder = selected;
             editDestinyFolder.setText(selected.getAbsolutePath());
@@ -607,7 +607,7 @@ public class DeskPack extends javax.swing.JPanel {
             destiny = new File(directory, name + " (" + attempt + ")" + extension);
         }
         Files.move(file.toPath(), destiny.toPath());
-        desk.arkhBase.putFile(destiny, verifier);
+        desk.getBase().putFile(destiny, verifier);
     }
 
     private void listWatchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listWatchKeyPressed
@@ -632,7 +632,7 @@ public class DeskPack extends javax.swing.JPanel {
         if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() >= 2) {
             var selected = listWatch.getSelectedValue();
             if (selected instanceof WatchFoundPlace selectedPlace) {
-                var destiny = new File(desk.arkhBase.root, selectedPlace.place);
+                var destiny = new File(desk.getBase().root, selectedPlace.place);
                 editDestinyFolder.setText(destiny.getParent());
                 editDestinyName.setText(FilenameUtils.getBaseName(destiny.getName()));
             }
