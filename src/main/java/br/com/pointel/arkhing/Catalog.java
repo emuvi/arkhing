@@ -10,8 +10,6 @@ import java.io.FileInputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -21,6 +19,7 @@ import net.sourceforge.tess4j.Tesseract;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.ImageType;
 import org.apache.pdfbox.rendering.PDFRenderer;
@@ -704,18 +703,27 @@ public class Catalog extends javax.swing.JFrame {
             comboRaiz.setSelectedItem("");
             return;
         }
-        var rootPath = desk.getBase().root.getAbsolutePath();
-        var selectedPath = path.getAbsolutePath();
-        if (!selectedPath.startsWith(rootPath)) {
-            throw new Exception("The selected path must be inside the root base.");
-        }
-        selectedPath = selectedPath.substring(rootPath.length() + 1);
+        String clazzPath = getClazzPath(path);
         loadRoot();
-        var parts = selectedPath.split("\\" + File.separator);
+        var parts = clazzPath.split("\\" + File.separator);
         for (int i = 0; i < parts.length; i++) {
             combosPath.get(i).setSelectedItem(parts[i]);
             comboPathActionPerformed(new ActionEvent(combosPath.get(i), 0, "SELECTED"));
         }
+    }
+
+    private String getClazzPath(File path) throws Exception {
+        var selectedPath = path.getAbsolutePath();
+        var rootPath = desk.getBase().root.getAbsolutePath();
+        if (!selectedPath.startsWith(rootPath)) {
+            throw new Exception("The selected path must be inside the root base.");
+        }
+        selectedPath = selectedPath.substring(rootPath.length() + 1);
+        return selectedPath;
+    }
+
+    private File makeFromClazzPath(String clazzPath) throws Exception {
+        return new File(desk.getBase().root, clazzPath);
     }
 
     private File getSelectedPath() {
@@ -780,12 +788,64 @@ public class Catalog extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNewActionPerformed
 
     private void buttonClazzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClazzActionPerformed
-        try {
-            setSelectedPath(lastSelectedPath);
-            combosPath.get(combosPath.size() - 1).requestFocus();
-        } catch (Exception ex) {
-            WizSwing.showError(ex);
-        }
+        final var initialDocument = document;
+        final var initialLastSelected = lastSelectedPath;
+        buttonClazz.setEnabled(false);
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    List<String> suggestions = new ArrayList<>();
+                    if (initialLastSelected != null) {
+                        suggestions.add(getClazzPath(initialLastSelected));
+                    }
+                    var stripper = new PDFTextStripper();
+                    stripper.setStartPage(1);
+                    stripper.setEndPage(initialDocument.getNumberOfPages());
+                    var source = stripper.getText(initialDocument);
+                    var sourceWords = WizChars.getWords(source);
+                    if (shouldStop()) {
+                        return;
+                    }
+                    var allDockData = desk.getBase().arkhDocs.getAllDockData();
+                    var scoredDockData = new ArrayList<Pair<Integer, ArkhDockData>>();
+                    for (var dockData : allDockData) {
+                        var dockDataWords = dockData.getAllWords();
+                        dockDataWords.retainAll(sourceWords);
+                        scoredDockData.add(Pair.of(dockDataWords.size(), dockData));
+                        if (shouldStop()) {
+                            return;
+                        }
+                    }
+                    scoredDockData.sort((e1, e2) -> e2.getKey().compareTo(e1.getLeft()));
+                    for (var item : scoredDockData) {
+                        suggestions.add(getClazzPath((item.getValue().getFolder())));
+                    }
+                    if (shouldStop()) {
+                        return;
+                    }
+                    SwingUtilities.invokeLater(() -> {
+                        new CatalogClazz(suggestions, (selected) -> {
+                            try {
+                                setSelectedPath(makeFromClazzPath(selected));
+                                combosPath.get(combosPath.size() - 1).requestFocus();
+                            } catch (Exception ex) {
+                                WizSwing.showError(ex);
+                            }
+                        }).setVisible(true);
+                    });
+                } catch (Exception ex) {
+                    WizSwing.showError(ex);
+                } finally {
+                    SwingUtilities.invokeLater(() -> buttonClazz.setEnabled(true));
+                }
+            }
+
+            public boolean shouldStop() {
+                return (initialDocument != document);
+            }
+        }.start();
     }//GEN-LAST:event_buttonClazzActionPerformed
 
     private void buttonOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOpenActionPerformed

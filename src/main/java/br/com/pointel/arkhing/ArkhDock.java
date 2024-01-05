@@ -1,7 +1,9 @@
 package br.com.pointel.arkhing;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,6 +38,14 @@ public class ArkhDock {
                 return arkhDocsData;
             }
         }
+    }
+    
+    public List<ArkhDockData> getAllDockData() throws Exception {
+        var result = new ArrayList<ArkhDockData>();
+        synchronized (this.arkhDocsDatas) {
+            result.addAll(this.arkhDocsDatas.values());
+        }
+        return result;
     }
     
     public void delDock(File file) throws Exception {

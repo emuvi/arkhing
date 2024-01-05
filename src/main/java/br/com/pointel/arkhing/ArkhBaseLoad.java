@@ -99,9 +99,11 @@ public class ArkhBaseLoad {
             return;
         }
         if (path.isFile()) {
-            files.addLast(path);
-            this.statusProgressMax.incrementAndGet();
-            this.statusNumberOfFiles.incrementAndGet();
+            if (!(path.getName().startsWith("arkh") && path.getName().endsWith(".sdb"))) {
+                files.addLast(path);
+                this.statusProgressMax.incrementAndGet();
+                this.statusNumberOfFiles.incrementAndGet();
+            }
         } else if (path.isDirectory()) {
             for (var inside : path.listFiles()) {
                 loadFiles(inside);
