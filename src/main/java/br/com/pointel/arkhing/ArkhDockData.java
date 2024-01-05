@@ -8,13 +8,13 @@ import java.sql.DriverManager;
  *
  * @author emuvi
  */
-public class ArkhDocsData {
+public class ArkhDockData {
     
-    private final ArkhDocs arkhDocs;
+    private final ArkhDock arkhDocs;
     private final File folder;
     private final Connection connection;
 
-    public ArkhDocsData(ArkhDocs arkhDocs, File folder) throws Exception {
+    public ArkhDockData(ArkhDock arkhDocs, File folder) throws Exception {
         this.arkhDocs = arkhDocs;
         this.folder = folder;
         this.connection = DriverManager.getConnection("jdbc:sqlite:"
@@ -25,7 +25,7 @@ public class ArkhDocsData {
     private void initDatabase() throws Exception {
         this.connection.createStatement().execute(
                 "CREATE TABLE IF NOT EXISTS "
-                + "docs (name TEXT PRIMARY KEY, modified INTEGER, words TEXT)");
+                + "docks (name TEXT PRIMARY KEY, modified INTEGER, words TEXT)");
     }
     
 }

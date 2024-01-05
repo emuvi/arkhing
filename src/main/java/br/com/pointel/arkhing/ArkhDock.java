@@ -8,17 +8,17 @@ import java.util.Map;
  *
  * @author emuvi
  */
-public class ArkhDocs {
+public class ArkhDock {
     
     public final ArkhBase arkhBase;
-    public final ArkhDocsLoad docsLoad;
+    public final ArkhDockLoad docsLoad;
     
-    private final Map<File, ArkhDocsData> arkhDocsDatas;
+    private final Map<File, ArkhDockData> arkhDocsDatas;
 
-    public ArkhDocs(ArkhBase arkhBase) {
+    public ArkhDock(ArkhBase arkhBase) {
         this.arkhBase = arkhBase;
         this.arkhDocsDatas = new HashMap<>();
-        this.docsLoad = new ArkhDocsLoad(this);
+        this.docsLoad = new ArkhDockLoad(this);
         this.docsLoad.start();
     }
     
@@ -26,12 +26,12 @@ public class ArkhDocs {
         docsLoad.addToVerify(file);
     }
     
-    public ArkhDocsData getDocsData(File folder) throws Exception {
+    public ArkhDockData getDocsData(File folder) throws Exception {
         synchronized (this.arkhDocsDatas) {
             if (this.arkhDocsDatas.containsKey(folder)) {
                 return this.arkhDocsDatas.get(folder);
             } else {
-                var arkhDocsData = new ArkhDocsData(this, folder);
+                var arkhDocsData = new ArkhDockData(this, folder);
                 this.arkhDocsDatas.put(folder, arkhDocsData);
                 return arkhDocsData;
             }

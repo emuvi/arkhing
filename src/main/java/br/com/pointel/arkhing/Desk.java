@@ -13,7 +13,7 @@ public class Desk extends javax.swing.JFrame {
     public final DeskBase deskBase;
     public final DeskPack deskPack;
     public final DeskOrgz deskOrgz;
-    public final DeskDocs deskDocs;
+    public final DeskDock deskDocs;
     public final DeskCapt deskCapt;
     public final DeskClog deskClog;
     public final DeskMirr deskMirr;
@@ -25,14 +25,14 @@ public class Desk extends javax.swing.JFrame {
         deskBase = new DeskBase(this);
         deskPack = new DeskPack(this);
         deskOrgz = new DeskOrgz(this);
-        deskDocs = new DeskDocs(this);
+        deskDocs = new DeskDock(this);
         deskCapt = new DeskCapt(this);
         deskClog = new DeskClog(this);
         deskMirr = new DeskMirr(this);
         tabsBody.addTab("Base", deskBase);
         tabsBody.addTab("Pack", deskPack);
         tabsBody.addTab("Orgz", deskOrgz);
-        tabsBody.addTab("Docs", deskDocs);
+        tabsBody.addTab("Dock", deskDocs);
         tabsBody.addTab("Capt", deskCapt);
         tabsBody.addTab("Clog", deskClog);
         tabsBody.addTab("Mirr", deskMirr);

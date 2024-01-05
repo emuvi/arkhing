@@ -8,13 +8,13 @@ import java.util.concurrent.ConcurrentLinkedDeque;
  *
  * @author emuvi
  */
-public class ArkhDocsLoad {
+public class ArkhDockLoad {
     
-    private final ArkhDocs arkhDocs;
+    private final ArkhDock arkhDocs;
 
     private final Deque<File> files;
 
-    public ArkhDocsLoad(ArkhDocs arkhDocs) {
+    public ArkhDockLoad(ArkhDock arkhDocs) {
         this.arkhDocs = arkhDocs;
         this.files = new ConcurrentLinkedDeque<>();
     }

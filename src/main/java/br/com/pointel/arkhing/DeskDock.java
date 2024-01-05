@@ -1,13 +1,12 @@
 package br.com.pointel.arkhing;
 
 import java.io.File;
-import javax.swing.JOptionPane;
 
-public class DeskDocs extends javax.swing.JPanel {
+public class DeskDock extends javax.swing.JPanel {
 
     private final Desk desk;
 
-    public DeskDocs(Desk desk) {
+    public DeskDock(Desk desk) {
         this.desk = desk;
         initComponents();
     }
