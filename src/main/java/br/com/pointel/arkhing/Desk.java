@@ -105,7 +105,7 @@ public class Desk extends javax.swing.JFrame {
         });
 
         editStatus.setEditable(false);
-        editStatus.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        editStatus.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         editStatus.setText("Status");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
