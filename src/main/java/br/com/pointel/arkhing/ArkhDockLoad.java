@@ -50,7 +50,7 @@ public class ArkhDockLoad {
             try {
                 arkhDocs.arkhBase.sendToListeners("[DOCK] Verifing: " + file.getName());
                 if (DockReader.canRead(file)) {
-                    loadDocument(file);
+                    loadDock(file);
                     arkhDocs.arkhBase.sendToListeners("[DOCK] Putted: " + file.getName());
                 }
             } catch (Exception e) {
@@ -63,26 +63,19 @@ public class ArkhDockLoad {
         return arkhDocs.arkhBase.baseLoad.isDone();
     }
     
-    private void loadDocument(File file) throws Exception {
+    private void loadDock(File file) throws Exception {
         var folder = file.getParentFile();
         var dockData = arkhDocs.getDockData(folder);
         var lastLoad = dockData.getModifiedByName(file.getName());
-        if (lastLoad != null && lastLoad != file.lastModified()) {
+        if (lastLoad != null && lastLoad == file.lastModified()) {
             return;
         }
         var source = new DockReader(file).read();
-        var parts = SPACER_PATTERN.split(source);
-        var words = new HashSet<String>();
-        for (var part : parts) {
-            if (!part.chars().anyMatch((c) -> !Character.isLetter(c))) {
-                words.add(part.toLowerCase());
-            }
-        }
+        var words = WizChars.getWords(source);
         dockData.putDock(file.getName(), file.lastModified(), words);
     }
     
     private static final Integer THREADS_VERIFIERS = 8;
-    public static final String SPACER_REGEX = "([^\\p{L}\\p{N}])+";
-    public static final Pattern SPACER_PATTERN = Pattern.compile(SPACER_REGEX);
+    
     
 }
