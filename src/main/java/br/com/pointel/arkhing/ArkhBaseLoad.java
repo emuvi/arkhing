@@ -2,13 +2,10 @@ package br.com.pointel.arkhing;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.Deque;
-import java.util.List;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 import org.apache.commons.codec.digest.DigestUtils;
 
 /**
@@ -127,8 +124,9 @@ public class ArkhBaseLoad {
                 }
             }
             try {
+                arkhBase.sendToListeners("{BASE} [INFO] Verifing: " + file.getName());
+                arkhBase.arkhDocs.addToVerify(file);
                 var place = arkhBase.getPlace(file);
-                arkhBase.sendToListeners("Verifing: " + place);
                 var baseFile = arkhBase.baseData.getByPlace(place);
                 if (baseFile == null || file.lastModified() > baseFile.modified) {
                     try (FileInputStream input = new FileInputStream(file)) {
@@ -138,7 +136,7 @@ public class ArkhBaseLoad {
                 }
                 this.statusNumberOfChecked.incrementAndGet();
             } catch (Exception e) {
-                arkhBase.sendToListeners("[ERROR] Verifing: " + e.getMessage());
+                arkhBase.sendToListeners("{BASE} [ERROR] Verifing: " + e.getMessage());
                 statusNumberOfErros.incrementAndGet();
             } finally {
                 this.statusProgressPos.incrementAndGet();
@@ -164,7 +162,7 @@ public class ArkhBaseLoad {
                         statusNumberOfCleaned.incrementAndGet();
                     }
                 } catch (Exception e) {
-                    arkhBase.sendToListeners("[ERROR] Linter: " + e.getMessage());
+                    arkhBase.sendToListeners("{BASE} [ERROR] Linter: " + e.getMessage());
                     statusNumberOfErros.incrementAndGet();
                 } finally {
                     statusProgressPos.incrementAndGet();

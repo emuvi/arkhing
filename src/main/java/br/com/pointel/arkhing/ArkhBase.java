@@ -22,6 +22,8 @@ public class ArkhBase implements Closeable {
 
     public final ArkhBaseData baseData;
     public final ArkhBaseLoad baseLoad;
+    
+    public final ArkhDocs arkhDocs;
 
     public ArkhBase(File root) throws Exception {
         if (!root.exists() || !root.isDirectory()) {
@@ -32,6 +34,7 @@ public class ArkhBase implements Closeable {
         this.listeners = new ArrayList<>();
         this.baseData = new ArkhBaseData(this);
         this.baseLoad = new ArkhBaseLoad(this);
+        this.arkhDocs = new ArkhDocs(this);
     }
     
     public void addListener(Consumer<String> listener) {
@@ -55,6 +58,11 @@ public class ArkhBase implements Closeable {
 
     public String getPlace(File path) {
         return path.getAbsolutePath().substring(this.rootLength);
+    }
+    
+    public String getPlaceFolder(File path) {
+        var place = getPlace(path);
+        return place.substring(0, place.lastIndexOf(File.separator) + 1);
     }
     
     public void putFile(File path, String verifier) throws Exception {
