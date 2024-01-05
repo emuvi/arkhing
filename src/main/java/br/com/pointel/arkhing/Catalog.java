@@ -789,7 +789,6 @@ public class Catalog extends javax.swing.JFrame {
 
     private void buttonClazzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClazzActionPerformed
         final var initialDocument = document;
-        final var initialLastSelected = lastSelectedPath;
         buttonClazz.setEnabled(false);
 
         new Thread() {
@@ -797,9 +796,6 @@ public class Catalog extends javax.swing.JFrame {
             public void run() {
                 try {
                     List<String> suggestions = new ArrayList<>();
-                    if (initialLastSelected != null) {
-                        suggestions.add(getClazzPath(initialLastSelected));
-                    }
                     var stripper = new PDFTextStripper();
                     stripper.setStartPage(1);
                     stripper.setEndPage(initialDocument.getNumberOfPages());
@@ -819,8 +815,8 @@ public class Catalog extends javax.swing.JFrame {
                         }
                     }
                     scoredDockData.sort((e1, e2) -> e2.getKey().compareTo(e1.getLeft()));
-                    for (var item : scoredDockData) {
-                        suggestions.add(getClazzPath((item.getValue().getFolder())));
+                    for (var scored : scoredDockData) {
+                        suggestions.add(getClazzPath((scored.getValue().getFolder())));
                     }
                     if (shouldStop()) {
                         return;
