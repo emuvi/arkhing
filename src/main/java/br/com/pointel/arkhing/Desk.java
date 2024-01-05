@@ -3,7 +3,6 @@ package br.com.pointel.arkhing;
 import javax.swing.UIManager;
 import com.formdev.flatlaf.FlatLightLaf;
 import java.io.File;
-import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
