@@ -124,7 +124,7 @@ public class ArkhBaseLoad {
                 }
             }
             try {
-                arkhBase.sendToListeners("{BASE} [INFO] Verifing: " + file.getName());
+                arkhBase.sendToListeners("[BASE] Verifing: " + file.getName());
                 arkhBase.arkhDocs.addToVerify(file);
                 var place = arkhBase.getPlace(file);
                 var baseFile = arkhBase.baseData.getByPlace(place);
@@ -132,11 +132,12 @@ public class ArkhBaseLoad {
                     try (FileInputStream input = new FileInputStream(file)) {
                         var verifier = DigestUtils.sha256Hex(input);
                         arkhBase.baseData.putFile(place, file.lastModified(), verifier);
+                        arkhBase.sendToListeners("[BASE] Putted: " + file.getName());
                     }
                 }
                 this.statusNumberOfChecked.incrementAndGet();
             } catch (Exception e) {
-                arkhBase.sendToListeners("{BASE} [ERROR] Verifing: " + e.getMessage());
+                arkhBase.sendToListeners("[BASE] Error: " + e.getMessage());
                 statusNumberOfErros.incrementAndGet();
             } finally {
                 this.statusProgressPos.incrementAndGet();
