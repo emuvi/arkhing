@@ -24,7 +24,7 @@ public class ArkhBaseData implements Closeable {
         this.initDatabase();
     }
 
-    public ArkhBaseFile getByPlace(String place) throws Exception {
+    public ArkhBaseUnit getByPlace(String place) throws Exception {
         var select = this.connection.prepareStatement(
                 "SELECT place, modified, verifier "
                 + "FROM files "
@@ -32,7 +32,7 @@ public class ArkhBaseData implements Closeable {
         select.setString(1, place);
         var returned = select.executeQuery();
         if (returned.next()) {
-            return new ArkhBaseFile(
+            return new ArkhBaseUnit(
                     returned.getString("place"),
                     returned.getLong("modified"),
                     returned.getString("verifier")
@@ -42,16 +42,16 @@ public class ArkhBaseData implements Closeable {
         }
     }
 
-    public List<ArkhBaseFile> getByVerifier(String verifier) throws Exception {
+    public List<ArkhBaseUnit> getByVerifier(String verifier) throws Exception {
         var select = this.connection.prepareStatement(
                 "SELECT place, modified, verifier "
                 + "FROM files "
                 + "WHERE verifier = ?");
         select.setString(1, verifier);
         var returned = select.executeQuery();
-        var results = new ArrayList<ArkhBaseFile>();
+        var results = new ArrayList<ArkhBaseUnit>();
         while (returned.next()) {
-            results.add(new ArkhBaseFile(
+            results.add(new ArkhBaseUnit(
                     returned.getString("place"),
                     returned.getLong("modified"),
                     returned.getString("verifier")
@@ -60,14 +60,14 @@ public class ArkhBaseData implements Closeable {
         return results;
     }
 
-    public List<ArkhBaseFile> getAll() throws Exception {
+    public List<ArkhBaseUnit> getAll() throws Exception {
         var select = this.connection.prepareStatement(
                 "SELECT place, modified, verifier "
                 + "FROM files");
         var returned = select.executeQuery();
-        var results = new ArrayList<ArkhBaseFile>();
+        var results = new ArrayList<ArkhBaseUnit>();
         while (returned.next()) {
-            results.add(new ArkhBaseFile(
+            results.add(new ArkhBaseUnit(
                     returned.getString("place"),
                     returned.getLong("modified"),
                     returned.getString("verifier")
@@ -88,7 +88,7 @@ public class ArkhBaseData implements Closeable {
         return results;
     }
 
-    public void putFile(ArkhBaseFile file) throws Exception {
+    public void putFile(ArkhBaseUnit file) throws Exception {
         this.putFile(file.place, file.modified, file.verifier);
     }
 

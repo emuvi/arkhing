@@ -6,11 +6,11 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
-public class TransferableImage implements Transferable {
+public class ImageTransfer implements Transferable {
 
     private final Image image;
 
-    public TransferableImage(Image i) {
+    public ImageTransfer(Image i) {
         this.image = i;
     }
 

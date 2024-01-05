@@ -911,7 +911,7 @@ public class DeskCapt extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonAutoItemsActionPerformed
     
-    private final StackImage stackImage = new StackImage();
+    private final ImageStack stackImage = new ImageStack();
 
     private void buttonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClearActionPerformed
         try {

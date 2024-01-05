@@ -10,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StackImage implements ClipboardOwner {
+public class ImageStack implements ClipboardOwner {
 
     private final List<BufferedImage> images = new ArrayList<>();
 
@@ -78,7 +78,7 @@ public class StackImage implements ClipboardOwner {
         }
         discardOnTryToStack = composed;
         Toolkit.getDefaultToolkit().getSystemClipboard()
-                .setContents(new TransferableImage(composed), this);
+                .setContents(new ImageTransfer(composed), this);
     }
 
     @Override

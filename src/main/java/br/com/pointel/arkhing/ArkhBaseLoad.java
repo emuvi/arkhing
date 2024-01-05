@@ -35,8 +35,6 @@ public class ArkhBaseLoad {
     public final AtomicInteger statusNumberOfChecked;
     public final AtomicInteger statusNumberOfCleaned;
     public final AtomicInteger statusNumberOfErros;
-    
-    
 
     public ArkhBaseLoad(ArkhBase arkhBase) throws Exception {
         this.arkhBase = arkhBase;
