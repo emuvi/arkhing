@@ -60,8 +60,13 @@ public class ArkhDockLoad {
         return arkhDocs.arkhBase.baseLoad.isDone();
     }
     
-    private void loadDocument(File file) {
-        var fileFolder = file.getParentFile();
+    private void loadDocument(File file) throws Exception {
+        var folder = file.getParentFile();
+        var dockData = arkhDocs.getDockData(folder);
+        var lastLoad = dockData.getModifiedByName(file.getName());
+        if (lastLoad != null && lastLoad >= file.lastModified()) {
+            return;
+        }
     }
     
     private static final Integer THREADS_VERIFIERS = 8;

@@ -26,7 +26,7 @@ public class ArkhDock {
         docsLoad.addToVerify(file);
     }
     
-    public ArkhDockData getDocsData(File folder) throws Exception {
+    public ArkhDockData getDockData(File folder) throws Exception {
         synchronized (this.arkhDocsDatas) {
             if (this.arkhDocsDatas.containsKey(folder)) {
                 return this.arkhDocsDatas.get(folder);
