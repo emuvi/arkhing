@@ -30,6 +30,8 @@
                   <Component id="panelViewer" max="32767" attributes="0"/>
                   <Component id="panelActions" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
+                      <Component id="buttonReClazz" min="-2" pref="50" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonClazz" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelDestiny" max="32767" attributes="0"/>
@@ -56,7 +58,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="panelDestiny" alignment="1" min="-2" max="-2" attributes="0"/>
-                  <Component id="buttonClazz" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="buttonClazz" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonReClazz" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="buttonNew" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonOpen" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -272,7 +277,7 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="buttonPrior">
           <Properties>
-            <Property name="mnemonic" type="int" value="82"/>
+            <Property name="mnemonic" type="int" value="80"/>
             <Property name="text" type="java.lang.String" value="Prior"/>
           </Properties>
           <Events>
@@ -458,11 +463,20 @@
     </Component>
     <Component class="javax.swing.JButton" name="buttonNameCopy">
       <Properties>
-        <Property name="mnemonic" type="int" value="80"/>
+        <Property name="mnemonic" type="int" value="89"/>
         <Property name="text" type="java.lang.String" value="Copy"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNameCopyActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonReClazz">
+      <Properties>
+        <Property name="mnemonic" type="int" value="82"/>
+        <Property name="text" type="java.lang.String" value="Re"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonReClazzActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -171,6 +171,7 @@ public class Catalog extends javax.swing.JFrame {
         buttonOpen = new javax.swing.JButton();
         buttonNameSearch = new javax.swing.JButton();
         buttonNameCopy = new javax.swing.JButton();
+        buttonReClazz = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Arkhing - Catalog");
@@ -224,7 +225,7 @@ public class Catalog extends javax.swing.JFrame {
 
         panelViewer.add(scrollPage);
 
-        buttonPrior.setMnemonic('R');
+        buttonPrior.setMnemonic('P');
         buttonPrior.setText("Prior");
         buttonPrior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -456,11 +457,19 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
-        buttonNameCopy.setMnemonic('P');
+        buttonNameCopy.setMnemonic('Y');
         buttonNameCopy.setText("Copy");
         buttonNameCopy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonNameCopyActionPerformed(evt);
+            }
+        });
+
+        buttonReClazz.setMnemonic('R');
+        buttonReClazz.setText("Re");
+        buttonReClazz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonReClazzActionPerformed(evt);
             }
         });
 
@@ -474,6 +483,8 @@ public class Catalog extends javax.swing.JFrame {
                     .addComponent(panelViewer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelActions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(buttonReClazz, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonClazz)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelDestiny, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -495,7 +506,9 @@ public class Catalog extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(panelDestiny, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonClazz)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonClazz)
+                        .addComponent(buttonReClazz))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonNew)
                         .addComponent(buttonOpen)))
@@ -1005,6 +1018,14 @@ public class Catalog extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonNameSearchActionPerformed
 
+    private void buttonReClazzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonReClazzActionPerformed
+        try {
+            setSelectedPath(lastSelectedPath);
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_buttonReClazzActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
     private javax.swing.JButton buttonAuthorAdd;
@@ -1021,6 +1042,7 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JButton buttonOCR;
     private javax.swing.JButton buttonOpen;
     private javax.swing.JButton buttonPrior;
+    private javax.swing.JButton buttonReClazz;
     private javax.swing.JButton buttonRemove;
     private javax.swing.JButton buttonSubtitle;
     private javax.swing.JButton buttonSubtitleAdd;
