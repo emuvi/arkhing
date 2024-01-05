@@ -61,7 +61,7 @@ public class WizChars {
         var parts = SPACER_PATTERN.split(source);
         var words = new HashSet<String>();
         for (var part : parts) {
-            if (!part.chars().anyMatch((c) -> !Character.isLetter(c))) {
+            if (!part.isBlank() && !part.chars().anyMatch((c) -> !Character.isLetter(c))) {
                 words.add(part.toLowerCase());
             }
         }
