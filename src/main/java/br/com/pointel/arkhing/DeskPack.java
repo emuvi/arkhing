@@ -103,6 +103,7 @@ public class DeskPack extends javax.swing.JPanel {
         buttonSameFoundName = new javax.swing.JButton();
         buttonMakeAulaName = new javax.swing.JButton();
         buttonMakeAutoName = new javax.swing.JButton();
+        buttonSelectDestinyFolder = new javax.swing.JButton();
         checkQuickMake = new javax.swing.JCheckBox();
         spinnerAutoMake = new javax.swing.JSpinner();
 
@@ -254,6 +255,13 @@ public class DeskPack extends javax.swing.JPanel {
         });
         panelProcess.add(buttonMakeAutoName);
 
+        buttonSelectDestinyFolder.setText(">");
+        buttonSelectDestinyFolder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSelectDestinyFolderActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelWatchLayout = new javax.swing.GroupLayout(panelWatch);
         panelWatch.setLayout(panelWatchLayout);
         panelWatchLayout.setHorizontalGroup(
@@ -265,6 +273,8 @@ public class DeskPack extends javax.swing.JPanel {
                     .addGroup(panelWatchLayout.createSequentialGroup()
                         .addComponent(buttonDestinyFolder)
                         .addGap(18, 18, 18)
+                        .addComponent(buttonSelectDestinyFolder)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSelectFolder)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSelectOrgz)
@@ -307,7 +317,8 @@ public class DeskPack extends javax.swing.JPanel {
                         .addComponent(buttonNameCopy)
                         .addComponent(buttonFolderOpen)
                         .addComponent(buttonSelectOrgz)
-                        .addComponent(buttonDestinyFolder)))
+                        .addComponent(buttonDestinyFolder)
+                        .addComponent(buttonSelectDestinyFolder)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editDestinyFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -699,6 +710,10 @@ public class DeskPack extends javax.swing.JPanel {
         splitPack.setDividerLocation(splitPack.getHeight() - (panelWatch.getMinimumSize().height + 30));
     }//GEN-LAST:event_splitPackComponentResized
 
+    private void buttonSelectDestinyFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectDestinyFolderActionPerformed
+        defaultDestinyFolder = new File(editDestinyFolder.getText());
+    }//GEN-LAST:event_buttonSelectDestinyFolderActionPerformed
+
     private Set<WatchFound> getSelectedToProcess() {
         Set<WatchFound> results = new HashSet<>();
         int[] selectAll = new int[modelWatch.size()];
@@ -721,6 +736,7 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JButton buttonNameCopy;
     private javax.swing.JButton buttonSameFoundName;
     private javax.swing.JButton buttonSameRootName;
+    private javax.swing.JButton buttonSelectDestinyFolder;
     private javax.swing.JButton buttonSelectFolder;
     private javax.swing.JButton buttonSelectOrgz;
     private javax.swing.JButton buttonWatch;

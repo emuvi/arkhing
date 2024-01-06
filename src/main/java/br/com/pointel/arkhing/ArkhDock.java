@@ -21,7 +21,7 @@ public class ArkhDock {
         this.arkhBase = arkhBase;
         this.arkhDocsDatas = new HashMap<>();
         this.docsLoad = new ArkhDockLoad(this);
-        this.docsLoad.start();
+        //this.docsLoad.start();
     }
     
     public void addToVerify(File file) {
