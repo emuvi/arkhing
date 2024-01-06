@@ -19,7 +19,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="splitPack" pref="916" max="32767" attributes="0"/>
+                  <Component id="splitPack" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="editWatch" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -140,7 +140,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="editClipboard" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="buttonDestinyFolder" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonClazzFolder" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="buttonSelectDestinyFolder" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -149,10 +149,10 @@
                               <Component id="buttonSelectOrgz" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonFolderOpen" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="133" max="32767" attributes="0"/>
+                              <EmptySpace pref="137" max="32767" attributes="0"/>
                               <Component id="buttonRemove" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="70" max="32767" attributes="0"/>
-                              <Component id="butttonDestinyName" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace pref="75" max="32767" attributes="0"/>
+                              <Component id="butttonSuggestName" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="checkAutoCopy" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -188,14 +188,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                               <Component id="checkAutoCopy" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="butttonDestinyName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="butttonSuggestName" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="buttonSelectFolder" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonNameCopy" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonFolderOpen" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonSelectOrgz" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonClazzFolder" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonSelectDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonRemove" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -246,13 +246,13 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonDestinyFolder">
+            <Component class="javax.swing.JButton" name="buttonClazzFolder">
               <Properties>
                 <Property name="mnemonic" type="int" value="70"/>
-                <Property name="text" type="java.lang.String" value="Destiny Folder"/>
+                <Property name="text" type="java.lang.String" value="Clazz Folder"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDestinyFolderActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonClazzFolderActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buttonSelectFolder">
@@ -282,13 +282,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonFolderOpenActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="butttonDestinyName">
+            <Component class="javax.swing.JButton" name="butttonSuggestName">
               <Properties>
                 <Property name="mnemonic" type="int" value="68"/>
-                <Property name="text" type="java.lang.String" value="Destiny Name"/>
+                <Property name="text" type="java.lang.String" value="Suggest Name"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butttonDestinyNameActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butttonSuggestNameActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkAutoCopy">
