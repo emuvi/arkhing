@@ -3,7 +3,7 @@ package br.com.pointel.arkhing;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.regex.Pattern;
+import java.util.function.Consumer;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -58,17 +58,42 @@ public class WizChars {
     }
 
     public static Set<String> getWords(String source) {
-        var parts = SPACER_PATTERN.split(source);
-        var words = new HashSet<String>();
-        for (var part : parts) {
-            if (!part.isBlank() && !part.chars().anyMatch((c) -> !Character.isLetter(c))) {
-                words.add(part.toLowerCase());
-            }
+        var result = new HashSet<String>();
+        var partsOnSpace = source.split("\\s+");
+        for (var spaced : partsOnSpace) {
+            result.addAll(getWordsInBounds(spaced));
         }
-        return words;
+        return result;
     }
 
-    public static final String SPACER_REGEX = "([^\\p{L}\\p{N}])+";
-    public static final Pattern SPACER_PATTERN = Pattern.compile(SPACER_REGEX);
-    
+    public static Set<String> getWordsInBounds(String source) {
+        var result = new HashSet<String>();
+
+        Consumer<String> addWord = (word) -> {
+            while (word.length() > 0 && !Character.isLetterOrDigit(word.charAt(word.length() -1))) {
+                word = word.substring(0, word.length() -1);
+            }
+            if (!word.isEmpty()) {
+                result.add(word.toLowerCase());
+            }
+        };
+        
+        var parts = source.toCharArray();
+        var maker = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            var prior = i > 0 ? parts[i - 1] : 0;
+            var actual = parts[i];
+            var next = i < parts.length - 1 ? parts[i + 1] : 0;
+            if (Character.isLetterOrDigit(actual)
+                    || (Character.isDigit(prior) || Character.isDigit(next))) {
+                maker.append(actual);
+            } else {
+                addWord.accept(maker.toString());
+                maker = new StringBuilder();
+            }
+        }
+        addWord.accept(maker.toString());
+        return result;
+    }
+
 }
