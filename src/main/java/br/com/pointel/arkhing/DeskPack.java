@@ -272,7 +272,7 @@ public class DeskPack extends javax.swing.JPanel {
                     .addComponent(editClipboard)
                     .addGroup(panelWatchLayout.createSequentialGroup()
                         .addComponent(buttonDestinyFolder)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonSelectDestinyFolder)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSelectFolder)
