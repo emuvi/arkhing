@@ -47,7 +47,7 @@ public class ArkhBaseLoad {
     }
 
     public ArkhBaseLoad start() {
-        new Thread("ArkhLoad - Files") {
+        new Thread("ArkhBaseLoad - Files") {
             @Override
             public void run() {
                 loadFiles(arkhBase.root);
@@ -55,7 +55,7 @@ public class ArkhBaseLoad {
             }
         }.start();
         for (int i = 1; i <= THREADS_VERIFIERS; i++) {
-            new Thread("ArkhLoad - Verifier " + i) {
+            new Thread("ArkhBaseLoad - Verifier " + i) {
                 @Override
                 public void run() {
                     loadVerifiers();
@@ -63,7 +63,7 @@ public class ArkhBaseLoad {
                 }
             }.start();
         }
-        new Thread("ArkhLoad - Linter") {
+        new Thread("ArkhBaseLoad - Linter") {
             @Override
             public void run() {
                 makeLinterClean();
@@ -82,8 +82,12 @@ public class ArkhBaseLoad {
 
     public Boolean isDone() {
         return doneLoadFiles.get()
-                && doneLoadVerifiers.get() == THREADS_VERIFIERS
+                && isDoneVerifiers()
                 && doneLinterClean.get();
+    }
+
+    private boolean isDoneVerifiers() {
+        return doneLoadVerifiers.get() == THREADS_VERIFIERS;
     }
 
     public Double getProgress() {
@@ -148,10 +152,13 @@ public class ArkhBaseLoad {
     }
 
     private void makeLinterClean() {
-        if (shouldStop.get()) {
-            return;
-        }
         try {
+            while (!isDoneVerifiers()) {
+                WizBase.sleep(100);
+                if (shouldStop.get()) {
+                    return;
+                }
+            }
             var places = arkhBase.baseData.getAllPlaces();
             statusProgressMax.addAndGet(places.size());
             for (var place : places) {
@@ -174,7 +181,7 @@ public class ArkhBaseLoad {
                 }
             }
         } catch (Exception e) {
-            arkhBase.sendToListeners("[ERROR] Linter: " + e.getMessage());
+            arkhBase.sendToListeners("[BASE] Error: " + e.getMessage());
             statusNumberOfErros.incrementAndGet();
         }
     }

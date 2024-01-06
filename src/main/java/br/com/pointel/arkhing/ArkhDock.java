@@ -21,7 +21,7 @@ public class ArkhDock {
         this.arkhBase = arkhBase;
         this.arkhDocsDatas = new HashMap<>();
         this.docsLoad = new ArkhDockLoad(this);
-        //this.docsLoad.start();
+        this.docsLoad.start();
     }
     
     public void addToVerify(File file) {
@@ -52,6 +52,22 @@ public class ArkhDock {
         var folder = file.getParentFile();
         var dockData = getDockData(folder);
         dockData.delDock(file.getName());
+    }
+    
+    public void freeFolder(File folder) throws Exception {
+        synchronized (this.arkhDocsDatas) {
+            if (this.arkhDocsDatas.containsKey(folder)) {
+                this.arkhDocsDatas.get(folder).free();
+            }
+        }
+    }
+    
+    public void freeAll() throws Exception {
+        synchronized (this.arkhDocsDatas) {
+            for (var dockData : this.arkhDocsDatas.values()) {
+                dockData.free();
+            }
+        }
     }
     
 }

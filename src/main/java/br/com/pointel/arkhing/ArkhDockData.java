@@ -17,17 +17,24 @@ import org.apache.logging.log4j.util.Strings;
 public class ArkhDockData {
 
     private final File folder;
-    private final Connection connection;
 
-    public ArkhDockData(File folder) throws Exception {
+    public ArkhDockData(File folder) {
         this.folder = folder;
-        this.connection = DriverManager.getConnection("jdbc:sqlite:"
-                + new File(folder, "arkhdock.sdb").getAbsolutePath());
-        this.initDatabase();
+    }
+
+    private volatile Connection connection = null;
+
+    private Connection getConnection() throws Exception {
+        if (connection == null) {
+            connection = DriverManager.getConnection("jdbc:sqlite:"
+                    + new File(folder, "arkhdock.sdb").getAbsolutePath());
+            initDatabase();
+        }
+        return connection;
     }
 
     private void initDatabase() throws Exception {
-        this.connection.createStatement().execute(
+        connection.createStatement().execute(
                 "CREATE TABLE IF NOT EXISTS "
                 + "docks (name TEXT PRIMARY KEY, modified INTEGER, words TEXT)");
     }
@@ -37,7 +44,7 @@ public class ArkhDockData {
     }
 
     public ArkhDockUnit getByName(String name) throws Exception {
-        var select = this.connection.prepareStatement(
+        var select = getConnection().prepareStatement(
                 "SELECT name, modified, words "
                 + "FROM docks "
                 + "WHERE name = ?");
@@ -55,7 +62,7 @@ public class ArkhDockData {
     }
 
     public Long getModifiedByName(String name) throws Exception {
-        var select = this.connection.prepareStatement(
+        var select = getConnection().prepareStatement(
                 "SELECT modified "
                 + "FROM docks "
                 + "WHERE name = ?");
@@ -67,9 +74,9 @@ public class ArkhDockData {
             return null;
         }
     }
-    
+
     public List<ArkhDockUnit> getAll() throws Exception {
-        var select = this.connection.prepareStatement(
+        var select = getConnection().prepareStatement(
                 "SELECT name, modified, words "
                 + "FROM docks");
         var returned = select.executeQuery();
@@ -83,9 +90,9 @@ public class ArkhDockData {
         }
         return results;
     }
-    
+
     public Set<String> getAllWords() throws Exception {
-        var select = this.connection.prepareStatement("SELECT words FROM docks");
+        var select = getConnection().prepareStatement("SELECT words FROM docks");
         var returned = select.executeQuery();
         var results = new HashSet<String>();
         while (returned.next()) {
@@ -93,19 +100,19 @@ public class ArkhDockData {
         }
         return results;
     }
-    
+
     public void putDock(ArkhDockUnit dock) throws Exception {
         this.putDock(dock.name, dock.modified, dock.words);
     }
-    
+
     public void putDock(String name, Long modified, Set<String> words) throws Exception {
-        var delete = this.connection.prepareStatement(
+        var delete = getConnection().prepareStatement(
                 "DELETE FROM docks "
                 + "WHERE name = ?");
         delete.setString(1, name);
         delete.executeUpdate();
         String wordsSeparated = Strings.join(words, ',');
-        var insert = this.connection.prepareStatement(
+        var insert = getConnection().prepareStatement(
                 "INSERT INTO docks "
                 + "(name, modified, words) "
                 + "VALUES (?, ?, ?)");
@@ -117,13 +124,20 @@ public class ArkhDockData {
             throw new Exception("Could not put the dock.");
         }
     }
-    
+
     public void delDock(String name) throws Exception {
-        var delete = this.connection.prepareStatement(
+        var delete = getConnection().prepareStatement(
                 "DELETE FROM docks "
                 + "WHERE name = ?");
         delete.setString(1, name);
         delete.executeUpdate();
+    }
+    
+    public void free() throws Exception {
+        if (connection != null) {
+            connection.close();
+            connection = null;
+        }
     }
 
 }
