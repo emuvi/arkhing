@@ -11,23 +11,25 @@ import java.util.Map;
  * @author emuvi
  */
 public class ArkhDock {
-    
+
     public final ArkhBase arkhBase;
     public final ArkhDockLoad docsLoad;
-    
+
     private final Map<File, ArkhDockData> arkhDocsDatas;
 
     public ArkhDock(ArkhBase arkhBase) {
         this.arkhBase = arkhBase;
         this.arkhDocsDatas = new HashMap<>();
         this.docsLoad = new ArkhDockLoad(this);
-        this.docsLoad.start();
+        if (WizProps.get("DESK_DOCK_INDEX", false)) {
+            this.docsLoad.start();
+        }
     }
-    
+
     public void addToVerify(File file) {
         docsLoad.addToVerify(file);
     }
-    
+
     public ArkhDockData getDockData(File folder) throws Exception {
         synchronized (this.arkhDocsDatas) {
             if (this.arkhDocsDatas.containsKey(folder)) {
@@ -39,7 +41,7 @@ public class ArkhDock {
             }
         }
     }
-    
+
     public List<ArkhDockData> getAllDockData() throws Exception {
         var result = new ArrayList<ArkhDockData>();
         synchronized (this.arkhDocsDatas) {
@@ -47,13 +49,13 @@ public class ArkhDock {
         }
         return result;
     }
-    
+
     public void delDock(File file) throws Exception {
         var folder = file.getParentFile();
         var dockData = getDockData(folder);
         dockData.delDock(file.getName());
     }
-    
+
     public void freeFolder(File folder) throws Exception {
         synchronized (this.arkhDocsDatas) {
             if (this.arkhDocsDatas.containsKey(folder)) {
@@ -61,7 +63,7 @@ public class ArkhDock {
             }
         }
     }
-    
+
     public void freeAll() throws Exception {
         synchronized (this.arkhDocsDatas) {
             for (var dockData : this.arkhDocsDatas.values()) {
@@ -69,5 +71,5 @@ public class ArkhDock {
             }
         }
     }
-    
+
 }
