@@ -1007,7 +1007,8 @@ public class Catalog extends javax.swing.JFrame {
 
     private void buttonNameSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNameSearchActionPerformed
         try {
-            var query = getNomination()
+            var search = editTitle.getText() + " " + editSubtitle.getText() + " " + editAuthor.getText();
+            var query = search.trim()
                     .replace(" - ", "+")
                     .replaceAll("\\s+", "+")
                     .toLowerCase();
