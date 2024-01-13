@@ -42,6 +42,8 @@ public class Catalog extends javax.swing.JFrame {
 
     private volatile Image pageImage = null;
     private final DrawPanel drawPanel = new DrawPanel();
+    
+    private JTextField lastSelectedField = null;
 
     public Catalog(Desk desk, List<File> files) throws Exception {
         this.desk = desk;
@@ -172,6 +174,7 @@ public class Catalog extends javax.swing.JFrame {
         buttonNameSearch = new javax.swing.JButton();
         buttonNameCopy = new javax.swing.JButton();
         buttonReClazz = new javax.swing.JButton();
+        buttonSwitchCase = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Arkhing - Catalog");
@@ -205,12 +208,27 @@ public class Catalog extends javax.swing.JFrame {
         panelNaming.setLayout(new java.awt.GridLayout(1, 0, 5, 5));
 
         editTitle.setFont(WizSwing.fontMonospaced());
+        editTitle.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                editTitleFocusGained(evt);
+            }
+        });
         panelNaming.add(editTitle);
 
         editSubtitle.setFont(WizSwing.fontMonospaced());
+        editSubtitle.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                editSubtitleFocusGained(evt);
+            }
+        });
         panelNaming.add(editSubtitle);
 
         editAuthor.setFont(WizSwing.fontMonospaced());
+        editAuthor.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                editAuthorFocusGained(evt);
+            }
+        });
         panelNaming.add(editAuthor);
 
         panelViewer.setLayout(new java.awt.GridLayout(1, 0));
@@ -381,11 +399,11 @@ public class Catalog extends javax.swing.JFrame {
                 .addComponent(buttonLast)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(buttonOCR, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(buttonSuggest, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(47, 47, 47)
                 .addComponent(checkReCase)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonTitle)
@@ -473,6 +491,14 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
+        buttonSwitchCase.setMnemonic('5');
+        buttonSwitchCase.setText("%");
+        buttonSwitchCase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSwitchCaseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -494,6 +520,8 @@ public class Catalog extends javax.swing.JFrame {
                         .addComponent(buttonOpen))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(panelNaming, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSwitchCase)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonNameCopy, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -517,7 +545,8 @@ public class Catalog extends javax.swing.JFrame {
                     .addComponent(panelNaming, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonNameSearch)
-                        .addComponent(buttonNameCopy)))
+                        .addComponent(buttonNameCopy)
+                        .addComponent(buttonSwitchCase)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelViewer, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1028,6 +1057,38 @@ public class Catalog extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonReClazzActionPerformed
 
+    private void buttonSwitchCaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSwitchCaseActionPerformed
+        if (lastSelectedField != null) {
+            var start = lastSelectedField.getSelectionStart();
+            var end = lastSelectedField.getSelectionEnd();
+            var selected = lastSelectedField.getSelectedText();
+            if (start > -1 && end > -1 && !selected.isEmpty()) {
+                var switched = WizChars.switchCase(selected);
+                var complete = lastSelectedField.getText();
+                lastSelectedField.setText(
+                        complete.substring(0, start)
+                        + switched
+                        + complete.substring(end)
+                );
+                lastSelectedField.setSelectionStart(start);
+                lastSelectedField.setSelectionEnd(end);
+            }
+            lastSelectedField.requestFocus();
+        }
+    }//GEN-LAST:event_buttonSwitchCaseActionPerformed
+
+    private void editTitleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_editTitleFocusGained
+        lastSelectedField = editTitle;
+    }//GEN-LAST:event_editTitleFocusGained
+
+    private void editSubtitleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_editSubtitleFocusGained
+        lastSelectedField = editSubtitle;
+    }//GEN-LAST:event_editSubtitleFocusGained
+
+    private void editAuthorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_editAuthorFocusGained
+        lastSelectedField = editAuthor;
+    }//GEN-LAST:event_editAuthorFocusGained
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
     private javax.swing.JButton buttonAuthorAdd;
@@ -1050,6 +1111,7 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JButton buttonSubtitleAdd;
     private javax.swing.JButton buttonSubtitleEquals;
     private javax.swing.JButton buttonSuggest;
+    private javax.swing.JButton buttonSwitchCase;
     private javax.swing.JButton buttonTitle;
     private javax.swing.JButton buttonTitleAdd;
     private javax.swing.JButton buttonTitleEquals;

@@ -43,6 +43,8 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="panelNaming" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonSwitchCase" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonNameCopy" min="-2" pref="75" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonNameSearch" min="-2" pref="75" max="-2" attributes="0"/>
@@ -73,6 +75,7 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="buttonNameSearch" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="buttonNameCopy" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="buttonSwitchCase" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -143,6 +146,9 @@
               <Connection code="WizSwing.fontMonospaced()" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="editTitleFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="editSubtitle">
           <Properties>
@@ -150,6 +156,9 @@
               <Connection code="WizSwing.fontMonospaced()" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="editSubtitleFocusGained"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="editAuthor">
           <Properties>
@@ -157,6 +166,9 @@
               <Connection code="WizSwing.fontMonospaced()" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="editAuthorFocusGained"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -209,11 +221,11 @@
                   <Component id="buttonLast" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="labelStatus" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="39" max="32767" attributes="0"/>
+                  <EmptySpace pref="32" max="32767" attributes="0"/>
                   <Component id="buttonOCR" min="-2" pref="75" max="-2" attributes="0"/>
-                  <EmptySpace pref="40" max="32767" attributes="0"/>
+                  <EmptySpace pref="32" max="32767" attributes="0"/>
                   <Component id="buttonSuggest" min="-2" pref="75" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   <Component id="checkReCase" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="buttonTitle" min="-2" max="-2" attributes="0"/>
@@ -477,6 +489,15 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonReClazzActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="buttonSwitchCase">
+      <Properties>
+        <Property name="mnemonic" type="int" value="53"/>
+        <Property name="text" type="java.lang.String" value="%"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSwitchCaseActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
