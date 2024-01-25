@@ -570,7 +570,7 @@ public class DeskCapt extends javax.swing.JPanel {
             var totalPages = (Integer) editPages.getValue();
             var waitTime = Math.round((Double) editWait.getValue() * 1000);
             var captureSource = source;
-            var clickPoint = new Point(source.x + 10, source.y + 10);
+            var clickPoint = new Point(source.x + 15, source.y - 15);
             var destinyFolder = new File(editDestiny.getText());
             var dragMouse = "Drag Mouse".equals(comboMethod.getSelectedItem());
             var pressDown = "Press Down".equals(comboMethod.getSelectedItem());
