@@ -21,9 +21,6 @@ public class ArkhDock {
         this.arkhBase = arkhBase;
         this.arkhDocsDatas = new HashMap<>();
         this.docsLoad = new ArkhDockLoad(this);
-        if (WizProps.get("DESK_DOCK_INDEX", false)) {
-            this.docsLoad.start();
-        }
     }
 
     public void addToVerify(File file) {

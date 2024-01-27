@@ -16,6 +16,7 @@ public class ArkhDockLoad {
 
     private final Deque<File> files;
 
+    private final AtomicBoolean isRunning;
     private final AtomicBoolean shouldStop;
     private final AtomicInteger doneLoadVerifiers;
     private final AtomicBoolean doneLinterClean;
@@ -23,12 +24,16 @@ public class ArkhDockLoad {
     public ArkhDockLoad(ArkhDock arkhDocs) {
         this.arkhDocs = arkhDocs;
         this.files = new ConcurrentLinkedDeque<>();
+        this.isRunning = new AtomicBoolean(false);
         this.shouldStop = new AtomicBoolean(false);
         this.doneLoadVerifiers = new AtomicInteger(0);
         this.doneLinterClean = new AtomicBoolean(false);
     }
 
     public void start() {
+        isRunning.set(true);
+        doneLoadVerifiers.set(0);
+        doneLinterClean.set(false);
         for (int i = 1; i <= THREADS_VERIFIERS; i++) {
             new Thread("ArkhDockLoad - Verifier " + i) {
                 @Override
@@ -43,6 +48,7 @@ public class ArkhDockLoad {
             public void run() {
                 makeLinterClean();
                 doneLinterClean.set(true);
+                isRunning.set(false);
             }
         }.start();
     }
@@ -65,22 +71,27 @@ public class ArkhDockLoad {
 
     public void addToVerify(File file) {
         files.add(file);
+        if (!isRunning.get()) { 
+            start();
+        }
     }
 
     private void loadVerifiers() {
+        var attempts = 0;
         while (true) {
+            attempts++;
             if (shouldStop.get()) {
                 return;
             }
             var file = files.pollFirst();
             if (file == null) {
-                if (isBaseDoneLoad()) {
+                if (attempts > 120) {
                     break;
-                } else {
-                    WizBase.sleep(100);
-                    continue;
                 }
+                WizBase.sleep(1000);
+                continue;
             }
+            attempts = 0;
             try {
                 arkhDocs.arkhBase.sendToListeners("[DOCK] Verifing: " + file.getName());
                 if (DockReader.canRead(file)) {
@@ -92,10 +103,6 @@ public class ArkhDockLoad {
                 arkhDocs.arkhBase.sendToListeners("[DOCK] Error: " + e.getMessage());
             }
         }
-    }
-
-    private boolean isBaseDoneLoad() {
-        return arkhDocs.arkhBase.baseLoad.isDone();
     }
 
     private void loadDock(File file) throws Exception {
@@ -125,6 +132,6 @@ public class ArkhDockLoad {
         }
     }
 
-    private static final Integer THREADS_VERIFIERS = 8;
+    private static final Integer THREADS_VERIFIERS = 4;
 
 }

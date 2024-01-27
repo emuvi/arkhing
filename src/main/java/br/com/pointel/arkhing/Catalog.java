@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class Catalog extends javax.swing.JFrame {
 
     private volatile Image pageImage = null;
     private final DrawPanel drawPanel = new DrawPanel();
-    
+
     private JTextField lastSelectedField = null;
 
     public Catalog(Desk desk, List<File> files) throws Exception {
@@ -805,12 +806,17 @@ public class Catalog extends javax.swing.JFrame {
                 public void run() {
                     try {
                         Files.move(originFile.toPath(), destinyFile.toPath());
-                        try (var input = new FileInputStream(destinyFile)) {
-                            var verifier = DigestUtils.sha256Hex(input);
-                            desk.getBase().putFile(destinyFile, verifier);
-                        }
+                        String verifier = getVerifier();
+                        desk.getBase().putFile(destinyFile, verifier);
+                        desk.getBase().arkhDocs.addToVerify(destinyFile);
                     } catch (Exception e) {
                         WizSwing.showError(e);
+                    }
+                }
+
+                private String getVerifier() throws IOException {
+                    try (var input = new FileInputStream(destinyFile)) {
+                        return DigestUtils.sha256Hex(input);
                     }
                 }
             }.start();
@@ -1236,7 +1242,7 @@ public class Catalog extends javax.swing.JFrame {
         editSerie.setText(cleaned);
         textPage.requestFocus();
     }
-    
+
     private void makeVolume(boolean adds, boolean equals) {
         var cleaned = cleanTitles(equals ? textPage.getSelectedText().trim()
                 : composeSelected(editVolume, adds ? " + " : " "));
@@ -1246,7 +1252,7 @@ public class Catalog extends javax.swing.JFrame {
         editVolume.setText(cleaned);
         textPage.requestFocus();
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
     private javax.swing.JButton buttonAuthorAdd;
