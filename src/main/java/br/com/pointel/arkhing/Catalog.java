@@ -136,12 +136,15 @@ public class Catalog extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         buttonClazz = new javax.swing.JButton();
         panelDestiny = new javax.swing.JPanel();
         comboRaiz = new javax.swing.JComboBox<>();
         buttonNew = new javax.swing.JButton();
         panelNaming = new javax.swing.JPanel();
+        editSerie = new javax.swing.JTextField();
+        editVolume = new javax.swing.JTextField();
         editTitle = new javax.swing.JTextField();
         editSubtitle = new javax.swing.JTextField();
         editAuthor = new javax.swing.JTextField();
@@ -156,20 +159,26 @@ public class Catalog extends javax.swing.JFrame {
         buttonLast = new javax.swing.JButton();
         labelStatus = new javax.swing.JLabel();
         buttonOCR = new javax.swing.JButton();
-        buttonSuggest = new javax.swing.JButton();
-        checkReCase = new javax.swing.JCheckBox();
+        buttonSerie = new javax.swing.JButton();
+        buttonSerieAdd = new javax.swing.JButton();
+        buttonSerieEquals = new javax.swing.JButton();
+        buttonVolume = new javax.swing.JButton();
+        buttonVolumeAdd = new javax.swing.JButton();
+        buttonVolumeEquals = new javax.swing.JButton();
         buttonTitle = new javax.swing.JButton();
         buttonTitleAdd = new javax.swing.JButton();
+        buttonTitleEquals = new javax.swing.JButton();
         buttonSubtitle = new javax.swing.JButton();
         buttonSubtitleAdd = new javax.swing.JButton();
+        buttonSubtitleEquals = new javax.swing.JButton();
         buttonAuthor = new javax.swing.JButton();
         buttonAuthorAdd = new javax.swing.JButton();
+        buttonAuthorEquals = new javax.swing.JButton();
+        buttonSuggest = new javax.swing.JButton();
+        checkReCase = new javax.swing.JCheckBox();
         buttonCatalog = new javax.swing.JButton();
         buttonJump = new javax.swing.JButton();
         buttonRemove = new javax.swing.JButton();
-        buttonTitleEquals = new javax.swing.JButton();
-        buttonSubtitleEquals = new javax.swing.JButton();
-        buttonAuthorEquals = new javax.swing.JButton();
         buttonOpen = new javax.swing.JButton();
         buttonNameSearch = new javax.swing.JButton();
         buttonNameCopy = new javax.swing.JButton();
@@ -205,7 +214,19 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
-        panelNaming.setLayout(new java.awt.GridLayout(1, 0, 5, 5));
+        panelNaming.setLayout(new java.awt.GridBagLayout());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.5;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        panelNaming.add(editSerie, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.8;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        panelNaming.add(editVolume, gridBagConstraints);
 
         editTitle.setFont(WizSwing.fontMonospaced());
         editTitle.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -213,7 +234,12 @@ public class Catalog extends javax.swing.JFrame {
                 editTitleFocusGained(evt);
             }
         });
-        panelNaming.add(editTitle);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        panelNaming.add(editTitle, gridBagConstraints);
 
         editSubtitle.setFont(WizSwing.fontMonospaced());
         editSubtitle.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -221,7 +247,12 @@ public class Catalog extends javax.swing.JFrame {
                 editSubtitleFocusGained(evt);
             }
         });
-        panelNaming.add(editSubtitle);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 1.5;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        panelNaming.add(editSubtitle, gridBagConstraints);
 
         editAuthor.setFont(WizSwing.fontMonospaced());
         editAuthor.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -229,7 +260,12 @@ public class Catalog extends javax.swing.JFrame {
                 editAuthorFocusGained(evt);
             }
         });
-        panelNaming.add(editAuthor);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 2.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        panelNaming.add(editAuthor, gridBagConstraints);
 
         panelViewer.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -285,15 +321,49 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
-        buttonSuggest.setMnemonic('S');
-        buttonSuggest.setText("Suggest");
-        buttonSuggest.addActionListener(new java.awt.event.ActionListener() {
+        buttonSerie.setMnemonic('T');
+        buttonSerie.setText("Serie");
+        buttonSerie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSuggestActionPerformed(evt);
+                buttonSerieActionPerformed(evt);
             }
         });
 
-        checkReCase.setText("ReCase");
+        buttonSerieAdd.setText("+");
+        buttonSerieAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSerieAddActionPerformed(evt);
+            }
+        });
+
+        buttonSerieEquals.setText("=");
+        buttonSerieEquals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSerieEqualsActionPerformed(evt);
+            }
+        });
+
+        buttonVolume.setMnemonic('T');
+        buttonVolume.setText("Volume");
+        buttonVolume.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonVolumeActionPerformed(evt);
+            }
+        });
+
+        buttonVolumeAdd.setText("+");
+        buttonVolumeAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonVolumeAddActionPerformed(evt);
+            }
+        });
+
+        buttonVolumeEquals.setText("=");
+        buttonVolumeEquals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonVolumeEqualsActionPerformed(evt);
+            }
+        });
 
         buttonTitle.setMnemonic('T');
         buttonTitle.setText("Title");
@@ -307,6 +377,13 @@ public class Catalog extends javax.swing.JFrame {
         buttonTitleAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonTitleAddActionPerformed(evt);
+            }
+        });
+
+        buttonTitleEquals.setText("=");
+        buttonTitleEquals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTitleEqualsActionPerformed(evt);
             }
         });
 
@@ -325,6 +402,13 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
+        buttonSubtitleEquals.setText("=");
+        buttonSubtitleEquals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSubtitleEqualsActionPerformed(evt);
+            }
+        });
+
         buttonAuthor.setMnemonic('A');
         buttonAuthor.setText("Author");
         buttonAuthor.addActionListener(new java.awt.event.ActionListener() {
@@ -339,6 +423,23 @@ public class Catalog extends javax.swing.JFrame {
                 buttonAuthorAddActionPerformed(evt);
             }
         });
+
+        buttonAuthorEquals.setText("=");
+        buttonAuthorEquals.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAuthorEqualsActionPerformed(evt);
+            }
+        });
+
+        buttonSuggest.setMnemonic('S');
+        buttonSuggest.setText("Suggest");
+        buttonSuggest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSuggestActionPerformed(evt);
+            }
+        });
+
+        checkReCase.setText("ReCase");
 
         buttonCatalog.setMnemonic('C');
         buttonCatalog.setText("Catalog");
@@ -364,99 +465,107 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
-        buttonTitleEquals.setText("=");
-        buttonTitleEquals.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTitleEqualsActionPerformed(evt);
-            }
-        });
-
-        buttonSubtitleEquals.setText("=");
-        buttonSubtitleEquals.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSubtitleEqualsActionPerformed(evt);
-            }
-        });
-
-        buttonAuthorEquals.setText("=");
-        buttonAuthorEquals.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAuthorEqualsActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelActionsLayout = new javax.swing.GroupLayout(panelActions);
         panelActions.setLayout(panelActionsLayout);
         panelActionsLayout.setHorizontalGroup(
             panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelActionsLayout.createSequentialGroup()
-                .addComponent(buttonPrior)
+                .addGap(0, 0, 0)
+                .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelActionsLayout.createSequentialGroup()
+                        .addComponent(buttonPrior)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonNext)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonFirst)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonLast)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonOCR, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 145, Short.MAX_VALUE))
+                    .addComponent(labelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonNext)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonFirst)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonLast)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(buttonOCR, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                .addComponent(buttonSuggest, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
-                .addComponent(checkReCase)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonTitleAdd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonTitleEquals)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonSubtitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSubtitleAdd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonSubtitleEquals)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonAuthor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonAuthorAdd)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonAuthorEquals)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonCatalog)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonJump)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
+                .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(panelActionsLayout.createSequentialGroup()
+                        .addComponent(buttonSerie)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSerieAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSerieEquals)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonVolume)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonVolumeAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonVolumeEquals)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonTitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonTitleAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonTitleEquals)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonSubtitle)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSubtitleAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSubtitleEquals)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonAuthor)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonAuthorAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonAuthorEquals))
+                    .addGroup(panelActionsLayout.createSequentialGroup()
+                        .addComponent(buttonSuggest, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(checkReCase)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonCatalog)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonJump)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         panelActionsLayout.setVerticalGroup(
             panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelActionsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonPrior)
-                    .addComponent(buttonNext)
-                    .addComponent(buttonJump)
-                    .addComponent(buttonCatalog)
-                    .addComponent(buttonTitle)
-                    .addComponent(buttonSubtitle)
-                    .addComponent(buttonAuthor)
-                    .addComponent(labelStatus)
-                    .addComponent(checkReCase)
-                    .addComponent(buttonSuggest)
-                    .addComponent(buttonAuthorAdd)
-                    .addComponent(buttonSubtitleAdd)
-                    .addComponent(buttonTitleAdd)
-                    .addComponent(buttonFirst)
-                    .addComponent(buttonLast)
-                    .addComponent(buttonOCR)
-                    .addComponent(buttonRemove)
-                    .addComponent(buttonTitleEquals)
-                    .addComponent(buttonSubtitleEquals)
-                    .addComponent(buttonAuthorEquals))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelActionsLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonTitle)
+                            .addComponent(buttonSubtitle)
+                            .addComponent(buttonAuthor)
+                            .addComponent(buttonAuthorAdd)
+                            .addComponent(buttonSubtitleAdd)
+                            .addComponent(buttonTitleAdd)
+                            .addComponent(buttonTitleEquals)
+                            .addComponent(buttonSubtitleEquals)
+                            .addComponent(buttonAuthorEquals)
+                            .addComponent(buttonVolume)
+                            .addComponent(buttonVolumeAdd)
+                            .addComponent(buttonVolumeEquals)
+                            .addComponent(buttonSerie)
+                            .addComponent(buttonSerieAdd)
+                            .addComponent(buttonSerieEquals)
+                            .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(buttonPrior)
+                                .addComponent(buttonNext)
+                                .addComponent(buttonFirst)
+                                .addComponent(buttonLast)
+                                .addComponent(buttonOCR)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonJump)
+                            .addComponent(buttonCatalog)
+                            .addComponent(buttonRemove)
+                            .addComponent(checkReCase)
+                            .addComponent(labelStatus)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelActionsLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonSuggest)))
+                .addContainerGap())
         );
 
         buttonOpen.setMnemonic('O');
@@ -548,7 +657,7 @@ public class Catalog extends javax.swing.JFrame {
                         .addComponent(buttonNameCopy)
                         .addComponent(buttonSwitchCase)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelViewer, javax.swing.GroupLayout.DEFAULT_SIZE, 457, Short.MAX_VALUE)
+                .addComponent(panelViewer, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelActions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -563,7 +672,7 @@ public class Catalog extends javax.swing.JFrame {
 
     private void makeAuthor(boolean add, boolean equals) {
         var cleaned = cleanAuthor(equals ? textPage.getSelectedText()
-                : composeSelected(editAuthor, add ? " , " : " "));
+                : composeSelected(editAuthor, add ? " + " : " "));
         if (checkReCase.isSelected()) {
             var result = "";
             var parts = cleaned.toLowerCase().split("\\s+");
@@ -645,7 +754,7 @@ public class Catalog extends javax.swing.JFrame {
 
     private void makeTitle(boolean adds, boolean equals) {
         var cleaned = cleanTitles(equals ? textPage.getSelectedText().trim()
-                : composeSelected(editTitle, adds ? " - " : " "));
+                : composeSelected(editTitle, adds ? " + " : " "));
         if (checkReCase.isSelected()) {
             cleaned = StringUtils.capitalize(cleaned.toLowerCase());
         }
@@ -659,7 +768,7 @@ public class Catalog extends javax.swing.JFrame {
 
     private void makeSubtitle(boolean adds, boolean equals) {
         var cleaned = cleanTitles(equals ? textPage.getSelectedText().trim()
-                : composeSelected(editSubtitle, adds ? " - " : " "));
+                : composeSelected(editSubtitle, adds ? " + " : " "));
         if (checkReCase.isSelected()) {
             cleaned = cleaned.toLowerCase();
         }
@@ -716,11 +825,17 @@ public class Catalog extends javax.swing.JFrame {
         if (destinyName.isBlank()) {
             throw new Exception("You must select a title.");
         }
+        if (!editVolume.getText().isBlank()) {
+            destinyName = editVolume.getText().trim() + " ~ " + destinyName;
+        }
+        if (!editSerie.getText().isBlank()) {
+            destinyName = editSerie.getText().trim() + " ~ " + destinyName;
+        }
         if (!editSubtitle.getText().isBlank()) {
-            destinyName += " - " + editSubtitle.getText().trim();
+            destinyName = destinyName + " - " + editSubtitle.getText().trim();
         }
         if (!editAuthor.getText().isBlank()) {
-            destinyName += " - " + editAuthor.getText().trim();
+            destinyName = destinyName + " - " + editAuthor.getText().trim();
         } else {
             switch ((String) comboRaiz.getSelectedItem()) {
                 case "Auf Deutsch" ->
@@ -1089,6 +1204,50 @@ public class Catalog extends javax.swing.JFrame {
         lastSelectedField = editAuthor;
     }//GEN-LAST:event_editAuthorFocusGained
 
+    private void buttonVolumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVolumeActionPerformed
+        makeVolume(false, false);
+    }//GEN-LAST:event_buttonVolumeActionPerformed
+
+    private void buttonVolumeAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVolumeAddActionPerformed
+        makeVolume(true, false);
+    }//GEN-LAST:event_buttonVolumeAddActionPerformed
+
+    private void buttonVolumeEqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVolumeEqualsActionPerformed
+        makeVolume(false, true);
+    }//GEN-LAST:event_buttonVolumeEqualsActionPerformed
+
+    private void buttonSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSerieActionPerformed
+        makeSerie(false, false);
+    }//GEN-LAST:event_buttonSerieActionPerformed
+
+    private void buttonSerieAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSerieAddActionPerformed
+        makeSerie(true, false);
+    }//GEN-LAST:event_buttonSerieAddActionPerformed
+
+    private void buttonSerieEqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSerieEqualsActionPerformed
+        makeSerie(false, true);
+    }//GEN-LAST:event_buttonSerieEqualsActionPerformed
+
+    private void makeSerie(boolean adds, boolean equals) {
+        var cleaned = cleanTitles(equals ? textPage.getSelectedText().trim()
+                : composeSelected(editSerie, adds ? " + " : " "));
+        if (checkReCase.isSelected()) {
+            cleaned = StringUtils.capitalize(cleaned.toLowerCase());
+        }
+        editSerie.setText(cleaned);
+        textPage.requestFocus();
+    }
+    
+    private void makeVolume(boolean adds, boolean equals) {
+        var cleaned = cleanTitles(equals ? textPage.getSelectedText().trim()
+                : composeSelected(editVolume, adds ? " + " : " "));
+        if (checkReCase.isSelected()) {
+            cleaned = StringUtils.capitalize(cleaned.toLowerCase());
+        }
+        editVolume.setText(cleaned);
+        textPage.requestFocus();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
     private javax.swing.JButton buttonAuthorAdd;
@@ -1107,6 +1266,9 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JButton buttonPrior;
     private javax.swing.JButton buttonReClazz;
     private javax.swing.JButton buttonRemove;
+    private javax.swing.JButton buttonSerie;
+    private javax.swing.JButton buttonSerieAdd;
+    private javax.swing.JButton buttonSerieEquals;
     private javax.swing.JButton buttonSubtitle;
     private javax.swing.JButton buttonSubtitleAdd;
     private javax.swing.JButton buttonSubtitleEquals;
@@ -1115,11 +1277,16 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JButton buttonTitle;
     private javax.swing.JButton buttonTitleAdd;
     private javax.swing.JButton buttonTitleEquals;
+    private javax.swing.JButton buttonVolume;
+    private javax.swing.JButton buttonVolumeAdd;
+    private javax.swing.JButton buttonVolumeEquals;
     private javax.swing.JCheckBox checkReCase;
     private javax.swing.JComboBox<String> comboRaiz;
     private javax.swing.JTextField editAuthor;
+    private javax.swing.JTextField editSerie;
     private javax.swing.JTextField editSubtitle;
     private javax.swing.JTextField editTitle;
+    private javax.swing.JTextField editVolume;
     private javax.swing.JLabel labelStatus;
     private javax.swing.JPanel panelActions;
     private javax.swing.JPanel panelDestiny;
