@@ -22,9 +22,13 @@ public class ArkhDockData {
         this.folder = folder;
     }
 
+    public File getFolder() {
+        return folder;
+    }
+
     private volatile Connection connection = null;
 
-    private Connection getConnection() throws Exception {
+    private synchronized Connection getConnection() throws Exception {
         if (connection == null) {
             connection = DriverManager.getConnection("jdbc:sqlite:"
                     + new File(folder, "arkhdock.sdb").getAbsolutePath());
@@ -39,11 +43,7 @@ public class ArkhDockData {
                 + "docks (name TEXT PRIMARY KEY, modified INTEGER, words TEXT)");
     }
 
-    public File getFolder() {
-        return folder;
-    }
-
-    public ArkhDockUnit getByName(String name) throws Exception {
+    public synchronized ArkhDockUnit getByName(String name) throws Exception {
         var select = getConnection().prepareStatement(
                 "SELECT name, modified, words "
                 + "FROM docks "
@@ -61,7 +61,7 @@ public class ArkhDockData {
         }
     }
 
-    public Long getModifiedByName(String name) throws Exception {
+    public synchronized Long getModifiedByName(String name) throws Exception {
         var select = getConnection().prepareStatement(
                 "SELECT modified "
                 + "FROM docks "
@@ -75,7 +75,7 @@ public class ArkhDockData {
         }
     }
 
-    public List<ArkhDockUnit> getAll() throws Exception {
+    public synchronized List<ArkhDockUnit> getAll() throws Exception {
         var select = getConnection().prepareStatement(
                 "SELECT name, modified, words "
                 + "FROM docks");
@@ -91,7 +91,7 @@ public class ArkhDockData {
         return results;
     }
 
-    public Set<String> getAllWords() throws Exception {
+    public synchronized Set<String> getAllWords() throws Exception {
         var select = getConnection().prepareStatement("SELECT words FROM docks");
         var returned = select.executeQuery();
         var results = new HashSet<String>();
@@ -101,11 +101,11 @@ public class ArkhDockData {
         return results;
     }
 
-    public void putDock(ArkhDockUnit dock) throws Exception {
+    public synchronized void putDock(ArkhDockUnit dock) throws Exception {
         this.putDock(dock.name, dock.modified, dock.words);
     }
 
-    public void putDock(String name, Long modified, Set<String> words) throws Exception {
+    public synchronized void putDock(String name, Long modified, Set<String> words) throws Exception {
         var delete = getConnection().prepareStatement(
                 "DELETE FROM docks "
                 + "WHERE name = ?");
@@ -125,7 +125,7 @@ public class ArkhDockData {
         }
     }
 
-    public void delDock(String name) throws Exception {
+    public synchronized void delDock(String name) throws Exception {
         var delete = getConnection().prepareStatement(
                 "DELETE FROM docks "
                 + "WHERE name = ?");
@@ -133,7 +133,7 @@ public class ArkhDockData {
         delete.executeUpdate();
     }
     
-    public void free() throws Exception {
+    public synchronized void free() throws Exception {
         if (connection != null) {
             connection.close();
             connection = null;
