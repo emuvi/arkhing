@@ -321,7 +321,7 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
-        buttonSerie.setMnemonic('T');
+        buttonSerie.setMnemonic('I');
         buttonSerie.setText("Serie");
         buttonSerie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -343,7 +343,7 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
-        buttonVolume.setMnemonic('T');
+        buttonVolume.setMnemonic('V');
         buttonVolume.setText("Volume");
         buttonVolume.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -530,31 +530,32 @@ public class Catalog extends javax.swing.JFrame {
         panelActionsLayout.setVerticalGroup(
             panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelActionsLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelActionsLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonTitle)
-                            .addComponent(buttonSubtitle)
-                            .addComponent(buttonAuthor)
-                            .addComponent(buttonAuthorAdd)
-                            .addComponent(buttonSubtitleAdd)
-                            .addComponent(buttonTitleAdd)
-                            .addComponent(buttonTitleEquals)
-                            .addComponent(buttonSubtitleEquals)
-                            .addComponent(buttonAuthorEquals)
-                            .addComponent(buttonVolume)
-                            .addComponent(buttonVolumeAdd)
-                            .addComponent(buttonVolumeEquals)
-                            .addComponent(buttonSerie)
-                            .addComponent(buttonSerieAdd)
-                            .addComponent(buttonSerieEquals)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelActionsLayout.createSequentialGroup()
+                        .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(buttonPrior)
                                 .addComponent(buttonNext)
                                 .addComponent(buttonFirst)
                                 .addComponent(buttonLast)
-                                .addComponent(buttonOCR)))
+                                .addComponent(buttonOCR))
+                            .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(buttonTitle)
+                                .addComponent(buttonSubtitle)
+                                .addComponent(buttonAuthor)
+                                .addComponent(buttonAuthorAdd)
+                                .addComponent(buttonSubtitleAdd)
+                                .addComponent(buttonTitleAdd)
+                                .addComponent(buttonTitleEquals)
+                                .addComponent(buttonSubtitleEquals)
+                                .addComponent(buttonAuthorEquals)
+                                .addComponent(buttonVolume)
+                                .addComponent(buttonVolumeAdd)
+                                .addComponent(buttonVolumeEquals)
+                                .addComponent(buttonSerie)
+                                .addComponent(buttonSerieAdd)
+                                .addComponent(buttonSerieEquals)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(buttonJump)
@@ -562,9 +563,7 @@ public class Catalog extends javax.swing.JFrame {
                             .addComponent(buttonRemove)
                             .addComponent(checkReCase)
                             .addComponent(labelStatus)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelActionsLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonSuggest)))
+                    .addComponent(buttonSuggest, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
 

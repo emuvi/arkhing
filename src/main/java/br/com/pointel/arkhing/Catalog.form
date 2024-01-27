@@ -303,31 +303,33 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="buttonTitle" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonSubtitle" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonAuthorAdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonSubtitleAdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonTitleAdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonTitleEquals" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonSubtitleEquals" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonAuthorEquals" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonVolume" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonVolumeAdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonVolumeEquals" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonSerie" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonSerieAdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonSerieEquals" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                   <Component id="buttonPrior" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonNext" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonFirst" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonLast" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonOCR" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="buttonTitle" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonSubtitle" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonAuthorAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonSubtitleAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonTitleAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonTitleEquals" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonSubtitleEquals" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonAuthorEquals" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonVolume" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonVolumeAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonVolumeEquals" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonSerie" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonSerieAdd" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonSerieEquals" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -339,10 +341,7 @@
                               <Component id="labelStatus" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="buttonSuggest" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="buttonSuggest" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -402,7 +401,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonSerie">
           <Properties>
-            <Property name="mnemonic" type="int" value="84"/>
+            <Property name="mnemonic" type="int" value="73"/>
             <Property name="text" type="java.lang.String" value="Serie"/>
           </Properties>
           <Events>
@@ -427,7 +426,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonVolume">
           <Properties>
-            <Property name="mnemonic" type="int" value="84"/>
+            <Property name="mnemonic" type="int" value="86"/>
             <Property name="text" type="java.lang.String" value="Volume"/>
           </Properties>
           <Events>
