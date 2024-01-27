@@ -31,13 +31,13 @@ public class FolderMirror {
         this.destiny = destiny;
         this.speed = speed;
         this.founds = new ConcurrentLinkedDeque<>();
-        this.destinyFounds =  Collections.synchronizedList(new ArrayList<>());
+        this.destinyFounds = Collections.synchronizedList(new ArrayList<>());
         this.doneFinder = new AtomicBoolean(false);
         this.doneLoader = new AtomicInteger(0);
         this.doneClean = new AtomicBoolean(false);
         this.observers = new ArrayList<>();
     }
-    
+
     public FolderMirror addObserver(Consumer<String> observer) {
         this.observers.add(observer);
         return this;
@@ -51,11 +51,11 @@ public class FolderMirror {
         new Thread(() -> clean(), "FolderMirror - Clean").start();
         return this;
     }
-    
+
     public boolean isDoneLoad() {
         return doneFinder.get() && doneLoader.get() == speed;
     }
-    
+
     public boolean isDoneClean() {
         return doneClean.get();
     }
@@ -63,7 +63,7 @@ public class FolderMirror {
     public boolean isDone() {
         return isDoneLoad() && isDoneClean();
     }
-    
+
     private void send(String message) {
         for (var observer : observers) {
             observer.accept(message);
@@ -101,25 +101,25 @@ public class FolderMirror {
                         send("Started copying: " + relative.getAbsolutePath());
                         relative.getParentFile().mkdirs();
                         Files.copy(found.toPath(), relative.toPath(),
-                                StandardCopyOption.COPY_ATTRIBUTES, 
+                                StandardCopyOption.COPY_ATTRIBUTES,
                                 StandardCopyOption.REPLACE_EXISTING);
                         send("Finished copying: " + relative.getAbsolutePath());
                     } catch (Exception e) {
-                        send("Error on copy: " + e.getMessage());
                         e.printStackTrace();
+                        send("Error on copy: " + e.getMessage());
                     }
                 } else {
                     send("No need to copy: " + relative.getAbsolutePath());
                 }
             }
         } catch (Exception e) {
-            send("Error on load: " + e.getMessage());
             e.printStackTrace();
+            send("Error on load: " + e.getMessage());
         } finally {
             doneLoader.incrementAndGet();
         }
     }
-    
+
     private void clean() {
         try {
             while (!isDoneLoad()) {
@@ -129,13 +129,13 @@ public class FolderMirror {
             findFoldersToClean(destiny);
             send("Finished to clean: " + destiny.getAbsolutePath());
         } catch (Exception e) {
-            send("Error on clean: " + e.getMessage());
             e.printStackTrace();
+            send("Error on clean: " + e.getMessage());
         } finally {
             doneClean.set(true);
         }
     }
-    
+
     private void findFilesToClean(File path) {
         if (path.isDirectory()) {
             for (var inside : path.listFiles()) {
@@ -150,7 +150,7 @@ public class FolderMirror {
             }
         }
     }
-    
+
     private void findFoldersToClean(File path) {
         if (path.isDirectory()) {
             for (var inside : path.listFiles()) {

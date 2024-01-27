@@ -143,6 +143,7 @@ public class ArkhBaseLoad {
                 }
                 this.statusNumberOfChecked.incrementAndGet();
             } catch (Exception e) {
+                e.printStackTrace();
                 arkhBase.sendToListeners("[BASE] Error: " + e.getMessage());
                 statusNumberOfErros.incrementAndGet();
             } finally {
@@ -174,6 +175,7 @@ public class ArkhBaseLoad {
                         statusNumberOfCleaned.incrementAndGet();
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                     arkhBase.sendToListeners("[BASE] Error: " + e.getMessage());
                     statusNumberOfErros.incrementAndGet();
                 } finally {
@@ -181,6 +183,7 @@ public class ArkhBaseLoad {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             arkhBase.sendToListeners("[BASE] Error: " + e.getMessage());
             statusNumberOfErros.incrementAndGet();
         }

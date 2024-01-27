@@ -88,6 +88,7 @@ public class ArkhDockLoad {
                     arkhDocs.arkhBase.sendToListeners("[DOCK] Putted: " + file.getName());
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 arkhDocs.arkhBase.sendToListeners("[DOCK] Error: " + e.getMessage());
             }
         }
@@ -119,6 +120,7 @@ public class ArkhDockLoad {
             }
             arkhDocs.freeAll();
         } catch (Exception e) {
+            e.printStackTrace();
             arkhDocs.arkhBase.sendToListeners("[DOCK] Error: " + e.getMessage());
         }
     }
