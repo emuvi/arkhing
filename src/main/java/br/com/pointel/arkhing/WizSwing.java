@@ -11,7 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.PrintWriter;
 import java.net.URI;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
@@ -35,6 +37,7 @@ public class WizSwing {
     }
 
     public static void showError(Throwable error) {
+        error.printStackTrace();
         if (SwingUtilities.isEventDispatchThread()) {
             JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } else {
