@@ -11,15 +11,15 @@ import javax.swing.DefaultListModel;
 public class CatalogClazz extends javax.swing.JFrame {
 
     private final Consumer<String> onSelect;
-    private final DefaultListModel<String> suggestionsModel = new DefaultListModel<>();
+    private final DefaultListModel<String> modelSuggestions = new DefaultListModel<>();
 
     public CatalogClazz(List<String> suggestions, Consumer<String> onSelect) {
         this.onSelect = onSelect;
         initComponents();
         for (var suggestion : suggestions) {
-            suggestionsModel.addElement(suggestion);
+            modelSuggestions.addElement(suggestion);
         }
-        listSuggestions.setModel(suggestionsModel);
+        listSuggestions.setModel(modelSuggestions);
         if (!suggestions.isEmpty()) {
             listSuggestions.setSelectedIndex(0);
         }
@@ -35,6 +35,7 @@ public class CatalogClazz extends javax.swing.JFrame {
         listSuggestions = new javax.swing.JList<>();
         buttonConfirm = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
+        editSearch = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Catalog Clazz");
@@ -60,6 +61,13 @@ public class CatalogClazz extends javax.swing.JFrame {
             }
         });
 
+        editSearch.setFont(WizSwing.fontMonospaced());
+        editSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                editSearchKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -68,8 +76,9 @@ public class CatalogClazz extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scrollSuggestions, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(editSearch)
+                        .addGap(18, 18, 18)
                         .addComponent(buttonConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -83,7 +92,8 @@ public class CatalogClazz extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonCancel)
-                    .addComponent(buttonConfirm))
+                    .addComponent(buttonConfirm)
+                    .addComponent(editSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -99,10 +109,28 @@ public class CatalogClazz extends javax.swing.JFrame {
         WizSwing.close(this);
     }//GEN-LAST:event_buttonCancelActionPerformed
 
+    private void editSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editSearchKeyPressed
+        var searching = editSearch.getText().trim().toLowerCase();
+        int start = listSuggestions.getSelectedIndex();
+        for (int i = start + 1; i < modelSuggestions.getSize(); i++) {
+            if (modelSuggestions.getElementAt(i).toLowerCase().contains(searching)) {
+                listSuggestions.setSelectedIndex(i);
+                return;
+            }
+        }
+        for (int i = 0; i < start; i++) {
+            if (modelSuggestions.getElementAt(i).toLowerCase().contains(searching)) {
+                listSuggestions.setSelectedIndex(i);
+                return;
+            }
+        }
+    }//GEN-LAST:event_editSearchKeyPressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonConfirm;
+    private javax.swing.JTextField editSearch;
     private javax.swing.JList<String> listSuggestions;
     private javax.swing.JScrollPane scrollSuggestions;
     // End of variables declaration//GEN-END:variables
