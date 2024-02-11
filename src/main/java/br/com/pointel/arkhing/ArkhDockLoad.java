@@ -71,41 +71,47 @@ public class ArkhDockLoad {
 
     public void addToVerify(File file) {
         files.add(file);
-        if (!isRunning.get()) { 
+        if (!isRunning.get()) {
             start();
         }
     }
 
     private void loadVerifiers() {
-        var attempts = 0;
-        while (true) {
-            attempts++;
-            if (shouldStop.get()) {
-                return;
-            }
-            var file = files.pollFirst();
-            if (file == null) {
-                if (attempts > 120) {
-                    break;
+        try {
+            var attempts = 0;
+            while (true) {
+                attempts++;
+                if (shouldStop.get()) {
+                    return;
                 }
-                WizBase.sleep(1000);
-                continue;
-            }
-            attempts = 0;
-            try {
-                arkhDocs.arkhBase.sendToListeners("[DOCK] Verifing: " + file.getName());
-                if (DockReader.canRead(file)) {
-                    loadDock(file);
-                    arkhDocs.arkhBase.sendToListeners("[DOCK] Putted: " + file.getName());
+                var file = files.pollFirst();
+                if (file == null) {
+                    if (attempts > 120) {
+                        break;
+                    }
+                    WizBase.sleep(1000);
+                    continue;
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                arkhDocs.arkhBase.sendToListeners("[DOCK] Error: " + e.getMessage());
+                attempts = 0;
+                try {
+                    arkhDocs.arkhBase.sendToListeners("[DOCK] Cheking: " + file.getName());
+                    checkAndLoadDock(file);
+                    arkhDocs.arkhBase.sendToListeners("[DOCK] Done: " + file.getName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    arkhDocs.arkhBase.sendToListeners("[DOCK] Error: " + e.getMessage());
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            arkhDocs.arkhBase.sendToListeners("[DOCK] Error: " + e.getMessage());
         }
     }
 
-    private void loadDock(File file) throws Exception {
+    private void checkAndLoadDock(File file) throws Exception {
+        if (!DockReader.canRead(file)) {
+            return;
+        }
         var folder = file.getParentFile();
         var dockData = arkhDocs.getDockData(folder);
         var lastLoad = dockData.getModifiedByName(file.getName());
