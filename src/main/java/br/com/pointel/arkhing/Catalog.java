@@ -930,6 +930,8 @@ public class Catalog extends javax.swing.JFrame {
             fileIndex++;
             pageIndex = 0;
             loadPage();
+            editSerie.setText("");
+            editVolume.setText("");
             editTitle.setText("");
             editSubtitle.setText("");
             editAuthor.setText("");
