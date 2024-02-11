@@ -1,9 +1,11 @@
 package br.com.pointel.arkhing;
 
+import java.text.Normalizer;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.regex.Pattern;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -106,6 +108,12 @@ public class WizChars {
             }
         }
         return result.toString();
+    }
+    
+    public static String removeAccents(String text) {
+        String decomposed = Normalizer.normalize(text, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(decomposed).replaceAll("");
     }
 
 }

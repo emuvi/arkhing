@@ -151,10 +151,11 @@ public class CatalogClazz extends javax.swing.JFrame {
     }
 
     private void search() {
-        var searching = editSearch.getText().trim().toLowerCase();
+        var searching = WizChars.removeAccents(editSearch.getText().trim().toLowerCase());
         int start = listSuggestions.getSelectedIndex();
         for (int i = start + 1; i < modelSuggestions.getSize(); i++) {
-            if (modelSuggestions.getElementAt(i).toLowerCase().contains(searching)) {
+            var element = WizChars.removeAccents(modelSuggestions.getElementAt(i).toLowerCase());
+            if (element.contains(searching)) {
                 var item = modelSuggestions.getElementAt(i);
                 listSuggestions.setSelectedValue(item, true);
                 return;
