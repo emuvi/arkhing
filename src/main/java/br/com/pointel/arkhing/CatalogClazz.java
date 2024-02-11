@@ -1,9 +1,12 @@
 package br.com.pointel.arkhing;
 
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.function.Consumer;
 import javax.swing.DefaultListModel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -26,6 +29,7 @@ public class CatalogClazz extends javax.swing.JFrame {
         }
         getRootPane().setDefaultButton(buttonConfirm);
         WizSwing.initPositioner(this);
+        initSearch();
     }
 
     @SuppressWarnings("unchecked")
@@ -49,6 +53,17 @@ public class CatalogClazz extends javax.swing.JFrame {
                 listSuggestionsMouseClicked(evt);
             }
         });
+        listSuggestions.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                listSuggestionsKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                listSuggestionsKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                listSuggestionsKeyTyped(evt);
+            }
+        });
         scrollSuggestions.setViewportView(listSuggestions);
 
         buttonConfirm.setMnemonic('C');
@@ -68,11 +83,6 @@ public class CatalogClazz extends javax.swing.JFrame {
         });
 
         editSearch.setFont(WizSwing.fontMonospaced());
-        editSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                editSearchKeyPressed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,7 +125,32 @@ public class CatalogClazz extends javax.swing.JFrame {
         WizSwing.close(this);
     }//GEN-LAST:event_buttonCancelActionPerformed
 
-    private void editSearchKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editSearchKeyPressed
+    private void listSuggestionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSuggestionsMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() >= 2) {
+            buttonConfirmActionPerformed(null);
+        }
+    }//GEN-LAST:event_listSuggestionsMouseClicked
+
+    private void initSearch() {
+        editSearch.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                search();
+            }
+        });
+    }
+
+    private void search() {
         var searching = editSearch.getText().trim().toLowerCase();
         int start = listSuggestions.getSelectedIndex();
         for (int i = start + 1; i < modelSuggestions.getSize(); i++) {
@@ -132,13 +167,19 @@ public class CatalogClazz extends javax.swing.JFrame {
                 return;
             }
         }
-    }//GEN-LAST:event_editSearchKeyPressed
+    }
 
-    private void listSuggestionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSuggestionsMouseClicked
-        if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() >= 2) {
-            buttonConfirmActionPerformed(null);
-        }
-    }//GEN-LAST:event_listSuggestionsMouseClicked
+    private void listSuggestionsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listSuggestionsKeyPressed
+        editSearch.dispatchEvent(evt);
+    }//GEN-LAST:event_listSuggestionsKeyPressed
+
+    private void listSuggestionsKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listSuggestionsKeyTyped
+        editSearch.dispatchEvent(evt);
+    }//GEN-LAST:event_listSuggestionsKeyTyped
+
+    private void listSuggestionsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listSuggestionsKeyReleased
+        editSearch.dispatchEvent(evt);
+    }//GEN-LAST:event_listSuggestionsKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -148,4 +189,5 @@ public class CatalogClazz extends javax.swing.JFrame {
     private javax.swing.JList<String> listSuggestions;
     private javax.swing.JScrollPane scrollSuggestions;
     // End of variables declaration//GEN-END:variables
+
 }
