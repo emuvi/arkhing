@@ -216,15 +216,19 @@ public class Catalog extends javax.swing.JFrame {
         });
 
         panelNaming.setLayout(new java.awt.GridBagLayout());
+
+        editSerie.setFont(WizSwing.fontMonospaced());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.5;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         panelNaming.add(editSerie, gridBagConstraints);
+
+        editVolume.setFont(WizSwing.fontMonospaced());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.8;
+        gridBagConstraints.weightx = 0.4;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         panelNaming.add(editVolume, gridBagConstraints);
