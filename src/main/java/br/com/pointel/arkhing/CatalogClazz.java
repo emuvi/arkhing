@@ -114,13 +114,15 @@ public class CatalogClazz extends javax.swing.JFrame {
         int start = listSuggestions.getSelectedIndex();
         for (int i = start + 1; i < modelSuggestions.getSize(); i++) {
             if (modelSuggestions.getElementAt(i).toLowerCase().contains(searching)) {
-                listSuggestions.setSelectedIndex(i);
+                var item = modelSuggestions.getElementAt(i);
+                listSuggestions.setSelectedValue(item, true);
                 return;
             }
         }
-        for (int i = 0; i < start; i++) {
+        for (int i = 0; i <= start; i++) {
             if (modelSuggestions.getElementAt(i).toLowerCase().contains(searching)) {
-                listSuggestions.setSelectedIndex(i);
+                var item = modelSuggestions.getElementAt(i);
+                listSuggestions.setSelectedValue(item, true);
                 return;
             }
         }
