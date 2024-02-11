@@ -153,6 +153,7 @@ public class Catalog extends javax.swing.JFrame {
         editSerie = new javax.swing.JTextField();
         editVolume = new javax.swing.JTextField();
         editTitle = new javax.swing.JTextField();
+        editEdition = new javax.swing.JTextField();
         editSubtitle = new javax.swing.JTextField();
         editAuthor = new javax.swing.JTextField();
         panelViewer = new javax.swing.JPanel();
@@ -170,11 +171,10 @@ public class Catalog extends javax.swing.JFrame {
         buttonSerieAdd = new javax.swing.JButton();
         buttonSerieEquals = new javax.swing.JButton();
         buttonVolume = new javax.swing.JButton();
-        buttonVolumeAdd = new javax.swing.JButton();
-        buttonVolumeEquals = new javax.swing.JButton();
         buttonTitle = new javax.swing.JButton();
         buttonTitleAdd = new javax.swing.JButton();
         buttonTitleEquals = new javax.swing.JButton();
+        butttonEdition = new javax.swing.JButton();
         buttonSubtitle = new javax.swing.JButton();
         buttonSubtitleAdd = new javax.swing.JButton();
         buttonSubtitleEquals = new javax.swing.JButton();
@@ -234,7 +234,7 @@ public class Catalog extends javax.swing.JFrame {
         editVolume.setFont(WizSwing.fontMonospaced());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.4;
+        gridBagConstraints.weightx = 0.2;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         panelNaming.add(editVolume, gridBagConstraints);
@@ -252,6 +252,14 @@ public class Catalog extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         panelNaming.add(editTitle, gridBagConstraints);
 
+        editEdition.setFont(WizSwing.fontMonospaced());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.2;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
+        panelNaming.add(editEdition, gridBagConstraints);
+
         editSubtitle.setFont(WizSwing.fontMonospaced());
         editSubtitle.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -260,7 +268,7 @@ public class Catalog extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.5;
+        gridBagConstraints.weightx = 1.8;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 10);
         panelNaming.add(editSubtitle, gridBagConstraints);
@@ -355,24 +363,10 @@ public class Catalog extends javax.swing.JFrame {
         });
 
         buttonVolume.setMnemonic('V');
-        buttonVolume.setText("Volume");
+        buttonVolume.setText("v.");
         buttonVolume.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonVolumeActionPerformed(evt);
-            }
-        });
-
-        buttonVolumeAdd.setText("+");
-        buttonVolumeAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonVolumeAddActionPerformed(evt);
-            }
-        });
-
-        buttonVolumeEquals.setText("=");
-        buttonVolumeEquals.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonVolumeEqualsActionPerformed(evt);
             }
         });
 
@@ -395,6 +389,13 @@ public class Catalog extends javax.swing.JFrame {
         buttonTitleEquals.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonTitleEqualsActionPerformed(evt);
+            }
+        });
+
+        butttonEdition.setText("e.");
+        butttonEdition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butttonEditionActionPerformed(evt);
             }
         });
 
@@ -493,7 +494,7 @@ public class Catalog extends javax.swing.JFrame {
                         .addComponent(buttonLast)
                         .addGap(18, 18, 18)
                         .addComponent(buttonOCR, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 145, Short.MAX_VALUE))
+                        .addGap(0, 67, Short.MAX_VALUE))
                     .addComponent(labelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -503,19 +504,17 @@ public class Catalog extends javax.swing.JFrame {
                         .addComponent(buttonSerieAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSerieEquals)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonVolume)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonVolumeAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonVolumeEquals)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(12, 12, 12)
+                        .addComponent(buttonVolume, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
                         .addComponent(buttonTitle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonTitleAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonTitleEquals)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(12, 12, 12)
+                        .addComponent(butttonEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
                         .addComponent(buttonSubtitle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSubtitleAdd)
@@ -562,11 +561,10 @@ public class Catalog extends javax.swing.JFrame {
                                 .addComponent(buttonSubtitleEquals)
                                 .addComponent(buttonAuthorEquals)
                                 .addComponent(buttonVolume)
-                                .addComponent(buttonVolumeAdd)
-                                .addComponent(buttonVolumeEquals)
                                 .addComponent(buttonSerie)
                                 .addComponent(buttonSerieAdd)
-                                .addComponent(buttonSerieEquals)))
+                                .addComponent(buttonSerieEquals)
+                                .addComponent(butttonEdition)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelActionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(buttonJump)
@@ -838,13 +836,18 @@ public class Catalog extends javax.swing.JFrame {
     private String getNomination() throws Exception {
         var destinyName = editTitle.getText().trim();
         if (destinyName.isBlank()) {
-            throw new Exception("You must select a title.");
+            throw new Exception("You must input a title.");
         }
-        if (!editVolume.getText().isBlank()) {
-            destinyName = editVolume.getText().trim() + " ~ " + destinyName;
+        if (editSerie.getText().isBlank() && !editVolume.getText().isBlank()) {
+            throw new Exception("You must input a serie.");
         }
         if (!editSerie.getText().isBlank()) {
-            destinyName = editSerie.getText().trim() + " ~ " + destinyName;
+            destinyName = editSerie.getText().trim()
+                    + (editVolume.getText().isBlank() ? "" : " [ " + editVolume.getText().trim() + " v. ] ")
+                    + " ~ " + destinyName;
+        }
+        if (!editEdition.getText().isBlank()) {
+            destinyName = destinyName + " [ " + editEdition.getText().trim() + " e. ] ";
         }
         if (!editSubtitle.getText().isBlank()) {
             destinyName = destinyName + " - " + editSubtitle.getText().trim();
@@ -1226,16 +1229,9 @@ public class Catalog extends javax.swing.JFrame {
     }//GEN-LAST:event_editAuthorFocusGained
 
     private void buttonVolumeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVolumeActionPerformed
-        makeVolume(false, false);
+        editVolume.setText(textPage.getText().trim().toUpperCase());
+        textPage.requestFocus();
     }//GEN-LAST:event_buttonVolumeActionPerformed
-
-    private void buttonVolumeAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVolumeAddActionPerformed
-        makeVolume(true, false);
-    }//GEN-LAST:event_buttonVolumeAddActionPerformed
-
-    private void buttonVolumeEqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonVolumeEqualsActionPerformed
-        makeVolume(false, true);
-    }//GEN-LAST:event_buttonVolumeEqualsActionPerformed
 
     private void buttonSerieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSerieActionPerformed
         makeSerie(false, false);
@@ -1249,6 +1245,11 @@ public class Catalog extends javax.swing.JFrame {
         makeSerie(false, true);
     }//GEN-LAST:event_buttonSerieEqualsActionPerformed
 
+    private void butttonEditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butttonEditionActionPerformed
+        editVolume.setText(textPage.getText().trim().toUpperCase());
+        textPage.requestFocus();
+    }//GEN-LAST:event_butttonEditionActionPerformed
+
     private void makeSerie(boolean adds, boolean equals) {
         var cleaned = cleanTitles(equals ? textPage.getSelectedText().trim()
                 : composeSelected(editSerie, adds ? " + " : " "));
@@ -1259,15 +1260,6 @@ public class Catalog extends javax.swing.JFrame {
         textPage.requestFocus();
     }
 
-    private void makeVolume(boolean adds, boolean equals) {
-        var cleaned = cleanTitles(equals ? textPage.getSelectedText().trim()
-                : composeSelected(editVolume, adds ? " + " : " "));
-        if (checkReCase.isSelected()) {
-            cleaned = StringUtils.capitalize(cleaned.toLowerCase());
-        }
-        editVolume.setText(cleaned);
-        textPage.requestFocus();
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonAuthor;
@@ -1299,11 +1291,11 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JButton buttonTitleAdd;
     private javax.swing.JButton buttonTitleEquals;
     private javax.swing.JButton buttonVolume;
-    private javax.swing.JButton buttonVolumeAdd;
-    private javax.swing.JButton buttonVolumeEquals;
+    private javax.swing.JButton butttonEdition;
     private javax.swing.JCheckBox checkReCase;
     private javax.swing.JComboBox<String> comboRaiz;
     private javax.swing.JTextField editAuthor;
+    private javax.swing.JTextField editEdition;
     private javax.swing.JTextField editSerie;
     private javax.swing.JTextField editSubtitle;
     private javax.swing.JTextField editTitle;
