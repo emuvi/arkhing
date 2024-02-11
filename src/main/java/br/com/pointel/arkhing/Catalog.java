@@ -943,6 +943,7 @@ public class Catalog extends javax.swing.JFrame {
             editSerie.setText("");
             editVolume.setText("");
             editTitle.setText("");
+            editEdition.setText("");
             editSubtitle.setText("");
             editAuthor.setText("");
             setSelectedPath(null);
