@@ -375,6 +375,7 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
+        butttonEdition.setMnemonic('e');
         butttonEdition.setText("e.");
         butttonEdition.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
