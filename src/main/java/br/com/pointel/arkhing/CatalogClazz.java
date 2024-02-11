@@ -1,5 +1,6 @@
 package br.com.pointel.arkhing;
 
+import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.function.Consumer;
 import javax.swing.DefaultListModel;
@@ -43,6 +44,11 @@ public class CatalogClazz extends javax.swing.JFrame {
 
         listSuggestions.setFont(WizSwing.fontMonospaced());
         listSuggestions.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listSuggestions.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listSuggestionsMouseClicked(evt);
+            }
+        });
         scrollSuggestions.setViewportView(listSuggestions);
 
         buttonConfirm.setMnemonic('C');
@@ -127,6 +133,12 @@ public class CatalogClazz extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_editSearchKeyPressed
+
+    private void listSuggestionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listSuggestionsMouseClicked
+        if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() >= 2) {
+            buttonConfirmActionPerformed(null);
+        }
+    }//GEN-LAST:event_listSuggestionsMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
