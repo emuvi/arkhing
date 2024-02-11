@@ -168,15 +168,12 @@ public class Catalog extends javax.swing.JFrame {
         labelStatus = new javax.swing.JLabel();
         buttonOCR = new javax.swing.JButton();
         buttonSerie = new javax.swing.JButton();
-        buttonSerieAdd = new javax.swing.JButton();
         buttonSerieEquals = new javax.swing.JButton();
         buttonVolume = new javax.swing.JButton();
         buttonTitle = new javax.swing.JButton();
-        buttonTitleAdd = new javax.swing.JButton();
         buttonTitleEquals = new javax.swing.JButton();
         butttonEdition = new javax.swing.JButton();
         buttonSubtitle = new javax.swing.JButton();
-        buttonSubtitleAdd = new javax.swing.JButton();
         buttonSubtitleEquals = new javax.swing.JButton();
         buttonAuthor = new javax.swing.JButton();
         buttonAuthorAdd = new javax.swing.JButton();
@@ -348,13 +345,6 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
-        buttonSerieAdd.setText("+");
-        buttonSerieAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSerieAddActionPerformed(evt);
-            }
-        });
-
         buttonSerieEquals.setText("=");
         buttonSerieEquals.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -378,13 +368,6 @@ public class Catalog extends javax.swing.JFrame {
             }
         });
 
-        buttonTitleAdd.setText("+");
-        buttonTitleAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonTitleAddActionPerformed(evt);
-            }
-        });
-
         buttonTitleEquals.setText("=");
         buttonTitleEquals.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -404,13 +387,6 @@ public class Catalog extends javax.swing.JFrame {
         buttonSubtitle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSubtitleActionPerformed(evt);
-            }
-        });
-
-        buttonSubtitleAdd.setText("+");
-        buttonSubtitleAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSubtitleAddActionPerformed(evt);
             }
         });
 
@@ -501,23 +477,17 @@ public class Catalog extends javax.swing.JFrame {
                     .addGroup(panelActionsLayout.createSequentialGroup()
                         .addComponent(buttonSerie)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSerieAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSerieEquals)
                         .addGap(12, 12, 12)
                         .addComponent(buttonVolume, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(buttonTitle)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonTitleAdd)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonTitleEquals)
                         .addGap(12, 12, 12)
                         .addComponent(butttonEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(buttonSubtitle)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSubtitleAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSubtitleEquals)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -555,14 +525,11 @@ public class Catalog extends javax.swing.JFrame {
                                 .addComponent(buttonSubtitle)
                                 .addComponent(buttonAuthor)
                                 .addComponent(buttonAuthorAdd)
-                                .addComponent(buttonSubtitleAdd)
-                                .addComponent(buttonTitleAdd)
                                 .addComponent(buttonTitleEquals)
                                 .addComponent(buttonSubtitleEquals)
                                 .addComponent(buttonAuthorEquals)
                                 .addComponent(buttonVolume)
                                 .addComponent(buttonSerie)
-                                .addComponent(buttonSerieAdd)
                                 .addComponent(buttonSerieEquals)
                                 .addComponent(butttonEdition)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1039,14 +1006,6 @@ public class Catalog extends javax.swing.JFrame {
         textPage.requestFocus();
     }//GEN-LAST:event_buttonSuggestActionPerformed
 
-    private void buttonTitleAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTitleAddActionPerformed
-        makeTitle(true, false);
-    }//GEN-LAST:event_buttonTitleAddActionPerformed
-
-    private void buttonSubtitleAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSubtitleAddActionPerformed
-        makeSubtitle(true, false);
-    }//GEN-LAST:event_buttonSubtitleAddActionPerformed
-
     private void buttonAuthorAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAuthorAddActionPerformed
         makeAuthor(true, false);
     }//GEN-LAST:event_buttonAuthorAddActionPerformed
@@ -1238,10 +1197,6 @@ public class Catalog extends javax.swing.JFrame {
         makeSerie(false, false);
     }//GEN-LAST:event_buttonSerieActionPerformed
 
-    private void buttonSerieAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSerieAddActionPerformed
-        makeSerie(true, false);
-    }//GEN-LAST:event_buttonSerieAddActionPerformed
-
     private void buttonSerieEqualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSerieEqualsActionPerformed
         makeSerie(false, true);
     }//GEN-LAST:event_buttonSerieEqualsActionPerformed
@@ -1281,15 +1236,12 @@ public class Catalog extends javax.swing.JFrame {
     private javax.swing.JButton buttonReClazz;
     private javax.swing.JButton buttonRemove;
     private javax.swing.JButton buttonSerie;
-    private javax.swing.JButton buttonSerieAdd;
     private javax.swing.JButton buttonSerieEquals;
     private javax.swing.JButton buttonSubtitle;
-    private javax.swing.JButton buttonSubtitleAdd;
     private javax.swing.JButton buttonSubtitleEquals;
     private javax.swing.JButton buttonSuggest;
     private javax.swing.JButton buttonSwitchCase;
     private javax.swing.JButton buttonTitle;
-    private javax.swing.JButton buttonTitleAdd;
     private javax.swing.JButton buttonTitleEquals;
     private javax.swing.JButton buttonVolume;
     private javax.swing.JButton butttonEdition;

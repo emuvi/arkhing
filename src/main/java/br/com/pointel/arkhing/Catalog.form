@@ -279,23 +279,17 @@
                       <Group type="102" attributes="0">
                           <Component id="buttonSerie" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonSerieAdd" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonSerieEquals" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="buttonVolume" min="-2" pref="50" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="buttonTitle" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonTitleAdd" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonTitleEquals" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="butttonEdition" min="-2" pref="50" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                           <Component id="buttonSubtitle" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="buttonSubtitleAdd" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="buttonSubtitleEquals" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -339,14 +333,11 @@
                                   <Component id="buttonSubtitle" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonAuthor" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonAuthorAdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="buttonSubtitleAdd" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="buttonTitleAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonTitleEquals" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonSubtitleEquals" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonAuthorEquals" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonVolume" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonSerie" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="buttonSerieAdd" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonSerieEquals" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="butttonEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -427,14 +418,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSerieActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonSerieAdd">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="+"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSerieAddActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="buttonSerieEquals">
           <Properties>
             <Property name="text" type="java.lang.String" value="="/>
@@ -461,14 +444,6 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTitleActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="buttonTitleAdd">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="+"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTitleAddActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="buttonTitleEquals">
           <Properties>
             <Property name="text" type="java.lang.String" value="="/>
@@ -492,14 +467,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSubtitleActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="buttonSubtitleAdd">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="+"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSubtitleAddActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="buttonSubtitleEquals">
