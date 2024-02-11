@@ -46,6 +46,8 @@ public class Catalog extends javax.swing.JFrame {
 
     private JTextField lastSelectedField = null;
 
+    private boolean doneAutoClazz = false;
+
     public Catalog(Desk desk, List<File> files) throws Exception {
         this.desk = desk;
         this.files = files;
@@ -81,6 +83,10 @@ public class Catalog extends javax.swing.JFrame {
         loadPageText();
         updateStatus();
         textPage.requestFocus();
+        if (!doneAutoClazz) {
+            doneAutoClazz = true;
+            buttonClazzActionPerformed(null);
+        }
     }
 
     private void loadPageImage() throws Exception {
@@ -922,6 +928,7 @@ public class Catalog extends javax.swing.JFrame {
             document.close();
             document = null;
         }
+        doneAutoClazz = false;
     }
 
     private void doJump() throws Exception {
@@ -956,6 +963,9 @@ public class Catalog extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNewActionPerformed
 
     private void buttonClazzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClazzActionPerformed
+        if (!buttonClazz.isEnabled()) {
+            return;
+        }
         final var initialDocument = document;
         buttonClazz.setEnabled(false);
 
