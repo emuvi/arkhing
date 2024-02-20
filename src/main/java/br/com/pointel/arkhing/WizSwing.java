@@ -37,11 +37,16 @@ public class WizSwing {
     }
 
     public static void showError(Throwable error) {
+        showError(error, null);
+    }
+
+    public static void showError(Throwable error, String detail) {
         error.printStackTrace();
+        String message = error.getMessage() + detail != null ? " " + detail : "";
         if (SwingUtilities.isEventDispatchThread()) {
-            JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, error.getMessage(), "Error", JOptionPane.ERROR_MESSAGE));
+            SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE));
         }
     }
 
@@ -51,11 +56,11 @@ public class WizSwing {
                         null, message, "Confirm",
                         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
     }
-    
+
     public static String showInput(String message) {
         return JOptionPane.showInputDialog(
-                        null, message, "Input",
-                        JOptionPane.QUESTION_MESSAGE);
+                null, message, "Input",
+                JOptionPane.QUESTION_MESSAGE);
     }
 
     public static String getStringOnClipboard() throws Exception {
@@ -106,7 +111,7 @@ public class WizSwing {
     public static void open(File file) throws Exception {
         Desktop.getDesktop().open(file);
     }
-    
+
     public static void navigate(String address) throws Exception {
         Desktop.getDesktop().browse(new URI(address));
     }

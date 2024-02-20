@@ -20,8 +20,12 @@ public class MakePDFInFolder {
             var hasPages = false;
             for (var inside : folder.listFiles()) {
                 if (WizImage.isImage(inside)) {
-                    addPage(document, inside);
-                    hasPages = true;
+                    try {
+                        addPage(document, inside);
+                        hasPages = true;
+                    } catch (Exception e) {
+                        WizSwing.showError(e, "Could not add from file: " + inside.getName());
+                    }
                 }
             }
             if (hasPages) {
