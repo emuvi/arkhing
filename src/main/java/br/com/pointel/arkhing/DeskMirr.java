@@ -29,6 +29,7 @@ public class DeskMirr extends javax.swing.JPanel {
         labelFolderMirror = new javax.swing.JLabel();
         labelSpeed = new javax.swing.JLabel();
         editSpeed = new javax.swing.JSpinner();
+        checkClean = new javax.swing.JCheckBox();
 
         buttonExecute.setText("Execute");
         buttonExecute.addActionListener(new java.awt.event.ActionListener() {
@@ -70,6 +71,8 @@ public class DeskMirr extends javax.swing.JPanel {
 
         editSpeed.setModel(new javax.swing.SpinnerNumberModel(4, null, null, 1));
 
+        checkClean.setText("Clean");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -80,7 +83,9 @@ public class DeskMirr extends javax.swing.JPanel {
                     .addComponent(scrollMessages)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelFolderMirror)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 387, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 316, Short.MAX_VALUE)
+                        .addComponent(checkClean)
+                        .addGap(18, 18, 18)
                         .addComponent(labelSpeed)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(editSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -109,7 +114,8 @@ public class DeskMirr extends javax.swing.JPanel {
                     .addComponent(labelFolderMirror)
                     .addComponent(buttonExecute)
                     .addComponent(editSpeed, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelSpeed))
+                    .addComponent(labelSpeed)
+                    .addComponent(checkClean))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelOrigin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -132,7 +138,11 @@ public class DeskMirr extends javax.swing.JPanel {
         if (JOptionPane.showConfirmDialog(this, "Are you sure?", "Arkhing", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) != JOptionPane.YES_OPTION) {
             return;
         }
-        new FolderMirror(new File(editOrigin.getText()), new File(editDestiny.getText()), (Integer) editSpeed.getValue())
+        new FolderMirror(
+                new File(editOrigin.getText()), 
+                new File(editDestiny.getText()),
+                checkClean.isSelected(),
+                (Integer) editSpeed.getValue())
         .addObserver((message) -> SwingUtilities.invokeLater(() -> textMessages.append(message + "\n")))
         .start();
     }//GEN-LAST:event_buttonExecuteActionPerformed
@@ -158,6 +168,7 @@ public class DeskMirr extends javax.swing.JPanel {
     private javax.swing.JButton buttonDestinySelect;
     private javax.swing.JButton buttonExecute;
     private javax.swing.JButton buttonOriginSelect;
+    private javax.swing.JCheckBox checkClean;
     private javax.swing.JTextField editDestiny;
     private javax.swing.JTextField editOrigin;
     private javax.swing.JSpinner editSpeed;
