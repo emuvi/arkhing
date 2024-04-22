@@ -22,8 +22,6 @@ public class ArkhBase implements Closeable {
 
     public final ArkhBaseData baseData;
     public final ArkhBaseLoad baseLoad;
-    
-    public final ArkhDock arkhDocs;
 
     public ArkhBase(File root) throws Exception {
         if (!root.exists() || !root.isDirectory()) {
@@ -34,7 +32,6 @@ public class ArkhBase implements Closeable {
         this.listeners = new ArrayList<>();
         this.baseData = new ArkhBaseData(this);
         this.baseLoad = new ArkhBaseLoad(this);
-        this.arkhDocs = new ArkhDock(this);
     }
     
     public void addListener(Consumer<String> listener) {

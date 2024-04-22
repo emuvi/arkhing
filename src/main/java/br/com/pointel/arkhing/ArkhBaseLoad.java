@@ -131,7 +131,6 @@ public class ArkhBaseLoad {
             }
             try {
                 arkhBase.sendToListeners("[BASE] Verifing: " + file.getName());
-                arkhBase.arkhDocs.addToVerify(file);
                 var place = arkhBase.getPlace(file);
                 var baseFile = arkhBase.baseData.getByPlace(place);
                 if (baseFile == null || file.lastModified() > baseFile.modified) {
@@ -171,7 +170,6 @@ public class ArkhBaseLoad {
                     if (!file.exists()) {
                         arkhBase.sendToListeners("[BASE] Cleaning: " + place);
                         arkhBase.baseData.delFile(place);
-                        arkhBase.arkhDocs.delDock(file);
                         statusNumberOfCleaned.incrementAndGet();
                     }
                 } catch (Exception e) {

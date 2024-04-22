@@ -784,7 +784,6 @@ public class Catalog extends javax.swing.JFrame {
                         Files.move(originFile.toPath(), destinyFile.toPath());
                         String verifier = getVerifier();
                         desk.getBase().putFile(destinyFile, verifier);
-                        desk.getBase().arkhDocs.addToVerify(destinyFile);
                     } catch (Exception e) {
                         WizSwing.showError(e);
                     }
@@ -954,20 +953,8 @@ public class Catalog extends javax.swing.JFrame {
                     if (shouldStop()) {
                         return;
                     }
-                    var allDockData = desk.getBase().arkhDocs.getAllDockData();
-                    var scoredDockData = new ArrayList<Pair<Integer, ArkhDockData>>();
-                    for (var dockData : allDockData) {
-                        var dockDataWords = dockData.getAllWords();
-                        dockDataWords.retainAll(sourceWords);
-                        scoredDockData.add(Pair.of(dockDataWords.size(), dockData));
-                        if (shouldStop()) {
-                            return;
-                        }
-                    }
-                    scoredDockData.sort((e1, e2) -> e2.getKey().compareTo(e1.getLeft()));
-                    for (var scored : scoredDockData) {
-                        suggestions.add(getClazzPath((scored.getValue().getFolder())));
-                    }
+                   
+                   
                     if (shouldStop()) {
                         return;
                     }

@@ -552,7 +552,7 @@ public class DeskPack extends javax.swing.JPanel {
             }
         }
     }
-
+    
     private void buttonSameRootNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSameRootNameActionPerformed
         try {
             checkIfDownloading();
@@ -569,7 +569,7 @@ public class DeskPack extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonSameRootNameActionPerformed
-
+    
     private void buttonSameFoundNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSameFoundNameActionPerformed
         try {
             checkIfDownloading();

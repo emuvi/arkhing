@@ -1,18 +1,19 @@
 package br.com.pointel.arkhing;
 
-import javax.swing.UIManager;
-import com.formdev.flatlaf.FlatLightLaf;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Desk extends javax.swing.JFrame {
 
     public final DeskBase deskBase;
     public final DeskPack deskPack;
     public final DeskOrgz deskOrgz;
-    public final DeskDock deskDocs;
     public final DeskCapt deskCapt;
     public final DeskClog deskClog;
     public final DeskMirr deskMirr;
@@ -24,14 +25,12 @@ public class Desk extends javax.swing.JFrame {
         deskBase = new DeskBase(this);
         deskPack = new DeskPack(this);
         deskOrgz = new DeskOrgz(this);
-        deskDocs = new DeskDock(this);
         deskCapt = new DeskCapt(this);
         deskClog = new DeskClog(this);
         deskMirr = new DeskMirr(this);
         tabsBody.addTab("Base", deskBase);
         tabsBody.addTab("Pack", deskPack);
         tabsBody.addTab("Orgz", deskOrgz);
-        tabsBody.addTab("Dock", deskDocs);
         tabsBody.addTab("Capt", deskCapt);
         tabsBody.addTab("Clog", deskClog);
         tabsBody.addTab("Mirr", deskMirr);
@@ -175,7 +174,7 @@ public class Desk extends javax.swing.JFrame {
 
     public static void start(String args[]) {
         try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
