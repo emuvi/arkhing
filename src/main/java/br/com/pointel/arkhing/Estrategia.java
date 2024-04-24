@@ -172,8 +172,11 @@ public class Estrategia {
         var divLesson = getHeader(headerIndex);
         var divView = divLesson.findElement(By.cssSelector("div.boxVisualizado"));
         var checkTick = divView.findElement(By.cssSelector("div[color='#1352aa']"));
-        scrollToElement(checkTick);
-        checkTick.click();
+        var checker = checkTick.findElement(By.cssSelector("div.Icon"));
+        if ("none".equals(checker.getCssValue("display"))) {
+            scrollToElement(checkTick);
+            checkTick.click();
+        }
         WizBase.sleep(1200);
     }
 
