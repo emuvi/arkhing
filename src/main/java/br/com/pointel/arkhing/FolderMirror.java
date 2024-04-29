@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
@@ -11,11 +12,15 @@ import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 
 public class FolderMirror {
 
     private final File origin;
     private final String originPath;
+    private final List<String> exclusions;
     private final File destiny;
     private final Boolean clean;
     private final Integer speed;
@@ -26,9 +31,12 @@ public class FolderMirror {
     private final AtomicBoolean doneClean;
     private final List<Consumer<String>> observers;
 
-    public FolderMirror(File origin, File destiny, Boolean clean, Integer speed) {
+    public FolderMirror(File origin, String exclusions, File destiny, Boolean clean, Integer speed) {
         this.origin = origin;
         this.originPath = origin.getAbsolutePath();
+        this.exclusions = Arrays.asList(exclusions.split("\\;")).stream()
+                .map(e -> e.replace(".", "").toLowerCase())
+                .collect(Collectors.toList());
         this.destiny = destiny;
         this.clean = clean;
         this.speed = speed;
@@ -87,8 +95,12 @@ public class FolderMirror {
                 findToLoad(inside);
             }
         } else {
-            founds.add(path);
-            send("Found " + path.getAbsolutePath());
+            var extension = FilenameUtils.getExtension(path.getName()).replace(".", "").toLowerCase();
+            var excluded = !extension.isBlank() && exclusions.contains(extension);
+            if (!excluded) {
+                founds.add(path);
+            }
+            send("Found " + (excluded ? " but excluded " : "") + path.getAbsolutePath());
         }
     }
 

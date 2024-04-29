@@ -36,17 +36,27 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonOriginSelect" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="editDestiny" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="buttonDestinySelect" min="-2" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" attributes="0">
+                      <Component id="labelOrigin" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="604" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labelOrigin" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelDestiny" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="editExclusions" min="-2" pref="180" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="editDestiny" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonDestinySelect" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Component id="labelDestiny" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -72,11 +82,15 @@
                   <Component id="buttonOriginSelect" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="labelDestiny" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labelDestiny" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="editDestiny" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="buttonDestinySelect" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="editExclusions" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="scrollMessages" pref="252" max="32767" attributes="0"/>
@@ -172,6 +186,19 @@
     <Component class="javax.swing.JCheckBox" name="checkClean">
       <Properties>
         <Property name="text" type="java.lang.String" value="Clean"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Extensions to Exclude"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="editExclusions">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="WizProps.get(&quot;DESK_MIRR_EXCLUSIONS&quot;, &quot;&quot;)" type="code"/>
+        </Property>
+        <Property name="toolTipText" type="java.lang.String" value="Extensions of file to exclude separated between &quot;;&quot;"/>
       </Properties>
     </Component>
   </SubComponents>
