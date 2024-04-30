@@ -345,7 +345,7 @@ public class DeskPack extends javax.swing.JPanel {
         checkQuickMake.setText("Quick Make");
 
         spinnerAutoMake.setFont(WizSwing.fontMonospaced());
-        spinnerAutoMake.setModel(new javax.swing.SpinnerNumberModel(9, null, null, 1));
+        spinnerAutoMake.setModel(new javax.swing.SpinnerNumberModel(18, null, null, 1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
