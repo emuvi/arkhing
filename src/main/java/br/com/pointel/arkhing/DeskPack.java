@@ -477,6 +477,10 @@ public class DeskPack extends javax.swing.JPanel {
     }
 
     private void watchFile(File file, List<File> foundsOnThisRound) {
+        if (file.getName().toLowerCase().endsWith(".crdownload")
+                || file.getName().toLowerCase().endsWith(".temp")) {
+            return;
+        }
         foundsOnThisRound.add(file);
         if (hasBeenFound(file)) {
             return;
@@ -552,7 +556,7 @@ public class DeskPack extends javax.swing.JPanel {
             }
         }
     }
-    
+
     private void buttonSameRootNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSameRootNameActionPerformed
         try {
             checkIfDownloading();
@@ -569,7 +573,7 @@ public class DeskPack extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_buttonSameRootNameActionPerformed
-    
+
     private void buttonSameFoundNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSameFoundNameActionPerformed
         try {
             checkIfDownloading();
