@@ -547,7 +547,8 @@ public class DeskPack extends javax.swing.JPanel {
     private void checkIfDownloading() throws Exception {
         var allSelected = getSelectedToProcess();
         for (var selected : allSelected) {
-            if (selected.file.getName().toLowerCase().endsWith(".crdownload")) {
+            if (selected.file.getName().toLowerCase().endsWith(".crdownload")
+                    || selected.file.getName().toLowerCase().endsWith("temp")) {
                 throw new Exception("Are downloading yet.");
             }
         }
