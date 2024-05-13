@@ -477,10 +477,6 @@ public class DeskPack extends javax.swing.JPanel {
     }
 
     private void watchFile(File file, List<File> foundsOnThisRound) {
-        if (file.getName().toLowerCase().endsWith(".crdownload")
-                || file.getName().toLowerCase().endsWith(".temp")) {
-            return;
-        }
         foundsOnThisRound.add(file);
         if (hasBeenFound(file)) {
             return;
