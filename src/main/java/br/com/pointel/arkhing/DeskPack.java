@@ -548,7 +548,7 @@ public class DeskPack extends javax.swing.JPanel {
         var allSelected = getSelectedToProcess();
         for (var selected : allSelected) {
             if (selected.file.getName().toLowerCase().endsWith(".crdownload")
-                    || selected.file.getName().toLowerCase().endsWith("temp")) {
+                    || selected.file.getName().toLowerCase().endsWith(".tmp")) {
                 throw new Exception("Are downloading yet.");
             }
         }
@@ -591,9 +591,13 @@ public class DeskPack extends javax.swing.JPanel {
     private void buttonMakeAulaNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeAulaNameActionPerformed
         try {
             checkIfDownloading();
+        } catch (Exception e) {
+            return;
+        }
+
+        try {
             var allSelected = getSelectedToProcess();
             var rootFolder = new File(editDestinyFolder.getText());
-
             int biggerAula = 0;
             for (var inside : rootFolder.listFiles()) {
                 var test = inside.getName().toLowerCase();
