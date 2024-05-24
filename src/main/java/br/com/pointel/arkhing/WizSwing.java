@@ -42,7 +42,7 @@ public class WizSwing {
 
     public static void showError(Throwable error, String detail) {
         error.printStackTrace();
-        String message = error.getMessage() + detail != null ? " " + detail : "";
+        String message = error.getMessage() + (detail != null ? " " + detail : "");
         if (SwingUtilities.isEventDispatchThread()) {
             JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
         } else {
