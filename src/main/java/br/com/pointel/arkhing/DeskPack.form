@@ -141,7 +141,9 @@
                           <Component id="editClipboard" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="buttonClazzFolder" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Component id="checkAutoSelectDestiny" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonSelectDestinyFolder" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonSelectFolder" min="-2" max="-2" attributes="0"/>
@@ -149,9 +151,9 @@
                               <Component id="buttonSelectOrgz" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonFolderOpen" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="137" max="32767" attributes="0"/>
+                              <EmptySpace pref="124" max="32767" attributes="0"/>
                               <Component id="buttonRemove" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="75" max="32767" attributes="0"/>
+                              <EmptySpace pref="63" max="32767" attributes="0"/>
                               <Component id="butttonSuggestName" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="checkAutoCopy" min="-2" max="-2" attributes="0"/>
@@ -198,6 +200,7 @@
                               <Component id="buttonClazzFolder" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonSelectDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonRemove" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkAutoSelectDestiny" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -381,6 +384,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkAutoSelectDestiny">
+              <Properties>
+                <Property name="selected" type="boolean" value="true"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

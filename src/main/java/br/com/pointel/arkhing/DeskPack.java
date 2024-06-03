@@ -105,6 +105,7 @@ public class DeskPack extends javax.swing.JPanel {
         buttonMakeAutoName = new javax.swing.JButton();
         buttonSelectDestinyFolder = new javax.swing.JButton();
         buttonRemove = new javax.swing.JButton();
+        checkAutoSelectDestiny = new javax.swing.JCheckBox();
         checkQuickMake = new javax.swing.JCheckBox();
         spinnerAutoMake = new javax.swing.JSpinner();
 
@@ -270,6 +271,8 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
 
+        checkAutoSelectDestiny.setSelected(true);
+
         javax.swing.GroupLayout panelWatchLayout = new javax.swing.GroupLayout(panelWatch);
         panelWatch.setLayout(panelWatchLayout);
         panelWatchLayout.setHorizontalGroup(
@@ -280,7 +283,9 @@ public class DeskPack extends javax.swing.JPanel {
                     .addComponent(editClipboard)
                     .addGroup(panelWatchLayout.createSequentialGroup()
                         .addComponent(buttonClazzFolder)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(12, 12, 12)
+                        .addComponent(checkAutoSelectDestiny)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSelectDestinyFolder)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSelectFolder)
@@ -288,9 +293,9 @@ public class DeskPack extends javax.swing.JPanel {
                         .addComponent(buttonSelectOrgz)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonFolderOpen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
                         .addComponent(buttonRemove)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
                         .addComponent(butttonSuggestName)
                         .addGap(18, 18, 18)
                         .addComponent(checkAutoCopy)
@@ -329,7 +334,8 @@ public class DeskPack extends javax.swing.JPanel {
                         .addComponent(buttonSelectOrgz)
                         .addComponent(buttonClazzFolder)
                         .addComponent(buttonSelectDestinyFolder)
-                        .addComponent(buttonRemove)))
+                        .addComponent(buttonRemove)
+                        .addComponent(checkAutoSelectDestiny)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editDestinyFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -414,6 +420,9 @@ public class DeskPack extends javax.swing.JPanel {
                                         editDestinyFolder.setText(destiny.getParent());
                                         editDestinyName.setText(FilenameUtils.getBaseName(destiny.getName()));
                                         labelFound.setVisible(true);
+                                        if (checkAutoSelectDestiny.isSelected()) {
+                                            buttonSelectDestinyFolderActionPerformed(null);
+                                        }
                                     }
                                 }
                             }
@@ -767,6 +776,7 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JButton buttonWatch;
     private javax.swing.JButton butttonSuggestName;
     private javax.swing.JCheckBox checkAutoCopy;
+    private javax.swing.JCheckBox checkAutoSelectDestiny;
     private javax.swing.JCheckBox checkQuickMake;
     private javax.swing.JCheckBox checkWatch;
     private javax.swing.JTextField editClipboard;
