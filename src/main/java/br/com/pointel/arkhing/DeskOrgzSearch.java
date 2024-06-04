@@ -2,10 +2,11 @@ package br.com.pointel.arkhing;
 
 import java.awt.HeadlessException;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Queue;
+import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.DefaultListModel;
@@ -42,7 +43,24 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
         }
     }
 
-    private final Queue<File> prospects = new ConcurrentLinkedQueue<>();
+    private final List<File> prospectList = new ArrayList<>();
+    private final Random random = new Random();
+    
+    private void pushProspect(File path) {
+        synchronized (prospectList) {
+            prospectList.add(path);
+        }
+    }
+    
+    private File pollProspect() {
+        synchronized (prospectList) {
+            if (prospectList.isEmpty()) {
+                return null;
+            } else {
+                return prospectList.remove(random.nextInt(prospectList.size()));
+            }
+        }
+    }
 
     private void start() {
         new Thread(() -> startFindOnPath(), "DeskOrgzSearch - Find On Path").start();
@@ -65,7 +83,7 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
     private void startFindOnFile() {
         try {
             while (true) {
-                var prospect = prospects.poll();
+                var prospect = pollProspect();
                 if (prospect != null) {
                     findOnFile(root);
                 } else if (doneFindOnPath.get()) {
@@ -103,13 +121,14 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
                 findOnPath(inside);
             }
         } else {
-            prospects.add(path);
+            pushProspect(path);
         }
     }
 
     private void findOnFile(File path) {
         if (DockReader.canRead(path)) {
             try {
+                SwingUtilities.invokeLater(() -> labelStatusFile.setText(path.getName()));
                 var source = new DockReader(path).read();
                 var fileWords = WizChars.getKeyWords(source);
                 if (fileWords.containsAll(searchFor)) {
@@ -134,6 +153,7 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
         labelStatus = new javax.swing.JLabel();
         scrollFounds = new javax.swing.JScrollPane();
         listFounds = new javax.swing.JList<>();
+        labelStatusFile = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Orgz Search");
@@ -168,6 +188,8 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
         listFounds.setModel(foundsModel);
         scrollFounds.setViewportView(listFounds);
 
+        labelStatusFile.setText("...");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -175,9 +197,11 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollFounds, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
+                    .addComponent(scrollFounds, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labelStatus)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelStatusFile)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonSelect)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -193,7 +217,8 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonCancel)
                     .addComponent(buttonSelect)
-                    .addComponent(labelStatus))
+                    .addComponent(labelStatus)
+                    .addComponent(labelStatusFile))
                 .addContainerGap())
         );
 
@@ -222,6 +247,7 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonSelect;
     private javax.swing.JLabel labelStatus;
+    private javax.swing.JLabel labelStatusFile;
     private javax.swing.JList<FoundDisplay> listFounds;
     private javax.swing.JScrollPane scrollFounds;
     // End of variables declaration//GEN-END:variables
