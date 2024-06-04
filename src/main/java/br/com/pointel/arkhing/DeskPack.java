@@ -716,7 +716,7 @@ public class DeskPack extends javax.swing.JPanel {
 
     private void buttonSelectOrgzActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSelectOrgzActionPerformed
         if (!editDestinyFolder.getText().isEmpty()) {
-            desk.deskOrgz.selectFolderOrAsset(new File(editDestinyFolder.getText()));
+            desk.deskOrgz.selectFolderAndAsset(new File(editDestinyFolder.getText()));
             desk.showOrgz();
         }
     }//GEN-LAST:event_buttonSelectOrgzActionPerformed

@@ -59,6 +59,10 @@ public class WizChars {
         return name.substring(0, begin) + newNameNumber + name.substring(end);
     }
 
+    public static Set<String> getKeyWords(String source) {
+        return getWords(removeAccents(source));
+    }
+    
     public static Set<String> getWords(String source) {
         var result = new HashSet<String>();
         var partsOnSpace = source.split("\\s+");

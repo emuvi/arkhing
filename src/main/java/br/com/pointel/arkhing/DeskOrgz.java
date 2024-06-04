@@ -22,18 +22,18 @@ import org.apache.commons.io.FilenameUtils;
  * @author emuvi
  */
 public class DeskOrgz extends javax.swing.JPanel {
-
+    
     private final Desk desk;
-
+    
     private final DefaultListModel<OrgzFolder> modelFolder = new DefaultListModel<>();
     private final DefaultListModel<OrgzAssets> modelAssets = new DefaultListModel<>();
     private final DefaultComboBoxModel<OrgzSubFolder> modelSubFolders = new DefaultComboBoxModel<>();
-
+    
     public DeskOrgz(Desk desk) {
         this.desk = desk;
         initComponents();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -62,6 +62,8 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuAssetsRecortar = new javax.swing.JMenuItem();
         menuAssetsColar = new javax.swing.JMenuItem();
         comboSubFolders = new javax.swing.JComboBox<>();
+        editSearch = new javax.swing.JTextField();
+        buttonSearch = new javax.swing.JButton();
         splitBody = new javax.swing.JSplitPane();
         scrollAssets = new javax.swing.JScrollPane();
         listAssets = new javax.swing.JList<>();
@@ -265,6 +267,16 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         });
 
+        editSearch.setFont(WizSwing.fontMonospaced());
+
+        buttonSearch.setFont(WizSwing.fontMonospaced());
+        buttonSearch.setText(">");
+        buttonSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSearchActionPerformed(evt);
+            }
+        });
+
         splitBody.setDividerLocation(200);
         splitBody.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
@@ -312,23 +324,31 @@ public class DeskOrgz extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
-                    .addComponent(comboSubFolders, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(comboSubFolders, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(editSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonSearch)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(comboSubFolders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboSubFolders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonSearch)
+                    .addComponent(editSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private volatile File lastLoadedBase = null;
-
+    
     public void initUpdater() {
         WizBase.startDaemon(() -> {
             while (desk.isVisible()) {
@@ -340,7 +360,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         }, "DeskOrgz - Updater");
     }
-
+    
     private void updateFolder(File path) {
         var folderSelected = listFolder.getSelectedValue();
         var assetSelected = listAssets.getSelectedValue();
@@ -372,8 +392,8 @@ public class DeskOrgz extends javax.swing.JPanel {
             listFolder.setSelectedIndex(0);
         }
     }
-
-    public void selectFolderOrAsset(File path) {
+    
+    public void selectFolderAndAsset(File path) {
         if (path == null) {
             return;
         }
@@ -387,6 +407,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 listFolder.setSelectedValue(modelFolder.get(i), true);
             }
         }
+        listFolderValueChanged(null);
         for (int i = 0; i < modelAssets.getSize(); i++) {
             if (Objects.equals(path, modelAssets.get(i).path)) {
                 listAssets.setSelectedValue(modelAssets.get(i), true);
@@ -394,7 +415,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
         listFolderValueChanged(null);
     }
-
+    
     private List<OrgzFolder> loadFolders(File path, int depth, List<OrgzFolder> list) {
         if (path.isDirectory()) {
             list.add(new OrgzFolder(depth, path));
@@ -625,7 +646,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                     var newFolder = new File(selected.path.getParentFile(), newName);
                     Files.createDirectories(newFolder.toPath());
                     updateFolder(lastLoadedBase);
-                    selectFolderOrAsset(newFolder);
+                    selectFolderAndAsset(newFolder);
                 } catch (Exception e) {
                     WizSwing.showError(e);
                 }
@@ -660,7 +681,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_menuFolderAddIndexActionPerformed
-
+    
     private void makeFolderAddIndex(List<OrgzFolder> allSelected, int i, Integer addIndex) throws Exception {
         var selected = allSelected.get(i);
         var newName = WizChars.getNameWithNewIndex(selected.path.getName(), addIndex);
@@ -697,7 +718,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             WizSwing.showError(e);
         }
     }//GEN-LAST:event_menuAssetsAddIndexActionPerformed
-
+    
     private String searchFolder = "";
 
     private void menuFolderSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderSearchActionPerformed
@@ -708,7 +729,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         searchFolder = input.trim();
         searchNextFolder();
     }//GEN-LAST:event_menuFolderSearchActionPerformed
-
+    
     private void searchNextFolder() {
         if (searchFolder.isBlank()) {
             return;
@@ -729,7 +750,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         }
     }
-
+    
     private String searchAssets = "";
 
     private void menuAssetsSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsSearchActionPerformed
@@ -797,7 +818,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                     var newFolder = new File(selected.path, newName);
                     Files.createDirectories(newFolder.toPath());
                     updateFolder(lastLoadedBase);
-                    selectFolderOrAsset(newFolder);
+                    selectFolderAndAsset(newFolder);
                 } catch (Exception e) {
                     WizSwing.showError(e);
                 }
@@ -808,7 +829,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void comboSubFoldersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSubFoldersActionPerformed
         var selected = (OrgzSubFolder) comboSubFolders.getSelectedItem();
         if (selected != null && selected.path != null) {
-            selectFolderOrAsset(selected.path);
+            selectFolderAndAsset(selected.path);
             listFolder.requestFocus();
         }
     }//GEN-LAST:event_comboSubFoldersActionPerformed
@@ -820,7 +841,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             desk.showPack();
         }
     }//GEN-LAST:event_menuFolderDestinyPackActionPerformed
-
+    
     private final List<OrgzAssets> transferArea = new ArrayList<>();
 
     private void menuAssetsRecortarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsRecortarActionPerformed
@@ -840,7 +861,9 @@ public class DeskOrgz extends javax.swing.JPanel {
                 throw new Exception("No file in the transfer area.");
             }
             for (var transfering : transferArea) {
-                if (transfering.path == null) continue;
+                if (transfering.path == null) {
+                    continue;
+                }
                 var originFile = transfering.path;
                 var destinyFile = new File(destinyFolder, originFile.getName());
                 Files.move(originFile.toPath(), destinyFile.toPath());
@@ -853,6 +876,10 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_menuAssetsColarActionPerformed
 
+    private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
+        new DeskOrgzSearch(this, desk.getBase().root, editSearch.getText()).setVisible(true);
+    }//GEN-LAST:event_buttonSearchActionPerformed
+    
     private void searchNextAssets() {
         if (searchAssets.isBlank()) {
             return;
@@ -873,7 +900,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         }
     }
-
+    
     private File renameFolder(OrgzFolder orgz, String newName) throws Exception {
         if (Objects.equals(newName, orgz.path.getName())) {
             return null;
@@ -898,7 +925,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             throw new Exception("Could not rename folder from: " + originFolder.getAbsolutePath() + " to: " + destinyFolder.getAbsolutePath());
         }
     }
-
+    
     private void renameAssets(OrgzAssets orgz, String newName) throws Exception {
         if (Objects.equals(newName, orgz.path.getName())) {
             return;
@@ -909,7 +936,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         orgz.path = destinyFile;
         SwingUtilities.invokeLater(() -> SwingUtilities.updateComponentTreeUI(listAssets));
     }
-
+    
     private void renameFile(File origin, File destiny) throws Exception {
         if (!origin.renameTo(destiny)) {
             throw new Exception("Could not rename file from: " + origin.getAbsolutePath() + " to: " + destiny.getAbsolutePath());
@@ -918,7 +945,9 @@ public class DeskOrgz extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonSearch;
     private javax.swing.JComboBox<OrgzSubFolder> comboSubFolders;
+    private javax.swing.JTextField editSearch;
     private javax.swing.JList<OrgzAssets> listAssets;
     private javax.swing.JList<OrgzFolder> listFolder;
     private javax.swing.JPopupMenu menuAssets;
@@ -950,20 +979,20 @@ public class DeskOrgz extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private class OrgzItem {
-
+        
         public File path;
-
+        
         public OrgzItem(File path) {
             this.path = path;
         }
-
+        
         @Override
         public int hashCode() {
             int hash = 5;
             hash = 19 * hash + Objects.hashCode(this.path);
             return hash;
         }
-
+        
         @Override
         public boolean equals(Object obj) {
             if (this == obj) {
@@ -978,18 +1007,18 @@ public class DeskOrgz extends javax.swing.JPanel {
             final OrgzItem other = (OrgzItem) obj;
             return Objects.equals(this.path, other.path);
         }
-
+        
     }
-
+    
     private class OrgzFolder extends OrgzItem {
-
+        
         public int depth;
-
+        
         public OrgzFolder(int depth, File path) {
             super(path);
             this.depth = depth;
         }
-
+        
         @Override
         public String toString() {
             var result = new StringBuilder("|");
@@ -999,48 +1028,48 @@ public class DeskOrgz extends javax.swing.JPanel {
             result.append(path.getName());
             return result.toString();
         }
-
+        
     }
-
+    
     private class OrgzAssets extends OrgzItem {
-
+        
         public OrgzAssets(File path) {
             super(path);
         }
-
+        
         @Override
         public String toString() {
             return "|-> " + path.getName();
         }
-
+        
     }
-
+    
     private class OrgzSubFolder {
-
+        
         public final File path;
-
+        
         public OrgzSubFolder(File path) {
             this.path = path;
         }
-
+        
         @Override
         public String toString() {
             return path.getName();
         }
-
+        
     }
-
+    
     private class OrgzSubFolderTitle extends OrgzSubFolder {
-
+        
         public OrgzSubFolderTitle() {
             super(null);
         }
-
+        
         @Override
         public String toString() {
             return "<-- SubFolders -->";
         }
-
+        
     }
-
+    
 }
