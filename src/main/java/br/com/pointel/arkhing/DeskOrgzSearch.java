@@ -85,11 +85,10 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
             while (true) {
                 var prospect = pollProspect();
                 if (prospect != null) {
-                    findOnFile(root);
+                    findOnFile(prospect);
                 } else if (doneFindOnPath.get()) {
                     return;
                 }
-                WizBase.sleep(10);
             }
         } catch (Exception e) {
             e.printStackTrace();
