@@ -268,6 +268,11 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
 
         editSearch.setFont(WizSwing.fontMonospaced());
+        editSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editSearchActionPerformed(evt);
+            }
+        });
 
         buttonSearch.setFont(WizSwing.fontMonospaced());
         buttonSearch.setText(">");
@@ -340,7 +345,7 @@ public class DeskOrgz extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboSubFolders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonSearch)
-                    .addComponent(editSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(editSearch))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                 .addContainerGap())
@@ -879,6 +884,10 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         });
     }//GEN-LAST:event_listFolderMouseClicked
+
+    private void editSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editSearchActionPerformed
+        buttonSearchActionPerformed(evt);
+    }//GEN-LAST:event_editSearchActionPerformed
     
     private void searchNextAssets() {
         if (searchAssets.isBlank()) {
