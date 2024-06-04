@@ -324,7 +324,7 @@ public class DeskOrgz extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
+                    .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(comboSubFolders, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -426,56 +426,6 @@ public class DeskOrgz extends javax.swing.JPanel {
         return list;
     }
 
-    private void listFolderValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listFolderValueChanged
-        modelAssets.removeAllElements();
-        modelSubFolders.removeAllElements();
-        modelSubFolders.addElement(new OrgzSubFolderTitle());
-        var allSelected = listFolder.getSelectedValuesList();
-        if (allSelected == null || allSelected.isEmpty()) {
-            return;
-        }
-        for (var selected : allSelected) {
-            for (var inside : selected.path.listFiles()) {
-                if (inside.isFile()) {
-                    modelAssets.addElement(new OrgzAssets(inside));
-                } else if (inside.isDirectory()) {
-                    modelSubFolders.addElement(new OrgzSubFolder(inside));
-                }
-            }
-        }
-    }//GEN-LAST:event_listFolderValueChanged
-
-    private void listFolderKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listFolderKeyPressed
-        switch (evt.getExtendedKeyCode()) {
-            case KeyEvent.VK_ENTER:
-                menuFolderOpenActionPerformed(null);
-                break;
-            case KeyEvent.VK_F1:
-                menuFolderSearchActionPerformed(null);
-                break;
-            case KeyEvent.VK_F2:
-                menuFolderRenameActionPerformed(null);
-                break;
-            case KeyEvent.VK_F3:
-                searchNextFolder();
-                break;
-            case KeyEvent.VK_F4:
-                menuFolderAddIndexActionPerformed(null);
-                break;
-            case KeyEvent.VK_F5:
-                menuFolderNewSiblingActionPerformed(null);
-                break;
-            case KeyEvent.VK_F6:
-                menuFolderNewChildActionPerformed(null);
-                break;
-            case KeyEvent.VK_F12:
-                menuFolder.show(listFolder, 0, 0);
-                break;
-            default:
-                break;
-        }
-    }//GEN-LAST:event_listFolderKeyPressed
-
     private void listAssetsKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listAssetsKeyPressed
         switch (evt.getExtendedKeyCode()) {
             case KeyEvent.VK_ENTER:
@@ -570,15 +520,6 @@ public class DeskOrgz extends javax.swing.JPanel {
             }).setVisible(true);
         }
     }//GEN-LAST:event_menuAssetsReplaceActionPerformed
-
-    private void listFolderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listFolderMouseClicked
-        SwingUtilities.invokeLater(() -> {
-            if (evt.getButton() == MouseEvent.BUTTON3
-                    || evt.getButton() == MouseEvent.BUTTON1 && evt.isAltDown()) {
-                menuFolder.show(evt.getComponent(), evt.getX(), evt.getY());
-            }
-        });
-    }//GEN-LAST:event_listFolderMouseClicked
 
     private void listAssetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listAssetsMouseClicked
         SwingUtilities.invokeLater(() -> {
@@ -879,6 +820,65 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void buttonSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSearchActionPerformed
         new DeskOrgzSearch(this, desk.getBase().root, editSearch.getText()).setVisible(true);
     }//GEN-LAST:event_buttonSearchActionPerformed
+
+    private void listFolderValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listFolderValueChanged
+        modelAssets.removeAllElements();
+        modelSubFolders.removeAllElements();
+        modelSubFolders.addElement(new OrgzSubFolderTitle());
+        var allSelected = listFolder.getSelectedValuesList();
+        if (allSelected == null || allSelected.isEmpty()) {
+            return;
+        }
+        for (var selected : allSelected) {
+            for (var inside : selected.path.listFiles()) {
+                if (inside.isFile()) {
+                    modelAssets.addElement(new OrgzAssets(inside));
+                } else if (inside.isDirectory()) {
+                    modelSubFolders.addElement(new OrgzSubFolder(inside));
+                }
+            }
+        }
+    }//GEN-LAST:event_listFolderValueChanged
+
+    private void listFolderKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_listFolderKeyPressed
+        switch (evt.getExtendedKeyCode()) {
+            case KeyEvent.VK_ENTER:
+            menuFolderOpenActionPerformed(null);
+            break;
+            case KeyEvent.VK_F1:
+            menuFolderSearchActionPerformed(null);
+            break;
+            case KeyEvent.VK_F2:
+            menuFolderRenameActionPerformed(null);
+            break;
+            case KeyEvent.VK_F3:
+            searchNextFolder();
+            break;
+            case KeyEvent.VK_F4:
+            menuFolderAddIndexActionPerformed(null);
+            break;
+            case KeyEvent.VK_F5:
+            menuFolderNewSiblingActionPerformed(null);
+            break;
+            case KeyEvent.VK_F6:
+            menuFolderNewChildActionPerformed(null);
+            break;
+            case KeyEvent.VK_F12:
+            menuFolder.show(listFolder, 0, 0);
+            break;
+            default:
+            break;
+        }
+    }//GEN-LAST:event_listFolderKeyPressed
+
+    private void listFolderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listFolderMouseClicked
+        SwingUtilities.invokeLater(() -> {
+            if (evt.getButton() == MouseEvent.BUTTON3
+                || evt.getButton() == MouseEvent.BUTTON1 && evt.isAltDown()) {
+                menuFolder.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        });
+    }//GEN-LAST:event_listFolderMouseClicked
     
     private void searchNextAssets() {
         if (searchAssets.isBlank()) {
