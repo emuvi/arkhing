@@ -2,7 +2,6 @@ package br.com.pointel.arkhing;
 
 import java.io.File;
 import java.nio.file.Files;
-import org.apache.commons.io.FilenameUtils;
 
 public class DockReaderTXT {
     

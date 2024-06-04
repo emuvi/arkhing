@@ -34,12 +34,20 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
     }
 
     private synchronized void addFound(File path) {
-        if (!path.isDirectory()) {
-            path = path.getParentFile();
-        }
         var found = new FoundDisplay(path);
         if (!foundsModel.contains(found)) {
-            foundsModel.addElement(found);
+            if (path.isDirectory()) {
+                foundsModel.add(0, found);
+            } else {
+                var firstFile = 0;
+                for (var i = 0; i < foundsModel.getSize(); i++) {
+                    if (foundsModel.get(i).getFound().isFile()) {
+                        firstFile = i;
+                        break;
+                    }
+                }
+                foundsModel.add(firstFile, found);
+            }
         }
     }
 
@@ -152,7 +160,7 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
         labelStatus = new javax.swing.JLabel();
         scrollFounds = new javax.swing.JScrollPane();
         listFounds = new javax.swing.JList<>();
-        labelStatusFile = new javax.swing.JLabel();
+        labelStatusFile = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Orgz Search");
@@ -187,7 +195,8 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
         listFounds.setModel(foundsModel);
         scrollFounds.setViewportView(listFounds);
 
-        labelStatusFile.setText("...");
+        labelStatusFile.setEditable(false);
+        labelStatusFile.setBorder(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -201,7 +210,7 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
                         .addComponent(labelStatus)
                         .addGap(18, 18, 18)
                         .addComponent(labelStatusFile)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(buttonSelect)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonCancel)))
@@ -217,7 +226,7 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
                     .addComponent(buttonCancel)
                     .addComponent(buttonSelect)
                     .addComponent(labelStatus)
-                    .addComponent(labelStatusFile))
+                    .addComponent(labelStatusFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -246,7 +255,7 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonSelect;
     private javax.swing.JLabel labelStatus;
-    private javax.swing.JLabel labelStatusFile;
+    private javax.swing.JTextField labelStatusFile;
     private javax.swing.JList<FoundDisplay> listFounds;
     private javax.swing.JScrollPane scrollFounds;
     // End of variables declaration//GEN-END:variables

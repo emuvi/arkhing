@@ -9,7 +9,7 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class DockReaderTXTUtils {
 
-    public static String[] TXT_EXTENSIONS = new String[]{"txt", "md", "htm", "html"};
+    public static String[] TXT_EXTENSIONS = new String[]{"txt", "md", "htm", "html", "log"};
 
     public static boolean isTXTFile(File file) {
         return isTXTFile(file.getName());

@@ -1,7 +1,6 @@
 package br.com.pointel.arkhing;
 
 import java.io.File;
-import org.apache.commons.io.FilenameUtils;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
