@@ -28,7 +28,7 @@ public class CatalogClazz extends javax.swing.JFrame {
             listSuggestions.setSelectedIndex(0);
         }
         getRootPane().setDefaultButton(buttonConfirm);
-        WizSwing.initPositioner(this);
+        WizSwing.initFrame(this);
         initSearch();
     }
 

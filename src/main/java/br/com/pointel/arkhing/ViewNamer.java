@@ -29,7 +29,7 @@ public class ViewNamer extends javax.swing.JFrame {
             setTitle(getTitle() + " - " + subtitle);
         }
         getRootPane().setDefaultButton(buttonAccept);
-        WizSwing.initPositioner(this);
+        WizSwing.initFrame(this);
         WizSwing.initEscaper(this);
     }
 

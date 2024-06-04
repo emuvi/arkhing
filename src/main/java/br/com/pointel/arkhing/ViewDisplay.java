@@ -31,7 +31,7 @@ public class ViewDisplay extends javax.swing.JFrame {
         initComponents();
         scrollDisplay.setViewportView(editor);
         setTitle(display.toString());
-        WizSwing.initPositioner(this);
+        WizSwing.initFrame(this);
     }
 
     @SuppressWarnings("unchecked")

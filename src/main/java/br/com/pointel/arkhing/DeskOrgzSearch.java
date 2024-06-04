@@ -29,7 +29,7 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
         this.rootPathSize = root.getAbsolutePath().length();
         this.searchFor = WizChars.getKeyWords(searchFor);
         initComponents();
-        WizSwing.initPositioner(this);
+        WizSwing.initFrame(this);
     }
 
     private synchronized void addFound(File path) {

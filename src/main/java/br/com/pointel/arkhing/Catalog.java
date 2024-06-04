@@ -51,7 +51,7 @@ public class Catalog extends javax.swing.JFrame {
     public Catalog(Desk desk, List<File> files) throws Exception {
         this.desk = desk;
         this.files = files;
-        WizSwing.initPositioner(this);
+        WizSwing.initFrame(this);
         initComponents();
         loadRoot();
         combosPath = new ArrayList<>();

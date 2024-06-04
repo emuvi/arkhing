@@ -1,5 +1,7 @@
 package br.com.pointel.arkhing;
 
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.Font;
 import java.awt.Toolkit;
@@ -128,7 +130,7 @@ public class WizSwing {
         return new Font(Font.SANS_SERIF, Font.PLAIN, 14);
     }
 
-    public static void initPositioner(JFrame frame) {
+    public static void initFrame(JFrame frame) {
         final var parameterName = WizChars.makeParameterName(frame.getTitle());
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -148,6 +150,16 @@ public class WizSwing {
                 WizProps.set(parameterName + "_FRAME_HEIGHT", frame.getBounds().height);
             }
         });
+        setAllCompontentsFont(frame, fontMonospaced());
+    }
+    
+    private static void setAllCompontentsFont(Component component, Font fonte) {
+        component.setFont(fonte);
+        if (component instanceof Container) {
+            for (Component filho : ((Container) component).getComponents()) {
+                setAllCompontentsFont(filho, fonte);
+            }
+        }
     }
 
     public static void initEscaper(JFrame frame) {

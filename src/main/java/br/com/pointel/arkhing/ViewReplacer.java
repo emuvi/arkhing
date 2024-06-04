@@ -24,7 +24,7 @@ public class ViewReplacer extends javax.swing.JFrame {
         this.onAccept = onAccept;
         initComponents();
         initNamedReplacers();
-        WizSwing.initPositioner(this);
+        WizSwing.initFrame(this);
         WizSwing.initEscaper(this);
     }
 
