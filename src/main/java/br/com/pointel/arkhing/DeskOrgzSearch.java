@@ -31,6 +31,7 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
         this.searchFor = WizChars.getKeyWords(searchFor);
         initComponents();
         WizSwing.initFrame(this);
+        getRootPane().setDefaultButton(buttonSelect);
     }
 
     private synchronized void addFound(File path) {
@@ -39,7 +40,7 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
             if (path.isDirectory()) {
                 foundsModel.add(0, found);
             } else {
-                var firstFile = 0;
+                var firstFile = foundsModel.getSize();
                 for (var i = 0; i < foundsModel.getSize(); i++) {
                     if (foundsModel.get(i).getFound().isFile()) {
                         firstFile = i;
