@@ -89,7 +89,7 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
                 } else if (doneFindOnPath.get()) {
                     return;
                 }
-                WizBase.sleep(100);
+                WizBase.sleep(10);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -100,7 +100,7 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
     
     private void startStatusUpdater() {
         while (doneFindOnFile.get() < totalFileThreads) {
-            WizBase.sleep(100);
+            WizBase.sleep(10);
         }
         SwingUtilities.invokeLater(() -> labelStatus.setText("Done."));
     }
