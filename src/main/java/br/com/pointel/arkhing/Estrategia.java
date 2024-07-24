@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Estrategia {
@@ -21,7 +20,6 @@ public class Estrategia {
         this.entrypoint = entrypoint;
         this.webDriver = new ChromeDriver();
         this.webWait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
-//        webwait.until(ExpectedConditions.visibilityOfElementLocated(By.id("passwordField")));
     }
 
     public void start() {
@@ -39,13 +37,13 @@ public class Estrategia {
         var buttons = webDriver.findElements(By.tagName("button"));
         var nextEl = buttons.stream().filter(el -> el.getText().contains("Continuar")).findFirst().orElseThrow();
         userEl.click();
-        WizBase.sleep(700);
+        waitFor(700);
         userEl.sendKeys("everton.muvi@gmail.com");
         passEl.click();
-        WizBase.sleep(700);
+        waitFor(700);
         passEl.sendKeys(System.getenv("ESTRATEGIA_PASSWORD"));
         nextEl.click();
-        WizBase.sleep(700);
+        waitFor(700);
     }
 
     public void clean() {
@@ -64,7 +62,7 @@ public class Estrategia {
         webDriver.findElement(By.tagName("body")).sendKeys(Keys.HOME);
         scrollToElement(headerLesson);
         headerLesson.click();
-        WizBase.sleep(700);
+        waitFor(700);
     }
 
     private void scrollToElement(WebElement element) {
@@ -94,9 +92,12 @@ public class Estrategia {
         var links = divMaterials.findElements(By.tagName("a"));
         for (var link : links) {
             if (link.getAttribute("href").contains("pdf")) {
-                scrollToElement(link);
-                altClickElement(link);
-                WizBase.sleep(1200);
+                if (link.getText().toLowerCase().contains("versão original")) {
+                    scrollToElement(link);
+                    waitFor(1200);
+                    altClickElement(link);
+                    waitFor(1200);
+                }
             }
         }
     }
@@ -107,7 +108,7 @@ public class Estrategia {
         var iconDownload = divLessonContent.findElement(By.cssSelector("i.icon-download"));
         var iconNotes = divLessonContent.findElement(By.cssSelector("i.icon-notes"));
         iconDownload.click();
-        WizBase.sleep(1200);
+        waitFor(1200);
         scrollToElement(iconNotes);
     }
 
@@ -117,7 +118,7 @@ public class Estrategia {
         var divItem = divsItems.get(itemIndex);
         scrollToElement(divItem);
         divItem.click();
-        WizBase.sleep(1200);
+        waitFor(1200);
     }
 
     public void makeDownloads(int headerIndex) {
@@ -129,7 +130,7 @@ public class Estrategia {
             if (linkLessonPDFs.getAttribute("href").contains("download")) {
                 scrollToElement(linkLessonPDFs);
                 altClickElement(linkLessonPDFs);
-                WizBase.sleep(1200);
+                waitFor(1200);
             }
         }
         var doneVideo = false;
@@ -138,10 +139,10 @@ public class Estrategia {
         for (var linkMedia : linksMedia) {
             var contents = linkMedia.getText().toLowerCase();
             if (!doneVideo) {
-                if (contents.contains("720p") || contents.contains("480p") || contents.contains("360p") || contents.contains("240p")) {
+                if (contents.contains("480p") || contents.contains("360p") || contents.contains("240p")) {
                     scrollToElement(linkMedia);
                     altClickElement(linkMedia);
-                    WizBase.sleep(1200);
+                    waitFor(1200);
                     doneVideo = true;
                 }
             }
@@ -149,7 +150,7 @@ public class Estrategia {
                 if (contents.contains("baixar áudio")) {
                     scrollToElement(linkMedia);
                     altClickElement(linkMedia);
-                    WizBase.sleep(1200);
+                    waitFor(1200);
                     doneAudio = true;
                 }
             }
@@ -165,7 +166,7 @@ public class Estrategia {
         var divItem = divsItems.get(itemIndex);
         var spanTitle = divItem.findElement(By.cssSelector("span.VideoItem-info-title"));
         WizSwing.putStringOnClipboard(spanTitle.getText());
-        WizBase.sleep(1200);
+        waitFor(1200);
     }
     
     public void tickView(int headerIndex) {
@@ -177,7 +178,12 @@ public class Estrategia {
             scrollToElement(checkTick);
             checkTick.click();
         }
-        WizBase.sleep(1200);
+        waitFor(1200);
+    }
+    
+    private void waitFor(long millis) {
+        webWait.withTimeout(Duration.ofMillis(millis));
+        WizBase.sleep(millis);
     }
 
 }
