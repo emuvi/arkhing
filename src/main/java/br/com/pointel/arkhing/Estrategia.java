@@ -139,7 +139,7 @@ public class Estrategia {
         for (var linkMedia : linksMedia) {
             var contents = linkMedia.getText().toLowerCase();
             if (!doneVideo) {
-                if (contents.contains("480p") || contents.contains("360p") || contents.contains("240p")) {
+                if (contents.contains("360p") || contents.contains("240p")) {
                     scrollToElement(linkMedia);
                     altClickElement(linkMedia);
                     waitFor(1200);
