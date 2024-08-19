@@ -271,8 +271,6 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
 
-        checkAutoSelectDestiny.setSelected(true);
-
         javax.swing.GroupLayout panelWatchLayout = new javax.swing.GroupLayout(panelWatch);
         panelWatch.setLayout(panelWatchLayout);
         panelWatchLayout.setHorizontalGroup(
