@@ -99,7 +99,7 @@ public class Desk extends javax.swing.JFrame {
         });
 
         editStatus.setEditable(false);
-        editStatus.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        editStatus.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         editStatus.setText("Status");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -109,11 +109,12 @@ public class Desk extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabsBody, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
+                    .addComponent(tabsBody)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(checkAlwaysOnTop)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(editStatus)))
+                        .addComponent(editStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 36, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
