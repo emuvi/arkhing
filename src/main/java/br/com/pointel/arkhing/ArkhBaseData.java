@@ -88,10 +88,6 @@ public class ArkhBaseData implements Closeable {
         return results;
     }
 
-    public void putFile(ArkhBaseUnit file) throws Exception {
-        this.putFile(file.place, file.modified, file.verifier);
-    }
-
     public void putFile(String place, Long modified, String verifier) throws Exception {
         var delete = this.connection.prepareStatement(
                 "DELETE FROM files "
