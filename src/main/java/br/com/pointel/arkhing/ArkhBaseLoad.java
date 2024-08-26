@@ -3,6 +3,7 @@ package br.com.pointel.arkhing;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Deque;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -133,10 +134,10 @@ public class ArkhBaseLoad {
                 arkhBase.sendToListeners("[BASE] Verifing: " + file.getName());
                 var place = arkhBase.getPlace(file);
                 var baseFile = arkhBase.baseData.getByPlace(place);
-                if (baseFile == null || file.lastModified() > baseFile.modified) {
+                if (baseFile == null || !Objects.equals(file.length(), baseFile.modified)) {
                     try (FileInputStream input = new FileInputStream(file)) {
                         var verifier = DigestUtils.sha256Hex(input);
-                        arkhBase.baseData.putFile(place, file.lastModified(), verifier);
+                        arkhBase.baseData.putFile(place, file.length(), verifier);
                         arkhBase.sendToListeners("[BASE] Putted: " + file.getName());
                     }
                 }
