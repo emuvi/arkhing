@@ -158,6 +158,7 @@ public class Estrategia {
                 break;
             }
         }
+        waitFor(3600);
     }
     
     public void copyTitle(int headerIndex, int itemIndex) {
