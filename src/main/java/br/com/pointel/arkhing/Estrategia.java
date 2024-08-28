@@ -110,6 +110,7 @@ public class Estrategia {
         iconDownload.click();
         waitFor(1200);
         scrollToElement(iconNotes);
+        waitFor(2400);
     }
 
     public void openItem(int headerIndex, int itemIndex) {
@@ -158,7 +159,7 @@ public class Estrategia {
                 break;
             }
         }
-        waitFor(3600);
+        waitFor(1200);
     }
     
     public void copyTitle(int headerIndex, int itemIndex) {
@@ -180,6 +181,7 @@ public class Estrategia {
             checkTick.click();
         }
         waitFor(1200);
+        waitFor(2400);
     }
     
     private void waitFor(long millis) {
