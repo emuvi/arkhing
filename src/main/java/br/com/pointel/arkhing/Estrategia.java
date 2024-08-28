@@ -134,7 +134,7 @@ public class Estrategia {
             }
         }
         var doneVideo = false;
-        var doneAudio = false;
+        var doneAudio = true;
         var linksMedia = divLessonContent.findElements(By.tagName("a"));
         for (var linkMedia : linksMedia) {
             var contents = linkMedia.getText().toLowerCase();
