@@ -106,6 +106,7 @@ public class DeskPack extends javax.swing.JPanel {
         buttonSelectDestinyFolder = new javax.swing.JButton();
         buttonRemove = new javax.swing.JButton();
         checkAutoSelectDestiny = new javax.swing.JCheckBox();
+        checkRemoveAll = new javax.swing.JCheckBox();
         checkQuickMake = new javax.swing.JCheckBox();
         spinnerAutoMake = new javax.swing.JSpinner();
 
@@ -271,6 +272,8 @@ public class DeskPack extends javax.swing.JPanel {
             }
         });
 
+        checkRemoveAll.setText("*");
+
         javax.swing.GroupLayout panelWatchLayout = new javax.swing.GroupLayout(panelWatch);
         panelWatch.setLayout(panelWatchLayout);
         panelWatchLayout.setHorizontalGroup(
@@ -291,9 +294,11 @@ public class DeskPack extends javax.swing.JPanel {
                         .addComponent(buttonSelectOrgz)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonFolderOpen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 124, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                        .addComponent(checkRemoveAll)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonRemove)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                         .addComponent(butttonSuggestName)
                         .addGap(18, 18, 18)
                         .addComponent(checkAutoCopy)
@@ -333,7 +338,8 @@ public class DeskPack extends javax.swing.JPanel {
                         .addComponent(buttonClazzFolder)
                         .addComponent(buttonSelectDestinyFolder)
                         .addComponent(buttonRemove)
-                        .addComponent(checkAutoSelectDestiny)))
+                        .addComponent(checkAutoSelectDestiny)
+                        .addComponent(checkRemoveAll)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editDestinyFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -742,6 +748,13 @@ public class DeskPack extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonSelectDestinyFolderActionPerformed
 
     private void buttonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveActionPerformed
+        if (checkRemoveAll.isSelected()) {
+            int[] selectAll = new int[modelWatch.size()];
+            for (int i = 0; i < selectAll.length; i++) {
+                selectAll[i] = i;
+            }
+            listWatch.setSelectedIndices(selectAll);
+        }
         removeSeletected();
     }//GEN-LAST:event_buttonRemoveActionPerformed
 
@@ -776,6 +789,7 @@ public class DeskPack extends javax.swing.JPanel {
     private javax.swing.JCheckBox checkAutoCopy;
     private javax.swing.JCheckBox checkAutoSelectDestiny;
     private javax.swing.JCheckBox checkQuickMake;
+    private javax.swing.JCheckBox checkRemoveAll;
     private javax.swing.JCheckBox checkWatch;
     private javax.swing.JTextField editClipboard;
     private javax.swing.JTextField editDestinyFolder;

@@ -151,9 +151,11 @@
                               <Component id="buttonSelectOrgz" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonFolderOpen" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="124" max="32767" attributes="0"/>
+                              <EmptySpace pref="62" max="32767" attributes="0"/>
+                              <Component id="checkRemoveAll" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonRemove" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="63" max="32767" attributes="0"/>
+                              <EmptySpace pref="91" max="32767" attributes="0"/>
                               <Component id="butttonSuggestName" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="checkAutoCopy" min="-2" max="-2" attributes="0"/>
@@ -201,6 +203,7 @@
                               <Component id="buttonSelectDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="buttonRemove" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="checkAutoSelectDestiny" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkRemoveAll" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -386,6 +389,11 @@
               </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkAutoSelectDestiny">
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkRemoveAll">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="*"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
