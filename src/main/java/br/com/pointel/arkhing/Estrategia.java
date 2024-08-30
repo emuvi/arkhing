@@ -181,7 +181,7 @@ public class Estrategia {
             checkTick.click();
         }
         waitFor(1200);
-        waitFor(2400);
+        waitFor(9600);
     }
     
     private void waitFor(long millis) {
