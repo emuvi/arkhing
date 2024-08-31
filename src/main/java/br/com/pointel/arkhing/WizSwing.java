@@ -1,4 +1,4 @@
-package br.com.pointel.charvs;
+package br.com.pointel.arkhing;
 
 import java.awt.Component;
 import java.awt.Container;
