@@ -1,9 +1,11 @@
-package br.com.pointel.arkhing;
+package br.com.pointel.charvs;
 
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Desktop;
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -135,11 +137,25 @@ public class WizSwing {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowOpened(WindowEvent e) {
-                frame.setBounds(
-                        WizProps.get(parameterName + "_FRAME_LEFT", frame.getBounds().x),
-                        WizProps.get(parameterName + "_FRAME_TOP", frame.getBounds().y),
-                        WizProps.get(parameterName + "_FRAME_WIDTH", frame.getBounds().width),
-                        WizProps.get(parameterName + "_FRAME_HEIGHT", frame.getBounds().height));
+                var left = WizProps.get(parameterName + "_FRAME_LEFT", frame.getBounds().x);
+                var top = WizProps.get(parameterName + "_FRAME_TOP", frame.getBounds().y);
+                var width = WizProps.get(parameterName + "_FRAME_WIDTH", frame.getBounds().width);
+                var height = WizProps.get(parameterName + "_FRAME_HEIGHT", frame.getBounds().height);
+                var gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+                var screenBounds = gd.getDefaultConfiguration().getBounds();
+                if (left + width > screenBounds.x + screenBounds.width) {
+                    left = screenBounds.width - width;
+                }
+                if (top + height > screenBounds.y + screenBounds.height) {
+                    top = screenBounds.height - height;
+                }
+                if (left < screenBounds.x) {
+                    left = screenBounds.x;
+                }
+                if (top < screenBounds.y) {
+                    top = screenBounds.y;
+                }
+                frame.setBounds(left, top, width, height);
             }
 
             @Override
