@@ -1,5 +1,6 @@
 package br.com.pointel.arkhing;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
 import java.io.File;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
@@ -171,7 +172,7 @@ public class Desk extends javax.swing.JFrame {
 
     public static void start(String args[]) {
         try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.setLookAndFeel(new FlatDarculaLaf());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
