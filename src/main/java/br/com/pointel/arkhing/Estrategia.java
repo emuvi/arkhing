@@ -86,8 +86,13 @@ public class Estrategia {
         return divLesson;
     }
 
-    public void getLessonMaterials(int headerIndex) {
+    public void getLessonMaterials(int headerIndex, boolean putHeaderTitleOnClipboard) {
         var divLesson = getHeader(headerIndex);
+        if (putHeaderTitleOnClipboard) {
+            var headerLesson = divLesson.findElement(By.cssSelector("div.LessonCollapseHeader-title"));
+            var headerLessonParagraphh = headerLesson.findElement(By.tagName("p"));
+            WizSwing.putStringOnClipboard(headerLessonParagraphh.getText().trim());
+        }
         var divMaterials = divLesson.findElement(By.cssSelector("div.LessonButtonList"));
         var links = divMaterials.findElements(By.tagName("a"));
         for (var link : links) {

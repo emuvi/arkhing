@@ -48,7 +48,7 @@
                   <Component id="spinnerAutoMake" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="splitPack" pref="409" max="32767" attributes="0"/>
+              <Component id="splitPack" pref="402" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -140,8 +140,8 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="editClipboard" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="buttonClazzFolder" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                              <Component id="fieldForceName" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="checkAutoSelectDestiny" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonSelectDestinyFolder" min="-2" max="-2" attributes="0"/>
@@ -151,16 +151,16 @@
                               <Component id="buttonSelectOrgz" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonFolderOpen" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="62" max="32767" attributes="0"/>
+                              <EmptySpace pref="44" max="32767" attributes="0"/>
                               <Component id="checkRemoveAll" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonRemove" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="91" max="32767" attributes="0"/>
+                              <EmptySpace pref="69" max="32767" attributes="0"/>
                               <Component id="butttonSuggestName" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="checkAutoCopy" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="buttonNameCopy" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonNameGet" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="labelStatus" min="-2" max="-2" attributes="0"/>
@@ -190,28 +190,30 @@
                       <Component id="editClipboard" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="3" attributes="0">
-                              <Component id="checkAutoCopy" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="butttonSuggestName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                  <Component id="checkAutoCopy" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
+                                  <Component id="butttonSuggestName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="buttonSelectFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonNameGet" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonFolderOpen" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonSelectOrgz" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonSelectDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonRemove" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkRemoveAll" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkAutoSelectDestiny" alignment="1" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="buttonSelectFolder" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonNameCopy" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonFolderOpen" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonSelectOrgz" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonClazzFolder" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonSelectDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="buttonRemove" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="checkAutoSelectDestiny" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="checkRemoveAll" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="fieldForceName" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="editDestinyFolder" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="editDestinyName" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelProcess" pref="56" max="32767" attributes="0"/>
+                      <Component id="panelProcess" pref="49" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -251,15 +253,6 @@
                   <Connection code="WizSwing.fontMonospaced()" type="code"/>
                 </Property>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="buttonClazzFolder">
-              <Properties>
-                <Property name="mnemonic" type="int" value="70"/>
-                <Property name="text" type="java.lang.String" value="Clazz Folder"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonClazzFolderActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buttonSelectFolder">
               <Properties>
@@ -302,13 +295,13 @@
                 <Property name="text" type="java.lang.String" value="Auto"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonNameCopy">
+            <Component class="javax.swing.JButton" name="buttonNameGet">
               <Properties>
                 <Property name="mnemonic" type="int" value="67"/>
-                <Property name="text" type="java.lang.String" value="Copy"/>
+                <Property name="text" type="java.lang.String" value="Get"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNameCopyActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonNameGetActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="editDestinyFolder">
@@ -393,6 +386,11 @@
             <Component class="javax.swing.JCheckBox" name="checkRemoveAll">
               <Properties>
                 <Property name="text" type="java.lang.String" value="*"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="fieldForceName">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Force Name"/>
               </Properties>
             </Component>
           </SubComponents>
