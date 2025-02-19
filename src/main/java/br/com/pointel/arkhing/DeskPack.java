@@ -100,7 +100,7 @@ public class DeskPack extends javax.swing.JPanel {
         panelProcess = new javax.swing.JPanel();
         buttonSameRootName = new javax.swing.JButton();
         buttonSameFoundName = new javax.swing.JButton();
-        buttonMakeAulaName = new javax.swing.JButton();
+        buttonMakeStudyName = new javax.swing.JButton();
         buttonMakeAutoName = new javax.swing.JButton();
         buttonSelectDestinyFolder = new javax.swing.JButton();
         buttonRemove = new javax.swing.JButton();
@@ -232,14 +232,14 @@ public class DeskPack extends javax.swing.JPanel {
         });
         panelProcess.add(buttonSameFoundName);
 
-        buttonMakeAulaName.setMnemonic('3');
-        buttonMakeAulaName.setText("3 - Make Aula Name");
-        buttonMakeAulaName.addActionListener(new java.awt.event.ActionListener() {
+        buttonMakeStudyName.setMnemonic('3');
+        buttonMakeStudyName.setText("3 - Make Study Name");
+        buttonMakeStudyName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonMakeAulaNameActionPerformed(evt);
+                buttonMakeStudyNameActionPerformed(evt);
             }
         });
-        panelProcess.add(buttonMakeAulaName);
+        panelProcess.add(buttonMakeStudyName);
 
         buttonMakeAutoName.setMnemonic('4');
         buttonMakeAutoName.setText("4 - Make Auto Name");
@@ -325,15 +325,16 @@ public class DeskPack extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkAutoCopy, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(butttonSuggestName))
-                        .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonSelectFolder)
-                            .addComponent(buttonNameGet)
-                            .addComponent(buttonFolderOpen)
-                            .addComponent(buttonSelectOrgz)
-                            .addComponent(buttonSelectDestinyFolder)
-                            .addComponent(buttonRemove)
-                            .addComponent(checkRemoveAll)
-                            .addComponent(checkAutoSelectDestiny)))
+                        .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkAutoSelectDestiny, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(buttonSelectFolder)
+                                .addComponent(buttonNameGet)
+                                .addComponent(buttonFolderOpen)
+                                .addComponent(buttonSelectOrgz)
+                                .addComponent(buttonSelectDestinyFolder)
+                                .addComponent(buttonRemove)
+                                .addComponent(checkRemoveAll))))
                     .addComponent(fieldForceName, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editDestinyFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -597,7 +598,7 @@ public class DeskPack extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonSameFoundNameActionPerformed
 
-    private void buttonMakeAulaNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeAulaNameActionPerformed
+    private void buttonMakeStudyNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeStudyNameActionPerformed
         try {
             checkIfDownloading();
         } catch (Exception e) {
@@ -607,24 +608,24 @@ public class DeskPack extends javax.swing.JPanel {
         try {
             var allSelected = getSelectedToProcess();
             var rootFolder = new File(editDestinyFolder.getText());
-            int biggerAula = 0;
+            int biggerStudy = 0;
             for (var inside : rootFolder.listFiles()) {
                 var test = inside.getName().toLowerCase();
-                if (test.startsWith("aula ")) {
+                if (test.startsWith("study ")) {
                     int end = test.indexOf(" - ");
                     if (end > -1) {
                         try {
                             int number = Integer.parseInt(test.substring(4, end).trim());
-                            if (number > biggerAula) {
-                                biggerAula = number;
+                            if (number > biggerStudy) {
+                                biggerStudy = number;
                             }
                         } catch (Exception e) {
                         }
                     }
                 }
             }
-            biggerAula++;
-            String name = "Aula " + StringUtils.leftPad("" + biggerAula, 2, '0')
+            biggerStudy++;
+            String name = "Study " + StringUtils.leftPad("" + biggerStudy, 2, '0')
                     + " - " + editDestinyName.getText();
             for (var selected : allSelected) {
                 doMove(selected.file, rootFolder, name, selected.verifier);
@@ -632,7 +633,7 @@ public class DeskPack extends javax.swing.JPanel {
         } catch (Exception ex) {
             WizSwing.showError(ex);
         }
-    }//GEN-LAST:event_buttonMakeAulaNameActionPerformed
+    }//GEN-LAST:event_buttonMakeStudyNameActionPerformed
 
     private void doMove(File file, File directory, String name, String verifier) throws Exception {
         var extension = "." + FilenameUtils.getExtension(file.getName());
@@ -701,7 +702,7 @@ public class DeskPack extends javax.swing.JPanel {
                             } else if (labelFound.isVisible()) {
                                 buttonSameFoundNameActionPerformed(evt);
                             } else {
-                                buttonMakeAulaNameActionPerformed(evt);
+                                buttonMakeStudyNameActionPerformed(evt);
                             }
                         });
                     } catch (Exception e) {
@@ -766,8 +767,8 @@ public class DeskPack extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonFolderOpen;
-    private javax.swing.JButton buttonMakeAulaName;
     private javax.swing.JButton buttonMakeAutoName;
+    private javax.swing.JButton buttonMakeStudyName;
     private javax.swing.JButton buttonNameGet;
     private javax.swing.JButton buttonRemove;
     private javax.swing.JButton buttonSameFoundName;

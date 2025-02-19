@@ -195,15 +195,17 @@
                                   <Component id="checkAutoCopy" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                   <Component id="butttonSuggestName" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="buttonSelectFolder" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="buttonNameGet" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="buttonFolderOpen" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="buttonSelectOrgz" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="buttonSelectDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="buttonRemove" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="checkRemoveAll" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="checkAutoSelectDestiny" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="buttonSelectFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonNameGet" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonFolderOpen" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonSelectOrgz" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonSelectDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonRemove" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="checkRemoveAll" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <Component id="fieldForceName" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -345,13 +347,13 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSameFoundNameActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="buttonMakeAulaName">
+                <Component class="javax.swing.JButton" name="buttonMakeStudyName">
                   <Properties>
                     <Property name="mnemonic" type="int" value="51"/>
-                    <Property name="text" type="java.lang.String" value="3 - Make Aula Name"/>
+                    <Property name="text" type="java.lang.String" value="3 - Make Study Name"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeAulaNameActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeStudyNameActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="buttonMakeAutoName">
