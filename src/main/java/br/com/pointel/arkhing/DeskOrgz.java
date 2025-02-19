@@ -61,6 +61,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuAssetsAddIndex = new javax.swing.JMenuItem();
         menuAssetsRecortar = new javax.swing.JMenuItem();
         menuAssetsColar = new javax.swing.JMenuItem();
+        buttonUpFolder = new javax.swing.JButton();
         comboSubFolders = new javax.swing.JComboBox<>();
         editSearch = new javax.swing.JTextField();
         buttonSearchName = new javax.swing.JButton();
@@ -260,6 +261,13 @@ public class DeskOrgz extends javax.swing.JPanel {
         });
         menuAssets.add(menuAssetsColar);
 
+        buttonUpFolder.setText("^");
+        buttonUpFolder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonUpFolderActionPerformed(evt);
+            }
+        });
+
         comboSubFolders.setFont(WizSwing.fontMonospaced());
         comboSubFolders.setModel(modelSubFolders);
         comboSubFolders.addActionListener(new java.awt.event.ActionListener() {
@@ -339,6 +347,8 @@ public class DeskOrgz extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonUpFolder)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboSubFolders, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(editSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -357,7 +367,8 @@ public class DeskOrgz extends javax.swing.JPanel {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(comboSubFolders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(buttonSearchDeep)
-                        .addComponent(buttonSearchName)))
+                        .addComponent(buttonSearchName)
+                        .addComponent(buttonUpFolder)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(splitBody, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE)
                 .addContainerGap())
@@ -917,6 +928,14 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_buttonSearchNameActionPerformed
+
+    private void buttonUpFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpFolderActionPerformed
+        var selected = listFolder.getSelectedValue();
+        if (selected != null && selected.path != null) {
+            selectFolderAndAsset(selected.path.getParentFile());
+            listFolder.requestFocus();
+        }
+    }//GEN-LAST:event_buttonUpFolderActionPerformed
     
     private void searchNextAssets() {
         if (searchAssets.isBlank()) {
@@ -985,6 +1004,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonSearchDeep;
     private javax.swing.JButton buttonSearchName;
+    private javax.swing.JButton buttonUpFolder;
     private javax.swing.JComboBox<OrgzSubFolder> comboSubFolders;
     private javax.swing.JTextField editSearch;
     private javax.swing.JList<OrgzAssets> listAssets;
