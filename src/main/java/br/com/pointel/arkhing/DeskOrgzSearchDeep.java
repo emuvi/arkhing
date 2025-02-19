@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.DefaultListModel;
 import javax.swing.SwingUtilities;
 
-public class DeskOrgzSearch extends javax.swing.JFrame {
+public class DeskOrgzSearchDeep extends javax.swing.JFrame {
 
     private final DeskOrgz deskOrgz;
     private final File root;
@@ -24,7 +24,7 @@ public class DeskOrgzSearch extends javax.swing.JFrame {
     private final AtomicInteger doneFindOnFile = new AtomicInteger(0);
     private final Integer totalFileThreads = 8;
 
-    public DeskOrgzSearch(DeskOrgz deskOrgz, File root, String searchFor) throws HeadlessException {
+    public DeskOrgzSearchDeep(DeskOrgz deskOrgz, File root, String searchFor) throws HeadlessException {
         this.deskOrgz = deskOrgz;
         this.root = root;
         this.rootPathSize = root.getAbsolutePath().length();
