@@ -134,10 +134,10 @@ public class ArkhBaseLoad {
                 arkhBase.sendToListeners("[BASE] Verifing: " + file.getName());
                 var place = arkhBase.getPlace(file);
                 var baseFile = arkhBase.baseData.getByPlace(place);
-                if (baseFile == null || !Objects.equals(file.length(), baseFile.modified)) {
+                if (baseFile == null || !Objects.equals(file.lastModified(), baseFile.modified)) {
                     try (FileInputStream input = new FileInputStream(file)) {
                         var verifier = DigestUtils.sha256Hex(input);
-                        arkhBase.baseData.putFile(place, file.length(), verifier);
+                        arkhBase.baseData.putFile(place, file.lastModified(), verifier);
                         arkhBase.sendToListeners("[BASE] Putted: " + file.getName());
                     }
                 }

@@ -63,7 +63,7 @@ public class ArkhBase implements Closeable {
     }
     
     public void putFile(File path, String verifier) throws Exception {
-        this.baseData.putFile(getPlace(path), path.length(), verifier);
+        this.baseData.putFile(getPlace(path), path.lastModified(), verifier);
     }
     
     public void delFolder(File path) throws Exception {
