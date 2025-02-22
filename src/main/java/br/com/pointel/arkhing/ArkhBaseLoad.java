@@ -104,7 +104,7 @@ public class ArkhBaseLoad {
             return;
         }
         if (path.isFile()) {
-            if (!(path.getName().startsWith("arkh") && path.getName().endsWith(".sdb"))) {
+            if (!(path.getName().startsWith("arkh-") && path.getName().endsWith(".sdb"))) {
                 files.addLast(path);
                 this.statusProgressMax.incrementAndGet();
                 this.statusNumberOfFiles.incrementAndGet();
