@@ -615,7 +615,7 @@ public class DeskPack extends javax.swing.JPanel {
                     int end = test.indexOf(" - ");
                     if (end > -1) {
                         try {
-                            int number = Integer.parseInt(test.substring(4, end).trim());
+                            int number = Integer.parseInt(test.substring("study ".length(), end).trim());
                             if (number > biggerStudy) {
                                 biggerStudy = number;
                             }
