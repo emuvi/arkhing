@@ -20,7 +20,7 @@ public class ArkhBaseData implements Closeable {
     public ArkhBaseData(ArkhBase arkhBase) throws Exception {
         this.arkhBase = arkhBase;
         this.connection = DriverManager.getConnection("jdbc:sqlite:"
-                + new File(this.arkhBase.root, "arch-base.sdb").getAbsolutePath());
+                + new File(this.arkhBase.root, "arch-base.db3").getAbsolutePath());
         this.initDatabase();
     }
 
