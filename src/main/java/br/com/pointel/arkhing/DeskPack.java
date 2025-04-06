@@ -100,7 +100,7 @@ public class DeskPack extends javax.swing.JPanel {
         panelProcess = new javax.swing.JPanel();
         buttonSameRootName = new javax.swing.JButton();
         buttonSameFoundName = new javax.swing.JButton();
-        buttonMakeStudyName = new javax.swing.JButton();
+        buttonMakeStkName = new javax.swing.JButton();
         buttonMakeAutoName = new javax.swing.JButton();
         buttonSelectDestinyFolder = new javax.swing.JButton();
         buttonRemove = new javax.swing.JButton();
@@ -232,14 +232,14 @@ public class DeskPack extends javax.swing.JPanel {
         });
         panelProcess.add(buttonSameFoundName);
 
-        buttonMakeStudyName.setMnemonic('3');
-        buttonMakeStudyName.setText("3 - Make Study Name");
-        buttonMakeStudyName.addActionListener(new java.awt.event.ActionListener() {
+        buttonMakeStkName.setMnemonic('3');
+        buttonMakeStkName.setText("3 - Make Stk Name");
+        buttonMakeStkName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonMakeStudyNameActionPerformed(evt);
+                buttonMakeStkNameActionPerformed(evt);
             }
         });
-        panelProcess.add(buttonMakeStudyName);
+        panelProcess.add(buttonMakeStkName);
 
         buttonMakeAutoName.setMnemonic('4');
         buttonMakeAutoName.setText("4 - Make Auto Name");
@@ -598,7 +598,7 @@ public class DeskPack extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonSameFoundNameActionPerformed
 
-    private void buttonMakeStudyNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeStudyNameActionPerformed
+    private void buttonMakeStkNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMakeStkNameActionPerformed
         try {
             checkIfDownloading();
         } catch (Exception e) {
@@ -611,11 +611,11 @@ public class DeskPack extends javax.swing.JPanel {
             int biggerStudy = 0;
             for (var inside : rootFolder.listFiles()) {
                 var test = inside.getName().toLowerCase();
-                if (test.startsWith("study ")) {
+                if (test.startsWith("stk ")) {
                     int end = test.indexOf(" - ");
                     if (end > -1) {
                         try {
-                            int number = Integer.parseInt(test.substring("study ".length(), end).trim());
+                            int number = Integer.parseInt(test.substring("stk ".length(), end).trim());
                             if (number > biggerStudy) {
                                 biggerStudy = number;
                             }
@@ -625,7 +625,7 @@ public class DeskPack extends javax.swing.JPanel {
                 }
             }
             biggerStudy++;
-            String name = "Study " + StringUtils.leftPad("" + biggerStudy, 2, '0')
+            String name = "Stk " + StringUtils.leftPad("" + biggerStudy, 2, '0')
                     + " - " + editDestinyName.getText();
             for (var selected : allSelected) {
                 doMove(selected.file, rootFolder, name, selected.verifier);
@@ -633,7 +633,7 @@ public class DeskPack extends javax.swing.JPanel {
         } catch (Exception ex) {
             WizSwing.showError(ex);
         }
-    }//GEN-LAST:event_buttonMakeStudyNameActionPerformed
+    }//GEN-LAST:event_buttonMakeStkNameActionPerformed
 
     private void doMove(File file, File directory, String name, String verifier) throws Exception {
         var extension = "." + FilenameUtils.getExtension(file.getName());
@@ -702,7 +702,7 @@ public class DeskPack extends javax.swing.JPanel {
                             } else if (labelFound.isVisible()) {
                                 buttonSameFoundNameActionPerformed(evt);
                             } else {
-                                buttonMakeStudyNameActionPerformed(evt);
+                                buttonMakeStkNameActionPerformed(evt);
                             }
                         });
                     } catch (Exception e) {
@@ -768,7 +768,7 @@ public class DeskPack extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonFolderOpen;
     private javax.swing.JButton buttonMakeAutoName;
-    private javax.swing.JButton buttonMakeStudyName;
+    private javax.swing.JButton buttonMakeStkName;
     private javax.swing.JButton buttonNameGet;
     private javax.swing.JButton buttonRemove;
     private javax.swing.JButton buttonSameFoundName;

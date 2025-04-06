@@ -347,13 +347,13 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSameFoundNameActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="buttonMakeStudyName">
+                <Component class="javax.swing.JButton" name="buttonMakeStkName">
                   <Properties>
                     <Property name="mnemonic" type="int" value="51"/>
-                    <Property name="text" type="java.lang.String" value="3 - Make Study Name"/>
+                    <Property name="text" type="java.lang.String" value="3 - Make Stk Name"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeStudyNameActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonMakeStkNameActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="buttonMakeAutoName">
