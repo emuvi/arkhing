@@ -550,12 +550,12 @@ public class DeskOrgz extends javax.swing.JPanel {
     }//GEN-LAST:event_menuAssetsReplaceActionPerformed
 
     private void listAssetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listAssetsMouseClicked
-        SwingUtilities.invokeLater(() -> {
-            if (evt.getButton() == MouseEvent.BUTTON3
-                    || evt.getButton() == MouseEvent.BUTTON1 && evt.isAltDown()) {
-                menuAssets.show(evt.getComponent(), evt.getX(), evt.getY());
-            }
-        });
+        if (evt.getButton() == MouseEvent.BUTTON3 && evt.getClickCount() >= 2) {
+            menuAssetsOpenActionPerformed(null);
+        } else if (evt.getButton() == MouseEvent.BUTTON3
+                || (evt.getButton() == MouseEvent.BUTTON1 && evt.isAltDown())) {
+            menuAssets.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
     }//GEN-LAST:event_listAssetsMouseClicked
 
     private void menuFolderOpenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFolderOpenActionPerformed
