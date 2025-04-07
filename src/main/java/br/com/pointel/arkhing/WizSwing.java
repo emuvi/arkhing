@@ -66,6 +66,10 @@ public class WizSwing {
                 null, message, "Input",
                 JOptionPane.QUESTION_MESSAGE);
     }
+    
+    public static String showInput(String message, String initialValue) {
+        return JOptionPane.showInputDialog(null, message, initialValue);
+    }
 
     public static String getStringOnClipboard() throws Exception {
         Clipboard systemClipboard = Toolkit.getDefaultToolkit().getSystemClipboard();

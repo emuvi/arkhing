@@ -8,22 +8,31 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
       <SubComponents>
-        <MenuItem class="javax.swing.JMenuItem" name="toolAddIndex">
+        <MenuItem class="javax.swing.JMenuItem" name="menuAddIndex">
           <Properties>
             <Property name="mnemonic" type="int" value="73"/>
             <Property name="text" type="java.lang.String" value="Add Index"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toolAddIndexActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAddIndexActionPerformed"/>
           </Events>
         </MenuItem>
-        <MenuItem class="javax.swing.JMenuItem" name="toolAddParentName">
+        <MenuItem class="javax.swing.JMenuItem" name="menuAddParentName">
           <Properties>
             <Property name="mnemonic" type="int" value="80"/>
             <Property name="text" type="java.lang.String" value="Add Parent Name"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="toolAddParentNameActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuAddParentNameActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="menuChangeExtension">
+          <Properties>
+            <Property name="mnemonic" type="int" value="69"/>
+            <Property name="text" type="java.lang.String" value="Change Extension"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuChangeExtensionActionPerformed"/>
           </Events>
         </MenuItem>
       </SubComponents>

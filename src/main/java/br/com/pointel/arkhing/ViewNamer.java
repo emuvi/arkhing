@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.util.function.Consumer;
 import javax.swing.JOptionPane;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  *
@@ -38,30 +39,40 @@ public class ViewNamer extends javax.swing.JFrame {
     private void initComponents() {
 
         menuTools = new javax.swing.JPopupMenu();
-        toolAddIndex = new javax.swing.JMenuItem();
-        toolAddParentName = new javax.swing.JMenuItem();
+        menuAddIndex = new javax.swing.JMenuItem();
+        menuAddParentName = new javax.swing.JMenuItem();
+        menuChangeExtension = new javax.swing.JMenuItem();
         editNamer = new javax.swing.JTextField();
         buttonTools = new javax.swing.JButton();
         buttonAccept = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
 
-        toolAddIndex.setMnemonic('I');
-        toolAddIndex.setText("Add Index");
-        toolAddIndex.addActionListener(new java.awt.event.ActionListener() {
+        menuAddIndex.setMnemonic('I');
+        menuAddIndex.setText("Add Index");
+        menuAddIndex.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toolAddIndexActionPerformed(evt);
+                menuAddIndexActionPerformed(evt);
             }
         });
-        menuTools.add(toolAddIndex);
+        menuTools.add(menuAddIndex);
 
-        toolAddParentName.setMnemonic('P');
-        toolAddParentName.setText("Add Parent Name");
-        toolAddParentName.addActionListener(new java.awt.event.ActionListener() {
+        menuAddParentName.setMnemonic('P');
+        menuAddParentName.setText("Add Parent Name");
+        menuAddParentName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toolAddParentNameActionPerformed(evt);
+                menuAddParentNameActionPerformed(evt);
             }
         });
-        menuTools.add(toolAddParentName);
+        menuTools.add(menuAddParentName);
+
+        menuChangeExtension.setMnemonic('E');
+        menuChangeExtension.setText("Change Extension");
+        menuChangeExtension.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuChangeExtensionActionPerformed(evt);
+            }
+        });
+        menuTools.add(menuChangeExtension);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Namer");
@@ -148,10 +159,10 @@ public class ViewNamer extends javax.swing.JFrame {
         WizSwing.close(this);
     }//GEN-LAST:event_buttonCancelActionPerformed
 
-    private void toolAddParentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolAddParentNameActionPerformed
+    private void menuAddParentNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddParentNameActionPerformed
         addOnName(path.getParentFile().getName());
         editNamer.requestFocus();
-    }//GEN-LAST:event_toolAddParentNameActionPerformed
+    }//GEN-LAST:event_menuAddParentNameActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         editNamer.setSelectionStart(0);
@@ -165,7 +176,7 @@ public class ViewNamer extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_editNamerKeyPressed
 
-    private void toolAddIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toolAddIndexActionPerformed
+    private void menuAddIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddIndexActionPerformed
         try {
             var input = JOptionPane.showInputDialog("Index to add:", "1");
             if (input != null && !input.isBlank()) {
@@ -180,7 +191,18 @@ public class ViewNamer extends javax.swing.JFrame {
         } catch (Exception e) {
             WizSwing.showError(e);
         }
-    }//GEN-LAST:event_toolAddIndexActionPerformed
+    }//GEN-LAST:event_menuAddIndexActionPerformed
+
+    private static String lastExtension = "";
+    
+    private void menuChangeExtensionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuChangeExtensionActionPerformed
+        var extension = WizSwing.showInput("New Extension", lastExtension);
+        if (extension != null && !extension.isBlank()) {
+            var baseName = FilenameUtils.getBaseName(editNamer.getText());
+            editNamer.setText(baseName + "." + extension);
+            lastExtension = extension;
+        }
+    }//GEN-LAST:event_menuChangeExtensionActionPerformed
 
     private void addOnName(String text) {
         var oldName = editNamer.getText();
@@ -200,8 +222,9 @@ public class ViewNamer extends javax.swing.JFrame {
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonTools;
     private javax.swing.JTextField editNamer;
+    private javax.swing.JMenuItem menuAddIndex;
+    private javax.swing.JMenuItem menuAddParentName;
+    private javax.swing.JMenuItem menuChangeExtension;
     private javax.swing.JPopupMenu menuTools;
-    private javax.swing.JMenuItem toolAddIndex;
-    private javax.swing.JMenuItem toolAddParentName;
     // End of variables declaration//GEN-END:variables
 }

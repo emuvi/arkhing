@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.nio.file.Files;
+import java.nio.file.attribute.FileAttribute;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -54,6 +55,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuAssetsUpdate = new javax.swing.JMenuItem();
         menuAssetsRandom = new javax.swing.JMenuItem();
         menuAssetsSearch = new javax.swing.JMenuItem();
+        menuAssetsNew = new javax.swing.JMenuItem();
         menuAssetsOpen = new javax.swing.JMenuItem();
         menuAssetsRename = new javax.swing.JMenuItem();
         menuAssetsReplace = new javax.swing.JMenuItem();
@@ -197,6 +199,14 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         });
         menuAssets.add(menuAssetsSearch);
+
+        menuAssetsNew.setText("New");
+        menuAssetsNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAssetsNewActionPerformed(evt);
+            }
+        });
+        menuAssets.add(menuAssetsNew);
 
         menuAssetsOpen.setMnemonic('O');
         menuAssetsOpen.setText("Open");
@@ -550,7 +560,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     }//GEN-LAST:event_menuAssetsReplaceActionPerformed
 
     private void listAssetsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listAssetsMouseClicked
-        if (evt.getButton() == MouseEvent.BUTTON3 && evt.getClickCount() >= 2) {
+        if (evt.getButton() == MouseEvent.BUTTON1 && evt.getClickCount() >= 2) {
             menuAssetsOpenActionPerformed(null);
         } else if (evt.getButton() == MouseEvent.BUTTON3
                 || (evt.getButton() == MouseEvent.BUTTON1 && evt.isAltDown())) {
@@ -936,6 +946,42 @@ public class DeskOrgz extends javax.swing.JPanel {
             listFolder.requestFocus();
         }
     }//GEN-LAST:event_buttonUpFolderActionPerformed
+
+    private void menuAssetsNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsNewActionPerformed
+        var selectedFile = listAssets.getSelectedValue();
+        File originFile = null;
+        if (selectedFile != null) {
+            originFile = selectedFile.path;
+        }
+        var destinyFolder = desk.getBase().root;
+        var selectedFolder = listFolder.getSelectedValue();
+        if (selectedFolder != null) {
+            destinyFolder = selectedFolder.path;
+        }
+        var finalFolder = destinyFolder;
+        new ViewNamer(originFile, name -> {
+            try{
+                var destinyFile = newFile(finalFolder, name);
+                WizSwing.showInfo("Created.");
+                selectFolderAndAsset(destinyFile);
+            } catch (Exception e) {
+                WizSwing.showError(e);
+            }
+        }).setVisible(true);
+    }//GEN-LAST:event_menuAssetsNewActionPerformed
+    
+    private File newFile(File directory, String name) throws Exception {
+        var extension = "." + FilenameUtils.getExtension(name);
+        var baseName = FilenameUtils.getBaseName(name);
+        var destiny = new File(directory, baseName + extension);
+        int attempt = 1;
+        while (destiny.exists()) {
+            attempt++;
+            destiny = new File(directory, name + " (" + attempt + ")" + extension);
+        }
+        destiny.createNewFile();
+        return destiny;
+    }
     
     private void searchNextAssets() {
         if (searchAssets.isBlank()) {
@@ -1012,6 +1058,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JPopupMenu menuAssets;
     private javax.swing.JMenuItem menuAssetsAddIndex;
     private javax.swing.JMenuItem menuAssetsColar;
+    private javax.swing.JMenuItem menuAssetsNew;
     private javax.swing.JMenuItem menuAssetsOpen;
     private javax.swing.JMenuItem menuAssetsRandom;
     private javax.swing.JMenuItem menuAssetsRecortar;
