@@ -6,7 +6,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -18,7 +19,10 @@ public class Estrategia {
 
     public Estrategia(String entrypoint) {
         this.entrypoint = entrypoint;
-        this.webDriver = new FirefoxDriver();
+        System.setProperty("webdriver.chrome.driver", "C:\\Chrome\\chromedriver\\chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.setBinary("C:\\Chrome\\chrome\\chrome.exe");
+        this.webDriver = new ChromeDriver(options);
         this.webWait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
     }
 
