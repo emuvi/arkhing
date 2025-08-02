@@ -477,9 +477,7 @@ public class DeskPack extends javax.swing.JPanel {
 
     private void watchDirectory(File path, List<File> foundsOnThisRound) {
         for (var inside : path.listFiles()) {
-            if (inside.isDirectory()) {
-                watchDirectory(inside, foundsOnThisRound);
-            } else {
+            if (!inside.isDirectory()) {
                 watchFile(inside, foundsOnThisRound);
             }
         }

@@ -927,13 +927,15 @@ public class DeskOrgz extends javax.swing.JPanel {
         var selected = listFolder.getSelectedIndex();
         for (int i = selected + 1; i < modelFolder.getSize(); i++) {
             if (modelFolder.get(i).path.getName().toLowerCase().contains(search)) {
-                listFolder.setSelectedIndex(i);
+                var item = modelFolder.get(i);
+                listFolder.setSelectedValue(item, true);
                 return;
             }
         }
         for (int i = 0; i < selected; i++) {
             if (modelFolder.get(i).path.getName().toLowerCase().contains(search)) {
-                listFolder.setSelectedIndex(i);
+                var item = modelFolder.get(i);
+                listFolder.setSelectedValue(item, true);
                 return;
             }
         }
