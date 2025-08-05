@@ -70,7 +70,7 @@
                               <Component id="buttonOpen" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="353" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="347" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -122,7 +122,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="439" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="433" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -396,6 +396,8 @@
                               <Component id="fieldTitle" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="buttonOpenDownloads" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="checkDownloads" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="checkGetLessonMaterials" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -474,6 +476,7 @@
                           <Component id="checkGetLessonMaterials" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonHeaderBack" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="fieldTitle" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkDownloads" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -681,6 +684,11 @@
             <Component class="javax.swing.JCheckBox" name="fieldTitle">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Title"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkDownloads">
+              <Properties>
+                <Property name="selected" type="boolean" value="true"/>
               </Properties>
             </Component>
           </SubComponents>

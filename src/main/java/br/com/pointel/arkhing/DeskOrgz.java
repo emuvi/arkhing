@@ -1032,11 +1032,21 @@ public class DeskOrgz extends javax.swing.JPanel {
     }
     
     private void renameAssets(OrgzAssets orgz, String newName) throws Exception {
+        
         if (Objects.equals(newName, orgz.path.getName())) {
             return;
         }
+        var baseName = FilenameUtils.getBaseName(newName);
+        var extension = FilenameUtils.getExtension(newName);
+        var mountName = baseName + "." + extension;
         var originFile = orgz.path;
-        var destinyFile = new File(orgz.path.getParentFile(), newName);
+        var destinyFile = new File(originFile.getParentFile(), mountName);
+        int index = 1;
+        while (destinyFile.exists()) {
+            index++;
+            mountName = baseName + " (" + index + ")." + extension;
+            destinyFile = new File(originFile.getParentFile(), mountName);
+        }
         renameFile(originFile, destinyFile);
         orgz.path = destinyFile;
         SwingUtilities.invokeLater(() -> SwingUtilities.updateComponentTreeUI(listAssets));

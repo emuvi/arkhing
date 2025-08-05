@@ -91,6 +91,7 @@ public class DeskCapt extends javax.swing.JPanel {
         buttonItemsBack = new javax.swing.JButton();
         buttonHeaderAndItems = new javax.swing.JButton();
         fieldTitle = new javax.swing.JCheckBox();
+        checkDownloads = new javax.swing.JCheckBox();
 
         labelScraping.setText("Scraping");
 
@@ -213,7 +214,7 @@ public class DeskCapt extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonOpen))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelImagingLayout.createSequentialGroup()
-                        .addGap(0, 353, Short.MAX_VALUE)
+                        .addGap(0, 347, Short.MAX_VALUE)
                         .addGroup(panelImagingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelImagingLayout.createSequentialGroup()
                                 .addGroup(panelImagingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -252,7 +253,7 @@ public class DeskCapt extends javax.swing.JPanel {
                                 .addGroup(panelImagingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(checkClearOnCompose)
                                     .addComponent(buttonCompose))))
-                        .addGap(0, 439, Short.MAX_VALUE)))
+                        .addGap(0, 433, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelImagingLayout.setVerticalGroup(
@@ -446,6 +447,8 @@ public class DeskCapt extends javax.swing.JPanel {
 
         fieldTitle.setText("Title");
 
+        checkDownloads.setSelected(true);
+
         javax.swing.GroupLayout panelCrawlingLayout = new javax.swing.GroupLayout(panelCrawling);
         panelCrawling.setLayout(panelCrawlingLayout);
         panelCrawlingLayout.setHorizontalGroup(
@@ -466,6 +469,8 @@ public class DeskCapt extends javax.swing.JPanel {
                         .addComponent(fieldTitle)
                         .addGap(18, 18, 18)
                         .addComponent(buttonOpenDownloads)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkDownloads)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(checkGetLessonMaterials)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -531,7 +536,8 @@ public class DeskCapt extends javax.swing.JPanel {
                     .addComponent(buttonGetLessonMaterials)
                     .addComponent(checkGetLessonMaterials)
                     .addComponent(buttonHeaderBack)
-                    .addComponent(fieldTitle))
+                    .addComponent(fieldTitle)
+                    .addComponent(checkDownloads))
                 .addGap(18, 18, 18)
                 .addGroup(panelCrawlingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editItem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -867,7 +873,9 @@ public class DeskCapt extends javax.swing.JPanel {
             actGetLessonMaterials();
             WizBase.sleep(1200);
         }
-        actOpenDownloads();
+        if (checkDownloads.isSelected()) {
+            actOpenDownloads();
+        }
     }
 
     private void buttonItemGroupedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonItemGroupedActionPerformed
@@ -1095,6 +1103,7 @@ public class DeskCapt extends javax.swing.JPanel {
     private javax.swing.JCheckBox checkAutoMakeDocuments;
     private javax.swing.JCheckBox checkAutoStack;
     private javax.swing.JCheckBox checkClearOnCompose;
+    private javax.swing.JCheckBox checkDownloads;
     private javax.swing.JCheckBox checkGetLessonMaterials;
     private javax.swing.JCheckBox checkWatch;
     private javax.swing.JComboBox<String> comboAlignment;
