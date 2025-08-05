@@ -859,8 +859,10 @@ public class DeskCapt extends javax.swing.JPanel {
     private void buttonHeaderGroupedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHeaderGroupedActionPerformed
         try {
             runHeaderLine();
-            WizSwing.showInfo("Done Header Line!");
-            buttonAutoItems.requestFocus();
+            if (checkDownloads.isSelected()) {
+                WizSwing.showInfo("Done Header Line!");
+                buttonAutoItems.requestFocus();
+            }
         } catch (Exception e) {
             WizSwing.showError(e);
         }
