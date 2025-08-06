@@ -634,7 +634,23 @@ public class DeskPack extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_buttonMakeStkNameActionPerformed
 
+    private String shrinkName(String name) {
+        var result = name;
+        if (name.length() > 150) {
+            var parts = name.split("\\s");
+            var index = 0;
+            result = parts[index];
+            index++;
+            while (result.length() < 150 && index < parts.length) {
+                result = result + " " + parts[index];
+                index++;
+            }
+        }
+        return result;
+    }
+    
     private void doMove(File file, File directory, String name, String verifier) throws Exception {
+        name = shrinkName(name);
         var extension = "." + FilenameUtils.getExtension(file.getName());
         var destiny = new File(directory, name + extension);
         int attempt = 1;
