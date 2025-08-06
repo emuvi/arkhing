@@ -638,9 +638,8 @@ public class DeskPack extends javax.swing.JPanel {
         var result = name;
         if (name.length() > 150) {
             var parts = name.split("\\s");
-            var index = 0;
-            result = parts[index];
-            index++;
+            result = parts[0];
+            var index = 1;
             while (result.length() < 150 && index < parts.length) {
                 result = result + " " + parts[index];
                 index++;
