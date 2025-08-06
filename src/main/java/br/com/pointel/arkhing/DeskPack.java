@@ -266,6 +266,7 @@ public class DeskPack extends javax.swing.JPanel {
 
         checkRemoveAll.setText("*");
 
+        fieldForceName.setSelected(true);
         fieldForceName.setText("Force Name");
 
         javax.swing.GroupLayout panelWatchLayout = new javax.swing.GroupLayout(panelWatch);

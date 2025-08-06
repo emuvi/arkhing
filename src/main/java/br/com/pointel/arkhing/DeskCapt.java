@@ -445,6 +445,7 @@ public class DeskCapt extends javax.swing.JPanel {
             }
         });
 
+        fieldTitle.setSelected(true);
         fieldTitle.setText("Title");
 
         checkDownloads.setSelected(true);

@@ -683,6 +683,7 @@
             </Component>
             <Component class="javax.swing.JCheckBox" name="fieldTitle">
               <Properties>
+                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Title"/>
               </Properties>
             </Component>
