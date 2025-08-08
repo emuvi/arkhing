@@ -609,12 +609,12 @@ public class DeskPack extends javax.swing.JPanel {
             var rootFolder = new File(editDestinyFolder.getText());
             int biggerStudy = 0;
             for (var inside : rootFolder.listFiles()) {
-                var test = inside.getName().toLowerCase();
-                if (test.startsWith("stk ")) {
+                var test = inside.getName();
+                if (test.startsWith("+ ")) {
                     int end = test.indexOf(" - ");
                     if (end > -1) {
                         try {
-                            int number = Integer.parseInt(test.substring("stk ".length(), end).trim());
+                            int number = Integer.parseInt(test.substring("+ ".length(), end).trim());
                             if (number > biggerStudy) {
                                 biggerStudy = number;
                             }
@@ -624,7 +624,7 @@ public class DeskPack extends javax.swing.JPanel {
                 }
             }
             biggerStudy++;
-            String name = "Stk " + StringUtils.leftPad("" + biggerStudy, 2, '0')
+            String name = "+ " + StringUtils.leftPad("" + biggerStudy, 2, '0')
                     + " - " + editDestinyName.getText();
             for (var selected : allSelected) {
                 doMove(selected.file, rootFolder, name, selected.verifier);
@@ -645,19 +645,22 @@ public class DeskPack extends javax.swing.JPanel {
                 index++;
             }
         }
+        if (result.endsWith(".")) {
+            result = result.substring(0, result.length() -1);
+        }
         return result;
     }
     
-    private void doMove(File file, File directory, String name, String verifier) throws Exception {
-        name = shrinkName(name);
-        var extension = "." + FilenameUtils.getExtension(file.getName());
-        var destiny = new File(directory, name + extension);
+    private void doMove(File origin, File destinyDir, String destinyName, String verifier) throws Exception {
+        destinyName = shrinkName(destinyName);
+        var extension = "." + FilenameUtils.getExtension(origin.getName());
+        var destiny = new File(destinyDir, destinyName + extension);
         int attempt = 1;
         while (destiny.exists()) {
             attempt++;
-            destiny = new File(directory, name + " (" + attempt + ")" + extension);
+            destiny = new File(destinyDir, destinyName + " (" + attempt + ")" + extension);
         }
-        Files.move(file.toPath(), destiny.toPath());
+        Files.move(origin.toPath(), destiny.toPath());
         desk.getBase().putFile(destiny, verifier);
     }
 
