@@ -68,6 +68,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         editSearch = new javax.swing.JTextField();
         buttonSearchName = new javax.swing.JButton();
         buttonSearchDeep = new javax.swing.JButton();
+        buttonDestinyPack = new javax.swing.JButton();
         splitBody = new javax.swing.JSplitPane();
         scrollAssets = new javax.swing.JScrollPane();
         listAssets = new javax.swing.JList<>();
@@ -308,6 +309,13 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         });
 
+        buttonDestinyPack.setText("@");
+        buttonDestinyPack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDestinyPackActionPerformed(evt);
+            }
+        });
+
         splitBody.setDividerLocation(200);
         splitBody.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
@@ -365,7 +373,9 @@ public class DeskOrgz extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSearchName)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSearchDeep)))
+                        .addComponent(buttonSearchDeep)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonDestinyPack)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -373,7 +383,9 @@ public class DeskOrgz extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(editSearch, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(editSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonDestinyPack))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(comboSubFolders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(buttonSearchDeep)
@@ -971,6 +983,10 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         }).setVisible(true);
     }//GEN-LAST:event_menuAssetsNewActionPerformed
+
+    private void buttonDestinyPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDestinyPackActionPerformed
+        menuFolderDestinyPackActionPerformed(evt);
+    }//GEN-LAST:event_buttonDestinyPackActionPerformed
     
     private File newFile(File directory, String name) throws Exception {
         var extension = "." + FilenameUtils.getExtension(name);
@@ -1060,6 +1076,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonDestinyPack;
     private javax.swing.JButton buttonSearchDeep;
     private javax.swing.JButton buttonSearchName;
     private javax.swing.JButton buttonUpFolder;
