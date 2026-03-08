@@ -34,7 +34,18 @@ public class WizChars {
         return result.toString();
     }
 
-    public static String getNameWithNewIndex(String name, int addIndex) {
+    /**
+     * Finds the first sequence of digits in the given string, parses it as an integer,
+     * adds the specified index to it, and returns the string with the updated number.
+     * <p>
+     * The updated number is left-padded with zeros to match the length of the original
+     * number sequence found in the string.
+     *
+     * @param name     The string containing the number to be updated.
+     * @param addIndex The value to add to the found number.
+     * @return The string with the updated number, or the original string if no digits are found.
+     */
+    public static String getNameWithAddIndex(String name, int addIndex) {
         int begin = -1;
         int end = name.length();
         for (int i = 0; i < name.length(); i++) {
@@ -56,6 +67,39 @@ public class WizChars {
         int number = Integer.parseInt(name.substring(begin, end));
         int newNumber = number + addIndex;
         String newNameNumber = StringUtils.leftPad(newNumber + "", end - begin, '0');
+        return name.substring(0, begin) + newNameNumber + name.substring(end);
+    }
+
+    /**
+     * Finds the first sequence of digits in the given string and replaces it with the specified index.
+     * <p>
+     * The new index is left-padded with zeros to match the length of the original
+     * number sequence found in the string.
+     *
+     * @param name     The string containing the number to be updated.
+     * @param newIndex The new value to replace the found number with.
+     * @return The string with the updated number, or the original string if no digits are found.
+     */
+    public static String getNameWithIndex(String name, int newIndex) {
+        int begin = -1;
+        int end = name.length();
+        for (int i = 0; i < name.length(); i++) {
+            char charAt = name.charAt(i);
+            if (begin == -1) {
+                if (Character.isDigit(charAt)) {
+                    begin = i;
+                }
+            } else {
+                if (!Character.isDigit(charAt)) {
+                    end = i;
+                    break;
+                }
+            }
+        }
+        if (begin == -1) {
+            return name;
+        }
+        String newNameNumber = StringUtils.leftPad(newIndex + "", end - begin, '0');
         return name.substring(0, begin) + newNameNumber + name.substring(end);
     }
 

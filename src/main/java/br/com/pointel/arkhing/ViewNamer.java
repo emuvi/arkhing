@@ -184,7 +184,7 @@ public class ViewNamer extends javax.swing.JFrame {
                 if (addIndex == 0) {
                     return;
                 }
-                var newName = WizChars.getNameWithNewIndex(editNamer.getText(), addIndex);
+                var newName = WizChars.getNameWithAddIndex(editNamer.getText(), addIndex);
                 editNamer.setText(newName);
                 editNamer.requestFocus();
             }

@@ -5,16 +5,18 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.attribute.FileAttribute;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.stream.IntStream;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
@@ -675,7 +677,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     
     private void makeFolderAddIndex(List<OrgzFolder> allSelected, int i, Integer addIndex) throws Exception {
         var selected = allSelected.get(i);
-        var newName = WizChars.getNameWithNewIndex(selected.path.getName(), addIndex);
+        var newName = WizChars.getNameWithAddIndex(selected.path.getName(), addIndex);
         renameFolder(selected, newName);
     }
 
@@ -694,13 +696,13 @@ public class DeskOrgz extends javax.swing.JPanel {
                 if (addIndex < 0) {
                     for (int i = 0; i < allSelected.size(); i++) {
                         var selected = allSelected.get(i);
-                        var newName = WizChars.getNameWithNewIndex(selected.path.getName(), addIndex);
+                        var newName = WizChars.getNameWithAddIndex(selected.path.getName(), addIndex);
                         renameAssets(selected, newName);
                     }
                 } else {
                     for (int i = allSelected.size() - 1; i >= 0; i--) {
                         var selected = allSelected.get(i);
-                        var newName = WizChars.getNameWithNewIndex(selected.path.getName(), addIndex);
+                        var newName = WizChars.getNameWithAddIndex(selected.path.getName(), addIndex);
                         renameAssets(selected, newName);
                     }
                 }
@@ -1021,6 +1023,29 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         }
     }
+
+    private void reorderAssets() throws Exception {
+        var assets = new ArrayList<OrgzAssets>();
+        for (int i = 0; i < modelAssets.getSize(); i++) {
+            var asset = modelAssets.get(i);
+            if (asset.path.isFile() && asset.path.getName().startsWith("+ ")) {
+                assets.add(asset);
+            }
+        }
+        Collections.sort(assets, (a, b) -> a.path.getName().compareTo(b.path.getName()));
+        var index = 1;
+        var making = FilenameUtils.getBaseName(assets.get(0).path.getName());
+        for (int i = 0; i < modelAssets.getSize(); i++) {
+            var asset = modelAssets.get(i);
+            var newName = WizChars.getNameWithIndex(asset.path.getName(), index);
+            renameAssets(asset, newName);
+            var actual = FilenameUtils.getBaseName(asset.path.getName());
+            if (!Objects.equals(actual, making)) {
+                index++;
+                making = actual;
+            }
+        }
+    }
     
     private File renameFolder(OrgzFolder orgz, String newName) throws Exception {
         if (Objects.equals(newName, orgz.path.getName())) {
@@ -1047,8 +1072,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         }
     }
     
-    private void renameAssets(OrgzAssets orgz, String newName) throws Exception {
-        
+    private void renameAssets(OrgzAssets orgz, String newName) throws Exception {   
         if (Objects.equals(newName, orgz.path.getName())) {
             return;
         }
