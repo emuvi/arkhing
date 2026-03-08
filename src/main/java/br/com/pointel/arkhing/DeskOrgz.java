@@ -62,6 +62,7 @@ public class DeskOrgz extends javax.swing.JPanel {
         menuAssetsRename = new javax.swing.JMenuItem();
         menuAssetsReplace = new javax.swing.JMenuItem();
         menuAssetsRemove = new javax.swing.JMenuItem();
+        menuAssetsReorder = new javax.swing.JMenuItem();
         menuAssetsAddIndex = new javax.swing.JMenuItem();
         menuAssetsRecortar = new javax.swing.JMenuItem();
         menuAssetsColar = new javax.swing.JMenuItem();
@@ -246,6 +247,14 @@ public class DeskOrgz extends javax.swing.JPanel {
             }
         });
         menuAssets.add(menuAssetsRemove);
+
+        menuAssetsReorder.setText("Reorder");
+        menuAssetsReorder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAssetsReorderActionPerformed(evt);
+            }
+        });
+        menuAssets.add(menuAssetsReorder);
 
         menuAssetsAddIndex.setMnemonic('I');
         menuAssetsAddIndex.setText("Add Index");
@@ -989,6 +998,14 @@ public class DeskOrgz extends javax.swing.JPanel {
     private void buttonDestinyPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDestinyPackActionPerformed
         menuFolderDestinyPackActionPerformed(evt);
     }//GEN-LAST:event_buttonDestinyPackActionPerformed
+
+    private void menuAssetsReorderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAssetsReorderActionPerformed
+        try {
+            reorderAssets();
+        } catch (Exception e) {
+            WizSwing.showError(e);
+        }
+    }//GEN-LAST:event_menuAssetsReorderActionPerformed
     
     private File newFile(File directory, String name) throws Exception {
         var extension = "." + FilenameUtils.getExtension(name);
@@ -1117,6 +1134,7 @@ public class DeskOrgz extends javax.swing.JPanel {
     private javax.swing.JMenuItem menuAssetsRecortar;
     private javax.swing.JMenuItem menuAssetsRemove;
     private javax.swing.JMenuItem menuAssetsRename;
+    private javax.swing.JMenuItem menuAssetsReorder;
     private javax.swing.JMenuItem menuAssetsReplace;
     private javax.swing.JMenuItem menuAssetsSearch;
     private javax.swing.JMenuItem menuAssetsUpdate;
