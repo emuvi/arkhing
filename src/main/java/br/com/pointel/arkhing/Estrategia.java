@@ -131,7 +131,7 @@ public class Estrategia {
         waitFor(1200);
     }
 
-    public void makeDownloads(int headerIndex) {
+    public void makeDownloads(int headerIndex, boolean downloadAudio) {
         var divLesson = getHeader(headerIndex);
         var divLessonContent = divLesson.findElement(By.cssSelector("div.Lesson-content"));
         var divLessonPDFs = divLessonContent.findElement(By.cssSelector("div.LessonButtonList"));
@@ -144,7 +144,7 @@ public class Estrategia {
             }
         }
         var doneVideo = false;
-        var doneAudio = true;
+        var doneAudio = downloadAudio;
         var linksMedia = divLessonContent.findElements(By.tagName("a"));
         for (var linkMedia : linksMedia) {
             var contents = linkMedia.getText().toLowerCase();

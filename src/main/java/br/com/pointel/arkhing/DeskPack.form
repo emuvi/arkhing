@@ -151,11 +151,15 @@
                               <Component id="buttonSelectOrgz" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonFolderOpen" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="44" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonFolderRoot" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonFolderNext" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="checkRemoveAll" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonRemove" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="69" max="32767" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="butttonSuggestName" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="checkAutoCopy" min="-2" max="-2" attributes="0"/>
@@ -169,7 +173,7 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="labelClipboard" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="panelProcess" max="32767" attributes="0"/>
+                          <Component id="panelProcess" pref="858" max="32767" attributes="0"/>
                           <Component id="editDestinyName" alignment="0" max="32767" attributes="0"/>
                           <Component id="editDestinyFolder" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -194,6 +198,10 @@
                               <Group type="103" alignment="1" groupAlignment="3" attributes="0">
                                   <Component id="checkAutoCopy" alignment="3" min="-2" pref="23" max="-2" attributes="0"/>
                                   <Component id="butttonSuggestName" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" alignment="3" groupAlignment="3" attributes="0">
+                                      <Component id="buttonRemove" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="checkRemoveAll" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="checkAutoSelectDestiny" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -203,8 +211,8 @@
                                       <Component id="buttonFolderOpen" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="buttonSelectOrgz" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="buttonSelectDestinyFolder" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="buttonRemove" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="checkRemoveAll" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonFolderRoot" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buttonFolderNext" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -222,6 +230,14 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
+            <Component class="javax.swing.JCheckBox" name="fieldForceName">
+              <Properties>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Force Name"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkAutoSelectDestiny">
+            </Component>
             <Component class="javax.swing.JLabel" name="labelStatus">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -277,16 +293,53 @@
             <Component class="javax.swing.JButton" name="buttonFolderOpen">
               <Properties>
                 <Property name="mnemonic" type="int" value="79"/>
-                <Property name="text" type="java.lang.String" value="Open"/>
+                <Property name="text" type="java.lang.String" value="*"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonFolderOpenActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JButton" name="buttonFolderRoot">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Root"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonFolderRootActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonFolderNext">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Next"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonFolderNextActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonSelectDestinyFolder">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="&gt;"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelectDestinyFolderActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkRemoveAll">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="*"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonRemove">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Remove"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveActionPerformed"/>
+              </Events>
+            </Component>
             <Component class="javax.swing.JButton" name="butttonSuggestName">
               <Properties>
                 <Property name="mnemonic" type="int" value="68"/>
-                <Property name="text" type="java.lang.String" value="Suggest Name"/>
+                <Property name="text" type="java.lang.String" value="Suggest"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butttonSuggestNameActionPerformed"/>
@@ -367,35 +420,6 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="buttonSelectDestinyFolder">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&gt;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSelectDestinyFolderActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="buttonRemove">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Remove"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRemoveActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="checkAutoSelectDestiny">
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="checkRemoveAll">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="*"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="fieldForceName">
-              <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Force Name"/>
-              </Properties>
-            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

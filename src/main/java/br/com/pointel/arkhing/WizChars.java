@@ -163,5 +163,32 @@ public class WizChars {
         Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
         return pattern.matcher(decomposed).replaceAll("");
     }
+    
+    public static String fill(char withChar, int untilLength) {
+        return fill(null, withChar, untilLength, true);
+    }
+
+    public static String fill(String theString, char withChar, int untilLength) {
+        return fill(theString, withChar, untilLength, false);
+    }
+
+    public static String fillAtStart(String chars, char withChar, int untilLength) {
+        return fill(chars, withChar, untilLength, true);
+    }
+
+    public static String fill(String chars, char withChar, int untilLength, boolean atStart) {
+        var result = new StringBuilder();
+        var diference = untilLength - (chars != null ? chars.length() : 0);
+        if (!atStart && chars != null) {
+            result.append(chars);
+        }
+        for (var i = 0; i < diference; i++) {
+            result.append(withChar);
+        }
+        if (atStart && chars != null) {
+            result.append(chars);
+        }
+        return result.toString();
+    }
 
 }

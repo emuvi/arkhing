@@ -85,6 +85,8 @@ public class DeskPack extends javax.swing.JPanel {
         scrollWatch = new javax.swing.JScrollPane();
         listWatch = new javax.swing.JList<>();
         panelWatch = new javax.swing.JPanel();
+        fieldForceName = new javax.swing.JCheckBox();
+        checkAutoSelectDestiny = new javax.swing.JCheckBox();
         labelStatus = new javax.swing.JLabel();
         labelFound = new javax.swing.JLabel();
         labelClipboard = new javax.swing.JLabel();
@@ -92,6 +94,11 @@ public class DeskPack extends javax.swing.JPanel {
         buttonSelectFolder = new javax.swing.JButton();
         buttonSelectOrgz = new javax.swing.JButton();
         buttonFolderOpen = new javax.swing.JButton();
+        buttonFolderRoot = new javax.swing.JButton();
+        buttonFolderNext = new javax.swing.JButton();
+        buttonSelectDestinyFolder = new javax.swing.JButton();
+        checkRemoveAll = new javax.swing.JCheckBox();
+        buttonRemove = new javax.swing.JButton();
         butttonSuggestName = new javax.swing.JButton();
         checkAutoCopy = new javax.swing.JCheckBox();
         buttonNameGet = new javax.swing.JButton();
@@ -102,11 +109,6 @@ public class DeskPack extends javax.swing.JPanel {
         buttonSameFoundName = new javax.swing.JButton();
         buttonMakeStkName = new javax.swing.JButton();
         buttonMakeAutoName = new javax.swing.JButton();
-        buttonSelectDestinyFolder = new javax.swing.JButton();
-        buttonRemove = new javax.swing.JButton();
-        checkAutoSelectDestiny = new javax.swing.JCheckBox();
-        checkRemoveAll = new javax.swing.JCheckBox();
-        fieldForceName = new javax.swing.JCheckBox();
         checkQuickMake = new javax.swing.JCheckBox();
         spinnerAutoMake = new javax.swing.JSpinner();
 
@@ -153,6 +155,9 @@ public class DeskPack extends javax.swing.JPanel {
 
         splitPack.setTopComponent(scrollWatch);
 
+        fieldForceName.setSelected(true);
+        fieldForceName.setText("Force Name");
+
         labelStatus.setFont(new java.awt.Font("Courier New", 1, 12)); // NOI18N
         labelStatus.setForeground(new java.awt.Color(0, 0, 153));
         labelStatus.setText("Size: 0 | Wait: No");
@@ -182,15 +187,45 @@ public class DeskPack extends javax.swing.JPanel {
         });
 
         buttonFolderOpen.setMnemonic('O');
-        buttonFolderOpen.setText("Open");
+        buttonFolderOpen.setText("*");
         buttonFolderOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonFolderOpenActionPerformed(evt);
             }
         });
 
+        buttonFolderRoot.setText("Root");
+        buttonFolderRoot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonFolderRootActionPerformed(evt);
+            }
+        });
+
+        buttonFolderNext.setText("Next");
+        buttonFolderNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonFolderNextActionPerformed(evt);
+            }
+        });
+
+        buttonSelectDestinyFolder.setText(">");
+        buttonSelectDestinyFolder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSelectDestinyFolderActionPerformed(evt);
+            }
+        });
+
+        checkRemoveAll.setText("*");
+
+        buttonRemove.setText("Remove");
+        buttonRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoveActionPerformed(evt);
+            }
+        });
+
         butttonSuggestName.setMnemonic('D');
-        butttonSuggestName.setText("Suggest Name");
+        butttonSuggestName.setText("Suggest");
         butttonSuggestName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butttonSuggestNameActionPerformed(evt);
@@ -250,25 +285,6 @@ public class DeskPack extends javax.swing.JPanel {
         });
         panelProcess.add(buttonMakeAutoName);
 
-        buttonSelectDestinyFolder.setText(">");
-        buttonSelectDestinyFolder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSelectDestinyFolderActionPerformed(evt);
-            }
-        });
-
-        buttonRemove.setText("Remove");
-        buttonRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRemoveActionPerformed(evt);
-            }
-        });
-
-        checkRemoveAll.setText("*");
-
-        fieldForceName.setSelected(true);
-        fieldForceName.setText("Force Name");
-
         javax.swing.GroupLayout panelWatchLayout = new javax.swing.GroupLayout(panelWatch);
         panelWatch.setLayout(panelWatchLayout);
         panelWatchLayout.setHorizontalGroup(
@@ -289,11 +305,15 @@ public class DeskPack extends javax.swing.JPanel {
                         .addComponent(buttonSelectOrgz)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonFolderOpen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonFolderRoot)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonFolderNext)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(checkRemoveAll)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonRemove)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(butttonSuggestName)
                         .addGap(18, 18, 18)
                         .addComponent(checkAutoCopy)
@@ -305,7 +325,7 @@ public class DeskPack extends javax.swing.JPanel {
                         .addComponent(labelFound)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(labelClipboard))
-                    .addComponent(panelProcess, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelProcess, javax.swing.GroupLayout.DEFAULT_SIZE, 858, Short.MAX_VALUE)
                     .addComponent(editDestinyName)
                     .addComponent(editDestinyFolder))
                 .addContainerGap())
@@ -325,7 +345,10 @@ public class DeskPack extends javax.swing.JPanel {
                     .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkAutoCopy, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(butttonSuggestName))
+                            .addComponent(butttonSuggestName)
+                            .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(buttonRemove)
+                                .addComponent(checkRemoveAll)))
                         .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(checkAutoSelectDestiny, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelWatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -334,8 +357,8 @@ public class DeskPack extends javax.swing.JPanel {
                                 .addComponent(buttonFolderOpen)
                                 .addComponent(buttonSelectOrgz)
                                 .addComponent(buttonSelectDestinyFolder)
-                                .addComponent(buttonRemove)
-                                .addComponent(checkRemoveAll))))
+                                .addComponent(buttonFolderRoot)
+                                .addComponent(buttonFolderNext))))
                     .addComponent(fieldForceName, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(editDestinyFolder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -652,6 +675,9 @@ public class DeskPack extends javax.swing.JPanel {
     }
     
     private void doMove(File origin, File destinyDir, String destinyName, String verifier) throws Exception {
+        if (!destinyDir.exists()) {
+            Files.createDirectories(destinyDir.toPath());
+        }
         destinyName = shrinkName(destinyName);
         var extension = "." + FilenameUtils.getExtension(origin.getName());
         var destiny = new File(destinyDir, destinyName + extension);
@@ -768,6 +794,55 @@ public class DeskPack extends javax.swing.JPanel {
         removeSeletected();
     }//GEN-LAST:event_buttonRemoveActionPerformed
 
+    private void buttonFolderRootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderRootActionPerformed
+        var selected = new File(editDestinyFolder.getText());
+        var rootSelected = selected.getParentFile();
+        var rootBase = rootSelected.getParentFile();
+        new ViewNamer(rootSelected, (newName) -> {
+            try {
+                var newSelected = new File(rootBase, newName);
+                newSelected = new File(newSelected, "Aula (01)");
+                defaultDestinyFolder = newSelected;
+                editDestinyFolder.setText(newSelected.getAbsolutePath());
+            } catch (Exception ex) {
+                WizSwing.showError(ex);
+            }
+        }).setVisible(true);
+    }//GEN-LAST:event_buttonFolderRootActionPerformed
+
+    private void buttonFolderNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonFolderNextActionPerformed
+        var selected = new File(editDestinyFolder.getText());
+        var rootSelected = selected.getParentFile();
+        var name = selected.getName();
+        var beforeInt = "";
+        var startedInt = false;
+        var theInt = "";
+        var doneInt = false;
+        var afterInt = "";
+        for (var i = 0; i < name.length(); i++) {
+            char ch = name.charAt(i);
+            if (doneInt) {
+                afterInt += ch;
+            } else {
+                var isInt = Character.isDigit(ch);
+                if (isInt) {
+                    startedInt = true;
+                    theInt += ch;
+                } else if (startedInt) {
+                    doneInt = true;
+                    afterInt += ch;
+                } else {
+                    beforeInt += ch;
+                }
+            } 
+        }
+        theInt = String.valueOf(Integer.parseInt(theInt) + 1);
+        var newName = beforeInt + WizChars.fillAtStart(theInt, '0', 2) + afterInt;
+        var newSelected = new File(rootSelected, newName);
+        defaultDestinyFolder = newSelected;
+        editDestinyFolder.setText(newSelected.getAbsolutePath());
+    }//GEN-LAST:event_buttonFolderNextActionPerformed
+
     private Set<WatchFound> getSelectedToProcess() {
         Set<WatchFound> results = new HashSet<>();
         int[] selectAll = new int[modelWatch.size()];
@@ -783,7 +858,9 @@ public class DeskPack extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonFolderNext;
     private javax.swing.JButton buttonFolderOpen;
+    private javax.swing.JButton buttonFolderRoot;
     private javax.swing.JButton buttonMakeAutoName;
     private javax.swing.JButton buttonMakeStkName;
     private javax.swing.JButton buttonNameGet;
